@@ -46,6 +46,29 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
+
+  /* Case study tokens (extracted from Figma, see DESIGN.md Decisions Log) */
+  --font-manrope: var(--font-manrope);
+  --font-display: var(--font-inter-display);
+
+  --color-portfolio-grey-50: #f7f7f7;
+  --color-portfolio-grey-100: #f0f0f0;
+  --color-portfolio-grey-200: #e7e7e7;
+  --color-portfolio-grey-400: #cfcfcf;
+  --color-portfolio-grey-600: #5e5f5d;
+  --color-portfolio-grey-900: #121212;
+
+  --color-faircado-pink-400: #ff80a4;
+  --color-faircado-pink-500: #ff5182;
+  --color-faircado-pink-600: #e50041;
+  --color-faircado-green-400: #a9f185;
+  --color-faircado-green-500: #52c517;
+
+  --radius-case-md: 12px;
+  --radius-case-lg: 20px;
+  --radius-case-xl: 24px;
+  --radius-case-2xl: 40px;
+  --radius-case-3xl: 48px;
 }
 
 :root {

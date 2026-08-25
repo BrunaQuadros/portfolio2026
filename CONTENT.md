@@ -6,7 +6,7 @@ Status: Placeholder. Voice/tone section pending extraction from finalized case s
 
 - `/` — homepage
 - `/about` — about me
-- `/work/[slug]` or `/case-studies/[slug]` — case study pages (~3 planned)
+- `/case-studies/[slug]` — case study pages (~3 planned)
 - `/playground` or `/lab` — dump of older/experimental projects
 
 ## Voice & Tone

@@ -32,10 +32,10 @@ Route files (`page.tsx`) should mainly compose sections and reference data, not 
 
 - `/` — homepage
 - `/about` — about me page
-- `/work/[slug]` or `/case-studies/[slug]` — individual case study pages (roughly 3 planned)
+- `/case-studies/[slug]` — individual case study pages (roughly 3 planned)
 - `/playground` or `/lab` — dump of older/experimental projects, less polished than case studies
 
-Exact route names (`/work` vs `/case-studies`) can be decided when building the first case study page.
+Route naming decided while building the first case study (Faircado, 2026-08-24): `/case-studies/[slug]`.
 
 ## Content Architecture
 
