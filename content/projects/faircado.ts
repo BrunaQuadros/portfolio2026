@@ -121,9 +121,9 @@ export const faircado: FaircadoContent = {
         title: "Benchmarking",
         description: "Analized main players in the visual search sphere",
         logos: [
-          { src: `${IMG}/logo-benchmark-1.png`, alt: "Competitor logo" },
-          { src: `${IMG}/logo-benchmark-2.png`, alt: "Competitor logo" },
-          { src: `${IMG}/logo-benchmark-3.png`, alt: "Competitor logo" },
+          { src: `${IMG}/logo-benchmark-1.jpg`, alt: "Amazon logo" },
+          { src: `${IMG}/logo-benchmark-2.jpg`, alt: "Pinterest logo" },
+          { src: `${IMG}/logo-benchmark-3.jpg`, alt: "Google logo" },
         ],
       },
       {
@@ -178,9 +178,24 @@ export const faircado: FaircadoContent = {
     ],
   },
   insight: {
-    heading: "The data told us what. I needed to find out why.",
-    body:
-      "The in-app survey revealed that users' top complaint was 'Didn't match my image', but the team didn't know the specifics. So I brought qualitative research into a team hearing it for the first time.",
+    headingLine1: "The data told us what.",
+    headingLine2: "I needed to find out why.",
+    bodyLead: "The in-app survey revealed that users' top complaint was ",
+    bodyAccentPink: "'Didn't match my image',",
+    bodyMid: " but the team didn't know the specifics.",
+    bodyLead2: "So ",
+    bodyBoldAccent: "I brought qualitative research",
+    bodyTail: " into a team hearing it for the first time.",
+    screenshots: [
+      {
+        src: `${IMG}/decorative-feedback-screenshot-1.png`,
+        alt: "Survey prompt asking 'Happy with these results?' with 'Didn't match my image' selected as the reason",
+      },
+      {
+        src: `${IMG}/decorative-feedback-screenshot-2.png`,
+        alt: "Survey prompt asking why items were left in the bag, with 'Still thinking about it' and 'Just browsing' selected",
+      },
+    ],
   },
   finalSolution: {
     eyebrow: "FINAL SOLUTION",

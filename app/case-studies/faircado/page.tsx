@@ -320,10 +320,108 @@ export default function FaircadoCaseStudyPage() {
 
       {/* My Approach */}
       <section className="mx-auto flex w-full max-w-[1220px] flex-col gap-10 px-6 sm:px-10">
-        <SectionHeading eyebrow={approach.eyebrow} heading={approach.heading} body={<p>{approach.body}</p>} className="max-w-[526px]" />
-        <div className="flex flex-wrap gap-6">
-          {approach.methods.map((method, i) => (
-            <MethodCard key={i} {...method} />
+        <div
+          // Same alignment trick as Context and Problem above: lines this
+          // section's left edge up with the text inside the My Role/Impact
+          // box (not the box's own background), not the section's own padding.
+          style={{ marginLeft: "max(0px, calc((100% - 975px) / 2 + 40px))" }}
+        >
+          <SectionHeading eyebrow={approach.eyebrow} heading={approach.heading} body={<p>{approach.body}</p>} className="max-w-[526px]" />
+        </div>
+        {/* Grid instead of flex-wrap so all four cards share exactly the
+            same column width regardless of their content (title length,
+            number of avatars/logos), instead of each card sizing to its
+            own contents. Full-bleed breakout (-mx-6/sm:-mx-10, same as the
+            hero video panel and challenge panel) so the row spans the same
+            1220px width as those, instead of being inset by the section's
+            own px-6/px-10 padding. */}
+        <div className="-mx-6 w-[calc(100%+3rem)] sm:-mx-10 sm:w-[calc(100%+5rem)]">
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {approach.methods.map((method, i) => (
+              <MethodCard key={i} {...method} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Insight */}
+      <section className="mx-auto w-full max-w-[1220px] px-6 sm:px-10">
+        {/* Full-bleed breakout (same as the My Approach cards row above) so
+            the screenshots can reach the same true right edge the last
+            "Survey" card reaches, instead of stopping at the section's own
+            inset padding. */}
+        <div className="-mx-6 w-[calc(100%+3rem)] sm:-mx-10 sm:w-[calc(100%+5rem)]">
+          <div className="flex flex-col items-start gap-16 lg:flex-row lg:items-center lg:gap-0">
+            <div
+              className="w-full lg:max-w-[480px] lg:shrink-0"
+              // Same text-container alignment trick used by Context, Problem,
+              // and the My Approach heading, so this paragraph's left edge
+              // lines up with theirs.
+              style={{ marginLeft: "max(0px, calc((100% - 975px) / 2 + 40px))" }}
+            >
+              <div className="flex flex-col gap-6">
+                <p className="font-manrope font-bold text-[32px] leading-[1.2] tracking-[-1px] text-portfolio-grey-900 sm:text-[40px] sm:leading-[48px]">
+                  {insight.headingLine1}
+                  <br />
+                  {insight.headingLine2}
+                </p>
+                <div className="flex flex-col gap-4">
+                  <p className="font-manrope text-[18px] leading-[28px] text-portfolio-grey-900">
+                    {insight.bodyLead}
+                    <span className="font-bold text-faircado-pink-500">{insight.bodyAccentPink}</span>
+                    {insight.bodyMid}
+                  </p>
+                  <p className="font-manrope text-[18px] leading-[28px] text-portfolio-grey-900">
+                    {insight.bodyLead2}
+                    <span className="font-bold">{insight.bodyBoldAccent}</span>
+                    {insight.bodyTail}
+                  </p>
+                </div>
+              </div>
+            </div>
+            {/* Stretchy connector: fills whatever horizontal space is left
+                between the text block and the screenshots, growing or
+                shrinking with viewport width instead of a fixed gap. The
+                source SVG has preserveAspectRatio="none" so it stretches
+                cleanly rather than distorting/clipping. */}
+            <div className="hidden h-[130px] flex-1 self-center lg:block">
+              <img src={`${IMG}/insight-arrow.svg`} alt="" aria-hidden="true" className="h-full w-full" />
+            </div>
+            {/* Sized to match the "Image Search MVP" phone visual exactly
+                (w-[220px] lg:w-[250px]): the container is set so that each
+                calc()-based child below resolves to that same width at each
+                breakpoint (2 × 220 + 28px gap = 468, 2 × 250 + 28px gap = 528). */}
+            <div className="relative mx-auto aspect-[528/711] w-[468px] shrink-0 lg:mx-0 lg:w-[528px]">
+              {/* Positioned so the arrowhead (bottom-left of the source SVG)
+                  lands centered just above the first phone's top edge,
+                  instead of dipping down into the screen itself. */}
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute -top-[140px] right-[41%] hidden w-[190px] lg:block"
+              >
+                <img src={`${IMG}/insight-curve-arrow.svg`} alt="" />
+              </div>
+              {/* Fixed 28px gap (matching Figma's 250px-image/28px-gap/250px-image
+                  composition) via calc(), instead of a percentage width — so the
+                  two phones stay exactly 28px apart at any container size rather
+                  than overlapping/drifting as the container scales. */}
+              <div className="absolute left-0 top-0 aspect-[250/541] w-[calc((100%-28px)/2)] overflow-hidden rounded-case-xl shadow-[0px_12px_37px_0px_rgba(0,0,0,0.12)]">
+                <Image src={insight.screenshots[0].src} alt={insight.screenshots[0].alt} fill className="object-cover" />
+              </div>
+              <div className="absolute right-0 top-[24%] aspect-[250/541] w-[calc((100%-28px)/2)] overflow-hidden rounded-case-lg shadow-[0px_12px_37px_0px_rgba(0,0,0,0.12)]">
+                <Image src={insight.screenshots[1].src} alt={insight.screenshots[1].alt} fill className="object-cover" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Takeaways */}
+      <section className="mx-auto flex w-full max-w-[1220px] flex-col gap-10 px-6 sm:px-10">
+        <SectionHeading eyebrow={takeaways.eyebrow} heading={takeaways.heading} className="max-w-[420px]" />
+        <div className="grid gap-10 sm:grid-cols-3">
+          {takeaways.testimonials.map((testimonial, i) => (
+            <TestimonialCard key={i} {...testimonial} />
           ))}
         </div>
       </section>
@@ -347,26 +445,6 @@ export default function FaircadoCaseStudyPage() {
               body={card.body}
             />
           ))}
-        </div>
-      </section>
-
-      {/* Takeaways */}
-      <section className="mx-auto flex w-full max-w-[1220px] flex-col gap-10 px-6 sm:px-10">
-        <SectionHeading eyebrow={takeaways.eyebrow} heading={takeaways.heading} className="max-w-[420px]" />
-        <div className="grid gap-10 sm:grid-cols-3">
-          {takeaways.testimonials.map((testimonial, i) => (
-            <TestimonialCard key={i} {...testimonial} />
-          ))}
-        </div>
-      </section>
-
-      {/* Insight */}
-      <section className="mx-auto w-full max-w-[720px] px-6 sm:px-10">
-        <div className="flex flex-col gap-4">
-          <p className="font-manrope font-bold text-[24px] leading-[32px] tracking-[-0.5px] text-portfolio-grey-900 sm:text-[28px] sm:leading-[38px]">
-            {insight.heading}
-          </p>
-          <p className="font-manrope text-[18px] leading-[28px] text-portfolio-grey-900">{insight.body}</p>
         </div>
       </section>
 

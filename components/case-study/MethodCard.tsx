@@ -12,12 +12,12 @@ type MethodCardProps = {
 
 export function MethodCard({ title, description, logos, avatars, icons }: MethodCardProps) {
   return (
-    <div className="flex flex-1 flex-col justify-between gap-10 rounded-[40px] bg-portfolio-grey-50 p-8 min-w-[240px] sm:p-10">
+    <div className="flex h-[380px] flex-col justify-between gap-10 rounded-[40px] bg-portfolio-grey-50 p-8 sm:p-10">
       <div className="flex h-[52px] items-center">
         {logos?.map((logo, i) => (
           <div
             key={i}
-            className={`relative size-[52px] shrink-0 overflow-hidden rounded-xl shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)] ${i > 0 ? "-ml-3" : ""}`}
+            className={`relative size-[52px] shrink-0 overflow-hidden rounded-xl bg-portfolio-grey-100 shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)] ${i > 0 ? "-ml-3" : ""}`}
           >
             <Image src={logo.src} alt={logo.alt} fill className="object-cover" />
           </div>
@@ -25,7 +25,7 @@ export function MethodCard({ title, description, logos, avatars, icons }: Method
         {avatars?.map((avatar, i) => (
           <div
             key={i}
-            className={`relative size-[52px] shrink-0 overflow-hidden rounded-full border-2 border-white shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)] ${i > 0 ? "-ml-3" : ""}`}
+            className={`relative size-[52px] shrink-0 overflow-hidden rounded-full border-2 border-white bg-portfolio-grey-100 shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)] ${i > 0 ? "-ml-3" : ""}`}
           >
             <Image src={avatar.src} alt={avatar.alt} fill className="object-cover" />
           </div>
@@ -42,12 +42,10 @@ export function MethodCard({ title, description, logos, avatars, icons }: Method
         ))}
       </div>
       <div className="flex flex-col gap-3">
-        <p className="font-manrope font-bold text-[24px] leading-[32px] tracking-[-0.5px] text-portfolio-grey-900 sm:text-[28px] sm:leading-[38px]">
+        <p className="whitespace-nowrap font-manrope font-bold text-[22px] leading-[32px] tracking-[-0.5px] text-portfolio-grey-900 lg:text-[24px]">
           {title}
         </p>
-        <p className="font-manrope text-[16px] leading-[26px] text-portfolio-grey-900 sm:text-[18px] sm:leading-[28px]">
-          {description}
-        </p>
+        <p className="font-manrope text-[16px] leading-[26px] text-portfolio-grey-900">{description}</p>
       </div>
     </div>
   );

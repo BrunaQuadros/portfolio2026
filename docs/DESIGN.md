@@ -32,6 +32,23 @@ These are project-specific brand colors for the Faircado case study, not the por
 
 No custom spacing tokens were needed. Figma's pixel-named spacing vars (e.g. `spacing-32`) map directly onto Tailwind's default numeric scale (`gap-8` = 8 × 4px = 32px), so standard Tailwind spacing utilities were used throughout.
 
+## Layout Containers
+
+Every case study section aligns to one of two nested containers. Reuse these exactly, don't invent new offsets per section.
+
+**Full-bleed container** — 1220px wide, breaks out of the section's own padding to reach the edges of the outermost page container. Used for anything meant to visually anchor the page (the hero video panel, the Challenge headline panel, the "My Approach" four-card row).
+```
+mx-auto w-full max-w-[1220px] px-6 sm:px-10   /* on the <section> */
+-mx-6 w-[calc(100%+3rem)] sm:-mx-10 sm:w-[calc(100%+5rem)]   /* on the full-bleed child */
+```
+
+**Text container** — a narrower 975px-based column, inset from the full-bleed edge, used for every heading/body block (Context, Problem, the Challenge headline itself, "My Approach" heading). Its left edge lines up with the text *inside* the My Role/Impact grey box above it, not that box's own background or the section's padding:
+```
+style={{ marginLeft: "max(0px, calc((100% - 975px) / 2 + 40px))" }}
+```
+
+When adding a new section: headings/body copy get the text container's offset; anything meant to span the full visual width (image panels, card rows, colored panels) gets the full-bleed breakout. Both nest inside the same outer `max-w-[1220px]` section.
+
 ## Radius & Shadows
 
 Added case-study-specific radius tokens (`--radius-case-md` 12px through `--radius-case-3xl` 48px, plus `rounded-full` for pills) since the existing ShadCN radius scale (`--radius-sm/md/lg/xl/2xl/3xl/4xl`, based on a 10px `--radius` root) doesn't land close to the larger card radii (24px, 40px, 48px) this design repeats throughout. Shadows use Tailwind's arbitrary `shadow-[...]` values matching Figma's exact drop shadows (no shadow token scale exists yet).

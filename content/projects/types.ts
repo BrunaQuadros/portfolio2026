@@ -137,8 +137,15 @@ export type FaircadoContent = {
     testimonials: Testimonial[];
   };
   insight: {
-    heading: string;
-    body: string;
+    headingLine1: string;
+    headingLine2: string;
+    bodyLead: string;
+    bodyAccentPink: string;
+    bodyMid: string;
+    bodyLead2: string;
+    bodyBoldAccent: string;
+    bodyTail: string;
+    screenshots: [{ src: string; alt: string }, { src: string; alt: string }];
   };
   finalSolution: {
     eyebrow: string;
