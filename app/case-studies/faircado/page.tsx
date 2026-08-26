@@ -239,30 +239,82 @@ export default function FaircadoCaseStudyPage() {
       </section>
 
       {/* Problem statement */}
-      <section className="mx-auto flex w-full max-w-[1220px] flex-col gap-10 px-6 sm:px-10 lg:flex-row lg:items-center lg:gap-20">
-        <SectionHeading
-          eyebrow={problem.eyebrow}
-          heading={problem.heading}
-          body={
-            <div className="flex flex-col gap-4">
-              <p>{problem.body}</p>
-              <p className="font-bold">{problem.closingLine}</p>
-            </div>
-          }
-          className="lg:max-w-[520px]"
-        />
-        <div className="relative mx-auto aspect-[250/541] w-[220px] shrink-0 overflow-hidden rounded-case-xl shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)] sm:w-[250px]">
-          <Image src={problem.beforeImage.src} alt={problem.beforeImage.alt} fill className="object-cover" />
+      <section className="mx-auto w-full max-w-[1220px] px-6 sm:px-10">
+        <div
+          className="w-full lg:max-w-[520px]"
+          // Same alignment trick as the Context heading above: lines this
+          // block's left edge up with the text inside the My Role/Impact box
+          // (not the box's own background), not the section's own padding.
+          style={{ marginLeft: "max(0px, calc((100% - 975px) / 2 + 40px))" }}
+        >
+          <SectionHeading
+            eyebrow={problem.eyebrow}
+            heading={
+              <>
+                {problem.headingLine1}
+                <br />
+                {problem.headingLine2}
+              </>
+            }
+            body={
+              <div className="flex flex-col gap-4">
+                <p>
+                  {problem.bodyText1Lead}
+                  <span className="font-bold">{problem.bodyAccent1}</span>
+                  {problem.bodyText1Tail}
+                </p>
+                <p>
+                  {problem.bodyText2Lead}
+                  <span className="font-bold">{problem.bodyAccent2}</span>
+                  {problem.bodyText2Tail}
+                </p>
+                <p className="font-bold">{problem.closingLine}</p>
+              </div>
+            }
+          />
         </div>
       </section>
 
-      {/* Challenge headline */}
-      <section className="mx-auto w-full max-w-[1220px] px-6 sm:px-10">
-        <div className="rounded-case-3xl bg-portfolio-grey-50 px-8 py-16 text-center sm:px-20">
-          <p className="mx-auto max-w-[700px] font-manrope font-bold text-[28px] leading-[1.4] tracking-[-0.5px] text-portfolio-grey-900 sm:text-[40px] sm:leading-[60px]">
-            {problem.challengeHeading.replace(problem.challengeAccent, "")}
-            <span className="text-faircado-green-500">{problem.challengeAccent}</span>
-          </p>
+      {/* Challenge headline. The gray panel matches the hero video panel's
+          full-bleed breakout width exactly, and the whole block is pulled up
+          with a negative top margin to overlap the Problem section above —
+          rather than sharing row space with the Problem text, which forced
+          the box narrow and the headline down to a tiny font size. */}
+      <section className="relative z-10 mx-auto w-full max-w-[1220px] px-6 sm:px-10 lg:-mt-[420px]">
+        <div className="-mx-6 w-[calc(100%+3rem)] sm:-mx-10 sm:w-[calc(100%+5rem)]">
+          <div className="flex flex-col items-center">
+            <div className="relative z-10 flex w-[220px] shrink-0 -mb-16 flex-col items-center gap-3 lg:mb-[-150px] lg:ml-auto lg:mr-16 lg:w-[250px]">
+              <p className="w-[226px] text-center font-manrope text-[14px] leading-[20px] text-portfolio-grey-600">
+                The Image Search MVP
+              </p>
+              <div className="relative aspect-[250/541] w-full overflow-hidden rounded-case-xl shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)]">
+                <Image src={problem.beforeImage.src} alt={problem.beforeImage.alt} fill className="object-cover" />
+              </div>
+            </div>
+            <div className="relative z-0 w-full rounded-case-3xl bg-portfolio-grey-50 py-14 sm:py-16">
+              {/* Nested in the same max-w-[1220px]/px-6/px-10 grid as the
+                  rest of the page, with the same left-alignment offset as
+                  Problem and Context, so the headline's left edge lines up
+                  with theirs even though the panel itself breaks out wider. */}
+              <div className="mx-auto w-full max-w-[1220px] px-8 sm:px-10">
+                <div style={{ marginLeft: "max(0px, calc((100% - 975px) / 2 + 40px))" }}>
+                  {/* Explicit line breaks (rather than letting the text wrap
+                      on its own) so the headline always renders as exactly
+                      three lines, matching the approved copy layout. */}
+                  <p className="max-w-[560px] font-manrope font-bold text-[28px] leading-[1.4] tracking-[-0.5px] text-portfolio-grey-900 lg:max-w-none lg:text-[36px] lg:leading-[1.4]">
+                    {problem.challengeLine1}
+                    <br />
+                    {problem.challengeLine2Lead}
+                    <span className="text-faircado-green-500">
+                      {problem.challengeAccentLine2}
+                      <br />
+                      {problem.challengeAccentLine3}
+                    </span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 

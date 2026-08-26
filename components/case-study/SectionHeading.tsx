@@ -4,7 +4,7 @@
 // component per ARCHITECTURE.md's component boundary rule.
 type SectionHeadingProps = {
   eyebrow: string;
-  heading: string;
+  heading: React.ReactNode;
   body?: React.ReactNode;
   align?: "left" | "center";
   className?: string;

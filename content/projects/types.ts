@@ -109,11 +109,19 @@ export type FaircadoContent = {
   };
   problem: {
     eyebrow: string;
-    heading: string;
-    body: string;
+    headingLine1: string;
+    headingLine2: string;
+    bodyText1Lead: string;
+    bodyAccent1: string;
+    bodyText1Tail: string;
+    bodyText2Lead: string;
+    bodyAccent2: string;
+    bodyText2Tail: string;
     closingLine: string;
-    challengeHeading: string;
-    challengeAccent: string;
+    challengeLine1: string;
+    challengeLine2Lead: string;
+    challengeAccentLine2: string;
+    challengeAccentLine3: string;
     beforeImage: { src: string; alt: string };
   };
   approach: {
