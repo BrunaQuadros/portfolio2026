@@ -12,7 +12,7 @@ const IMG = "/images/case-studies/faircado";
 
 export const metadata: Metadata = {
   title: faircado.meta.title,
-  description: faircado.context.body,
+  description: `${faircado.context.bodyBold1}${faircado.context.bodyText1}`,
 };
 
 export default function FaircadoCaseStudyPage() {
@@ -36,13 +36,20 @@ export default function FaircadoCaseStudyPage() {
             <p className="font-manrope text-[22px] leading-[1.4] tracking-[-0.5px] text-portfolio-grey-900 sm:text-[28px] lg:text-[40px] lg:leading-[60px] lg:tracking-[-1.2px]">
               {hero.descriptionLead}
               <span className="text-faircado-green-500">{hero.descriptionAccent1}</span>
-              {hero.descriptionMid}
+              {hero.descriptionMid1}
+              <br />
+              {hero.descriptionMid2}
               <span className="text-faircado-green-500">{hero.descriptionAccent2}</span>
               {hero.descriptionTail}
             </p>
           </div>
         </div>
-        <div className="relative aspect-[1220/728] w-full overflow-hidden rounded-case-3xl bg-portfolio-grey-50">
+        <div
+          // Breaks out of the section's px-6/sm:px-10 padding so this panel reaches
+          // the container's full 1220px max-width, instead of being inset like the
+          // heading/subtitle above it.
+          className="relative -mx-6 aspect-[1220/728] w-[calc(100%+3rem)] overflow-hidden rounded-case-3xl bg-portfolio-grey-50 sm:-mx-10 sm:w-[calc(100%+5rem)]"
+        >
           <Image
             src={`${IMG}/badge-featured-app-store.png`}
             alt="Featured by App Store"
@@ -68,68 +75,167 @@ export default function FaircadoCaseStudyPage() {
         </div>
       </section>
 
-      {/* Context */}
-      <section className="mx-auto flex w-full max-w-[1220px] flex-col gap-10 px-6 sm:px-10 lg:flex-row lg:items-center lg:gap-20">
-        <SectionHeading eyebrow={context.eyebrow} heading={context.heading} body={<p>{context.body}</p>} className="lg:max-w-[520px]" />
-        <div className="flex flex-1 items-center justify-center gap-6">
-          {context.logos.map((logo, i) => (
-            <div
-              key={i}
-              className={`relative size-[130px] shrink-0 overflow-hidden rounded-case-lg bg-white shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)] sm:size-[180px] ${
-                i === 1 ? "rotate-[-2deg]" : i === 2 ? "rotate-[3deg]" : "rotate-[2deg]"
-              }`}
-            >
-              <Image src={logo.src} alt={logo.alt} fill className="object-contain p-6" />
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Role / Timeline / Team / Space + Impact */}
+      {/* Section 2: Role / Timeline / Team / Space + Impact, then Context */}
       <section className="mx-auto w-full max-w-[1220px] px-6 sm:px-10">
-        <div className="flex flex-col gap-10 rounded-case-3xl bg-portfolio-grey-50 p-8 sm:p-10">
-          <div className="flex flex-wrap gap-10 sm:gap-16">
+        <div className="mx-auto flex w-fit max-w-full flex-col gap-10 rounded-case-xl bg-portfolio-grey-50 p-8 sm:p-10">
+          <div className="flex flex-wrap gap-10 sm:gap-16 lg:gap-x-[140px]">
             <div className="flex flex-col gap-2">
               <p className="font-manrope font-extrabold text-[16px] tracking-[0.48px] uppercase text-faircado-pink-500">My Role</p>
-              <p className="font-manrope font-bold text-[18px] leading-[28px] text-portfolio-grey-900">{roleInfo.role.title}</p>
-              <p className="font-manrope font-bold text-[18px] leading-[28px] text-portfolio-grey-600">{roleInfo.role.subtitle}</p>
+              <div className="flex flex-col">
+                <p className="-mb-0.5 font-manrope font-bold text-[18px] leading-[28px] text-portfolio-grey-900">{roleInfo.role.title}</p>
+                <p className="font-manrope font-bold text-[18px] leading-[28px] text-portfolio-grey-600">{roleInfo.role.subtitle}</p>
+              </div>
             </div>
             <div className="flex flex-col gap-2">
               <p className="font-manrope font-extrabold text-[16px] tracking-[0.48px] uppercase text-faircado-pink-500">Timeline</p>
-              <p className="font-manrope font-bold text-[18px] leading-[28px] text-portfolio-grey-900">{roleInfo.timeline.title}</p>
-              <p className="font-manrope font-bold text-[18px] leading-[28px] text-portfolio-grey-600">{roleInfo.timeline.subtitle}</p>
+              <div className="flex flex-col">
+                <p className="-mb-0.5 font-manrope font-bold text-[18px] leading-[28px] text-portfolio-grey-900">{roleInfo.timeline.title}</p>
+                <p className="font-manrope font-bold text-[18px] leading-[28px] text-portfolio-grey-600">{roleInfo.timeline.subtitle}</p>
+              </div>
             </div>
             <div className="flex flex-col gap-2">
               <p className="font-manrope font-extrabold text-[16px] tracking-[0.48px] uppercase text-faircado-pink-500">Team</p>
               <div className="flex items-center">
-                {roleInfo.team.avatars.map((avatar, i) => (
-                  <div
-                    key={i}
-                    className={`relative size-[52px] shrink-0 overflow-hidden rounded-full border-2 border-white shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)] ${i > 0 ? "-ml-3" : ""}`}
-                  >
-                    <Image src={avatar.src} alt={avatar.alt} fill className="object-cover" />
-                  </div>
-                ))}
-                <div className="-ml-3 flex size-[52px] shrink-0 items-center justify-center rounded-full border-2 border-white bg-faircado-pink-500 shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)]">
+                <div className="relative z-10 size-[52px] shrink-0 overflow-hidden rounded-full border-2 border-white shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)]">
+                  <Image src={roleInfo.team.avatar.src} alt={roleInfo.team.avatar.alt} fill className="object-cover" />
+                </div>
+                <div className="group relative -ml-3 flex size-[52px] shrink-0 cursor-default items-center justify-center rounded-full border-2 border-white bg-faircado-pink-500 shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)]">
                   <span className="font-manrope font-bold text-[14px] text-white">{roleInfo.team.extra}</span>
+                  {/* Tooltip: hidden by default, fades in above the badge on hover. */}
+                  <span
+                    role="tooltip"
+                    className="pointer-events-none absolute bottom-full left-1/2 z-30 mb-4 -translate-x-1/2 whitespace-nowrap rounded-full bg-portfolio-grey-900 px-3 py-1.5 font-manrope text-[13px] font-bold text-white opacity-0 shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)] transition-opacity duration-200 ease-out group-hover:opacity-100"
+                  >
+                    {roleInfo.team.extraBreakdown}
+                  </span>
                 </div>
               </div>
             </div>
             <div className="flex flex-col gap-2">
               <p className="font-manrope font-extrabold text-[16px] tracking-[0.48px] uppercase text-faircado-pink-500">Space</p>
-              <p className="font-manrope font-bold text-[18px] leading-[28px] text-portfolio-grey-900">{roleInfo.space.title}</p>
-              <p className="font-manrope font-bold text-[18px] leading-[28px] text-portfolio-grey-600">{roleInfo.space.subtitle}</p>
+              <div className="flex flex-col">
+                <p className="-mb-0.5 font-manrope font-bold text-[18px] leading-[28px] text-portfolio-grey-900">{roleInfo.space.title}</p>
+                <p className="font-manrope font-bold text-[18px] leading-[28px] text-portfolio-grey-600">{roleInfo.space.subtitle}</p>
+              </div>
             </div>
           </div>
           <div className="flex flex-col gap-2">
             <p className="font-manrope font-extrabold text-[16px] tracking-[0.48px] uppercase text-faircado-pink-500">My Impact</p>
             <ul className="list-disc space-y-1 pl-5 font-manrope text-[18px] leading-[28px] text-portfolio-grey-900">
-              {roleInfo.impact.map((bullet, i) => (
-                <li key={i}>{bullet.text}</li>
-              ))}
+              {roleInfo.impact.map((bullet, i) => {
+                const phrase = bullet.emphasis?.[0];
+                const splitIndex = phrase ? bullet.text.indexOf(phrase) : -1;
+                if (!phrase || splitIndex === -1) {
+                  return <li key={i}>{bullet.text}</li>;
+                }
+                const before = bullet.text.slice(0, splitIndex);
+                const after = bullet.text.slice(splitIndex + phrase.length);
+                return (
+                  <li key={i}>
+                    {before}
+                    <span className="font-bold">{phrase}</span>
+                    {after}
+                  </li>
+                );
+              })}
             </ul>
           </div>
         </div>
+      </section>
+
+      {/* Context */}
+      <section className="relative mx-auto flex w-full max-w-[1220px] flex-col gap-16 px-6 sm:px-10 lg:flex-row lg:items-center lg:justify-between lg:gap-0">
+        <div
+          className="w-full lg:max-w-[520px]"
+          // Aligns this heading's left edge with the text inside the My
+          // Role/Impact box above (not that box's grey background): the box is
+          // centered and hugs its own content (~975px wide), so its inner text
+          // sits inset by half the leftover space, plus the box's 40px padding.
+          style={{ marginLeft: "max(0px, calc((100% - 975px) / 2 + 40px))" }}
+        >
+          <SectionHeading
+            eyebrow={context.eyebrow}
+            heading={context.heading}
+            body={
+              <div className="flex flex-col gap-4">
+                <p>
+                  <span className="font-bold">{context.bodyBold1}</span>
+                  <br />
+                  {context.bodyText1}
+                </p>
+                <p>
+                  {context.bodyText2Lead}
+                  <span className="font-bold text-faircado-pink-500">{context.bodyAccent}</span>
+                  {context.bodyText2Tail}
+                  <span className="font-bold">{context.bodyBold2}</span>
+                </p>
+              </div>
+            }
+          />
+        </div>
+        <div className="relative mx-auto aspect-[399/373] w-full max-w-[475px] shrink-0">
+          {context.cards.map((card, i) => (
+            <div
+              key={i}
+              className="absolute transition-transform duration-300 ease-out hover:z-30 hover:scale-[1.08]"
+              // Tightly overlapping cluster (article card behind, tucked under the
+              // two stat cards). Rotations match the exact Figma values; radius and
+              // shadow are applied here in CSS since these are now plain flat photos
+              // (no chrome/shadow baked in), per the design system's Shadow/L token.
+              // The rotation is a wrapper around this div (below) so the hover scale
+              // above doesn't fight with it for the single `transform` property.
+              style={
+                i === 0
+                  ? { left: "20%", top: "42%", width: "40%", aspectRatio: "1 / 1", zIndex: 1 }
+                  : i === 1
+                    ? { left: "6%", top: "4%", width: "44%", aspectRatio: "1 / 1", zIndex: 2 }
+                    : { left: "46%", top: "10%", width: "42%", aspectRatio: "1 / 1", zIndex: 3 }
+              }
+            >
+              <div
+                className="relative size-full"
+                style={{ transform: `rotate(${i === 0 ? "-1.72deg" : i === 1 ? "2.31deg" : "-3.58deg"})` }}
+              >
+                {/* Black and white by default; hovering the card (the whole
+                    absolutely-positioned wrapper above, which this image fills)
+                    reveals full color. A CSS filter, not a second image file, so
+                    there's only one asset per card to keep track of. */}
+                <Image
+                  src={card.src}
+                  alt={card.alt}
+                  fill
+                  className="rounded-[20px] object-cover shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)] grayscale transition-[filter] duration-300 ease-out hover:grayscale-0"
+                />
+              </div>
+            </div>
+          ))}
+        </div>
+        {/* Curved connector from right after "Google" in the text to just outside
+            the bottom-left of the Google stat card (not overlapping it). The curve
+            lives in a box sized by two independent percentages (of section width
+            and section height), which scale non-uniformly at viewports other than
+            the one they were measured at — fine for a smooth line, but it shears a
+            rigid shape. So the arrowhead is a separate, fixed-size element (not
+            inside this stretched box) positioned at the curve's tip, rotated with a
+            plain CSS transform — that never shears regardless of viewport. */}
+        <svg
+          viewBox="0 0 45.1 86.1"
+          className="absolute z-20 hidden lg:block"
+          style={{ left: "53.52%", top: "48.62%", width: "3.7%", height: "19.39%" }}
+          aria-hidden="true"
+        >
+          <path d="M0,86.1 C22.55,86.1 22.55,0 45.1,0" stroke="#FF5182" strokeWidth="2" fill="none" />
+        </svg>
+        <svg
+          viewBox="-6 -8 12 15"
+          width="12"
+          height="15"
+          className="absolute z-20 hidden lg:block"
+          style={{ left: "57.22%", top: "48.62%", transform: "translate(-50%, -50%) rotate(60deg)" }}
+          aria-hidden="true"
+        >
+          <path d="M-5,6 L5,6 L0,-7 Z" fill="#FF5182" />
+        </svg>
       </section>
 
       {/* Problem statement */}

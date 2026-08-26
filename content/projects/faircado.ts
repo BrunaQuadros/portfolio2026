@@ -16,8 +16,8 @@ export const faircado: FaircadoContent = {
     headingLine2: "from MVP to star feature",
     descriptionLead: "Faircado is a ",
     descriptionAccent1: "fashion aggregator app",
-    descriptionMid:
-      " on a mission to make second-hand shopping as easy as buying new. By 2025 it had over ",
+    descriptionMid1: " on a mission to make second-hand shopping as easy as buying new.",
+    descriptionMid2: " By 2025 it had over ",
     descriptionAccent2: "300k users",
     descriptionTail: ", mostly Gen Z.",
     image: {
@@ -28,12 +28,25 @@ export const faircado: FaircadoContent = {
   context: {
     eyebrow: "context",
     heading: "Why visual search?",
-    body:
-      "Short answer: we were not nailing text search. Each marketplace uses its own taxonomy and keywords, making standardized text search nearly impossible. At the same time, recent reports from Pinterest and Google showed Gen Z shops visually first. Both facts pointed us in the same direction: build an image search MVP.",
-    logos: [
-      { src: `${IMG}/logo-google-1.png`, alt: "Google visual search reference" },
-      { src: `${IMG}/logo-google-2.png`, alt: "Google Lens reference" },
-      { src: `${IMG}/logo-pinterest.png`, alt: "Pinterest visual search reference" },
+    bodyBold1: "Short answer: we were not nailing text search.",
+    bodyText1: "Each marketplace uses its own taxonomy and keywords, making standardized text search nearly impossible.",
+    bodyText2Lead: "At the same time, recent reports from Pinterest and ",
+    bodyAccent: "Google showed Gen Z shops visually first",
+    bodyText2Tail: ". Both facts pointed us in the same direction: build an ",
+    bodyBold2: "image search MVP.",
+    cards: [
+      {
+        src: `${IMG}/context-card-article.jpg`,
+        alt: "Article: The End of the Search Bar? How AI Visual Search Is Redefining How Gen Z Shops",
+      },
+      {
+        src: `${IMG}/context-card-google-stat.jpg`,
+        alt: "Stat card: 80% of Gen Z relies on Google Search for shopping discovery, research, and decisions",
+      },
+      {
+        src: `${IMG}/context-card-pinterest-stat.jpg`,
+        alt: "Stat card: 69% of Gen Z agree that visual results are more helpful than text when deciding what to buy",
+      },
     ],
   },
   roleInfo: {
@@ -41,11 +54,9 @@ export const faircado: FaircadoContent = {
     timeline: { title: "6 months", subtitle: "2025-2026" },
     team: {
       label: "Team",
-      avatars: [
-        { src: `${IMG}/avatar-interview-1.png`, alt: "Team member" },
-        { src: `${IMG}/avatar-interview-2.png`, alt: "Team member" },
-      ],
+      avatar: { src: `${IMG}/avatar-team-lead.jpg`, alt: "Team lead" },
       extra: "+6",
+      extraBreakdown: "5 Dev + 1 PM",
     },
     space: { title: "E-commerce", subtitle: "Aggregator app" },
     impact: [

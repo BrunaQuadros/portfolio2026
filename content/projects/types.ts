@@ -83,7 +83,8 @@ export type FaircadoContent = {
     headingLine2: string;
     descriptionLead: string;
     descriptionAccent1: string;
-    descriptionMid: string;
+    descriptionMid1: string;
+    descriptionMid2: string;
     descriptionAccent2: string;
     descriptionTail: string;
     image: { src: string; alt: string };
@@ -91,13 +92,18 @@ export type FaircadoContent = {
   context: {
     eyebrow: string;
     heading: string;
-    body: string;
-    logos: { src: string; alt: string }[];
+    bodyBold1: string;
+    bodyText1: string;
+    bodyText2Lead: string;
+    bodyAccent: string;
+    bodyText2Tail: string;
+    bodyBold2: string;
+    cards: { src: string; alt: string }[];
   };
   roleInfo: {
     role: { title: string; subtitle: string };
     timeline: { title: string; subtitle: string };
-    team: { label: string; avatars: { src: string; alt: string }[]; extra: string };
+    team: { label: string; avatar: { src: string; alt: string }; extra: string; extraBreakdown: string };
     space: { title: string; subtitle: string };
     impact: ImpactBullet[];
   };
