@@ -27,7 +27,16 @@ A component should exist because it represents a reusable pattern, contains real
 Most of these categories are empty right now, add them as real components are built, don't pre-create empty folders.
 
 ### Installed Components
-- `button.tsx` — base button (Nova preset, Radix UI)
+- `components/ui/button.tsx` — base button (Nova preset, Radix UI)
+
+`components/case-study/` — built for the Faircado case study, reused wherever the same pattern repeats on any case study page:
+- `SectionHeading.tsx` — pink eyebrow label + large heading + optional body. Used for Context, Problem, My Approach, Takeaways, and Final Solution
+- `ProblemCard.tsx` — tag pill + heading (with an accent phrase) + body. One of the three "how might we" problem cards
+- `MethodCard.tsx` — title + description + a row of logos/avatars/icons. One of the four research-method cards under My Approach
+- `TestimonialCard.tsx` — quote + supporting data point, with an optional number. Used under Takeaways and again in the closing insights
+- `StatCard.tsx` — icon + heading + body. One of the impact/result cards near the end of the case study
+- `TagPill.tsx` — small rounded icon + label pill (e.g. "Awareness", "Match accuracy"). Shared across problem cards, results cards, and every solution section
+- `SolutionSection.tsx` — one of the three big numbered sections (01/, 02/, 03/), each holding cards with a tag, heading, and mobile screenshots
 
 ## ShadCN Strategy
 
