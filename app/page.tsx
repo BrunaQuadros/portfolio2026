@@ -1,8 +1,17 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
   return (
     <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
+      {/* Temporary: homepage isn't designed yet, just linking straight to the
+          case study in progress so it's reachable while building it out. */}
+      <Link
+        href="/case-studies/faircado"
+        className="fixed top-4 right-4 z-50 rounded-full bg-faircado-pink-500 px-5 py-2.5 font-manrope text-[14px] font-bold text-white shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)] transition-transform hover:scale-105"
+      >
+        View Faircado case study →
+      </Link>
       <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
         <Image
           className="dark:invert h-5 w-[100px]"
