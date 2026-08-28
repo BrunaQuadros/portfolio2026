@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 // A quote pulled from user research, paired with the supporting data point.
 // Used 3 times under "Takeaways" and again 3 times under the closing
 // insights, so it's a shared component.
@@ -9,7 +11,7 @@ type TestimonialCardProps = {
 
 export function TestimonialCard({ quote, detail, number }: TestimonialCardProps) {
   return (
-    <figure className="flex flex-col gap-3">
+    <figure className="flex flex-col gap-6">
       {number ? (
         <p
           aria-hidden="true"
@@ -18,9 +20,13 @@ export function TestimonialCard({ quote, detail, number }: TestimonialCardProps)
           {number}
         </p>
       ) : (
-        <span aria-hidden="true" className="font-manrope text-[32px] leading-none text-portfolio-grey-400">
-          &ldquo;
-        </span>
+        <Image
+          src="/images/case-studies/faircado/takeaways-quote-mark.svg"
+          alt=""
+          aria-hidden="true"
+          width={33}
+          height={29}
+        />
       )}
       <blockquote className="font-manrope font-bold text-[24px] leading-[32px] tracking-[-0.5px] text-portfolio-grey-900 sm:text-[28px] sm:leading-[38px]">
         {quote}

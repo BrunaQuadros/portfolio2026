@@ -30,6 +30,7 @@ export type ProblemCard = {
   tag: string;
   heading: string;
   headingAccent?: string;
+  headingTail?: string;
   body: string;
 };
 

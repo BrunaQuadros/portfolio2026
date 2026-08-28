@@ -416,35 +416,59 @@ export default function FaircadoCaseStudyPage() {
         </div>
       </section>
 
-      {/* Takeaways */}
-      <section className="mx-auto flex w-full max-w-[1220px] flex-col gap-10 px-6 sm:px-10">
-        <SectionHeading eyebrow={takeaways.eyebrow} heading={takeaways.heading} className="max-w-[420px]" />
-        <div className="grid gap-10 sm:grid-cols-3">
-          {takeaways.testimonials.map((testimonial, i) => (
-            <TestimonialCard key={i} {...testimonial} />
-          ))}
-        </div>
-      </section>
-
-      {/* Problem cards */}
+      {/* Takeaways: testimonials connected by arrows to the matching
+          problem cards below, as one composition in Figma rather than two
+          unrelated sections — so both rows share the same 3-column grid
+          (for the arrows to land under the right column) and the same
+          full-bleed breakout as My Approach's card row. */}
       <section className="mx-auto w-full max-w-[1220px] px-6 sm:px-10">
-        <div className="flex flex-wrap gap-7">
-          {problemCards.map((card, i) => (
-            <ProblemCard
-              key={i}
-              tag={card.tag}
-              tagIcon={
-                i === 0
-                  ? `${IMG}/icon-tag-awareness.png`
-                  : i === 1
-                    ? `${IMG}/icon-tag-accuracy.png`
-                    : `${IMG}/icon-tag-momentum.png`
-              }
-              heading={card.heading}
-              headingAccent={card.headingAccent}
-              body={card.body}
-            />
-          ))}
+        <div
+          className="mb-10 lg:max-w-[420px]"
+          // Same text-container alignment trick used by Context, Problem,
+          // My Approach, and Insight, so this heading's left edge lines up
+          // with theirs.
+          style={{ marginLeft: "max(0px, calc((100% - 975px) / 2 + 40px))" }}
+        >
+          <SectionHeading eyebrow={takeaways.eyebrow} heading={takeaways.heading} />
+        </div>
+        <div className="-mx-6 w-[calc(100%+3rem)] sm:-mx-10 sm:w-[calc(100%+5rem)]">
+          <div className="grid grid-cols-1 gap-10 sm:grid-cols-3">
+            {takeaways.testimonials.map((testimonial, i) => (
+              <TestimonialCard key={i} {...testimonial} />
+            ))}
+          </div>
+          <div className="hidden grid-cols-3 sm:grid" aria-hidden="true">
+            {takeaways.testimonials.map((_, i) => (
+              // The source arrow SVG is a flat, right-pointing line. Centering
+              // it in a fixed-height box and rotating it 90deg (same technique
+              // Figma itself uses) turns it into the vertical down-pointing
+              // connector without distorting its stroke weight.
+              <div key={i} className="relative h-16 w-full">
+                <div className="absolute left-1/2 top-1/2 origin-center -translate-x-1/2 -translate-y-1/2 rotate-90">
+                  <img src={`${IMG}/takeaways-connector-arrow.svg`} alt="" className="h-[7px] w-16" />
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
+            {problemCards.map((card, i) => (
+              <ProblemCard
+                key={i}
+                tag={card.tag}
+                tagIcon={
+                  i === 0
+                    ? `${IMG}/icon-tag-awareness.png`
+                    : i === 1
+                      ? `${IMG}/icon-tag-accuracy.png`
+                      : `${IMG}/icon-tag-momentum.png`
+                }
+                heading={card.heading}
+                headingAccent={card.headingAccent}
+                headingTail={card.headingTail}
+                body={card.body}
+              />
+            ))}
+          </div>
         </div>
       </section>
 
