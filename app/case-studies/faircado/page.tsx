@@ -505,7 +505,7 @@ export default function FaircadoCaseStudyPage() {
       </section>
 
       {/* Final solution intro */}
-      <section className="mx-auto w-full max-w-[720px] px-6 sm:px-10">
+      <section className="mx-auto w-full max-w-[600px] px-6 sm:px-10">
         <SectionHeading
           eyebrow={finalSolution.eyebrow}
           heading={finalSolution.heading}

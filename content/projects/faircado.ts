@@ -229,9 +229,7 @@ export const faircado: FaircadoContent = {
               src: `${IMG}/onboarding-video-walkthrough.png`,
               alt: "Onboarding screen with a video walkthrough teaching users to select one item per photo",
               caption: "Video walkthrough teaches users to select one item per photo",
-              // Drop the real screen recording at public/videos/case-studies/faircado/onboarding-walkthrough.mp4
-              // and uncomment the line below to swap this still frame for a playable video (poster falls back to `src` above).
-              // video: { src: `/videos/case-studies/faircado/onboarding-walkthrough.mp4` },
+              video: { src: "/videos/case-studies/faircado/image-search-intro.mp4" },
             },
             {
               src: `${IMG}/onboarding-interactive-results.png`,

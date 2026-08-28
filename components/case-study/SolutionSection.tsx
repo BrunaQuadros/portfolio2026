@@ -21,22 +21,26 @@ function ScreenshotFrame({ image, priority = false }: { image: AnnotatedImage; p
     <figure className="flex w-[220px] flex-col items-center gap-3 sm:w-[250px]">
       <div className="relative aspect-[250/541] w-full overflow-hidden rounded-case-xl shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)]">
         {image.video ? (
-          <video
-            src={image.video.src}
-            poster={image.video.poster ?? image.src}
-            className="absolute inset-0 size-full object-cover"
-            muted
-            loop
-            playsInline
-            controls
-            aria-label={image.alt}
-          />
+          <>
+            <video
+              src={image.video.src}
+              className="absolute inset-0 size-full object-cover"
+              autoPlay
+              muted
+              loop
+              playsInline
+              aria-label={image.alt}
+            />
+            {/* Static PNG has a transparent center (Figma export), so the UI chrome
+                (status bar, button) sits over the looping video underneath it. */}
+            <Image src={image.src} alt="" aria-hidden="true" fill className="absolute inset-0 object-cover" priority={priority} />
+          </>
         ) : (
           <Image src={image.src} alt={image.alt} fill className="object-cover" priority={priority} />
         )}
       </div>
       {image.caption ? (
-        <figcaption className="font-manrope text-[14px] leading-[20px] tracking-[0.48px] text-portfolio-grey-600 text-center uppercase">
+        <figcaption className="font-manrope text-[14px] leading-[20px] tracking-[0.48px] text-portfolio-grey-600 text-center">
           {image.caption}
         </figcaption>
       ) : null}
