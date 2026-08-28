@@ -30,12 +30,22 @@ export type ProblemCard = {
   tag: string;
   heading: string;
   headingAccent?: string;
+  headingTail?: string;
   body: string;
 };
 
 export type Testimonial = {
   quote: string;
+  // Second line of the quote, forcing a manual break (matching the
+  // approved copy layout) instead of relying on natural text wrap.
+  // Optional: only the Takeaways insight cards use it.
+  quoteLine2?: string;
   detail: string;
+  // Bold lead-in phrase for the detail line (e.g. "80% of behaviour
+  // recordings"), with the rest of the sentence following in regular
+  // weight. Optional: only the Takeaways insight cards use it.
+  detailBold?: string;
+  detailRest?: string;
 };
 
 export type AnnotatedImage = {
@@ -133,7 +143,8 @@ export type FaircadoContent = {
   problemCards: ProblemCard[];
   takeaways: {
     eyebrow: string;
-    heading: string;
+    headingLine1: string;
+    headingLine2: string;
     testimonials: Testimonial[];
   };
   insight: {
