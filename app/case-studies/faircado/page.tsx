@@ -423,28 +423,60 @@ export default function FaircadoCaseStudyPage() {
           full-bleed breakout as My Approach's card row. */}
       <section className="mx-auto w-full max-w-[1220px] px-6 sm:px-10">
         <div
-          className="mb-10 lg:max-w-[420px]"
+          className="mb-20 lg:max-w-[420px]"
           // Same text-container alignment trick used by Context, Problem,
           // My Approach, and Insight, so this heading's left edge lines up
           // with theirs.
           style={{ marginLeft: "max(0px, calc((100% - 975px) / 2 + 40px))" }}
         >
-          <SectionHeading eyebrow={takeaways.eyebrow} heading={takeaways.heading} />
+          <SectionHeading
+            eyebrow={takeaways.eyebrow}
+            heading={
+              <>
+                {takeaways.headingLine1}
+                <br />
+                {takeaways.headingLine2}
+              </>
+            }
+          />
         </div>
         <div className="-mx-6 w-[calc(100%+3rem)] sm:-mx-10 sm:w-[calc(100%+5rem)]">
           <div className="grid grid-cols-1 gap-10 sm:grid-cols-3">
             {takeaways.testimonials.map((testimonial, i) => (
-              <TestimonialCard key={i} {...testimonial} />
+              // The background numeral's own left edge lines up with the
+              // column's bare left edge (matching the card background below),
+              // while the actual quote/body text stays inset with pl-10 to
+              // match the card's text — text aligns with text, background
+              // aligns with background.
+              <div key={i} className="relative">
+                <img
+                  src={`${IMG}/takeaways-number-0${i + 1}.svg`}
+                  alt=""
+                  aria-hidden="true"
+                  className="pointer-events-none absolute left-0 top-0 -z-10 w-[calc(68%+40px)]"
+                />
+                {/* Pushes the quote/heading/body down while the background
+                    numeral (an absolutely-positioned sibling) stays put, so
+                    more of the numeral shows above the content instead of
+                    being covered by the quote mark right away. */}
+                <div className="pl-10 pr-6 pt-14">
+                  <TestimonialCard {...testimonial} />
+                </div>
+              </div>
             ))}
           </div>
-          <div className="hidden grid-cols-3 sm:grid" aria-hidden="true">
+          <div className="mt-5 mb-[60px] hidden grid-cols-3 sm:grid" aria-hidden="true">
             {takeaways.testimonials.map((_, i) => (
               // The source arrow SVG is a flat, right-pointing line. Centering
               // it in a fixed-height box and rotating it 90deg (same technique
               // Figma itself uses) turns it into the vertical down-pointing
-              // connector without distorting its stroke weight.
+              // connector without distorting its stroke weight. Shifted
+              // 100px left of column-center per earlier feedback.
               <div key={i} className="relative h-16 w-full">
-                <div className="absolute left-1/2 top-1/2 origin-center -translate-x-1/2 -translate-y-1/2 rotate-90">
+                <div
+                  className="absolute top-1/2 origin-center"
+                  style={{ left: "calc(50% - 100px)", transform: "translate(-50%, -50%) rotate(90deg)" }}
+                >
                   <img src={`${IMG}/takeaways-connector-arrow.svg`} alt="" className="h-[7px] w-16" />
                 </div>
               </div>

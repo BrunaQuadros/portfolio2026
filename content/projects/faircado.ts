@@ -161,22 +161,32 @@ export const faircado: FaircadoContent = {
   ],
   takeaways: {
     eyebrow: "TAKEAWAYS",
-    heading: "Three insights guided my work:",
+    headingLine1: "Three insights",
+    headingLine2: "guided my work:",
     testimonials: [
       {
-        quote: "Didn't know I could image search",
+        quote: "Didn't know I could",
+        quoteLine2: "image search",
         detail:
           "80% of behaviour recordings showed users missing the entry point to image search. Interviews confirmed users weren't aware of it.",
+        detailBold: "80% of behaviour recordings",
+        detailRest: " showed users missing the entry point to image search. Interviews confirmed users weren't aware of it.",
       },
       {
-        quote: "Results didn't match my image",
+        quote: "Results didn't match",
+        quoteLine2: "my image",
         detail:
           "#1 complaint, with over 4,000 mentions. Interviews revealed the model missed detail-heavy items e.g. embroidered jeans and v-necks.",
+        detailBold: "#1 complaint, with over 4,000",
+        detailRest: " mentions. Interviews revealed the model missed detail-heavy items e.g. embroidered jeans and v-necks.",
       },
       {
-        quote: "I was still thinking about it",
+        quote: "I was still thinking",
+        quoteLine2: "about it",
         detail:
           "70% of users who didn't buy were “just browsing” or “still thinking”. Interviews found timing and budget slowed down decision-making.",
+        detailBold: "70% of users",
+        detailRest: " who didn't buy were “just browsing” or “still thinking”. Interviews found timing and budget slowed down decision-making.",
       },
     ],
   },

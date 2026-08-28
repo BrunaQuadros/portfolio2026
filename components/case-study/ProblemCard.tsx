@@ -13,7 +13,10 @@ type ProblemCardProps = {
 
 export function ProblemCard({ tag, tagIcon, heading, headingAccent, headingTail, body }: ProblemCardProps) {
   return (
-    <div className="flex flex-1 flex-col items-start justify-between gap-8 rounded-[40px] bg-portfolio-grey-50 p-10 min-w-[260px]">
+    // Fixed gap (not justify-between) so the space between the pill and the
+    // heading stays identical across all three cards, regardless of how many
+    // lines each card's heading/body happens to wrap to.
+    <div className="flex flex-1 flex-col items-start gap-[100px] rounded-[40px] bg-portfolio-grey-50 p-10 min-w-[260px]">
       <TagPill icon={tagIcon} label={tag} />
       <div className="flex flex-col gap-3">
         <p className="font-manrope font-bold text-[24px] leading-[32px] tracking-[-0.5px] text-portfolio-grey-900 sm:text-[28px] sm:leading-[38px]">

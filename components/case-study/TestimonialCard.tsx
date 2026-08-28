@@ -5,11 +5,14 @@ import Image from "next/image";
 // insights, so it's a shared component.
 type TestimonialCardProps = {
   quote: string;
+  quoteLine2?: string;
   detail: string;
+  detailBold?: string;
+  detailRest?: string;
   number?: string;
 };
 
-export function TestimonialCard({ quote, detail, number }: TestimonialCardProps) {
+export function TestimonialCard({ quote, quoteLine2, detail, detailBold, detailRest, number }: TestimonialCardProps) {
   return (
     <figure className="flex flex-col gap-6">
       {number ? (
@@ -30,9 +33,22 @@ export function TestimonialCard({ quote, detail, number }: TestimonialCardProps)
       )}
       <blockquote className="font-manrope font-bold text-[24px] leading-[32px] tracking-[-0.5px] text-portfolio-grey-900 sm:text-[28px] sm:leading-[38px]">
         {quote}
+        {quoteLine2 ? (
+          <>
+            <br />
+            {quoteLine2}
+          </>
+        ) : null}
       </blockquote>
       <figcaption className="font-manrope text-[16px] leading-[26px] text-portfolio-grey-900 sm:text-[18px] sm:leading-[28px]">
-        {detail}
+        {detailBold ? (
+          <>
+            <span className="font-bold">{detailBold}</span>
+            {detailRest}
+          </>
+        ) : (
+          detail
+        )}
       </figcaption>
     </figure>
   );
