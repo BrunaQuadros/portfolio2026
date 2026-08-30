@@ -203,6 +203,7 @@ export const faircado: FaircadoContent = {
       {
         src: `${IMG}/decorative-feedback-screenshot-1.png`,
         alt: "Survey prompt asking 'Happy with these results?' with 'Didn't match my image' selected as the reason",
+        caption: "In-app survey I've launched partnering with engineering",
       },
       {
         src: `${IMG}/decorative-feedback-screenshot-2.png`,
@@ -300,6 +301,7 @@ export const faircado: FaircadoContent = {
         },
         {
           heading: "Launched 'Find similar' to turn every item into a sharper, more engaging search",
+          headingMaxWidth: 650,
           images: [
             {
               src: `${IMG}/awareness-onboarding-tags.png`,

@@ -20,7 +20,7 @@ A component should exist because it represents a reusable pattern, contains real
 - `components/layout/` — structural components (Container, Section, Stack, Grid)
 - `components/typography/` — only if a typography pattern repeats meaningfully (e.g. SectionHeading), not to wrap a single Tailwind class
 - `components/case-study/` — patterns specific to case study pages (CaseStudyHero, ImageBlock, QuoteBlock, ResultsSection, NextProject)
-- `components/navigation/` — SiteHeader, MobileNavigation, Footer
+- `components/navigation/` — SiteHeader, MobileNavigation, Footer, ExitButton
 - `components/media/` — ResponsiveImage, VideoPlayer, ImageCarousel
 - `components/shared/` — reusable components that don't fit any category above. Don't let this become a dumping ground
 
@@ -37,6 +37,9 @@ Most of these categories are empty right now, add them as real components are bu
 - `StatCard.tsx` — icon + heading + body. One of the impact/result cards near the end of the case study
 - `TagPill.tsx` — small rounded icon + label pill (e.g. "Awareness", "Match accuracy"). Shared across problem cards, results cards, and every solution section
 - `SolutionSection.tsx` — one of the three big numbered sections (01/, 02/, 03/), each holding cards with a tag, heading, and mobile screenshots
+
+`components/navigation/`:
+- `ExitButton.tsx` — fixed circular close button (top right) linking back to the homepage. Rendered by `app/case-studies/layout.tsx` so it appears on every case study page
 
 ## ShadCN Strategy
 

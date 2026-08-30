@@ -297,15 +297,19 @@ export function SolutionSection({ number, title, tagIcon, tag, blocks }: Solutio
             panel, instead of being inset by the section's own padding. */}
         {blocks.map((block, i) => (
           <div key={i} className="-mx-6 w-[calc(100%+3rem)] sm:-mx-10 sm:w-[calc(100%+5rem)]">
-            <div className="relative flex w-full flex-col items-center gap-15 rounded-case-3xl bg-portfolio-grey-50 px-10 py-15">
+            {/* pt-10 (not py-15's usual top) so the heading's top edge lands
+                exactly where the absolutely-positioned pill's top edge sits
+                (top-10), instead of stacking below it. */}
+            <div className="relative flex w-full flex-col items-center gap-15 rounded-case-3xl bg-portfolio-grey-50 px-10 pb-15 pt-10">
               <div className="absolute left-10 top-10">
                 <TagPill icon={tagIcon} label={tag} />
               </div>
-              {/* pt-6: the card's own 60px top padding plus this 24px lines
-                  this heading's top edge up with the tag pill's bottom edge
-                  (pill sits at top-10/40px and is 44px tall: 40+44=84,
-                  60+24=84). */}
-              <p className="max-w-[500px] pt-6 text-center font-manrope font-bold text-[24px] leading-[32px] tracking-[-0.5px] text-portfolio-grey-900 sm:text-[28px] sm:leading-[38px]">
+              {/* Centered across the card's full width, ignoring the pill's
+                  width (the pill is absolutely positioned and out of flow). */}
+              <p
+                className="text-center font-manrope font-bold text-[24px] leading-[32px] tracking-[-0.5px] text-portfolio-grey-900 sm:text-[28px] sm:leading-[38px]"
+                style={{ maxWidth: block.headingMaxWidth ?? 500 }}
+              >
                 {block.heading}
               </p>
               {block.beforeAfter ? (
