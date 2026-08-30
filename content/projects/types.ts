@@ -120,6 +120,9 @@ export type BeforeAfterPair = {
 
 export type SolutionBlock = {
   heading: string;
+  // Overrides the heading's default 500px wrap width (e.g. to force a long
+  // heading like Accuracy block 2's back down to 2 lines instead of 3).
+  headingMaxWidth?: number;
   images: AnnotatedImage[];
   beforeAfter?: BeforeAfterPair;
   // Accuracy block 1's composition: mockups flanked by a spacer (balancing
@@ -232,7 +235,9 @@ export type FaircadoContent = {
     bodyLead2: string;
     bodyBoldAccent: string;
     bodyTail: string;
-    screenshots: [{ src: string; alt: string }, { src: string; alt: string }];
+    // The left mockup carries a caption crediting the in-app survey behind
+    // it; the right one doesn't need one.
+    screenshots: [{ src: string; alt: string; caption?: string }, { src: string; alt: string }];
   };
   finalSolution: {
     eyebrow: string;

@@ -91,7 +91,7 @@ export default function FaircadoCaseStudyPage() {
 
       {/* Section 2: Role / Timeline / Team / Space + Impact, then Context */}
       <section className="mx-auto w-full max-w-[1220px] px-6 sm:px-10">
-        <div className="mx-auto flex w-fit max-w-full flex-col gap-10 rounded-case-xl bg-portfolio-grey-50 p-8 sm:p-10">
+        <div className="mx-auto flex w-fit max-w-full flex-col gap-10 rounded-case-xl bg-portfolio-grey-50 p-[60px]">
           <div className="flex flex-wrap gap-10 sm:gap-16 lg:gap-x-[140px]">
             <div className="flex flex-col gap-2">
               <p className="font-manrope font-extrabold text-[16px] tracking-[0.48px] uppercase text-faircado-pink-500">My Role</p>
@@ -297,35 +297,29 @@ export default function FaircadoCaseStudyPage() {
       <section className="relative z-10 mx-auto w-full max-w-[1220px] px-6 sm:px-10 lg:-mt-[420px]">
         <div className="-mx-6 w-[calc(100%+3rem)] sm:-mx-10 sm:w-[calc(100%+5rem)]">
           <div className="flex flex-col items-center">
-            <div className="relative z-10 flex w-[220px] shrink-0 -mb-16 flex-col items-center gap-3 lg:mb-[-150px] lg:ml-auto lg:mr-16 lg:w-[250px]">
+            <div className="relative z-10 flex w-[250px] shrink-0 -mb-16 flex-col items-center gap-3 lg:mb-[-150px] lg:ml-auto lg:mr-16 lg:-translate-x-10">
               <p className="w-[226px] text-center font-manrope text-[14px] leading-[20px] text-portfolio-grey-600">
                 The Image Search MVP
               </p>
-              <div className="relative aspect-[250/541] w-full overflow-hidden rounded-case-xl shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)]">
+              <div className="relative h-[541px] w-[250px] overflow-hidden rounded-case-xl shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)]">
                 <Image src={problem.beforeImage.src} alt={problem.beforeImage.alt} fill className="object-cover" />
               </div>
             </div>
-            <div className="relative z-0 w-full rounded-case-3xl bg-portfolio-grey-50 py-14 sm:py-16">
-              {/* Nested in the same max-w-[1220px]/px-6/px-10 grid as the
-                  rest of the page, with the same left-alignment offset as
-                  Problem and Context, so the headline's left edge lines up
-                  with theirs even though the panel itself breaks out wider. */}
-              <div className="mx-auto w-full max-w-[1220px] px-8 sm:px-10">
-                <div style={{ marginLeft: "max(0px, calc((100% - 975px) / 2 + 40px))" }}>
-                  {/* Explicit line breaks (rather than letting the text wrap
-                      on its own) so the headline always renders as exactly
-                      three lines, matching the approved copy layout. */}
-                  <p className="max-w-[560px] font-manrope font-bold text-[28px] leading-[1.4] tracking-[-0.5px] text-portfolio-grey-900 lg:max-w-none lg:text-[36px] lg:leading-[1.4]">
-                    {problem.challengeLine1}
+            <div className="relative z-0 flex h-[340px] w-full items-center rounded-case-3xl bg-portfolio-grey-50">
+              <div className="w-full px-[80px]">
+                {/* Explicit line breaks (rather than letting the text wrap
+                    on its own) so the headline always renders as exactly
+                    three lines, matching the approved copy layout. */}
+                <p className="max-w-[560px] text-left font-manrope font-bold text-[28px] leading-[1.4] tracking-[-0.5px] text-portfolio-grey-900 lg:max-w-none lg:text-[36px] lg:leading-[1.4]">
+                  {problem.challengeLine1}
+                  <br />
+                  {problem.challengeLine2Lead}
+                  <span className="text-faircado-green-500">
+                    {problem.challengeAccentLine2}
                     <br />
-                    {problem.challengeLine2Lead}
-                    <span className="text-faircado-green-500">
-                      {problem.challengeAccentLine2}
-                      <br />
-                      {problem.challengeAccentLine3}
-                    </span>
-                  </p>
-                </div>
+                    {problem.challengeAccentLine3}
+                  </span>
+                </p>
               </div>
             </div>
           </div>
@@ -333,7 +327,10 @@ export default function FaircadoCaseStudyPage() {
       </section>
 
       {/* My Approach */}
-      <section className="mx-auto flex w-full max-w-[1220px] flex-col gap-10 px-6 sm:px-10">
+      {/* mt-10: +40px on top of the page's standard section gap, per
+          request to add extra breathing room after the Problem section's
+          grey CTA panel specifically. */}
+      <section className="mx-auto mt-10 flex w-full max-w-[1220px] flex-col gap-[60px] px-6 sm:px-10">
         <div
           // Same alignment trick as Context and Problem above: lines this
           // section's left edge up with the text inside the My Role/Impact
@@ -359,7 +356,9 @@ export default function FaircadoCaseStudyPage() {
       </section>
 
       {/* Insight */}
-      <section className="mx-auto w-full max-w-[1220px] px-6 sm:px-10">
+      {/* mt-10: +40px on top of the page's standard section gap (128px),
+          bringing the gap above this section to 168px. */}
+      <section className="mx-auto mt-10 w-full max-w-[1220px] px-6 sm:px-10">
         {/* Full-bleed breakout (same as the My Approach cards row above) so
             the screenshots can reach the same true right edge the last
             "Survey" card reaches, instead of stopping at the section's own
@@ -367,14 +366,14 @@ export default function FaircadoCaseStudyPage() {
         <div className="-mx-6 w-[calc(100%+3rem)] sm:-mx-10 sm:w-[calc(100%+5rem)]">
           <div className="flex flex-col items-start gap-16 lg:flex-row lg:items-center lg:gap-0">
             <div
-              className="w-full lg:max-w-[480px] lg:shrink-0"
+              className="w-full lg:max-w-[348px] lg:shrink-0 lg:-translate-y-[70px]"
               // Same text-container alignment trick used by Context, Problem,
               // and the My Approach heading, so this paragraph's left edge
               // lines up with theirs.
               style={{ marginLeft: "max(0px, calc((100% - 975px) / 2 + 40px))" }}
             >
               <div className="flex flex-col gap-6">
-                <p className="font-manrope font-bold text-[32px] leading-[1.2] tracking-[-1px] text-portfolio-grey-900 sm:text-[40px] sm:leading-[48px]">
+                <p className="font-manrope font-bold text-[24px] leading-[32px] tracking-[-0.5px] text-portfolio-grey-900 sm:text-[28px] sm:leading-[38px]">
                   {insight.headingLine1}
                   <br />
                   {insight.headingLine2}
@@ -401,11 +400,10 @@ export default function FaircadoCaseStudyPage() {
             <div className="hidden h-[130px] flex-1 self-center lg:block">
               <img src={`${IMG}/insight-arrow.svg`} alt="" aria-hidden="true" className="h-full w-full" />
             </div>
-            {/* Sized to match the "Image Search MVP" phone visual exactly
-                (w-[220px] lg:w-[250px]): the container is set so that each
-                calc()-based child below resolves to that same width at each
-                breakpoint (2 × 220 + 28px gap = 468, 2 × 250 + 28px gap = 528). */}
-            <div className="relative mx-auto aspect-[528/711] w-[468px] shrink-0 lg:mx-0 lg:w-[528px]">
+            {/* Each phone is fixed at 250x541 (matching the "Image Search
+                MVP" phone visual), 28px apart, in a container sized to fit
+                both plus the second phone's 24% vertical offset. */}
+            <div className="relative mx-auto h-[711px] w-[528px] shrink-0 lg:mx-0">
               {/* Positioned so the arrowhead (bottom-left of the source SVG)
                   lands centered just above the first phone's top edge,
                   instead of dipping down into the screen itself. */}
@@ -415,14 +413,17 @@ export default function FaircadoCaseStudyPage() {
               >
                 <img src={`${IMG}/insight-curve-arrow.svg`} alt="" />
               </div>
-              {/* Fixed 28px gap (matching Figma's 250px-image/28px-gap/250px-image
-                  composition) via calc(), instead of a percentage width — so the
-                  two phones stay exactly 28px apart at any container size rather
-                  than overlapping/drifting as the container scales. */}
-              <div className="absolute left-0 top-0 aspect-[250/541] w-[calc((100%-28px)/2)] overflow-hidden rounded-case-xl shadow-[0px_12px_37px_0px_rgba(0,0,0,0.12)]">
-                <Image src={insight.screenshots[0].src} alt={insight.screenshots[0].alt} fill className="object-cover" />
+              <div className="absolute left-0 top-0 flex w-[250px] flex-col items-center gap-3">
+                <div className="relative h-[541px] w-[250px] overflow-hidden rounded-case-xl shadow-[0px_12px_37px_0px_rgba(0,0,0,0.12)]">
+                  <Image src={insight.screenshots[0].src} alt={insight.screenshots[0].alt} fill className="object-cover" />
+                </div>
+                {insight.screenshots[0].caption ? (
+                  <p className="text-center font-manrope text-[14px] leading-[20px] text-portfolio-grey-600">
+                    {insight.screenshots[0].caption}
+                  </p>
+                ) : null}
               </div>
-              <div className="absolute right-0 top-[24%] aspect-[250/541] w-[calc((100%-28px)/2)] overflow-hidden rounded-case-lg shadow-[0px_12px_37px_0px_rgba(0,0,0,0.12)]">
+              <div className="absolute right-0 top-[24%] h-[541px] w-[250px] overflow-hidden rounded-case-lg shadow-[0px_12px_37px_0px_rgba(0,0,0,0.12)]">
                 <Image src={insight.screenshots[1].src} alt={insight.screenshots[1].alt} fill className="object-cover" />
               </div>
             </div>
@@ -435,7 +436,9 @@ export default function FaircadoCaseStudyPage() {
           unrelated sections — so both rows share the same 3-column grid
           (for the arrows to land under the right column) and the same
           full-bleed breakout as My Approach's card row. */}
-      <section className="mx-auto w-full max-w-[1220px] px-6 sm:px-10">
+      {/* -mt-[60px]: pulls this section (and everything after it, since
+          they follow in normal flow) 60px closer to Insight above. */}
+      <section className="mx-auto -mt-[60px] w-full max-w-[1220px] px-6 sm:px-10">
         <div
           className="mb-20 lg:max-w-[420px]"
           // Same text-container alignment trick used by Context, Problem,
@@ -519,7 +522,9 @@ export default function FaircadoCaseStudyPage() {
       </section>
 
       {/* Final solution intro */}
-      <section className="mx-auto w-full max-w-[600px] px-6 sm:px-10">
+      {/* mt-5: +20px on top of the base section gap, bringing the gap above
+          this title (from the problem cards) to 200px. */}
+      <section className="mx-auto mt-5 w-full max-w-[600px] px-6 sm:px-10">
         <SectionHeading
           eyebrow={finalSolution.eyebrow}
           heading={finalSolution.heading}
@@ -529,7 +534,9 @@ export default function FaircadoCaseStudyPage() {
       </section>
 
       {/* Three numbered solution sections */}
-      <div className="mx-auto flex w-full max-w-[1220px] flex-col gap-24 px-6 sm:px-10 sm:gap-32">
+      {/* -mt-[100px]: reduces the gap above this from the Final Solution
+          title (128px base) down to 28px, per request. */}
+      <div className="mx-auto -mt-[100px] flex w-full max-w-[1220px] flex-col gap-24 px-6 sm:px-10 sm:gap-32">
         {solutionSections.map((section) => (
           <SolutionSection
             key={section.number}
@@ -549,18 +556,25 @@ export default function FaircadoCaseStudyPage() {
       </div>
 
       {/* Discarded ideas */}
-      <DiscardedIdeasSection
-        eyebrow={discardedIdeas.eyebrow}
-        heading={discardedIdeas.heading}
-        bodyLead={discardedIdeas.bodyLead}
-        bodyAccent1={discardedIdeas.bodyAccent1}
-        bodyMid={discardedIdeas.bodyMid}
-        bodyAccent2={discardedIdeas.bodyAccent2}
-        items={discardedIdeas.items}
-      />
+      {/* mt-[72px]: +72px on top of the base section gap (128px), bringing
+          the gap above this section (from the last Momentum card) to 200px. */}
+      <div className="mt-[72px]">
+        <DiscardedIdeasSection
+          eyebrow={discardedIdeas.eyebrow}
+          heading={discardedIdeas.heading}
+          bodyLead={discardedIdeas.bodyLead}
+          bodyAccent1={discardedIdeas.bodyAccent1}
+          bodyMid={discardedIdeas.bodyMid}
+          bodyAccent2={discardedIdeas.bodyAccent2}
+          items={discardedIdeas.items}
+        />
+      </div>
 
       {/* Results / impact */}
-      <section className="mx-auto flex w-full max-w-[1220px] flex-col gap-16 px-6 sm:px-10">
+      {/* mt-[72px]: +72px on top of the base section gap (128px), bringing
+          the gap above this section (from Discarded Ideas) to 200px, same
+          as the gap above Discarded Ideas. */}
+      <section className="mx-auto mt-[72px] flex w-full max-w-[1220px] flex-col gap-16 px-6 sm:px-10">
         <div
           className="w-full lg:max-w-[592px]"
           // Same text-container alignment trick used by Context, Problem, My
@@ -585,58 +599,60 @@ export default function FaircadoCaseStudyPage() {
             true edge those do, instead of stopping at the section's own
             inset padding. */}
         <div className="-mx-6 w-[calc(100%+3rem)] sm:-mx-10 sm:w-[calc(100%+5rem)]">
-          <div className="flex flex-col gap-7">
-            <div className="grid gap-7 sm:grid-cols-3">
-              {results.statCards.map((card, i) => (
-                <StatCard key={i} icon={card.icon} icons={card.icons} heading={card.heading} body={card.body} emphasis={card.emphasis} />
-              ))}
+          {/* One shared 3-column grid for both rows (instead of two separate
+              grids) so the feedback card's width matches a single stat card
+              exactly, and the testimonial's width (col-span-2) matches the
+              first two stat cards combined, including the gap between them. */}
+          <div className="grid grid-cols-1 gap-7 sm:grid-cols-3">
+            {results.statCards.map((card, i) => (
+              <StatCard key={i} icon={card.icon} icons={card.icons} heading={card.heading} body={card.body} emphasis={card.emphasis} />
+            ))}
+            <div className="flex flex-col items-center justify-center gap-4 rounded-case-2xl bg-portfolio-grey-50 p-[80px] text-center">
+              <Image
+                src={`${IMG}/impact-arrow.png`}
+                alt=""
+                aria-hidden="true"
+                width={52}
+                height={52}
+                className="drop-shadow-[0px_8px_12px_rgba(0,0,0,0.12)]"
+              />
+              <p className="font-manrope font-bold text-[24px] leading-[32px] tracking-[-0.5px] text-portfolio-grey-900 sm:text-[28px] sm:leading-[38px]">
+                User feedback that made my day
+              </p>
             </div>
-            <div className="grid gap-7 lg:grid-cols-[1fr_2fr]">
-              <div className="flex h-[431px] flex-col items-center justify-center gap-4 rounded-case-2xl bg-portfolio-grey-50 p-10 text-center">
-                <Image
-                  src={`${IMG}/impact-arrow.png`}
-                  alt=""
-                  aria-hidden="true"
-                  width={52}
-                  height={52}
-                  className="drop-shadow-[0px_8px_12px_rgba(0,0,0,0.12)]"
-                />
-                <p className="font-manrope font-bold text-[24px] leading-[32px] tracking-[-0.5px] text-portfolio-grey-900 sm:text-[28px] sm:leading-[38px]">
-                  User feedback that made my day
+            <figure className="flex flex-col justify-center gap-7 rounded-case-2xl bg-portfolio-grey-50 p-[80px] sm:col-span-2">
+              <img
+                src={`${IMG}/icon-quote-mark.svg`}
+                alt=""
+                aria-hidden="true"
+                className="h-[29px] w-[33px]"
+              />
+              <blockquote className="font-manrope font-bold text-[24px] leading-[32px] tracking-[-0.5px] text-portfolio-grey-900 sm:text-[28px] sm:leading-[38px]">
+                {results.featuredTestimonial.quote}
+              </blockquote>
+              <figcaption className="flex items-center gap-3">
+                <div className="relative size-[50px] shrink-0 overflow-hidden rounded-full">
+                  <Image
+                    src={results.featuredTestimonial.user.avatar.src}
+                    alt={results.featuredTestimonial.user.avatar.alt}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <p className="font-manrope font-extrabold text-[16px] tracking-[0.48px] uppercase text-portfolio-grey-900">
+                  {results.featuredTestimonial.user.name}{" "}
+                  <span className="text-portfolio-grey-600">{results.featuredTestimonial.user.location}</span>
                 </p>
-              </div>
-              <figure className="flex h-[431px] flex-col justify-center gap-7 rounded-case-2xl bg-portfolio-grey-50 p-8 sm:p-10">
-                <img
-                  src={`${IMG}/icon-quote-mark.svg`}
-                  alt=""
-                  aria-hidden="true"
-                  className="h-[29px] w-[33px]"
-                />
-                <blockquote className="font-manrope font-bold text-[24px] leading-[32px] tracking-[-0.5px] text-portfolio-grey-900 sm:text-[28px] sm:leading-[38px]">
-                  {results.featuredTestimonial.quote}
-                </blockquote>
-                <figcaption className="flex items-center gap-3">
-                  <div className="relative size-[50px] shrink-0 overflow-hidden rounded-full">
-                    <Image
-                      src={results.featuredTestimonial.user.avatar.src}
-                      alt={results.featuredTestimonial.user.avatar.alt}
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                  <p className="font-manrope font-extrabold text-[16px] tracking-[0.48px] uppercase text-portfolio-grey-900">
-                    {results.featuredTestimonial.user.name}{" "}
-                    <span className="text-portfolio-grey-600">{results.featuredTestimonial.user.location}</span>
-                  </p>
-                </figcaption>
-              </figure>
-            </div>
+              </figcaption>
+            </figure>
           </div>
         </div>
       </section>
 
       {/* Closing takeaways */}
-      <section className="mx-auto flex w-full max-w-[1220px] flex-col gap-16 px-6 sm:px-10">
+      {/* mt-[72px]: +72px on top of the base section gap (128px), bringing
+          the gap above this section (from the Impact cards) to 200px. */}
+      <section className="mx-auto mt-[72px] flex w-full max-w-[1220px] flex-col gap-16 px-6 sm:px-10">
         <div
           className="w-full lg:max-w-[592px]"
           // Same text-container alignment trick used by Context, Problem, My

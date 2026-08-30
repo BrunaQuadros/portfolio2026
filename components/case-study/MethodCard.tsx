@@ -35,7 +35,7 @@ export function MethodCard({ title, description, logos, avatars, icons }: Method
             key={i}
             className={`flex size-[52px] shrink-0 items-center justify-center rounded-full shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)] ${
               i === 0 ? "bg-faircado-green-500" : "bg-faircado-pink-600"
-            }`}
+            } ${i > 0 ? "ml-3" : ""}`}
           >
             <Image src={icon.src} alt={icon.alt} width={28} height={28} />
           </div>
