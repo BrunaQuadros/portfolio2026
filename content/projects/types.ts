@@ -41,9 +41,13 @@ export type Testimonial = {
   // Optional: only the Takeaways insight cards use it.
   quoteLine2?: string;
   detail: string;
-  // Bold lead-in phrase for the detail line (e.g. "80% of behaviour
-  // recordings"), with the rest of the sentence following in regular
-  // weight. Optional: only the Takeaways insight cards use it.
+  // Plain lead-in text before the bold phrase (e.g. the Closing Takeaways
+  // cards, which bold their closing sentence instead of their opening one).
+  // Optional: only used when the bold phrase isn't at the very start.
+  detailLead?: string;
+  // Bold phrase within the detail line (e.g. "80% of behaviour
+  // recordings"), with the rest of the sentence in regular weight around
+  // it. Optional: only the Takeaways/Closing Takeaways cards use it.
   detailBold?: string;
   detailRest?: string;
 };
@@ -139,9 +143,18 @@ export type SolutionSection = {
 
 export type StatCard = {
   icon?: string;
+  icons?: string[];
   heading: string;
   body: string;
   emphasis?: string;
+};
+
+export type DiscardedIdea = {
+  tag: string;
+  tagIcon: string;
+  image: { src: string; alt: string };
+  captionTitle: string;
+  captionBody: string;
 };
 
 export type FaircadoContent = {
@@ -227,7 +240,22 @@ export type FaircadoContent = {
     body: string;
   };
   solutionSections: SolutionSection[];
+  discardedIdeas: {
+    eyebrow: string;
+    heading: string;
+    bodyLead: string;
+    bodyAccent1: string;
+    bodyMid: string;
+    bodyAccent2: string;
+    items: DiscardedIdea[];
+  };
   results: {
+    heading: {
+      eyebrow: string;
+      headingLine1: string;
+      headingLine2: string;
+      body: string;
+    };
     statCards: StatCard[];
     featuredTestimonial: {
       quote: string;
@@ -235,6 +263,8 @@ export type FaircadoContent = {
     };
   };
   closingTakeaways: {
+    eyebrow: string;
+    heading: string;
     testimonials: (Testimonial & { number: string })[];
   };
 };

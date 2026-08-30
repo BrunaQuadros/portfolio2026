@@ -203,9 +203,11 @@ function PeekCard({ image, badgeIcon }: { image: string; badgeIcon: string }) {
           </div>
           <img src={`${IMG}/icon-similar-items-btn.svg`} alt="" className="relative size-8" />
         </div>
-        <span className="absolute -left-1.5 -top-1.5 flex size-[50px] items-center justify-center rounded-2xl border-2 border-portfolio-grey-200 bg-portfolio-grey-50 shadow-[0px_2px_19px_0px_rgba(217,217,217,0.2)]">
-          <img src={badgeIcon} alt="" className="size-[31px]" />
-        </span>
+        <img
+          src={badgeIcon}
+          alt=""
+          className="absolute -left-1.5 -top-1.5 size-[50px] drop-shadow-[0px_2px_19px_rgba(217,217,217,0.2)]"
+        />
       </div>
     </div>
   );
