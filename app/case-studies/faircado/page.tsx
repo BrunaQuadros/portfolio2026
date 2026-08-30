@@ -7,6 +7,7 @@ import { MethodCard } from "@/components/case-study/MethodCard";
 import { TestimonialCard } from "@/components/case-study/TestimonialCard";
 import { StatCard } from "@/components/case-study/StatCard";
 import { SolutionSection } from "@/components/case-study/SolutionSection";
+import { DiscardedIdeasSection } from "@/components/case-study/DiscardedIdeasSection";
 
 const IMG = "/images/case-studies/faircado";
 
@@ -16,8 +17,21 @@ export const metadata: Metadata = {
 };
 
 export default function FaircadoCaseStudyPage() {
-  const { hero, context, roleInfo, problem, approach, problemCards, takeaways, insight, finalSolution, solutionSections, results, closingTakeaways } =
-    faircado;
+  const {
+    hero,
+    context,
+    roleInfo,
+    problem,
+    approach,
+    problemCards,
+    takeaways,
+    insight,
+    finalSolution,
+    solutionSections,
+    discardedIdeas,
+    results,
+    closingTakeaways,
+  } = faircado;
 
   return (
     <main className="flex flex-col gap-24 pb-32 sm:gap-32">
@@ -534,53 +548,114 @@ export default function FaircadoCaseStudyPage() {
         ))}
       </div>
 
+      {/* Discarded ideas */}
+      <DiscardedIdeasSection
+        eyebrow={discardedIdeas.eyebrow}
+        heading={discardedIdeas.heading}
+        bodyLead={discardedIdeas.bodyLead}
+        bodyAccent1={discardedIdeas.bodyAccent1}
+        bodyMid={discardedIdeas.bodyMid}
+        bodyAccent2={discardedIdeas.bodyAccent2}
+        items={discardedIdeas.items}
+      />
+
       {/* Results / impact */}
-      <section className="mx-auto flex w-full max-w-[1220px] flex-col gap-7 px-6 sm:px-10">
-        <div className="grid gap-7 sm:grid-cols-3">
-          {results.statCards.map((card, i) => (
-            <StatCard key={i} icon={card.icon} heading={card.heading} body={card.body} />
-          ))}
+      <section className="mx-auto flex w-full max-w-[1220px] flex-col gap-16 px-6 sm:px-10">
+        <div
+          className="w-full lg:max-w-[592px]"
+          // Same text-container alignment trick used by Context, Problem, My
+          // Approach, Insight, and Discarded Ideas, so this heading's left
+          // edge lines up with theirs.
+          style={{ marginLeft: "max(0px, calc((100% - 975px) / 2 + 40px))" }}
+        >
+          <SectionHeading
+            eyebrow={results.heading.eyebrow}
+            heading={
+              <>
+                {results.heading.headingLine1}
+                <br />
+                {results.heading.headingLine2}
+              </>
+            }
+            body={<p>{results.heading.body}</p>}
+          />
         </div>
-        <div className="grid gap-7 lg:grid-cols-[1fr_2fr]">
-          <div className="flex flex-col items-center justify-center gap-4 rounded-case-2xl bg-portfolio-grey-50 p-10 text-center">
-            <div className="flex size-[52px] items-center justify-center rounded-full border border-portfolio-grey-200 bg-white shadow-[0px_16.75px_25.125px_0px_rgba(0,0,0,0.12)]">
-              <Image src={`${IMG}/icon-tag-awareness.png`} alt="" aria-hidden="true" width={26} height={26} />
+        {/* Full-bleed breakout (same as the Solution sections' grey panels
+            and the Takeaways card row) so these grey cards reach the same
+            true edge those do, instead of stopping at the section's own
+            inset padding. */}
+        <div className="-mx-6 w-[calc(100%+3rem)] sm:-mx-10 sm:w-[calc(100%+5rem)]">
+          <div className="flex flex-col gap-7">
+            <div className="grid gap-7 sm:grid-cols-3">
+              {results.statCards.map((card, i) => (
+                <StatCard key={i} icon={card.icon} icons={card.icons} heading={card.heading} body={card.body} emphasis={card.emphasis} />
+              ))}
             </div>
-            <p className="font-manrope font-bold text-[24px] leading-[32px] tracking-[-0.5px] text-portfolio-grey-900 sm:text-[28px] sm:leading-[38px]">
-              User feedback that made my day
-            </p>
-          </div>
-          <figure className="flex flex-col gap-7 rounded-case-2xl bg-portfolio-grey-50 p-8 sm:p-10">
-            <span aria-hidden="true" className="font-manrope text-[40px] leading-none text-portfolio-grey-400">
-              &ldquo;
-            </span>
-            <blockquote className="font-manrope font-bold text-[24px] leading-[32px] tracking-[-0.5px] text-portfolio-grey-900 sm:text-[28px] sm:leading-[38px]">
-              {results.featuredTestimonial.quote}
-            </blockquote>
-            <figcaption className="flex items-center gap-3">
-              <div className="relative size-[50px] shrink-0 overflow-hidden rounded-full">
+            <div className="grid gap-7 lg:grid-cols-[1fr_2fr]">
+              <div className="flex h-[431px] flex-col items-center justify-center gap-4 rounded-case-2xl bg-portfolio-grey-50 p-10 text-center">
                 <Image
-                  src={results.featuredTestimonial.user.avatar.src}
-                  alt={results.featuredTestimonial.user.avatar.alt}
-                  fill
-                  className="object-cover"
+                  src={`${IMG}/impact-arrow.png`}
+                  alt=""
+                  aria-hidden="true"
+                  width={52}
+                  height={52}
+                  className="drop-shadow-[0px_8px_12px_rgba(0,0,0,0.12)]"
                 />
+                <p className="font-manrope font-bold text-[24px] leading-[32px] tracking-[-0.5px] text-portfolio-grey-900 sm:text-[28px] sm:leading-[38px]">
+                  User feedback that made my day
+                </p>
               </div>
-              <p className="font-manrope font-extrabold text-[16px] tracking-[0.48px] uppercase text-portfolio-grey-900">
-                {results.featuredTestimonial.user.name}{" "}
-                <span className="text-portfolio-grey-600">{results.featuredTestimonial.user.location}</span>
-              </p>
-            </figcaption>
-          </figure>
+              <figure className="flex h-[431px] flex-col justify-center gap-7 rounded-case-2xl bg-portfolio-grey-50 p-8 sm:p-10">
+                <img
+                  src={`${IMG}/icon-quote-mark.svg`}
+                  alt=""
+                  aria-hidden="true"
+                  className="h-[29px] w-[33px]"
+                />
+                <blockquote className="font-manrope font-bold text-[24px] leading-[32px] tracking-[-0.5px] text-portfolio-grey-900 sm:text-[28px] sm:leading-[38px]">
+                  {results.featuredTestimonial.quote}
+                </blockquote>
+                <figcaption className="flex items-center gap-3">
+                  <div className="relative size-[50px] shrink-0 overflow-hidden rounded-full">
+                    <Image
+                      src={results.featuredTestimonial.user.avatar.src}
+                      alt={results.featuredTestimonial.user.avatar.alt}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                  <p className="font-manrope font-extrabold text-[16px] tracking-[0.48px] uppercase text-portfolio-grey-900">
+                    {results.featuredTestimonial.user.name}{" "}
+                    <span className="text-portfolio-grey-600">{results.featuredTestimonial.user.location}</span>
+                  </p>
+                </figcaption>
+              </figure>
+            </div>
+          </div>
         </div>
       </section>
 
       {/* Closing takeaways */}
-      <section className="mx-auto w-full max-w-[1220px] px-6 sm:px-10">
-        <div className="grid gap-10 rounded-case-2xl bg-portfolio-grey-50 p-8 sm:grid-cols-3 sm:p-14">
-          {closingTakeaways.testimonials.map((testimonial) => (
-            <TestimonialCard key={testimonial.number} {...testimonial} />
-          ))}
+      <section className="mx-auto flex w-full max-w-[1220px] flex-col gap-16 px-6 sm:px-10">
+        <div
+          className="w-full lg:max-w-[592px]"
+          // Same text-container alignment trick used by Context, Problem, My
+          // Approach, Insight, Discarded Ideas, and Results, so this
+          // heading's left edge lines up with theirs.
+          style={{ marginLeft: "max(0px, calc((100% - 975px) / 2 + 40px))" }}
+        >
+          <SectionHeading eyebrow={closingTakeaways.eyebrow} heading={closingTakeaways.heading} />
+        </div>
+        {/* Full-bleed breakout (same as the Solution sections' grey panels
+            and the Results grey cards) so this grey card reaches the same
+            true edge those do, instead of stopping at the section's own
+            inset padding. */}
+        <div className="-mx-6 w-[calc(100%+3rem)] sm:-mx-10 sm:w-[calc(100%+5rem)]">
+          <div className="grid gap-10 rounded-case-2xl bg-portfolio-grey-50 p-8 sm:grid-cols-3 sm:p-[60px]">
+            {closingTakeaways.testimonials.map((testimonial) => (
+              <TestimonialCard key={testimonial.number} {...testimonial} />
+            ))}
+          </div>
         </div>
       </section>
     </main>

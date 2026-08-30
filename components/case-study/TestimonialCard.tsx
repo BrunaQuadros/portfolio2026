@@ -7,18 +7,19 @@ type TestimonialCardProps = {
   quote: string;
   quoteLine2?: string;
   detail: string;
+  detailLead?: string;
   detailBold?: string;
   detailRest?: string;
   number?: string;
 };
 
-export function TestimonialCard({ quote, quoteLine2, detail, detailBold, detailRest, number }: TestimonialCardProps) {
+export function TestimonialCard({ quote, quoteLine2, detail, detailLead, detailBold, detailRest, number }: TestimonialCardProps) {
   return (
     <figure className="flex flex-col gap-6">
       {number ? (
         <p
           aria-hidden="true"
-          className="font-[family-name:var(--font-inter-display)] font-bold text-[50px] leading-[1.2] tracking-[-1.5px] text-faircado-green-500"
+          className="font-[family-name:var(--font-inter-display)] font-bold text-[40px] leading-[1.2] tracking-[-1.5px] text-faircado-green-500"
         >
           {number}
         </p>
@@ -43,6 +44,7 @@ export function TestimonialCard({ quote, quoteLine2, detail, detailBold, detailR
       <figcaption className="font-manrope text-[16px] leading-[26px] text-portfolio-grey-900 sm:text-[18px] sm:leading-[28px]">
         {detailBold ? (
           <>
+            {detailLead}
             <span className="font-bold">{detailBold}</span>
             {detailRest}
           </>

@@ -340,8 +340,8 @@ export const faircado: FaircadoContent = {
             },
           ],
           peekCards: [
-            { image: `${IMG}/momentum-patagonia.png`, badgeIcon: `${IMG}/icon-fire-badge.svg` },
-            { image: `${IMG}/momentum-adidas.png`, badgeIcon: `${IMG}/icon-lightning-badge.svg` },
+            { image: `${IMG}/momentum-patagonia.png`, badgeIcon: `${IMG}/impact-badge-fire.png` },
+            { image: `${IMG}/momentum-adidas.png`, badgeIcon: `${IMG}/impact-badge-lightning.png` },
           ],
         },
         {
@@ -362,21 +362,59 @@ export const faircado: FaircadoContent = {
       ],
     },
   ],
+  discardedIdeas: {
+    eyebrow: "DISCARDED IDEAS",
+    heading: "Some of the many 'NOs'",
+    bodyLead: "For each front, I came up with many ideas that didn't make the cut due to ",
+    bodyAccent1: "complexity, tech constraints ",
+    bodyMid: "or lack of resources. Prioritizing what moved the needle took careful thinking and ",
+    bodyAccent2: "real tradeoffs.",
+    items: [
+      {
+        tag: "Awareness",
+        tagIcon: `${IMG}/icon-tag-discarded-1.png`,
+        image: { src: `${IMG}/tradeoff-onboarding-dialog.png`, alt: "Dialog shown on app open, prompting users to try image search" },
+        captionTitle: "Dialog on app open",
+        captionBody: "Removed after testing showed Gen Z skip dialogs entirely",
+      },
+      {
+        tag: "Match accuracy",
+        tagIcon: `${IMG}/icon-tag-discarded-2.png`,
+        image: { src: `${IMG}/tradeoff-recommendation-feed.png`, alt: "Recommendation feed of visually similar items" },
+        captionTitle: "Recommendation feed",
+        captionBody: "The algorithm underperformed and was discontinued",
+      },
+      {
+        tag: "Momentum",
+        tagIcon: `${IMG}/icon-tag-discarded-3.png`,
+        image: { src: `${IMG}/tradeoff-ai-shopping-agent.png`, alt: "Fairnando, an AI shopping agent chat assistant" },
+        captionTitle: "AI shopping agent",
+        captionBody: "“Fairnando” became too complex to build, so it was shelved",
+      },
+    ],
+  },
   results: {
+    heading: {
+      eyebrow: "IMPACT",
+      headingLine1: "Image search became",
+      headingLine2: "the star feature",
+      body: "Once overlooked, image search became the heart of the app, and each solution pushed it further. Below are the highlights:",
+    },
     statCards: [
       {
-        icon: `${IMG}/icon-camera.svg`,
+        icon: `${IMG}/impact-image-search.png`,
         heading: "Adoption of image search grew to 89%",
         body: "Image search adoption climbed from ~40% to a peak of 89% in September 2025",
         emphasis: "Image search adoption",
       },
       {
-        icon: `${IMG}/icon-back-arrow.svg`,
+        icon: `${IMG}/impact-search-simialr.png`,
         heading: "“Find similar” feature drove 3x higher sales",
         body: "Similarity search converted at a 3-4x higher rate than text search; search-history image, at 2x.",
+        emphasis: "Similarity search",
       },
       {
-        icon: `${IMG}/icon-fire-badge.svg`,
+        icons: [`${IMG}/impact-badge-fire.png`, `${IMG}/impact-badge-lightning.png`],
         heading: "Urgency badges had 3x higher engagement",
         body: "Urgency badged items were added to bag and favourited 3x more than un-badged ones.",
         emphasis: "Urgency badged items",
@@ -384,33 +422,44 @@ export const faircado: FaircadoContent = {
     ],
     featuredTestimonial: {
       quote:
-        "I've noticed Faircado is pricier than eBay, but I don't mind because the experience is way better. Plus, image search makes finding what I want easier.",
+        "I've noticed Faircado is pricier than eBay, but I don't mind because the experience is way better.",
       user: {
         name: "Faircado user,",
         location: "the Netherlands",
-        avatar: { src: `${IMG}/testimonial-user-avatar.png`, alt: "Faircado user" },
+        avatar: { src: `${IMG}/impact-faircado-user.jpg`, alt: "Faircado user" },
       },
     },
   },
   closingTakeaways: {
+    eyebrow: "LEARNINGS",
+    heading: "Lessons that stuck",
     testimonials: [
       {
-        number: "01/",
-        quote: "MVP is not enough. MVE is the new bar.",
+        number: "01.",
+        quote: "MVP is not enough.",
+        quoteLine2: "MVE is the new bar.",
         detail:
           "Users are increasingly tech-savvy with high expectations. A Minimum Viable Product is no longer enough. Minimum Viable Experience is the real bar.",
+        detailLead: "Users are increasingly tech-savvy with high expectations. A Minimum Viable Product is no longer enough. ",
+        detailBold: "Minimum Viable Experience is the real bar.",
       },
       {
-        number: "02/",
-        quote: "When AI solves speed, direction takes over.",
+        number: "02.",
+        quote: "When AI solves speed,",
+        quoteLine2: "direction takes over.",
         detail:
           "Teams can now ship features simply because they can, rather than ask what's driving impact. Speed is no longer the differentiator, judgment is.",
+        detailLead: "Teams can now ship features simply because they can, rather than ask what's driving impact. ",
+        detailBold: "Speed is no longer the differentiator, judgment is.",
       },
       {
-        number: "03/",
-        quote: "Never overlook a key feature over another",
+        number: "03.",
+        quote: "Never overlook a key",
+        quoteLine2: "feature over another",
         detail:
-          "Once adoption of image search peaked and then settled around 70%, 30% of users were left relying on a broken text search. Optimizing one feature doesn't excuse a gap in another.",
+          "After adoption of image search peaked, it settled on 70%, leaving 30% of users relying on a broken text search. Optimizing one feature doesn't excuse a gap in another.",
+        detailLead: "After adoption of image search peaked, it settled on 70%, leaving 30% of users relying on a broken text search. ",
+        detailBold: "Optimizing one feature doesn't excuse a gap in another.",
       },
     ],
   },
