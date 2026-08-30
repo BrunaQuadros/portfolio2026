@@ -224,32 +224,6 @@ export default function FaircadoCaseStudyPage() {
             </div>
           ))}
         </div>
-        {/* Curved connector from right after "Google" in the text to just outside
-            the bottom-left of the Google stat card (not overlapping it). The curve
-            lives in a box sized by two independent percentages (of section width
-            and section height), which scale non-uniformly at viewports other than
-            the one they were measured at — fine for a smooth line, but it shears a
-            rigid shape. So the arrowhead is a separate, fixed-size element (not
-            inside this stretched box) positioned at the curve's tip, rotated with a
-            plain CSS transform — that never shears regardless of viewport. */}
-        <svg
-          viewBox="0 0 45.1 86.1"
-          className="absolute z-20 hidden lg:block"
-          style={{ left: "53.52%", top: "48.62%", width: "3.7%", height: "19.39%" }}
-          aria-hidden="true"
-        >
-          <path d="M0,86.1 C22.55,86.1 22.55,0 45.1,0" stroke="#FF5182" strokeWidth="2" fill="none" />
-        </svg>
-        <svg
-          viewBox="-6 -8 12 15"
-          width="12"
-          height="15"
-          className="absolute z-20 hidden lg:block"
-          style={{ left: "57.22%", top: "48.62%", transform: "translate(-50%, -50%) rotate(60deg)" }}
-          aria-hidden="true"
-        >
-          <path d="M-5,6 L5,6 L0,-7 Z" fill="#FF5182" />
-        </svg>
       </section>
 
       {/* Problem statement */}
@@ -394,11 +368,12 @@ export default function FaircadoCaseStudyPage() {
             </div>
             {/* Stretchy connector: fills whatever horizontal space is left
                 between the text block and the screenshots, growing or
-                shrinking with viewport width instead of a fixed gap. The
-                source SVG has preserveAspectRatio="none" so it stretches
-                cleanly rather than distorting/clipping. */}
-            <div className="hidden h-[130px] flex-1 self-center lg:block">
-              <img src={`${IMG}/insight-arrow.svg`} alt="" aria-hidden="true" className="h-full w-full" />
+                shrinking with viewport width instead of a fixed gap. Kept at
+                its native size and centered in that flexible gap (rather than
+                stretched to fill it) so the line and arrowhead never distort
+                at different viewport widths. */}
+            <div className="hidden h-[130px] flex-1 items-start justify-center self-center pt-2 lg:flex" aria-hidden="true">
+              <img src={`${IMG}/insight-arrow.svg`} alt="" className="h-2 w-[74px]" />
             </div>
             {/* Each phone is fixed at 250x541 (matching the "Image Search
                 MVP" phone visual), 28px apart, in a container sized to fit
