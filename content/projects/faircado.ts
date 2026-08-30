@@ -218,7 +218,7 @@ export const faircado: FaircadoContent = {
   },
   solutionSections: [
     {
-      number: "01/",
+      number: "01.",
       title: "Awareness",
       tag: "Awareness",
       blocks: [
@@ -229,7 +229,7 @@ export const faircado: FaircadoContent = {
               src: `${IMG}/onboarding-video-walkthrough.png`,
               alt: "Onboarding screen with a video walkthrough teaching users to select one item per photo",
               caption: "Video walkthrough teaches users to select one item per photo",
-              video: { src: "/videos/case-studies/faircado/image-search-intro.mp4" },
+              video: { src: "/videos/case-studies/faircado/image-search-intro.mp4", overlayFrame: true },
             },
             {
               src: `${IMG}/onboarding-interactive-results.png`,
@@ -244,7 +244,7 @@ export const faircado: FaircadoContent = {
           ],
         },
         {
-          heading: "Added 2 new entry points to the homepage to keep image search visible",
+          heading: "Added 2 new entry points to the homepage so image search is visible",
           images: [],
           beforeAfter: {
             before: {
@@ -255,17 +255,17 @@ export const faircado: FaircadoContent = {
               src: `${IMG}/after-homepage-entry-points.png`,
               alt: "Homepage after adding new image search entry points",
             },
-            annotations: [
-              "New camera icon added to the homepage search bar",
-              "New image search entry point added to the navigation",
-              "Persistent call-to-action promoting image search on scroll",
+            pins: [
+              { label: "Camera icon in the search bar", top: 11.6, left: 92.8, showOn: "both" },
+              { label: "New “Your images” section on the homepage", top: 46.6, left: 37.6, showOn: "after" },
+              { label: "New camera icon in the bottom navigation", top: 90.4, left: 57.6, showOn: "after" },
             ],
           },
         },
       ],
     },
     {
-      number: "02/",
+      number: "02.",
       title: "Accuracy",
       tag: "Match accuracy",
       blocks: [
@@ -276,12 +276,26 @@ export const faircado: FaircadoContent = {
               src: `${IMG}/model-training-annotation.png`,
               alt: "Model training example highlighting logos, embroidery, and collar type",
               caption: "Logos, embroidery and collar type were the most mentioned by users",
+              badge: {
+                pointTop: 22.4,
+                pointLeft: 59.2,
+                badgeTop: 4.4,
+                badgeLeft: -20.6,
+                zoom: 3,
+                zoomedSrc: `${IMG}/accuracy-logo-badge.jpg`,
+              },
             },
             {
               src: `${IMG}/after-generic-2.png`,
               alt: "Add to search feature letting users refine visual search with text",
               caption: "“Add to search” allow users to refine visual search with text",
+              video: { src: "/videos/case-studies/faircado/refine-text-search.mp4" },
             },
+          ],
+          sidebarChips: [
+            { thumbnail: `${IMG}/accuracy-chip-thumbnail.jpg`, text: "make it blue" },
+            { thumbnail: `${IMG}/accuracy-chip-thumbnail.jpg`, text: "short sleeve" },
+            { thumbnail: `${IMG}/accuracy-chip-thumbnail.jpg`, text: "like this v-neck" },
           ],
         },
         {
@@ -289,23 +303,47 @@ export const faircado: FaircadoContent = {
           images: [
             {
               src: `${IMG}/awareness-onboarding-tags.png`,
-              alt: "Find similar feature in action on a product page",
-              caption: "“Find similar” feature in action, creating an engaging search loop",
+              alt: "Find similar button added to a product page",
+              caption: "“Find similar” button added to product pages",
+              overlayTag: { label: "Find similar", top: 45, left: 79 },
             },
             {
               src: `${IMG}/after-generic-3.png`,
-              alt: "Find similar button added to a product page",
-              caption: "“Find similar” button added to product pages",
+              alt: "Find similar feature in action on a product page",
+              caption: "“Find similar” feature in action, creating an engaging search loop",
+              video: { src: "/videos/case-studies/faircado/search-similar.mp4" },
             },
           ],
+          connectWithArrow: true,
         },
       ],
     },
     {
-      number: "03/",
+      number: "03.",
       title: "Momentum",
       tag: "Momentum",
       blocks: [
+        {
+          heading: "Added urgency badges to push 'just browsing' users to act",
+          images: [
+            {
+              src: `${IMG}/momentum-mockup-fire.png`,
+              alt: "Product page with a fire urgency badge reading Almost taken, hurry up",
+              caption: "Fire badge signals items already in other users' bags",
+              overlayTip: { icon: "fire", title: "Almost taken, hurry up!", subtitle: "In other people's bag right now", top: 65.1 },
+            },
+            {
+              src: `${IMG}/momentum-mockup-lightning.png`,
+              alt: "Product page with a lightning urgency badge reading Popular item",
+              caption: "Lightning badge flags items other users are favoriting",
+              overlayTip: { icon: "lightning", title: "Popular item", subtitle: "Others are favouriting this", top: 65.1 },
+            },
+          ],
+          peekCards: [
+            { image: `${IMG}/momentum-patagonia.png`, badgeIcon: `${IMG}/icon-fire-badge.svg` },
+            { image: `${IMG}/momentum-adidas.png`, badgeIcon: `${IMG}/icon-lightning-badge.svg` },
+          ],
+        },
         {
           heading: "Built two features so 'still thinking' users easily pick up where they left off",
           images: [
@@ -316,8 +354,8 @@ export const faircado: FaircadoContent = {
             },
             {
               src: `${IMG}/momentum-your-images-page.png`,
-              alt: "Your images page collecting past search photos",
-              caption: "“Your images” page",
+              alt: "Image history page collecting past search photos",
+              caption: "Image history page",
             },
           ],
         },

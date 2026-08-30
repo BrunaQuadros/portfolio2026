@@ -26,6 +26,7 @@ These are project-specific brand colors for the Faircado case study, not the por
 
 - Body/heading font: **Manrope** (`--font-manrope`, loaded via `next/font/google` in `app/layout.tsx`), used for all case study copy, headings, and card titles.
 - Display font for large numbered section labels ("01/", "02/", "03/") and background outline numbers: **Inter** (`--font-inter-display`).
+- Diegetic app-UI font, used only for mockup elements that reproduce real in-app copy (e.g. the Momentum urgency tip callouts) instead of the portfolio's own voice: **Hanken Grotesk** (`--font-hanken-grotesk`), matching the actual Faircado app's typeface per Figma.
 - Font sizes and line heights used inline via Tailwind (e.g. `text-[28px] leading-[38px]`, `text-[40px] leading-[48px]`) since no site-wide type scale exists yet. Flagged below.
 
 ## Spacing
@@ -63,3 +64,4 @@ First real case study copy (Faircado) is direct, confident, data-forward: short 
 ## Decisions Log
 - 2026-08-22: DESIGN.md created as placeholder, structure only, awaiting Figma extraction
 - 2026-08-24: First token extraction done while building the Faircado case study page. Added portfolio-grey/faircado-pink/faircado-green color tokens, Manrope + Inter fonts, and case-study radius tokens to `app/globals.css`. Font sizes/line-heights and shadows were not tokenized (used as one-off arbitrary Tailwind values) — flag for future consolidation once a second case study confirms which values actually repeat.
+- 2026-08-30: Added Hanken Grotesk (`--font-hanken-grotesk`) for diegetic app-UI mockup copy only (Momentum urgency tip callouts), matching the real Faircado app's font per Figma — not a replacement for Manrope as the portfolio's own voice.

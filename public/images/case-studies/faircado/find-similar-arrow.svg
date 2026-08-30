@@ -1,0 +1,15 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="160" height="541" viewBox="0 0 160 541" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Arrow" clip-path="url(#clip0_0_35)">
+<!-- Vertically stretched (pivoted near the arrowhead end) so the start
+     point sits 40px higher than the original asset, while the end stays
+     anchored at the same spot. -->
+<g transform="matrix(1 0 0 1.4706 0 -153.31)">
+<path id="Vector" d="M160.707 325.506C161.098 325.115 161.098 324.482 160.707 324.092L154.343 317.728C153.953 317.337 153.319 317.337 152.929 317.728C152.538 318.118 152.538 318.751 152.929 319.142L158.586 324.799L152.929 330.456C152.538 330.846 152.538 331.479 152.929 331.87C153.319 332.26 153.953 332.26 154.343 331.87L160.707 325.506ZM40 240.799L40 241.799C59.3271 241.799 71.4567 246.987 80.0504 254.669C88.6931 262.395 93.8529 272.715 99.1051 283.245C104.327 293.715 109.641 304.395 118.617 312.419C127.641 320.487 140.275 325.799 160 325.799L160 324.799L160 323.799C140.673 323.799 128.543 318.611 119.95 310.928C111.307 303.202 106.147 292.883 100.895 282.353C95.6732 271.883 90.3592 261.202 81.3833 253.178C72.3586 245.111 59.7251 239.799 40 239.799L40 240.799Z" fill="#E33B7C"/>
+</g>
+</g>
+<defs>
+<clipPath id="clip0_0_35">
+<rect width="160" height="541" fill="white"/>
+</clipPath>
+</defs>
+</svg>
