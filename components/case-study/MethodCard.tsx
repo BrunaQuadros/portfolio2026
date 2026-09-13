@@ -12,7 +12,7 @@ type MethodCardProps = {
 
 export function MethodCard({ title, description, logos, avatars, icons }: MethodCardProps) {
   return (
-    <div className="flex h-[380px] flex-col justify-between gap-10 rounded-[40px] bg-portfolio-grey-50 p-6 sm:p-10">
+    <div className="flex flex-col justify-between gap-10 sm:h-[380px] rounded-[40px] bg-portfolio-grey-50 p-6 sm:p-10">
       <div className="flex h-[52px] items-center">
         {logos?.map((logo, i) => (
           <div

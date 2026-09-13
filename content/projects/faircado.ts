@@ -203,7 +203,7 @@ export const faircado: FaircadoContent = {
       {
         src: `${IMG}/decorative-feedback-screenshot-1.png`,
         alt: "Survey prompt asking 'Happy with these results?' with 'Didn't match my image' selected as the reason",
-        caption: "In-app survey I've launched partnering with engineering",
+        caption: "In-app survey launched with engineering",
       },
       {
         src: `${IMG}/decorative-feedback-screenshot-2.png`,
