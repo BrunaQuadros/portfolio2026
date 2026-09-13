@@ -16,7 +16,7 @@ type StatCardProps = {
 
 export function StatCard({ icon, icons, heading, body, emphasis }: StatCardProps) {
   return (
-    <div className="flex h-[431px] flex-1 flex-col justify-between gap-8 rounded-[40px] bg-portfolio-grey-50 p-6 min-w-[240px] sm:p-10">
+    <div className="flex flex-1 flex-col justify-between gap-8 sm:h-[431px] rounded-[40px] bg-portfolio-grey-50 p-6 min-w-[240px] sm:p-10">
       {icons ? (
         <div className="flex items-center gap-2">
           {icons.map((src, i) => (

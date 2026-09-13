@@ -50,6 +50,14 @@ style={{ marginLeft: "max(0px, calc((100% - 975px) / 2 + 40px))" }}
 
 When adding a new section: headings/body copy get the text container's offset; anything meant to span the full visual width (image panels, card rows, colored panels) gets the full-bleed breakout. Both nest inside the same outer `max-w-[1220px]` section.
 
+**Phone mockups** — every app screenshot is 250 x 541px on desktop (`lg:` and up) and 190 x 411px below that (same 250:541 aspect ratio). Reuse these two sizes for any phone mockup; don't introduce a third.
+
+**Horizontal scroll strip (mobile only)** — when a section shows two or more phone mockups side by side, below `lg:` they go in a scroll strip instead of stacking. The desktop composition stays untouched (`hidden lg:block`), the strip is `lg:hidden`:
+```
+scrollbar-hide -mx-4 -mt-8 -mb-10 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pt-8 pb-14 scroll-pl-4 sm:-mx-10 sm:px-10 sm:scroll-pl-10
+```
+Each phone is `shrink-0 snap-start`. The negative margins break out of the section padding so the next phone peeks in from the right edge; `scroll-pl-*` keeps the first phone aligned with the text above it; `scrollbar-hide` (a utility in `app/globals.css`) hides the scrollbar while keeping touch and trackpad scrolling. The vertical padding plus matching negative margins give the phones' drop shadow room inside the scroll box: overflow clips it otherwise, which shows up as a hard grey line under the phones. Inside a card that centers its children (`items-center`), add `self-stretch` to the strip, or it shrinks to its content width and gets clipped instead of scrolling. Used on the Insight section and on every Final Solution card.
+
 ## Radius & Shadows
 
 Added case-study-specific radius tokens (`--radius-case-md` 12px through `--radius-case-3xl` 48px, plus `rounded-full` for pills) since the existing ShadCN radius scale (`--radius-sm/md/lg/xl/2xl/3xl/4xl`, based on a 10px `--radius` root) doesn't land close to the larger card radii (24px, 40px, 48px) this design repeats throughout. Shadows use Tailwind's arbitrary `shadow-[...]` values matching Figma's exact drop shadows (no shadow token scale exists yet).
@@ -65,3 +73,4 @@ First real case study copy (Faircado) is direct, confident, data-forward: short 
 - 2026-08-22: DESIGN.md created as placeholder, structure only, awaiting Figma extraction
 - 2026-08-24: First token extraction done while building the Faircado case study page. Added portfolio-grey/faircado-pink/faircado-green color tokens, Manrope + Inter fonts, and case-study radius tokens to `app/globals.css`. Font sizes/line-heights and shadows were not tokenized (used as one-off arbitrary Tailwind values) — flag for future consolidation once a second case study confirms which values actually repeat.
 - 2026-08-30: Added Hanken Grotesk (`--font-hanken-grotesk`) for diegetic app-UI mockup copy only (Momentum urgency tip callouts), matching the real Faircado app's font per Figma — not a replacement for Manrope as the portfolio's own voice.
+- 2026-09-13: Mobile responsive pass on the Faircado case study. Standardized phone mockups at 190 x 411px below `lg:`, added the mobile horizontal scroll strip pattern (first used on the Insight section) and the `scrollbar-hide` utility in `app/globals.css`.

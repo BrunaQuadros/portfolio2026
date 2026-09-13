@@ -151,3 +151,11 @@
     @apply font-sans;
   }
 }
+/* Hides the scrollbar of a horizontally scrolling strip (mobile phone
+   mockup rows) while keeping it scrollable by touch or trackpad. */
+@utility scrollbar-hide {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}

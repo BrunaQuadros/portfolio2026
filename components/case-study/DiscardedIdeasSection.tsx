@@ -49,9 +49,15 @@ export function DiscardedIdeasSection({
           }
         />
       </div>
-      <div className="flex flex-wrap items-start justify-center gap-x-[160px] gap-y-16">
+      {/* Below lg: the three ideas in a horizontal scroll strip (see
+          docs/DESIGN.md, "Horizontal scroll strip"), breaking out of the
+          section's side padding, with vertical padding + matching negative
+          margins so the phones' drop shadow isn't clipped by the scroll
+          box. From lg up all of that is undone and the row is the original
+          centered, wrapping layout with the wide gaps. */}
+      <div className="scrollbar-hide -mx-6 -mt-8 -mb-14 flex snap-x snap-mandatory gap-6 overflow-x-auto px-6 pt-8 pb-14 scroll-pl-6 sm:-mx-10 sm:px-10 sm:scroll-pl-10 lg:mx-0 lg:my-0 lg:snap-none lg:flex-wrap lg:items-start lg:justify-center lg:gap-x-[160px] lg:gap-y-16 lg:overflow-visible lg:px-0 lg:py-0">
         {items.map((item, i) => (
-          <div key={i} className="flex w-[220px] flex-col items-start gap-12 sm:w-[250px]">
+          <div key={i} className="flex w-[190px] shrink-0 snap-start flex-col items-start gap-12 sm:w-[250px] lg:shrink lg:snap-align-none">
             <TagPill icon={item.tagIcon} label={item.tag} />
             <figure className="flex w-full flex-col items-center gap-3">
               <div className="relative aspect-[250/541] w-full overflow-hidden rounded-case-xl shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)]">

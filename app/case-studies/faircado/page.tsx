@@ -34,6 +34,53 @@ export default function FaircadoCaseStudyPage() {
     closingTakeaways,
   } = faircado;
 
+  // Takeaways section pieces. Rendered twice (once for the mobile
+  // interleaved layout, once for the desktop two-row grid, each hidden at
+  // the other's breakpoints), so they live in small helpers instead of
+  // being copy-pasted.
+  const renderTakeawayTestimonial = (i: number) => (
+    // The background numeral's own left edge lines up with the column's
+    // bare left edge (matching the card background below), while the
+    // actual quote/body text stays inset with pl-10 to match the card's
+    // text — text aligns with text, background aligns with background.
+    <div key={i} className="relative">
+      <img
+        src={`${IMG}/takeaways-number-0${i + 1}.svg`}
+        alt=""
+        aria-hidden="true"
+        className="pointer-events-none absolute left-0 top-0 -z-10 w-[calc(68%+40px)]"
+      />
+      {/* Pushes the quote/heading/body down while the background numeral
+          (an absolutely-positioned sibling) stays put, so more of the
+          numeral shows above the content instead of being covered by the
+          quote mark right away. */}
+      <div className="pl-6 pr-6 pt-14 sm:pl-10">
+        <TestimonialCard {...takeaways.testimonials[i]} />
+      </div>
+    </div>
+  );
+
+  const renderProblemCard = (i: number) => {
+    const card = problemCards[i];
+    return (
+      <ProblemCard
+        key={i}
+        tag={card.tag}
+        tagIcon={
+          i === 0
+            ? `${IMG}/icon-tag-awareness.png`
+            : i === 1
+              ? `${IMG}/icon-tag-accuracy.png`
+              : `${IMG}/icon-tag-momentum.png`
+        }
+        heading={card.heading}
+        headingAccent={card.headingAccent}
+        headingTail={card.headingTail}
+        body={card.body}
+      />
+    );
+  };
+
   return (
     <main className="flex flex-col gap-24 pb-32 sm:gap-32">
       {/* Hero */}
@@ -263,7 +310,11 @@ export default function FaircadoCaseStudyPage() {
                   <span className="font-bold">{problem.bodyAccent2}</span>
                   {problem.bodyText2Tail}
                 </p>
-                <p className="font-bold">{problem.closingLine}</p>
+                {/* Desktop only: below lg this line moves down to sit
+                    between the MVP phone and the grey challenge panel
+                    (see the Challenge section), per the mobile reading
+                    order text > phone > "So our challenge became:" > panel. */}
+                <p className="hidden font-bold lg:block">{problem.closingLine}</p>
               </div>
             }
           />
@@ -280,26 +331,50 @@ export default function FaircadoCaseStudyPage() {
       <section className="relative z-10 mx-auto w-full max-w-[1220px] px-4 sm:px-10 lg:-mt-[420px]">
         <div className="w-full">
           <div className="flex flex-col items-center">
-            <div className="relative z-10 flex w-[250px] shrink-0 -mb-16 flex-col items-center gap-3 lg:mb-[-150px] lg:ml-auto lg:mr-16 lg:-translate-x-10">
-              <p className="w-[226px] text-center font-manrope text-[14px] leading-[20px] text-portfolio-grey-600">
+            {/* Below lg the phone sits in normal flow above the closing
+                line and the panel (no overlap); on lg it overlaps the panel
+                by 150px and sits to the right, as before. */}
+            {/* Phone mockups are 190x411 below lg (the standard mobile
+                phone size, same 250:541 aspect ratio as desktop) and
+                250x541 on lg. */}
+            <div className="relative z-10 flex w-[190px] shrink-0 flex-col items-center gap-3 lg:w-[250px] lg:mb-[-150px] lg:ml-auto lg:mr-16 lg:-translate-x-10">
+              <p className="w-full text-center font-manrope text-[14px] leading-[20px] text-portfolio-grey-600 lg:w-[226px]">
                 The Image Search MVP
               </p>
-              <div className="relative h-[541px] w-[250px] overflow-hidden rounded-case-xl shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)]">
+              <div className="relative h-[411px] w-[190px] overflow-hidden rounded-case-xl shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)] lg:h-[541px] lg:w-[250px]">
                 <Image src={problem.beforeImage.src} alt={problem.beforeImage.alt} fill className="object-cover" />
               </div>
             </div>
-            <div className="relative z-0 flex h-[340px] w-full items-center rounded-case-3xl bg-portfolio-grey-50">
+            {/* Mobile-only copy of "So our challenge became:", between the
+                phone and the panel. The desktop copy lives in the Problem
+                text block above (hidden below lg). */}
+            <p className="mt-10 mb-6 w-full font-manrope font-bold text-[18px] leading-[28px] text-portfolio-grey-900 lg:hidden">
+              {problem.closingLine}
+            </p>
+            {/* Below lg the panel grows to its content with even padding;
+                on lg it keeps its fixed 340px height with no padding, since
+                the text sits beside the phone there. */}
+            <div className="relative z-0 flex min-h-[340px] w-full items-center rounded-case-3xl bg-portfolio-grey-50 py-10 lg:h-[340px] lg:min-h-0 lg:py-0">
               <div className="w-full px-6 sm:px-10 lg:px-[80px]">
                 {/* Explicit line breaks (rather than letting the text wrap
                     on its own) so the headline always renders as exactly
                     three lines, matching the approved copy layout. */}
                 <p className="max-w-[560px] text-left font-manrope font-bold text-[28px] leading-[1.4] tracking-[-0.5px] text-portfolio-grey-900 lg:max-w-none lg:text-[36px] lg:leading-[1.4]">
+                  {/* The manual line breaks are desktop-only: on narrower
+                      screens the lines are shorter anyway, so forcing the
+                      desktop breaks on top of the natural wrapping left
+                      orphan words ("the image" alone on a line). Below lg
+                      the break is replaced by a non-breaking space, so
+                      "image search" and "grow adoption" always stay
+                      together on one line. */}
                   {problem.challengeLine1}
-                  <br />
+                  <br className="hidden lg:inline" />
+                  <span className="lg:hidden">{"\u00A0"}</span>
                   {problem.challengeLine2Lead}
                   <span className="text-faircado-green-500">
                     {problem.challengeAccentLine2}
-                    <br />
+                    <br className="hidden lg:inline" />
+                    <span className="lg:hidden">{"\u00A0"}</span>
                     {problem.challengeAccentLine3}
                   </span>
                 </p>
@@ -379,24 +454,52 @@ export default function FaircadoCaseStudyPage() {
             <div className="hidden h-[130px] flex-1 items-start justify-center self-center pt-2 lg:flex" aria-hidden="true">
               <img src={`${IMG}/insight-arrow.svg`} alt="" className="h-2 w-[74px]" />
             </div>
-            {/* Each phone is fixed at 250x541 on desktop (matching the
-                "Image Search MVP" phone visual), 28px apart, in a container
-                sized to fit both plus the second phone's 24% vertical
-                offset. Scaled down proportionally on mobile/sm (same
-                250:541 aspect ratio) so the pair fits inside the viewport
-                instead of overflowing it. */}
-            <div className="relative mx-auto h-[341px] w-[253px] shrink-0 sm:h-[462px] sm:w-[343px] lg:mx-0 lg:h-[711px] lg:w-[528px]">
+            {/* Mobile (below lg): a horizontal scroll strip, one phone per
+                snap stop, both at the standard 190x411 size. It breaks out
+                of the section's side padding so the strip runs edge to
+                edge and the second phone peeks in from the right, which
+                signals there's more to scroll. The caption sits under the
+                strip, inside the normal padding. */}
+            <div className="w-full lg:hidden">
+              {/* scroll-pl matches the padding so the first snap stop lands on the
+                  content's left edge (aligned with the text above), not on
+                  the screen edge; scrollbar-hide keeps the strip clean.
+                  The vertical padding gives the phones' drop shadow room
+                  inside the scroll box (overflow clips it otherwise, which
+                  showed up as a hard grey line under the phones), and the
+                  matching negative margins cancel it out so the spacing
+                  around the strip stays the same. */}
+              <div className="scrollbar-hide -mx-4 -mt-8 -mb-10 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pt-8 pb-14 scroll-pl-4 sm:-mx-10 sm:px-10 sm:scroll-pl-10">
+                {insight.screenshots.map((screenshot, i) => (
+                  <div
+                    key={i}
+                    className="relative h-[411px] w-[190px] shrink-0 snap-start overflow-hidden rounded-case-xl shadow-[0px_12px_37px_0px_rgba(0,0,0,0.12)]"
+                  >
+                    <Image src={screenshot.src} alt={screenshot.alt} fill className="object-cover" />
+                  </div>
+                ))}
+              </div>
+              {insight.screenshots[0].caption ? (
+                <p className="mt-2 w-full text-left font-manrope text-[14px] leading-[20px] text-portfolio-grey-600">
+                  {insight.screenshots[0].caption}
+                </p>
+              ) : null}
+            </div>
+            {/* Desktop (lg and up): the two phones as a staggered pair,
+                fixed at 250x541 each, 28px apart, in a container sized to
+                fit both plus the second phone's 24% vertical offset. */}
+            <div className="relative hidden h-[711px] w-[528px] shrink-0 lg:block">
               {/* Positioned so the arrowhead (bottom-left of the source SVG)
                   lands centered just above the first phone's top edge,
                   instead of dipping down into the screen itself. */}
               <div
                 aria-hidden="true"
-                className="pointer-events-none absolute -top-[140px] right-[41%] hidden w-[190px] lg:block"
+                className="pointer-events-none absolute -top-[140px] right-[41%] w-[190px]"
               >
                 <img src={`${IMG}/insight-curve-arrow.svg`} alt="" />
               </div>
-              <div className="absolute left-0 top-0 flex w-[120px] flex-col items-center gap-3 sm:w-[162px] lg:w-[250px]">
-                <div className="relative h-[260px] w-[120px] overflow-hidden rounded-case-xl shadow-[0px_12px_37px_0px_rgba(0,0,0,0.12)] sm:h-[351px] sm:w-[162px] lg:h-[541px] lg:w-[250px]">
+              <div className="absolute left-0 top-0 flex w-[250px] flex-col items-center gap-3">
+                <div className="relative h-[541px] w-[250px] overflow-hidden rounded-case-xl shadow-[0px_12px_37px_0px_rgba(0,0,0,0.12)]">
                   <Image src={insight.screenshots[0].src} alt={insight.screenshots[0].alt} fill className="object-cover" />
                 </div>
                 {insight.screenshots[0].caption ? (
@@ -405,7 +508,7 @@ export default function FaircadoCaseStudyPage() {
                   </p>
                 ) : null}
               </div>
-              <div className="absolute right-0 top-[24%] h-[260px] w-[120px] overflow-hidden rounded-case-lg shadow-[0px_12px_37px_0px_rgba(0,0,0,0.12)] sm:h-[351px] sm:w-[162px] lg:h-[541px] lg:w-[250px]">
+              <div className="absolute right-0 top-[24%] h-[541px] w-[250px] overflow-hidden rounded-case-lg shadow-[0px_12px_37px_0px_rgba(0,0,0,0.12)]">
                 <Image src={insight.screenshots[1].src} alt={insight.screenshots[1].alt} fill className="object-cover" />
               </div>
             </div>
@@ -418,9 +521,11 @@ export default function FaircadoCaseStudyPage() {
           unrelated sections — so both rows share the same 3-column grid
           (for the arrows to land under the right column), inside the
           section's own px-4/px-10 padding. */}
-      {/* -mt-[60px]: pulls this section (and everything after it, since
-          they follow in normal flow) 60px closer to Insight above. */}
-      <section className="mx-auto -mt-[60px] w-full max-w-[1220px] px-4 sm:px-10">
+      {/* lg:-mt-[60px]: pulls this section (and everything after it, since
+          they follow in normal flow) 60px closer to Insight above. Desktop
+          only: below lg the Insight phones sit in a scroll strip right
+          above, and the full page gap is wanted there. */}
+      <section className="mx-auto w-full max-w-[1220px] px-4 sm:px-10 lg:-mt-[60px]">
         <div
           className="mb-20 lg:max-w-[420px]"
           // Same text-container alignment trick used by Context, Problem,
@@ -440,29 +545,23 @@ export default function FaircadoCaseStudyPage() {
           />
         </div>
         <div className="w-full">
-          <div className="grid grid-cols-1 gap-10 sm:grid-cols-3">
-            {takeaways.testimonials.map((testimonial, i) => (
-              // The background numeral's own left edge lines up with the
-              // column's bare left edge (matching the card background below),
-              // while the actual quote/body text stays inset with pl-10 to
-              // match the card's text — text aligns with text, background
-              // aligns with background.
-              <div key={i} className="relative">
-                <img
-                  src={`${IMG}/takeaways-number-0${i + 1}.svg`}
-                  alt=""
-                  aria-hidden="true"
-                  className="pointer-events-none absolute left-0 top-0 -z-10 w-[calc(68%+40px)]"
-                />
-                {/* Pushes the quote/heading/body down while the background
-                    numeral (an absolutely-positioned sibling) stays put, so
-                    more of the numeral shows above the content instead of
-                    being covered by the quote mark right away. */}
-                <div className="pl-6 pr-6 pt-14 sm:pl-10">
-                  <TestimonialCard {...testimonial} />
-                </div>
+          {/* Mobile (below sm): each testimonial is followed directly by
+              the problem card it leads to (01 > Awareness, 02 > Match
+              accuracy, 03 > Momentum), so the pairing reads in sequence
+              instead of as two separate stacks. */}
+          <div className="flex flex-col gap-16 sm:hidden">
+            {takeaways.testimonials.map((_, i) => (
+              <div key={i} className="flex flex-col gap-6">
+                {renderTakeawayTestimonial(i)}
+                {renderProblemCard(i)}
               </div>
             ))}
+          </div>
+          {/* Desktop (sm and up): testimonials row, connector arrows,
+              problem cards row, sharing the same 3-column grid so each
+              arrow lands under the right column. */}
+          <div className="hidden grid-cols-3 gap-10 sm:grid">
+            {takeaways.testimonials.map((_, i) => renderTakeawayTestimonial(i))}
           </div>
           <div className="mt-5 mb-[60px] hidden grid-cols-3 sm:grid" aria-hidden="true">
             {takeaways.testimonials.map((_, i) => (
@@ -481,24 +580,8 @@ export default function FaircadoCaseStudyPage() {
               </div>
             ))}
           </div>
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
-            {problemCards.map((card, i) => (
-              <ProblemCard
-                key={i}
-                tag={card.tag}
-                tagIcon={
-                  i === 0
-                    ? `${IMG}/icon-tag-awareness.png`
-                    : i === 1
-                      ? `${IMG}/icon-tag-accuracy.png`
-                      : `${IMG}/icon-tag-momentum.png`
-                }
-                heading={card.heading}
-                headingAccent={card.headingAccent}
-                headingTail={card.headingTail}
-                body={card.body}
-              />
-            ))}
+          <div className="hidden grid-cols-3 gap-6 sm:grid">
+            {problemCards.map((_, i) => renderProblemCard(i))}
           </div>
         </div>
       </section>
@@ -516,9 +599,14 @@ export default function FaircadoCaseStudyPage() {
       </section>
 
       {/* Three numbered solution sections */}
-      {/* -mt-[100px]: reduces the gap above this from the Final Solution
-          title (128px base) down to 28px, per request. */}
-      <div className="mx-auto -mt-[100px] flex w-full max-w-[1220px] flex-col gap-24 px-4 sm:px-10 sm:gap-32">
+      {/* lg:-mt-[100px]: reduces the gap above this from the Final Solution
+          title (128px base) down to 28px, per request. Only from lg up: the
+          big "01 Awareness" title is 152px tall there, so pulling up 100px
+          still leaves it clear of the intro text. Below lg the title is
+          smaller (vw-based, ~50px on phones), so the same pull-up made it
+          overlap the intro paragraph; a smaller pull-up keeps the gap
+          similar. */}
+      <div className="mx-auto -mt-16 flex w-full max-w-[1220px] flex-col gap-24 px-4 sm:px-10 sm:gap-32 lg:-mt-[100px]">
         {solutionSections.map((section) => (
           <SolutionSection
             key={section.number}
