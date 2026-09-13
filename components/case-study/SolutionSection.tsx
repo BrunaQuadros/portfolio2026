@@ -281,27 +281,33 @@ function BeforeAfterFrame({ pair }: { pair: BeforeAfterPair }) {
 
 export function SolutionSection({ number, title, tagIcon, tag, blocks }: SolutionSectionProps) {
   return (
-    <section className="flex w-full flex-col items-center gap-7" aria-labelledby={`solution-${title.toLowerCase()}`}>
+    <section className="flex w-full flex-col items-center gap-7 overflow-x-hidden" aria-labelledby={`solution-${title.toLowerCase()}`}>
       <h3
         id={`solution-${title.toLowerCase()}`}
         className="font-[family-name:var(--font-inter-display)] font-bold leading-[1.1] tracking-[-2px] text-portfolio-grey-50 text-center"
       >
         {/* A third of the title's size (matches Figma), baseline-aligned
-            with it by default since both are inline text in the same h3. */}
-        <span className="text-[5vw] sm:text-[2.67vw] md:text-[2.33rem] text-faircado-green-400">{number}</span>
-        <span className="text-[calc(15vw+40px)] sm:text-[calc(8vw+40px)] md:text-[152px]">{title}</span>
+            with it by default since both are inline text in the same h3.
+            Mobile/sm sizes are pure vw (no flat px addend) so the longest
+            title word ("Awareness") scales down with the viewport instead
+            of overflowing it — the old `calc(15vw+40px)` stayed ~96px+ even
+            on the narrowest phones. */}
+        <span className="text-[4vw] sm:text-[2.33vw] md:text-[2.33rem] text-faircado-green-400">{number}</span>
+        <span className="text-[12vw] sm:text-[7vw] md:text-[152px]">{title}</span>
       </h3>
       <div className="flex w-full flex-col items-center gap-20">
-        {/* Every block's gray panel is full-bleed, matching the hero video
-            panel's width — the same width as the first (Awareness intro)
-            panel, instead of being inset by the section's own padding. */}
+        {/* Each block's gray panel simply sits inside the page's own
+            px-6/sm:px-10 section padding (like the My Role/Impact box)
+            instead of full-bleed breaking out of it — full-bleed left the
+            panel edge-to-edge with no gutter at all on desktop windows
+            narrower than the section's max-w. */}
         {blocks.map((block, i) => (
-          <div key={i} className="-mx-6 w-[calc(100%+3rem)] sm:-mx-10 sm:w-[calc(100%+5rem)]">
+          <div key={i} className="w-full">
             {/* pt-10 (not py-15's usual top) so the heading's top edge lands
                 exactly where the absolutely-positioned pill's top edge sits
                 (top-10), instead of stacking below it. */}
-            <div className="relative flex w-full flex-col items-center gap-15 rounded-case-3xl bg-portfolio-grey-50 px-10 pb-15 pt-10">
-              <div className="absolute left-10 top-10">
+            <div className="relative flex w-full flex-col items-center gap-15 rounded-case-3xl bg-portfolio-grey-50 px-6 pb-15 pt-10 sm:px-10">
+              <div className="absolute left-6 top-10 sm:left-10">
                 <TagPill icon={tagIcon} label={tag} />
               </div>
               {/* Centered across the card's full width, ignoring the pill's

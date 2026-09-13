@@ -7,6 +7,7 @@ import { MethodCard } from "@/components/case-study/MethodCard";
 import { TestimonialCard } from "@/components/case-study/TestimonialCard";
 import { StatCard } from "@/components/case-study/StatCard";
 import { SolutionSection } from "@/components/case-study/SolutionSection";
+import { TeamAvatarGroup } from "@/components/case-study/TeamAvatarGroup";
 import { DiscardedIdeasSection } from "@/components/case-study/DiscardedIdeasSection";
 
 const IMG = "/images/case-studies/faircado";
@@ -36,7 +37,7 @@ export default function FaircadoCaseStudyPage() {
   return (
     <main className="flex flex-col gap-24 pb-32 sm:gap-32">
       {/* Hero */}
-      <section className="mx-auto flex w-full max-w-[1220px] flex-col items-center gap-16 px-6 pt-20 sm:px-10 lg:gap-[110px] lg:pt-32">
+      <section className="mx-auto flex w-full max-w-[1220px] flex-col items-center gap-16 px-4 pt-20 sm:px-10 lg:gap-[110px] lg:pt-32">
         <div className="flex w-full max-w-[968px] flex-col gap-10 lg:gap-16">
           <div className="relative size-16">
             <Image src={hero.logo.src} alt={hero.logo.alt} fill priority />
@@ -44,14 +45,21 @@ export default function FaircadoCaseStudyPage() {
           <div className="flex flex-col gap-6">
             <h1 className="font-manrope font-bold text-[40px] leading-[1.1] tracking-[-1.5px] text-portfolio-grey-900 sm:text-[56px] lg:text-[70px] lg:leading-[88px] lg:tracking-[-2.1px]">
               {hero.headingLine1}
-              <br />
+              {/* The line break here is a desktop-only art direction choice
+                  (two balanced lines at the lg heading size). Forcing it at
+                  every breakpoint orphaned words on mobile, since the text
+                  wraps again on top of the manual break at narrower widths;
+                  hiding the <br> below lg lets it wrap naturally there. */}
+              <br className="hidden lg:block" />
+              {" "}
               {hero.headingLine2}
             </h1>
             <p className="font-manrope text-[22px] leading-[1.4] tracking-[-0.5px] text-portfolio-grey-900 sm:text-[28px] lg:text-[40px] lg:leading-[60px] lg:tracking-[-1.2px]">
               {hero.descriptionLead}
               <span className="text-faircado-green-500">{hero.descriptionAccent1}</span>
               {hero.descriptionMid1}
-              <br />
+              <br className="hidden lg:block" />
+              {" "}
               {hero.descriptionMid2}
               <span className="text-faircado-green-500">{hero.descriptionAccent2}</span>
               {hero.descriptionTail}
@@ -59,27 +67,28 @@ export default function FaircadoCaseStudyPage() {
           </div>
         </div>
         <div
-          // Breaks out of the section's px-6/sm:px-10 padding so this panel reaches
-          // the container's full 1220px max-width, instead of being inset like the
-          // heading/subtitle above it.
-          className="relative -mx-6 aspect-[1220/728] w-[calc(100%+3rem)] overflow-hidden rounded-case-3xl bg-portfolio-grey-50 sm:-mx-10 sm:w-[calc(100%+5rem)]"
+          // Sits inside the section's own px-4/sm:px-10 padding, same as every
+          // other gray panel on the page — no full-bleed breakout, so this panel
+          // keeps the same 24px (mobile) / 40px (sm+) gutter as the rest.
+          className="relative w-full aspect-[9/13] overflow-hidden rounded-case-lg bg-portfolio-grey-50 sm:aspect-[16/10] sm:rounded-case-2xl lg:aspect-[1220/728] lg:rounded-case-3xl"
         >
           <Image
             src={`${IMG}/badge-featured-app-store.png`}
             alt="Featured by App Store"
             width={518}
             height={172}
-            className="absolute object-contain"
-            style={{ left: "3.6%", top: "6%", width: "24%", height: "auto" }}
+            className="absolute left-[5%] top-[3%] w-[36%] object-contain lg:left-[3.6%] lg:top-[6%] lg:w-[24%]"
           />
           {/* The phone/hand mockup and the app content are now a single pre-composited
               video, so there's no separate frame image or manual video-box positioning
               to maintain — one element, same on-screen placement the frame image used
-              to have. */}
+              to have. Mobile/sm get a taller container (aspect-[9/13]/[16/10]) and a
+              bigger, centered video so the hand+phone read at a usable size on a phone
+              screen, matching reference treatments; lg keeps the original wide-panel
+              placement untouched. */}
           <video
             src="/videos/case-studies/faircado/hero-cover-video.mp4"
-            className="absolute object-contain"
-            style={{ left: "37.54%", top: "10.74%", width: "44.93%", height: "97.5%" }}
+            className="absolute left-1/2 top-[2%] h-[98%] w-[84%] -translate-x-1/2 object-contain object-bottom sm:left-[58%] sm:top-[4%] sm:h-[98%] sm:w-[62%] lg:left-[37.54%] lg:top-[10.74%] lg:h-[97.5%] lg:w-[44.93%] lg:translate-x-0 lg:object-center"
             autoPlay
             muted
             loop
@@ -90,52 +99,50 @@ export default function FaircadoCaseStudyPage() {
       </section>
 
       {/* Section 2: Role / Timeline / Team / Space + Impact, then Context */}
-      <section className="mx-auto w-full max-w-[1220px] px-6 sm:px-10">
-        <div className="mx-auto flex w-fit max-w-full flex-col gap-10 rounded-case-xl bg-portfolio-grey-50 p-[60px]">
-          <div className="flex flex-wrap gap-10 sm:gap-16 lg:gap-x-[140px]">
-            <div className="flex flex-col gap-2">
+      <section className="mx-auto w-full max-w-[1220px] px-4 sm:px-10">
+        <div className="mx-auto flex w-fit max-w-full flex-col gap-10 rounded-case-xl bg-portfolio-grey-50 p-6 sm:p-10 lg:p-[60px]">
+          {/* Grid (2 fixed columns) on mobile so My Role/Space stack in the left
+              column and Team/Timeline stack in the right column — both pairs
+              read as similarly narrow, so pairing them this way (instead of the
+              desktop's My Role+Timeline / Team+Space row order) avoids an
+              awkward ragged mix of short and long columns. `order-*` reshuffles
+              only the mobile grid; sm:order-none restores the original DOM
+              order once the layout switches back to the desktop flex row. */}
+          {/* Left column wider than the right (3fr/2fr) on mobile, and the
+              value lines drop to 15px there — "Product Designer" and
+              "Aggregator app" were wrapping to 2 lines in an even 2-column
+              split at 18px. sm+ resets both (equal columns via flex, 18px
+              text) since the desktop row never had this problem. */}
+          <div className="grid grid-cols-[3fr_2fr] gap-x-6 gap-y-10 sm:flex sm:flex-wrap sm:gap-16 lg:gap-x-[140px]">
+            <div className="order-1 flex flex-col gap-2 sm:order-none">
               <p className="font-manrope font-extrabold text-[16px] tracking-[0.48px] uppercase text-faircado-pink-500">My Role</p>
               <div className="flex flex-col">
-                <p className="-mb-0.5 font-manrope font-bold text-[18px] leading-[28px] text-portfolio-grey-900">{roleInfo.role.title}</p>
-                <p className="font-manrope font-bold text-[18px] leading-[28px] text-portfolio-grey-600">{roleInfo.role.subtitle}</p>
+                <p className="-mb-0.5 whitespace-nowrap font-manrope font-bold text-[15px] leading-[24px] text-portfolio-grey-900 sm:whitespace-normal sm:text-[18px] sm:leading-[28px]">{roleInfo.role.title}</p>
+                <p className="whitespace-nowrap font-manrope font-bold text-[15px] leading-[24px] text-portfolio-grey-600 sm:whitespace-normal sm:text-[18px] sm:leading-[28px]">{roleInfo.role.subtitle}</p>
               </div>
             </div>
-            <div className="flex flex-col gap-2">
+            <div className="order-4 flex flex-col gap-2 sm:order-none">
               <p className="font-manrope font-extrabold text-[16px] tracking-[0.48px] uppercase text-faircado-pink-500">Timeline</p>
               <div className="flex flex-col">
-                <p className="-mb-0.5 font-manrope font-bold text-[18px] leading-[28px] text-portfolio-grey-900">{roleInfo.timeline.title}</p>
-                <p className="font-manrope font-bold text-[18px] leading-[28px] text-portfolio-grey-600">{roleInfo.timeline.subtitle}</p>
+                <p className="-mb-0.5 whitespace-nowrap font-manrope font-bold text-[15px] leading-[24px] text-portfolio-grey-900 sm:whitespace-normal sm:text-[18px] sm:leading-[28px]">{roleInfo.timeline.title}</p>
+                <p className="whitespace-nowrap font-manrope font-bold text-[15px] leading-[24px] text-portfolio-grey-600 sm:whitespace-normal sm:text-[18px] sm:leading-[28px]">{roleInfo.timeline.subtitle}</p>
               </div>
             </div>
-            <div className="flex flex-col gap-2">
+            <div className="order-2 flex flex-col gap-2 sm:order-none">
               <p className="font-manrope font-extrabold text-[16px] tracking-[0.48px] uppercase text-faircado-pink-500">Team</p>
-              <div className="flex items-center">
-                <div className="relative z-10 size-[52px] shrink-0 overflow-hidden rounded-full border-2 border-white shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)]">
-                  <Image src={roleInfo.team.avatar.src} alt={roleInfo.team.avatar.alt} fill className="object-cover" />
-                </div>
-                <div className="group relative -ml-3 flex size-[52px] shrink-0 cursor-default items-center justify-center rounded-full border-2 border-white bg-faircado-pink-500 shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)]">
-                  <span className="font-manrope font-bold text-[14px] text-white">{roleInfo.team.extra}</span>
-                  {/* Tooltip: hidden by default, fades in above the badge on hover. */}
-                  <span
-                    role="tooltip"
-                    className="pointer-events-none absolute bottom-full left-1/2 z-30 mb-4 -translate-x-1/2 whitespace-nowrap rounded-full bg-portfolio-grey-900 px-3 py-1.5 font-manrope text-[13px] font-bold text-white opacity-0 shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)] transition-opacity duration-200 ease-out group-hover:opacity-100"
-                  >
-                    {roleInfo.team.extraBreakdown}
-                  </span>
-                </div>
-              </div>
+              <TeamAvatarGroup avatar={roleInfo.team.avatar} extra={roleInfo.team.extra} extraBreakdown={roleInfo.team.extraBreakdown} />
             </div>
-            <div className="flex flex-col gap-2">
+            <div className="order-3 flex flex-col gap-2 sm:order-none">
               <p className="font-manrope font-extrabold text-[16px] tracking-[0.48px] uppercase text-faircado-pink-500">Space</p>
               <div className="flex flex-col">
-                <p className="-mb-0.5 font-manrope font-bold text-[18px] leading-[28px] text-portfolio-grey-900">{roleInfo.space.title}</p>
-                <p className="font-manrope font-bold text-[18px] leading-[28px] text-portfolio-grey-600">{roleInfo.space.subtitle}</p>
+                <p className="-mb-0.5 whitespace-nowrap font-manrope font-bold text-[15px] leading-[24px] text-portfolio-grey-900 sm:whitespace-normal sm:text-[18px] sm:leading-[28px]">{roleInfo.space.title}</p>
+                <p className="whitespace-nowrap font-manrope font-bold text-[15px] leading-[24px] text-portfolio-grey-600 sm:whitespace-normal sm:text-[18px] sm:leading-[28px]">{roleInfo.space.subtitle}</p>
               </div>
             </div>
           </div>
           <div className="flex flex-col gap-2">
             <p className="font-manrope font-extrabold text-[16px] tracking-[0.48px] uppercase text-faircado-pink-500">My Impact</p>
-            <ul className="list-disc space-y-1 pl-5 font-manrope text-[18px] leading-[28px] text-portfolio-grey-900">
+            <ul className="list-disc space-y-1 pl-5 font-manrope text-[15px] leading-[24px] text-portfolio-grey-900 sm:text-[18px] sm:leading-[28px]">
               {roleInfo.impact.map((bullet, i) => {
                 const phrase = bullet.emphasis?.[0];
                 const splitIndex = phrase ? bullet.text.indexOf(phrase) : -1;
@@ -158,7 +165,7 @@ export default function FaircadoCaseStudyPage() {
       </section>
 
       {/* Context */}
-      <section className="relative mx-auto flex w-full max-w-[1220px] flex-col gap-16 px-6 sm:px-10 lg:flex-row lg:items-center lg:justify-between lg:gap-0">
+      <section className="relative mx-auto flex w-full max-w-[1220px] flex-col gap-16 px-4 sm:px-10 lg:flex-row lg:items-center lg:justify-between lg:gap-0">
         <div
           className="w-full lg:max-w-[520px]"
           // Aligns this heading's left edge with the text inside the My
@@ -227,7 +234,7 @@ export default function FaircadoCaseStudyPage() {
       </section>
 
       {/* Problem statement */}
-      <section className="mx-auto w-full max-w-[1220px] px-6 sm:px-10">
+      <section className="mx-auto w-full max-w-[1220px] px-4 sm:px-10">
         <div
           className="w-full lg:max-w-[520px]"
           // Same alignment trick as the Context heading above: lines this
@@ -263,13 +270,15 @@ export default function FaircadoCaseStudyPage() {
         </div>
       </section>
 
-      {/* Challenge headline. The gray panel matches the hero video panel's
-          full-bleed breakout width exactly, and the whole block is pulled up
-          with a negative top margin to overlap the Problem section above —
-          rather than sharing row space with the Problem text, which forced
-          the box narrow and the headline down to a tiny font size. */}
-      <section className="relative z-10 mx-auto w-full max-w-[1220px] px-6 sm:px-10 lg:-mt-[420px]">
-        <div className="-mx-6 w-[calc(100%+3rem)] sm:-mx-10 sm:w-[calc(100%+5rem)]">
+      {/* Challenge headline. The gray panel sits inside the section's own
+          px-4/sm:px-10 padding (no full-bleed breakout — that left it
+          edge-to-edge with no gutter on desktop windows narrower than the
+          section's max-w), and the whole block is pulled up with a negative
+          top margin to overlap the Problem section above — rather than
+          sharing row space with the Problem text, which forced the box
+          narrow and the headline down to a tiny font size. */}
+      <section className="relative z-10 mx-auto w-full max-w-[1220px] px-4 sm:px-10 lg:-mt-[420px]">
+        <div className="w-full">
           <div className="flex flex-col items-center">
             <div className="relative z-10 flex w-[250px] shrink-0 -mb-16 flex-col items-center gap-3 lg:mb-[-150px] lg:ml-auto lg:mr-16 lg:-translate-x-10">
               <p className="w-[226px] text-center font-manrope text-[14px] leading-[20px] text-portfolio-grey-600">
@@ -280,7 +289,7 @@ export default function FaircadoCaseStudyPage() {
               </div>
             </div>
             <div className="relative z-0 flex h-[340px] w-full items-center rounded-case-3xl bg-portfolio-grey-50">
-              <div className="w-full px-[80px]">
+              <div className="w-full px-6 sm:px-10 lg:px-[80px]">
                 {/* Explicit line breaks (rather than letting the text wrap
                     on its own) so the headline always renders as exactly
                     three lines, matching the approved copy layout. */}
@@ -304,7 +313,7 @@ export default function FaircadoCaseStudyPage() {
       {/* mt-10: +40px on top of the page's standard section gap, per
           request to add extra breathing room after the Problem section's
           grey CTA panel specifically. */}
-      <section className="mx-auto mt-10 flex w-full max-w-[1220px] flex-col gap-[60px] px-6 sm:px-10">
+      <section className="mx-auto mt-10 flex w-full max-w-[1220px] flex-col gap-[60px] px-4 sm:px-10">
         <div
           // Same alignment trick as Context and Problem above: lines this
           // section's left edge up with the text inside the My Role/Impact
@@ -316,11 +325,10 @@ export default function FaircadoCaseStudyPage() {
         {/* Grid instead of flex-wrap so all four cards share exactly the
             same column width regardless of their content (title length,
             number of avatars/logos), instead of each card sizing to its
-            own contents. Full-bleed breakout (-mx-6/sm:-mx-10, same as the
-            hero video panel and challenge panel) so the row spans the same
-            1220px width as those, instead of being inset by the section's
-            own px-6/px-10 padding. */}
-        <div className="-mx-6 w-[calc(100%+3rem)] sm:-mx-10 sm:w-[calc(100%+5rem)]">
+            own contents. Sits inside the section's own px-4/px-10 padding
+            (no full-bleed breakout, to keep a consistent gutter at every
+            desktop width). */}
+        <div className="w-full">
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {approach.methods.map((method, i) => (
               <MethodCard key={i} {...method} />
@@ -332,12 +340,8 @@ export default function FaircadoCaseStudyPage() {
       {/* Insight */}
       {/* mt-10: +40px on top of the page's standard section gap (128px),
           bringing the gap above this section to 168px. */}
-      <section className="mx-auto mt-10 w-full max-w-[1220px] px-6 sm:px-10">
-        {/* Full-bleed breakout (same as the My Approach cards row above) so
-            the screenshots can reach the same true right edge the last
-            "Survey" card reaches, instead of stopping at the section's own
-            inset padding. */}
-        <div className="-mx-6 w-[calc(100%+3rem)] sm:-mx-10 sm:w-[calc(100%+5rem)]">
+      <section className="mx-auto mt-10 w-full max-w-[1220px] px-4 sm:px-10">
+        <div className="w-full">
           <div className="flex flex-col items-start gap-16 lg:flex-row lg:items-center lg:gap-0">
             <div
               className="w-full lg:max-w-[348px] lg:shrink-0 lg:-translate-y-[70px]"
@@ -375,10 +379,13 @@ export default function FaircadoCaseStudyPage() {
             <div className="hidden h-[130px] flex-1 items-start justify-center self-center pt-2 lg:flex" aria-hidden="true">
               <img src={`${IMG}/insight-arrow.svg`} alt="" className="h-2 w-[74px]" />
             </div>
-            {/* Each phone is fixed at 250x541 (matching the "Image Search
-                MVP" phone visual), 28px apart, in a container sized to fit
-                both plus the second phone's 24% vertical offset. */}
-            <div className="relative mx-auto h-[711px] w-[528px] shrink-0 lg:mx-0">
+            {/* Each phone is fixed at 250x541 on desktop (matching the
+                "Image Search MVP" phone visual), 28px apart, in a container
+                sized to fit both plus the second phone's 24% vertical
+                offset. Scaled down proportionally on mobile/sm (same
+                250:541 aspect ratio) so the pair fits inside the viewport
+                instead of overflowing it. */}
+            <div className="relative mx-auto h-[341px] w-[253px] shrink-0 sm:h-[462px] sm:w-[343px] lg:mx-0 lg:h-[711px] lg:w-[528px]">
               {/* Positioned so the arrowhead (bottom-left of the source SVG)
                   lands centered just above the first phone's top edge,
                   instead of dipping down into the screen itself. */}
@@ -388,8 +395,8 @@ export default function FaircadoCaseStudyPage() {
               >
                 <img src={`${IMG}/insight-curve-arrow.svg`} alt="" />
               </div>
-              <div className="absolute left-0 top-0 flex w-[250px] flex-col items-center gap-3">
-                <div className="relative h-[541px] w-[250px] overflow-hidden rounded-case-xl shadow-[0px_12px_37px_0px_rgba(0,0,0,0.12)]">
+              <div className="absolute left-0 top-0 flex w-[120px] flex-col items-center gap-3 sm:w-[162px] lg:w-[250px]">
+                <div className="relative h-[260px] w-[120px] overflow-hidden rounded-case-xl shadow-[0px_12px_37px_0px_rgba(0,0,0,0.12)] sm:h-[351px] sm:w-[162px] lg:h-[541px] lg:w-[250px]">
                   <Image src={insight.screenshots[0].src} alt={insight.screenshots[0].alt} fill className="object-cover" />
                 </div>
                 {insight.screenshots[0].caption ? (
@@ -398,7 +405,7 @@ export default function FaircadoCaseStudyPage() {
                   </p>
                 ) : null}
               </div>
-              <div className="absolute right-0 top-[24%] h-[541px] w-[250px] overflow-hidden rounded-case-lg shadow-[0px_12px_37px_0px_rgba(0,0,0,0.12)]">
+              <div className="absolute right-0 top-[24%] h-[260px] w-[120px] overflow-hidden rounded-case-lg shadow-[0px_12px_37px_0px_rgba(0,0,0,0.12)] sm:h-[351px] sm:w-[162px] lg:h-[541px] lg:w-[250px]">
                 <Image src={insight.screenshots[1].src} alt={insight.screenshots[1].alt} fill className="object-cover" />
               </div>
             </div>
@@ -409,11 +416,11 @@ export default function FaircadoCaseStudyPage() {
       {/* Takeaways: testimonials connected by arrows to the matching
           problem cards below, as one composition in Figma rather than two
           unrelated sections — so both rows share the same 3-column grid
-          (for the arrows to land under the right column) and the same
-          full-bleed breakout as My Approach's card row. */}
+          (for the arrows to land under the right column), inside the
+          section's own px-4/px-10 padding. */}
       {/* -mt-[60px]: pulls this section (and everything after it, since
           they follow in normal flow) 60px closer to Insight above. */}
-      <section className="mx-auto -mt-[60px] w-full max-w-[1220px] px-6 sm:px-10">
+      <section className="mx-auto -mt-[60px] w-full max-w-[1220px] px-4 sm:px-10">
         <div
           className="mb-20 lg:max-w-[420px]"
           // Same text-container alignment trick used by Context, Problem,
@@ -432,7 +439,7 @@ export default function FaircadoCaseStudyPage() {
             }
           />
         </div>
-        <div className="-mx-6 w-[calc(100%+3rem)] sm:-mx-10 sm:w-[calc(100%+5rem)]">
+        <div className="w-full">
           <div className="grid grid-cols-1 gap-10 sm:grid-cols-3">
             {takeaways.testimonials.map((testimonial, i) => (
               // The background numeral's own left edge lines up with the
@@ -451,7 +458,7 @@ export default function FaircadoCaseStudyPage() {
                     numeral (an absolutely-positioned sibling) stays put, so
                     more of the numeral shows above the content instead of
                     being covered by the quote mark right away. */}
-                <div className="pl-10 pr-6 pt-14">
+                <div className="pl-6 pr-6 pt-14 sm:pl-10">
                   <TestimonialCard {...testimonial} />
                 </div>
               </div>
@@ -499,7 +506,7 @@ export default function FaircadoCaseStudyPage() {
       {/* Final solution intro */}
       {/* mt-5: +20px on top of the base section gap, bringing the gap above
           this title (from the problem cards) to 200px. */}
-      <section className="mx-auto mt-5 w-full max-w-[600px] px-6 sm:px-10">
+      <section className="mx-auto mt-5 w-full max-w-[600px] px-4 sm:px-10">
         <SectionHeading
           eyebrow={finalSolution.eyebrow}
           heading={finalSolution.heading}
@@ -511,7 +518,7 @@ export default function FaircadoCaseStudyPage() {
       {/* Three numbered solution sections */}
       {/* -mt-[100px]: reduces the gap above this from the Final Solution
           title (128px base) down to 28px, per request. */}
-      <div className="mx-auto -mt-[100px] flex w-full max-w-[1220px] flex-col gap-24 px-6 sm:px-10 sm:gap-32">
+      <div className="mx-auto -mt-[100px] flex w-full max-w-[1220px] flex-col gap-24 px-4 sm:px-10 sm:gap-32">
         {solutionSections.map((section) => (
           <SolutionSection
             key={section.number}
@@ -549,7 +556,7 @@ export default function FaircadoCaseStudyPage() {
       {/* mt-[72px]: +72px on top of the base section gap (128px), bringing
           the gap above this section (from Discarded Ideas) to 200px, same
           as the gap above Discarded Ideas. */}
-      <section className="mx-auto mt-[72px] flex w-full max-w-[1220px] flex-col gap-16 px-6 sm:px-10">
+      <section className="mx-auto mt-[72px] flex w-full max-w-[1220px] flex-col gap-16 px-4 sm:px-10">
         <div
           className="w-full lg:max-w-[592px]"
           // Same text-container alignment trick used by Context, Problem, My
@@ -569,11 +576,7 @@ export default function FaircadoCaseStudyPage() {
             body={<p>{results.heading.body}</p>}
           />
         </div>
-        {/* Full-bleed breakout (same as the Solution sections' grey panels
-            and the Takeaways card row) so these grey cards reach the same
-            true edge those do, instead of stopping at the section's own
-            inset padding. */}
-        <div className="-mx-6 w-[calc(100%+3rem)] sm:-mx-10 sm:w-[calc(100%+5rem)]">
+        <div className="w-full">
           {/* One shared 3-column grid for both rows (instead of two separate
               grids) so the feedback card's width matches a single stat card
               exactly, and the testimonial's width (col-span-2) matches the
@@ -582,7 +585,7 @@ export default function FaircadoCaseStudyPage() {
             {results.statCards.map((card, i) => (
               <StatCard key={i} icon={card.icon} icons={card.icons} heading={card.heading} body={card.body} emphasis={card.emphasis} />
             ))}
-            <div className="flex flex-col items-center justify-center gap-4 rounded-case-2xl bg-portfolio-grey-50 p-[80px] text-center">
+            <div className="flex flex-col items-center justify-center gap-4 rounded-case-2xl bg-portfolio-grey-50 p-6 text-center sm:p-10 lg:p-[80px]">
               <Image
                 src={`${IMG}/impact-arrow.png`}
                 alt=""
@@ -595,7 +598,7 @@ export default function FaircadoCaseStudyPage() {
                 User feedback that made my day
               </p>
             </div>
-            <figure className="flex flex-col justify-center gap-7 rounded-case-2xl bg-portfolio-grey-50 p-[80px] sm:col-span-2">
+            <figure className="flex flex-col justify-center gap-7 rounded-case-2xl bg-portfolio-grey-50 p-6 sm:col-span-2 sm:p-10 lg:p-[80px]">
               <img
                 src={`${IMG}/icon-quote-mark.svg`}
                 alt=""
@@ -627,7 +630,7 @@ export default function FaircadoCaseStudyPage() {
       {/* Closing takeaways */}
       {/* mt-[72px]: +72px on top of the base section gap (128px), bringing
           the gap above this section (from the Impact cards) to 200px. */}
-      <section className="mx-auto mt-[72px] flex w-full max-w-[1220px] flex-col gap-16 px-6 sm:px-10">
+      <section className="mx-auto mt-[72px] flex w-full max-w-[1220px] flex-col gap-16 px-4 sm:px-10">
         <div
           className="w-full lg:max-w-[592px]"
           // Same text-container alignment trick used by Context, Problem, My
@@ -637,12 +640,8 @@ export default function FaircadoCaseStudyPage() {
         >
           <SectionHeading eyebrow={closingTakeaways.eyebrow} heading={closingTakeaways.heading} />
         </div>
-        {/* Full-bleed breakout (same as the Solution sections' grey panels
-            and the Results grey cards) so this grey card reaches the same
-            true edge those do, instead of stopping at the section's own
-            inset padding. */}
-        <div className="-mx-6 w-[calc(100%+3rem)] sm:-mx-10 sm:w-[calc(100%+5rem)]">
-          <div className="grid gap-10 rounded-case-2xl bg-portfolio-grey-50 p-8 sm:grid-cols-3 sm:p-[60px]">
+        <div className="w-full">
+          <div className="grid gap-10 rounded-case-2xl bg-portfolio-grey-50 p-6 sm:grid-cols-3 sm:p-[60px]">
             {closingTakeaways.testimonials.map((testimonial) => (
               <TestimonialCard key={testimonial.number} {...testimonial} />
             ))}
