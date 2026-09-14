@@ -20,14 +20,17 @@ Defined in `app/globals.css` under `@theme inline`, used via Tailwind utilities 
 | `faircado-green-400` | `#a9f185` | Section number accent ("01/") |
 | `faircado-green-500` | `#52c517` | Highlight text accent |
 
-These are project-specific brand colors for the Faircado case study, not the portfolio's own site-wide palette (which still uses the ShadCN neutral theme for chrome like the button component). Future case studies may introduce their own accent colors the same way, scoped with a project prefix.
+| `portfolio-pink-500` | `#e53b7d` | Site-wide accent (homepage hero highlight, focus rings on homepage links). Added 2026-09-14 |
+
+The `portfolio-pink-500` token is the portfolio's own accent. The `faircado-*` colors are project-specific brand colors for the Faircado case study, not the portfolio's own site-wide palette (which still uses the ShadCN neutral theme for chrome like the button component). Future case studies may introduce their own accent colors the same way, scoped with a project prefix.
 
 ## Typography
 
 - Body/heading font: **Manrope** (`--font-manrope`, loaded via `next/font/google` in `app/layout.tsx`), used for all case study copy, headings, and card titles.
 - Display font for large numbered section labels ("01/", "02/", "03/") and background outline numbers: **Inter** (`--font-inter-display`).
 - Diegetic app-UI font, used only for mockup elements that reproduce real in-app copy (e.g. the Momentum urgency tip callouts) instead of the portfolio's own voice: **Hanken Grotesk** (`--font-hanken-grotesk`), matching the actual Faircado app's typeface per Figma.
-- Font sizes and line heights used inline via Tailwind (e.g. `text-[28px] leading-[38px]`, `text-[40px] leading-[48px]`) since no site-wide type scale exists yet. Flagged below.
+- `text-hero`: 60px / 1.4 line-height, the homepage hero sentence (Manrope semibold, paired with `tracking-[-0.04em]`). Below `lg:` the hero uses vw steps instead (`text-[11vw] sm:text-[7vw] lg:text-hero`). First site-wide type token, added 2026-09-14.
+- Other font sizes and line heights used inline via Tailwind (e.g. `text-[28px] leading-[38px]`, `text-[40px] leading-[48px]`) since no site-wide type scale exists yet. Flagged below.
 
 ## Spacing
 
@@ -117,3 +120,4 @@ First real case study copy (Faircado) is direct, confident, data-forward: short 
 - 2026-09-14: Standardized mobile vertical rhythm (96 / 48 / 24px). Section-specific margins that existed for desktop are now `lg:`-only.
 - 2026-09-14: Added the "Mobile Rules" section (desktop-first, pills in flow, scoped fixed heights, desktop-only line breaks, vw headings, cropped giant titles, overlays scaling with the phone), promoted from the Faircado mobile pass.
 - 2026-09-14: Added the "Motion" section (settle easing, 150ms fade, Tailwind 4 transition gotcha) and "Inline heading icons", both from the Faircado hero star with hover sunglasses.
+- 2026-09-14: Homepage built from the Portfolio 2026 Figma. Added `portfolio-pink-500` (#e53b7d) as the site-wide accent and `text-hero` (60px / 1.4) as the first type token. Figma used Inter for the hero and nav; the owner chose Manrope to keep one heading font. The 50px panel radius in Figma maps to the existing `rounded-case-3xl` (48px); the 230 x 498px phone mockups map to the approved 250 x 541px desktop size.

@@ -38,7 +38,11 @@ Most of these categories are empty right now, add them as real components are bu
 - `TagPill.tsx` — small rounded icon + label pill (e.g. "Awareness", "Match accuracy"). Shared across problem cards, results cards, and every solution section
 - `SolutionSection.tsx` — one of the three big numbered sections (01/, 02/, 03/), each holding cards with a tag, heading, and mobile screenshots
 
+`components/home/` — homepage patterns:
+- `ProjectCard.tsx` — grey full-width project panel (company, title, summary, three highlights, two phone mockups: image plus looping video). The whole panel links to the case study. One per project on the homepage; phones use the mobile scroll strip below `lg:`
+
 `components/navigation/`:
+- `SiteHeader.tsx` — homepage top bar: site name (links home) and a Contact link
 - `ExitButton.tsx` — fixed circular close button (top right) linking back to the homepage. Rendered by `app/case-studies/layout.tsx` so it appears on every case study page
 
 ## ShadCN Strategy
