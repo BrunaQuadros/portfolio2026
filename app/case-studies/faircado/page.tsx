@@ -103,13 +103,33 @@ export default function FaircadoCaseStudyPage() {
               {/* Decorative 3D star sized in em so it scales with the heading
                   at every breakpoint. Empty alt: it's ornamental, the word
                   "star" already carries the meaning for screen readers. */}
-              <Image
-                src={hero.headingStar.src}
-                alt={hero.headingStar.alt}
-                width={96}
-                height={96}
-                className="inline-block size-[1em] translate-x-0.5 align-[-0.15em]"
-              />{" "}
+              {/* overflow-hidden clips the glasses while they travel in and out, so
+                  they never show over the line of text above the star. */}
+              <span className="group relative inline-block size-[1.25em] translate-x-0.5 overflow-hidden align-[-0.28em]">
+                <Image
+                  src={hero.headingStar.src}
+                  alt={hero.headingStar.alt}
+                  width={96}
+                  height={96}
+                  className="size-full"
+                />
+                {/* The sunglasses image shares the star's canvas, so stacking
+                    it edge to edge lands the glasses exactly on the face. They
+                    start hidden and tilted above the star, then drop on hover
+                    with an overshoot easing so they "settle" onto the face.
+                    Opacity fades in faster (150ms) than the movement (500ms).
+                    Tailwind 4 animates `translate` and `rotate` as their own
+                    CSS properties, so they must be listed by name here;
+                    listing only `transform` would make the drop snap. */}
+                <Image
+                  src={hero.headingStarGlasses.src}
+                  alt={hero.headingStarGlasses.alt}
+                  width={96}
+                  height={96}
+                  aria-hidden
+                  className="absolute inset-0 size-full -translate-y-full -rotate-6 opacity-0 transition-[translate,rotate,opacity] ease-[cubic-bezier(0.34,1.56,0.64,1)] [transition-duration:500ms,500ms,150ms] group-hover:translate-y-0 group-hover:rotate-0 group-hover:opacity-100"
+                />
+              </span>{" "}
               {hero.headingLine2After}
             </h1>
             <p className="font-manrope text-[22px] leading-[1.4] tracking-[-0.5px] text-portfolio-grey-900 sm:text-[28px] lg:text-[40px] lg:leading-[60px] lg:tracking-[-1.2px]">

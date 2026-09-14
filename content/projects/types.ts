@@ -176,6 +176,8 @@ export type FaircadoContent = {
     // Line 2 is split around an inline 3D star that sits between the words
     headingLine2Before: string;
     headingStar: { src: string; alt: string };
+    // Sunglasses that drop onto the star on hover
+    headingStarGlasses: { src: string; alt: string };
     headingLine2After: string;
     descriptionLead: string;
     descriptionAccent1: string;

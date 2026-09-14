@@ -88,6 +88,19 @@ Added case-study-specific radius tokens (`--radius-case-md` 12px through `--radi
 
 **Mobile panel radius** — below `sm:`, every grey panel and card (hero, My Role, Challenge, method/problem/result cards, Final Solution cards, testimonial, learnings) uses `rounded-case-mobile` (28px, added 2026-09-14). The 40/48px desktop corners read too big on a 343px-wide card. Pattern: `rounded-case-mobile sm:rounded-case-{original}`. Phone mockups keep their own 20/24px at every width.
 
+## Motion
+
+First motion values, introduced 2026-09-14 on the Faircado hero star. Treat these as the starting motion tokens; reuse them before inventing new ones, and promote them to `app/globals.css` once a second use confirms them.
+
+- **Settle** (playful landing): `cubic-bezier(0.34, 1.56, 0.64, 1)`, 500ms. Overshoots the target slightly and returns. For small decorative objects arriving somewhere (the sunglasses dropping onto the star). Not for layout or content reveals.
+- **Fade-in for the same object**: 150ms, so the object is visible for most of its travel.
+- **Tailwind 4 gotcha**: `translate`, `rotate` and `scale` are separate CSS properties, so list them by name in `transition-[...]`. Listing only `transform` makes the move snap.
+- **Reduced motion**: not yet handled. Decide a `prefers-reduced-motion` rule before adding scroll reveals or page transitions.
+
+## Inline heading icons
+
+A 3D icon inside a heading (Faircado hero star) is sized relative to the text: `size-[1.25em] align-[-0.28em]` in a `relative inline-block` span, so it scales with the heading at every breakpoint. Empty `alt`, since the surrounding word carries the meaning.
+
 ## Components
 (pending — see COMPONENTS.md for ShadCN-specific rules)
 
@@ -103,3 +116,4 @@ First real case study copy (Faircado) is direct, confident, data-forward: short 
 - 2026-09-14: Added `--radius-case-mobile` (28px) as the single panel/card corner radius below `sm:`. 28px is a new value rather than the existing 24px token, chosen by eye on the phone against the hero and My Role panels.
 - 2026-09-14: Standardized mobile vertical rhythm (96 / 48 / 24px). Section-specific margins that existed for desktop are now `lg:`-only.
 - 2026-09-14: Added the "Mobile Rules" section (desktop-first, pills in flow, scoped fixed heights, desktop-only line breaks, vw headings, cropped giant titles, overlays scaling with the phone), promoted from the Faircado mobile pass.
+- 2026-09-14: Added the "Motion" section (settle easing, 150ms fade, Tailwind 4 transition gotcha) and "Inline heading icons", both from the Faircado hero star with hover sunglasses.
