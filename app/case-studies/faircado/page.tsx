@@ -332,17 +332,23 @@ export default function FaircadoCaseStudyPage() {
           top margin to overlap the Problem section above — rather than
           sharing row space with the Problem text, which forced the box
           narrow and the headline down to a tiny font size. */}
-      <section className="relative z-10 mx-auto w-full max-w-[1220px] px-4 sm:px-10 lg:-mt-[420px]">
+      {/* -mt-12 below lg pulls the MVP phone closer to the paragraph above
+          that talks about it (the page's default section gap is 96px). */}
+      <section className="relative z-10 mx-auto -mt-12 w-full max-w-[1220px] px-4 sm:px-10 lg:-mt-[420px]">
         <div className="w-full">
-          <div className="flex flex-col items-center">
+          {/* items-start below lg: the phone lines up with the text's left
+              edge instead of being centred. */}
+          <div className="flex flex-col items-start lg:items-center">
             {/* Below lg the phone sits in normal flow above the closing
                 line and the panel (no overlap); on lg it overlaps the panel
                 by 150px and sits to the right, as before. */}
             {/* Phone mockups are 190x411 below lg (the standard mobile
                 phone size, same 250:541 aspect ratio as desktop) and
                 250x541 on lg. */}
-            <div className="relative z-10 flex w-[190px] shrink-0 flex-col items-center gap-3 lg:w-[250px] lg:mb-[-150px] lg:ml-auto lg:mr-16 lg:-translate-x-10">
-              <p className="w-full text-center font-manrope text-[14px] leading-[20px] text-portfolio-grey-600 lg:w-[226px]">
+            {/* flex-col-reverse below lg: caption under the phone; on lg the
+                caption goes back above it, as designed. */}
+            <div className="relative z-10 flex w-[190px] shrink-0 flex-col-reverse items-start gap-3 lg:w-[250px] lg:flex-col lg:items-center lg:mb-[-150px] lg:ml-auto lg:mr-16 lg:-translate-x-10">
+              <p className="w-full text-left font-manrope text-[14px] leading-[20px] text-portfolio-grey-600 lg:w-[226px] lg:text-center">
                 The Image Search MVP
               </p>
               <div className="relative h-[411px] w-[190px] overflow-hidden rounded-case-xl shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)] lg:h-[541px] lg:w-[250px]">
@@ -473,7 +479,7 @@ export default function FaircadoCaseStudyPage() {
                   showed up as a hard grey line under the phones), and the
                   matching negative margins cancel it out so the spacing
                   around the strip stays the same. */}
-              <div className="scrollbar-hide -mx-4 -mt-8 -mb-10 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pt-8 pb-14 scroll-pl-4 sm:-mx-10 sm:px-10 sm:scroll-pl-10">
+              <div className="scrollbar-hide -mx-4 -mt-8 -mb-10 flex snap-x snap-mandatory gap-10 overflow-x-auto px-4 pt-8 pb-14 scroll-pl-4 sm:-mx-10 sm:px-10 sm:scroll-pl-10">
                 {insight.screenshots.map((screenshot, i) => (
                   <div
                     key={i}
@@ -677,7 +683,10 @@ export default function FaircadoCaseStudyPage() {
             {results.statCards.map((card, i) => (
               <StatCard key={i} icon={card.icon} icons={card.icons} heading={card.heading} body={card.body} emphasis={card.emphasis} />
             ))}
-            <div className="flex flex-col items-center justify-center gap-4 rounded-case-mobile bg-portfolio-grey-50 sm:rounded-case-2xl p-6 text-center sm:p-10 lg:p-[80px]">
+            {/* Hidden below sm: on phones the "User feedback that made my
+                day" intro card is a whole extra card before the quote, so
+                the quote stands on its own there. */}
+            <div className="hidden flex-col items-center justify-center gap-4 rounded-case-mobile bg-portfolio-grey-50 p-6 text-center sm:flex sm:rounded-case-2xl sm:p-10 lg:p-[80px]">
               <Image
                 src={`${IMG}/impact-arrow.png`}
                 alt=""

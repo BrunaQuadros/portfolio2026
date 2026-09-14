@@ -43,20 +43,57 @@ function ImageBadge({ src, badge }: { src: string; badge: NonNullable<AnnotatedI
   // Shorten the line's start so it touches the ring's edge instead of
   // running into its center — offset the start point by the ring's
   // radius, in real pixels, along the line's direction toward the badge.
-  const pointPx = { x: (badge.pointLeft / 100) * frameWidth, y: (badge.pointTop / 100) * frameHeight };
-  const badgePx = { x: (badge.badgeLeft / 100) * frameWidth, y: (badge.badgeTop / 100) * frameHeight };
-  const dx = badgePx.x - pointPx.x;
-  const dy = badgePx.y - pointPx.y;
-  const dist = Math.hypot(dx, dy);
-  const lineStartPx = {
-    x: pointPx.x + (dx / dist) * (ringSize / 2),
-    y: pointPx.y + (dy / dist) * (ringSize / 2),
+  // Computed once per badge position (desktop, and mobile when the content
+  // gives a separate one), since the line direction depends on it.
+  const lineFor = (pos: { badgeTop: number; badgeLeft: number }) => {
+    const pointPx = { x: (badge.pointLeft / 100) * frameWidth, y: (badge.pointTop / 100) * frameHeight };
+    const badgePx = { x: (pos.badgeLeft / 100) * frameWidth, y: (pos.badgeTop / 100) * frameHeight };
+    const dx = badgePx.x - pointPx.x;
+    const dy = badgePx.y - pointPx.y;
+    const dist = Math.hypot(dx, dy);
+    return {
+      x1: ((pointPx.x + (dx / dist) * (ringSize / 2)) / frameWidth) * 100,
+      y1: ((pointPx.y + (dy / dist) * (ringSize / 2)) / frameHeight) * 100,
+      x2: pos.badgeLeft,
+      y2: pos.badgeTop,
+    };
   };
-  const lineStartLeft = (lineStartPx.x / frameWidth) * 100;
-  const lineStartTop = (lineStartPx.y / frameHeight) * 100;
+  const desktop = { badgeTop: badge.badgeTop, badgeLeft: badge.badgeLeft };
+  const mobile = badge.mobileBadge ?? desktop;
+  const desktopLine = lineFor(desktop);
+  const mobileLine = lineFor(mobile);
+
+  // The badge circle and its line are positioned through CSS variables so
+  // the mobile and desktop positions can be swapped with a breakpoint
+  // class instead of rendering two badges.
+  const positionVars = {
+    "--badge-top": `${desktop.badgeTop}%`,
+    "--badge-left": `${desktop.badgeLeft}%`,
+    "--badge-top-mobile": `${mobile.badgeTop}%`,
+    "--badge-left-mobile": `${mobile.badgeLeft}%`,
+  } as React.CSSProperties;
+
+  const zoomedCrop = badge.zoomedSrc ? (
+    <Image src={badge.zoomedSrc} alt="" fill className="object-cover" />
+  ) : (
+    // eslint-disable-next-line @next/next/no-img-element -- fixed pixel
+    // crop of the same source image, not a responsive content image
+    <img
+      src={src}
+      alt=""
+      style={{
+        position: "absolute",
+        width: zoomedWidth,
+        height: zoomedHeight,
+        left: translateX,
+        top: translateY,
+        maxWidth: "none",
+      }}
+    />
+  );
 
   return (
-    <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-10">
+    <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-10" style={positionVars}>
       {/* Transparent loupe ring circling the logo, instead of a small
           filled dot — matches the "circle the detail, don't cover it"
           reference. */}
@@ -71,44 +108,14 @@ function ImageBadge({ src, badge }: { src: string; badge: NonNullable<AnnotatedI
         }}
       />
       <svg className="absolute inset-0 size-full overflow-visible" preserveAspectRatio="none" viewBox="0 0 100 100">
-        <line
-          x1={lineStartLeft}
-          y1={lineStartTop}
-          x2={badge.badgeLeft}
-          y2={badge.badgeTop}
-          stroke="#121212"
-          strokeWidth="2"
-          vectorEffect="non-scaling-stroke"
-        />
+        <line className="lg:hidden" x1={mobileLine.x1} y1={mobileLine.y1} x2={mobileLine.x2} y2={mobileLine.y2} stroke="#121212" strokeWidth="2" vectorEffect="non-scaling-stroke" />
+        <line className="hidden lg:block" x1={desktopLine.x1} y1={desktopLine.y1} x2={desktopLine.x2} y2={desktopLine.y2} stroke="#121212" strokeWidth="2" vectorEffect="non-scaling-stroke" />
       </svg>
       <div
-        className="absolute overflow-hidden rounded-full border-2 border-portfolio-grey-900 bg-white shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)]"
-        style={{
-          width: badgeSize,
-          height: badgeSize,
-          top: `${badge.badgeTop}%`,
-          left: `${badge.badgeLeft}%`,
-          transform: "translate(-50%, -50%)",
-        }}
+        className="absolute top-(--badge-top-mobile) left-(--badge-left-mobile) overflow-hidden rounded-full border-2 border-portfolio-grey-900 bg-white shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)] lg:top-(--badge-top) lg:left-(--badge-left)"
+        style={{ width: badgeSize, height: badgeSize, transform: "translate(-50%, -50%)" }}
       >
-        {badge.zoomedSrc ? (
-          <Image src={badge.zoomedSrc} alt="" fill className="object-cover" />
-        ) : (
-          // eslint-disable-next-line @next/next/no-img-element -- fixed pixel
-          // crop of the same source image, not a responsive content image
-          <img
-            src={src}
-            alt=""
-            style={{
-              position: "absolute",
-              width: zoomedWidth,
-              height: zoomedHeight,
-              left: translateX,
-              top: translateY,
-              maxWidth: "none",
-            }}
-          />
-        )}
+        {zoomedCrop}
       </div>
     </div>
   );
@@ -154,7 +161,10 @@ function ScreenshotFrame({ image, priority = false }: { image: AnnotatedImage; p
             src={`${IMG}/${image.overlayTip.icon === "fire" ? "badge_almosttaken" : "badge_popular"}.png`}
             alt=""
             aria-hidden="true"
-            className="absolute z-10 h-auto w-[280px] max-w-none"
+            // 280px is sized for the 250px desktop phone; below sm the phone is
+            // 190px, so the badge scales by the same ratio (213px) instead of
+            // spilling over the neighbouring phone in the scroll strip.
+            className="absolute z-10 h-auto w-[213px] max-w-none sm:w-[280px]"
             style={{ top: `${image.overlayTip.top}%`, left: "50%", transform: "translate(-50%, -50%)" }}
           />
         ) : null}
@@ -186,11 +196,11 @@ function SearchChipRow({ chip }: { chip: SearchChip }) {
 // A small "peek" card flanking Momentum block 1's two mockups — a cropped
 // product card (mimicking a results-grid tile) with a big corner badge,
 // hinting at the urgency badges appearing throughout the results feed.
-// Desktop only: at narrower widths there isn't room for it beside the
-// two full-size mockups.
+// Drawn at its desktop size (226x299); the mobile scroll strip wraps it in
+// a scaled box (see MobileScrollStrip) so it shrinks with the 190px phones.
 function PeekCard({ image, badgeIcon }: { image: string; badgeIcon: string }) {
   return (
-    <div className="relative hidden h-[299px] w-[226px] shrink-0 overflow-hidden rounded-case-xl lg:block" aria-hidden="true">
+    <div className="relative h-[299px] w-[226px] shrink-0 overflow-hidden rounded-case-xl" aria-hidden="true">
       <div className="absolute left-[30px] top-[30px] w-[160px] drop-shadow-[0px_8px_12px_rgba(0,0,0,0.12)]">
         <div className="relative flex h-[195px] w-full flex-col items-end justify-between rounded-case-md border-[0.5px] border-portfolio-grey-200 p-2">
           <div className="absolute inset-0 overflow-hidden rounded-case-md bg-portfolio-grey-50">
@@ -279,6 +289,40 @@ function BeforeAfterFrame({ pair }: { pair: BeforeAfterPair }) {
   );
 }
 
+// A PeekCard shrunk for the mobile strip: 0.76 is the 190/250 ratio the
+// phones use, so the card keeps its proportion next to them. The wrapper is
+// sized to the scaled result (172x227) so the flex gap measures from the
+// visible edge, not the unscaled box; self-center lines it up with the
+// middle of the phones like on desktop.
+function ScaledPeekCard({ card }: { card: { image: string; badgeIcon: string } }) {
+  return (
+    <div className="h-[227px] w-[172px] shrink-0 snap-start self-center">
+      <div className="origin-top-left scale-[0.76]">
+        <PeekCard image={card.image} badgeIcon={card.badgeIcon} />
+      </div>
+    </div>
+  );
+}
+
+// The little connector arrows between a peek card and its phone, as their
+// own (non-snapping) slide in the strip. Same SVGs as desktop, scaled with
+// the peek cards; the negative side margins pull the 40px strip gap in on
+// both sides so the arrow reads as a connector, not a separate item.
+function StripArrow({ direction }: { direction: "left" | "right" }) {
+  // The scaled peek card leaves ~28px (right card) / ~23px (left card) of
+  // empty box beside its visible card, so each arrow is nudged toward its
+  // peek card to sit centred between the visible card and the phone.
+  const centering = direction === "right" ? "-left-[14px]" : "left-[11px]";
+  return (
+    <img
+      src={`${IMG}/momentum-arrow-${direction}.svg`}
+      alt=""
+      aria-hidden="true"
+      className={`relative -mx-6 w-[38px] shrink-0 self-center ${centering}`}
+    />
+  );
+}
+
 // Mobile (below lg) layout for one solution block: every phone in a
 // horizontal scroll strip (one snap stop each), plus the search-chip
 // examples as a last slide when the block has them. Same strip recipe as
@@ -299,18 +343,22 @@ function MobileScrollStrip({ block, priority }: { block: SolutionBlockType; prio
   // clipping both ends instead of scrolling.
   return (
     <div
-      className={`scrollbar-hide -mx-6 -mt-8 -mb-14 flex snap-x snap-mandatory gap-6 self-stretch overflow-x-auto pt-8 pb-14 sm:-mx-10 lg:hidden ${sidePadding}`}
+      className={`scrollbar-hide -mx-6 -mt-8 -mb-14 flex snap-x snap-mandatory gap-10 self-stretch overflow-x-auto pt-8 pb-14 sm:-mx-10 lg:hidden ${sidePadding}`}
     >
       {block.beforeAfter ? (
+        // -mr-4 cancels 16px of the strip's 40px gap: the before/after
+        // figures already carry a 64px right margin for the numbered
+        // pins, and their spacing is an approved exception that stays as
+        // it was (24px gap + 64px pin room).
         <>
-          <div className="shrink-0 snap-start">
+          <div className="-mr-4 shrink-0 snap-start">
             <BeforeAfterImage
               image={block.beforeAfter.before}
               caption="Before"
               pins={numberedPins.filter((pin) => pin.showOn === "before" || pin.showOn === "both")}
             />
           </div>
-          <div className="shrink-0 snap-start">
+          <div className="-mr-4 shrink-0 snap-start">
             <BeforeAfterImage
               image={block.beforeAfter.after}
               caption="After"
@@ -319,11 +367,25 @@ function MobileScrollStrip({ block, priority }: { block: SolutionBlockType; prio
           </div>
         </>
       ) : (
-        block.images.map((image, imgIndex) => (
-          <div key={imgIndex} className="shrink-0 snap-start">
-            <ScreenshotFrame image={image} priority={priority && imgIndex === 0} />
-          </div>
-        ))
+        <>
+          {block.peekCards ? (
+            <>
+              <ScaledPeekCard card={block.peekCards[0]} />
+              <StripArrow direction="right" />
+            </>
+          ) : null}
+          {block.images.map((image, imgIndex) => (
+            <div key={imgIndex} className="shrink-0 snap-start">
+              <ScreenshotFrame image={image} priority={priority && imgIndex === 0} />
+            </div>
+          ))}
+          {block.peekCards ? (
+            <>
+              <StripArrow direction="left" />
+              <ScaledPeekCard card={block.peekCards[1]} />
+            </>
+          ) : null}
+        </>
       )}
       {block.sidebarChips ? (
         <div className="flex w-[223px] shrink-0 snap-start flex-col justify-center gap-6">
@@ -390,13 +452,15 @@ export function SolutionSection({ number, title, tagIcon, tag, blocks }: Solutio
                   the peek-card row (~1130px) are wider than the card's
                   1060px content box, so from xl up they run edge to edge
                   over the card's own side padding (xl:-mx-10) and never
-                  wrap; between lg and xl they still wrap. */}
+                  wrap; between lg and xl they still wrap. The chips row is
+                  also shifted 40px left (-translate-x-10) so the chips keep
+                  some air from the card's right edge. */}
               {block.beforeAfter ? (
                 <div className="hidden lg:block">
                   <BeforeAfterFrame pair={block.beforeAfter} />
                 </div>
               ) : block.sidebarChips ? (
-                <div className="hidden flex-wrap items-center justify-center gap-10 lg:flex xl:-mx-10 xl:flex-nowrap">
+                <div className="hidden -translate-x-10 flex-wrap items-center justify-center gap-10 lg:flex xl:-mx-10 xl:flex-nowrap">
                   {/* Empty spacer balances the sidebar on the other side, so
                       the mockups stay visually centered in the card. */}
                   <div className="hidden w-[223px] shrink-0 lg:block" aria-hidden="true" />
@@ -414,11 +478,16 @@ export function SolutionSection({ number, title, tagIcon, tag, blocks }: Solutio
               ) : block.peekCards ? (
                 <div className="hidden flex-wrap items-center justify-center gap-2 lg:flex xl:-mx-10 xl:flex-nowrap">
                   <PeekCard image={block.peekCards[0].image} badgeIcon={block.peekCards[0].badgeIcon} />
+                  {/* The PeekCard box is 226px but its visible card spans
+                      30-190px, leaving 36px of empty box on the arrow side.
+                      Nudging each arrow toward the peek card (without
+                      changing layout) centres it between the visible card
+                      edge and the phone. */}
                   <img
                     src={`${IMG}/momentum-arrow-right.svg`}
                     alt=""
                     aria-hidden="true"
-                    className="hidden w-[50px] shrink-0 lg:block"
+                    className="relative -left-[18px] hidden w-[50px] shrink-0 lg:block"
                   />
                   <div className="flex flex-wrap items-start justify-center gap-12 xl:flex-nowrap">
                     {block.images.map((image, imgIndex) => (
@@ -429,7 +498,7 @@ export function SolutionSection({ number, title, tagIcon, tag, blocks }: Solutio
                     src={`${IMG}/momentum-arrow-left.svg`}
                     alt=""
                     aria-hidden="true"
-                    className="hidden w-[50px] shrink-0 lg:block"
+                    className="relative left-[15px] hidden w-[50px] shrink-0 lg:block"
                   />
                   <PeekCard image={block.peekCards[1].image} badgeIcon={block.peekCards[1].badgeIcon} />
                 </div>

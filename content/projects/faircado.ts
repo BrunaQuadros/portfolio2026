@@ -280,8 +280,11 @@ export const faircado: FaircadoContent = {
               badge: {
                 pointTop: 22.4,
                 pointLeft: 59.2,
-                badgeTop: 4.4,
-                badgeLeft: -20.6,
+                // Desktop (Figma): the loupe overlaps the phone's left edge.
+                badgeTop: 12.8,
+                badgeLeft: -3,
+                // Below lg it sits fully outside the phone, as before.
+                mobileBadge: { badgeTop: 4.4, badgeLeft: -20.6 },
                 zoom: 3,
                 zoomedSrc: `${IMG}/accuracy-logo-badge.jpg`,
               },

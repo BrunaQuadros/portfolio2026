@@ -61,6 +61,10 @@ export type ImageBadge = {
   pointLeft: number;
   badgeTop: number;
   badgeLeft: number;
+  // Optional badge position used below lg (same % units). When set, the
+  // desktop position above only applies from lg up; without it the same
+  // position is used at every width.
+  mobileBadge?: { badgeTop: number; badgeLeft: number };
   // How zoomed-in the badge's close-up crop is, relative to the frame.
   // Ignored when `zoomedSrc` is set.
   zoom: number;
