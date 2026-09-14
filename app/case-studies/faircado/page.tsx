@@ -368,26 +368,40 @@ export default function FaircadoCaseStudyPage() {
                 on lg it keeps its fixed 340px height with no padding, since
                 the text sits beside the phone there. */}
             <div className="relative z-0 flex w-full items-center rounded-case-mobile bg-portfolio-grey-50 py-6 sm:min-h-[340px] sm:rounded-case-3xl sm:py-10 lg:h-[340px] lg:min-h-0 lg:py-0">
+              {/* Mobile-only decorative lightbulb sitting on the panel's
+                  top-right corner, half in and half out of the grey box.
+                  It gives the text-heavy Problem section a visual on
+                  phones; desktop has the phone mockup beside the text
+                  already, so it's hidden from lg up. */}
+              <Image
+                src={problem.challengeIcon.src}
+                alt={problem.challengeIcon.alt}
+                width={128}
+                height={128}
+                className="pointer-events-none absolute -top-14 -right-0.5 size-32 lg:hidden"
+              />
               <div className="w-full px-6 sm:px-10 lg:px-[80px]">
                 {/* Explicit line breaks (rather than letting the text wrap
                     on its own) so the headline always renders as exactly
                     three lines, matching the approved copy layout. */}
-                <p className="max-w-[560px] text-left font-manrope font-bold text-[28px] leading-[1.4] tracking-[-0.5px] text-portfolio-grey-900 lg:max-w-none lg:text-[36px] lg:leading-[1.4]">
+                <p className="relative max-w-[560px] text-left font-manrope font-bold text-[28px] leading-[1.4] tracking-[-0.5px] text-portfolio-grey-900 lg:max-w-none lg:text-[36px] lg:leading-[1.4]">
                   {/* The manual line breaks are desktop-only: on narrower
                       screens the lines are shorter anyway, so forcing the
                       desktop breaks on top of the natural wrapping left
                       orphan words ("the image" alone on a line). Below lg
-                      the break is replaced by a non-breaking space, so
-                      "image search" and "grow adoption" always stay
-                      together on one line. */}
+                      the break is replaced by a plain space and the text
+                      wraps naturally. */}
                   {problem.challengeLine1}
                   <br className="hidden lg:inline" />
-                  <span className="lg:hidden">{"\u00A0"}</span>
+                  {/* Plain space below lg so "image" can stay on the first
+                      line and overlap the magnifier slightly; the text is
+                      `relative` so it paints above the icon. */}
+                  {" "}
                   {problem.challengeLine2Lead}
                   <span className="text-faircado-green-500">
                     {problem.challengeAccentLine2}
                     <br className="hidden lg:inline" />
-                    <span className="lg:hidden">{"\u00A0"}</span>
+                    {" "}
                     {problem.challengeAccentLine3}
                   </span>
                 </p>

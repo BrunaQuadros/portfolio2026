@@ -218,6 +218,8 @@ export type FaircadoContent = {
     challengeLine2Lead: string;
     challengeAccentLine2: string;
     challengeAccentLine3: string;
+    // Decorative 3D icon that peeks out of the challenge panel on mobile only
+    challengeIcon: { src: string; alt: string };
     beforeImage: { src: string; alt: string };
   };
   approach: {

@@ -91,6 +91,7 @@ export const faircado: FaircadoContent = {
     challengeLine2Lead: "search MVP to ",
     challengeAccentLine2: "drive sales and grow",
     challengeAccentLine3: "adoption beyond 40%?",
+    challengeIcon: { src: `${IMG}/icon-challenge-magnifier-3d.png`, alt: "" },
     beforeImage: {
       src: `${IMG}/before-mvp-search-results.png`,
       alt: "The image search MVP results screen before the redesign",
