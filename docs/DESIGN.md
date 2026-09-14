@@ -62,6 +62,8 @@ Each phone is `shrink-0 snap-start`. The negative margins break out of the secti
 
 Added case-study-specific radius tokens (`--radius-case-md` 12px through `--radius-case-3xl` 48px, plus `rounded-full` for pills) since the existing ShadCN radius scale (`--radius-sm/md/lg/xl/2xl/3xl/4xl`, based on a 10px `--radius` root) doesn't land close to the larger card radii (24px, 40px, 48px) this design repeats throughout. Shadows use Tailwind's arbitrary `shadow-[...]` values matching Figma's exact drop shadows (no shadow token scale exists yet).
 
+**Mobile panel radius** — below `sm:`, every grey panel and card (hero, My Role, Challenge, method/problem/result cards, Final Solution cards, testimonial, learnings) uses `rounded-case-mobile` (28px, added 2026-09-14). The 40/48px desktop corners read too big on a 343px-wide card. Pattern: `rounded-case-mobile sm:rounded-case-{original}`. Phone mockups keep their own 20/24px at every width.
+
 ## Components
 (pending — see COMPONENTS.md for ShadCN-specific rules)
 
@@ -74,3 +76,4 @@ First real case study copy (Faircado) is direct, confident, data-forward: short 
 - 2026-08-24: First token extraction done while building the Faircado case study page. Added portfolio-grey/faircado-pink/faircado-green color tokens, Manrope + Inter fonts, and case-study radius tokens to `app/globals.css`. Font sizes/line-heights and shadows were not tokenized (used as one-off arbitrary Tailwind values) — flag for future consolidation once a second case study confirms which values actually repeat.
 - 2026-08-30: Added Hanken Grotesk (`--font-hanken-grotesk`) for diegetic app-UI mockup copy only (Momentum urgency tip callouts), matching the real Faircado app's font per Figma — not a replacement for Manrope as the portfolio's own voice.
 - 2026-09-13: Mobile responsive pass on the Faircado case study. Standardized phone mockups at 190 x 411px below `lg:`, added the mobile horizontal scroll strip pattern (first used on the Insight section) and the `scrollbar-hide` utility in `app/globals.css`.
+- 2026-09-14: Added `--radius-case-mobile` (28px) as the single panel/card corner radius below `sm:`. 28px is a new value rather than the existing 24px token, chosen by eye on the phone against the hero and My Role panels.

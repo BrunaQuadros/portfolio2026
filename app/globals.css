@@ -69,6 +69,9 @@
   --radius-case-xl: 24px;
   --radius-case-2xl: 40px;
   --radius-case-3xl: 48px;
+  /* Panels and cards below sm: one radius for every grey panel/card on
+     phones, where the desktop 40/48px corners read too big. */
+  --radius-case-mobile: 28px;
 }
 
 :root {

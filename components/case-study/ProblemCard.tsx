@@ -16,7 +16,7 @@ export function ProblemCard({ tag, tagIcon, heading, headingAccent, headingTail,
     // Fixed gap (not justify-between) so the space between the pill and the
     // heading stays identical across all three cards, regardless of how many
     // lines each card's heading/body happens to wrap to.
-    <div className="flex flex-1 flex-col items-start gap-10 sm:gap-[100px] rounded-[40px] bg-portfolio-grey-50 p-6 min-w-[260px] sm:p-10">
+    <div className="flex flex-1 flex-col items-start gap-10 sm:gap-[100px] rounded-case-mobile bg-portfolio-grey-50 sm:rounded-case-2xl p-6 min-w-[260px] sm:p-10">
       <TagPill icon={tagIcon} label={tag} />
       <div className="flex flex-col gap-3">
         <p className="font-manrope font-bold text-[24px] leading-[32px] tracking-[-0.5px] text-portfolio-grey-900 sm:text-[28px] sm:leading-[38px]">

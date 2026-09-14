@@ -25,6 +25,7 @@ Don't duplicate long content from these docs into chat responses or into this fi
 - If a new value seems needed, first check whether an existing token is close enough to reuse instead. Example: if a design calls for 22px text and a 20px token already exists, ask whether to use the existing 20px token rather than creating a near-duplicate
 - Only create a new token if none is close enough, and ask for approval before doing so
 - Any newly approved token must be added to docs/DESIGN.md immediately, so it's available for reuse next time
+- Mobile corner radius: below `sm:`, every grey panel and card uses `rounded-case-mobile` (28px), with the desktop token restored from `sm:` up (`rounded-case-mobile sm:rounded-case-2xl`). Never leave a panel with only its desktop radius. See docs/DESIGN.md, "Mobile panel radius"
 - Reuse existing components before creating new ones. Check docs/COMPONENTS.md and the components/ui folder first
 - Any new pattern that repeats more than twice should become a reusable component, not copy-pasted
 

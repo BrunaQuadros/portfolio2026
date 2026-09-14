@@ -365,7 +365,7 @@ export function SolutionSection({ number, title, tagIcon, tag, blocks }: Solutio
             {/* pt-10 (not py-15's usual top) so the heading's top edge lands
                 exactly where the absolutely-positioned pill's top edge sits
                 (top-10), instead of stacking below it. */}
-            <div className="relative flex w-full flex-col items-center gap-15 rounded-case-3xl bg-portfolio-grey-50 px-6 pb-15 pt-10 sm:px-10">
+            <div className="relative flex w-full flex-col items-center gap-15 rounded-case-mobile bg-portfolio-grey-50 px-6 pb-15 pt-10 sm:rounded-case-3xl sm:px-10">
               {/* Below lg the card is too narrow for the pill and the heading
                   to share a row, so the pill sits in flow above the heading,
                   centered like the heading. From lg up it's absolutely

@@ -117,7 +117,7 @@ export default function FaircadoCaseStudyPage() {
           // Sits inside the section's own px-4/sm:px-10 padding, same as every
           // other gray panel on the page — no full-bleed breakout, so this panel
           // keeps the same 24px (mobile) / 40px (sm+) gutter as the rest.
-          className="relative w-full aspect-[9/13] overflow-hidden rounded-case-lg bg-portfolio-grey-50 sm:aspect-[16/10] sm:rounded-case-2xl lg:aspect-[1220/728] lg:rounded-case-3xl"
+          className="relative w-full aspect-[9/13] overflow-hidden rounded-case-mobile bg-portfolio-grey-50 sm:aspect-[16/10] sm:rounded-case-2xl lg:aspect-[1220/728] lg:rounded-case-3xl"
         >
           <Image
             src={`${IMG}/badge-featured-app-store.png`}
@@ -132,10 +132,14 @@ export default function FaircadoCaseStudyPage() {
               to have. Mobile/sm get a taller container (aspect-[9/13]/[16/10]) and a
               bigger, centered video so the hand+phone read at a usable size on a phone
               screen, matching reference treatments; lg keeps the original wide-panel
-              placement untouched. */}
+              placement untouched. Below sm the box sits at 58.5% (not 50%)
+              because the hand in the video reaches further right than the
+              phone, so the composition's visual centre is at ~46% of the
+              video's width; nudging the box right centres hand + phone in
+              the panel. */}
           <video
             src="/videos/case-studies/faircado/hero-cover-video.mp4"
-            className="absolute left-1/2 top-[2%] h-[98%] w-[84%] -translate-x-1/2 object-contain object-bottom sm:left-[58%] sm:top-[4%] sm:h-[98%] sm:w-[62%] lg:left-[37.54%] lg:top-[10.74%] lg:h-[97.5%] lg:w-[44.93%] lg:translate-x-0 lg:object-center"
+            className="absolute left-[58.5%] top-[2%] h-[98%] w-[84%] -translate-x-1/2 object-contain object-bottom sm:left-[58%] sm:top-[4%] sm:h-[98%] sm:w-[62%] lg:left-[37.54%] lg:top-[10.74%] lg:h-[97.5%] lg:w-[44.93%] lg:translate-x-0 lg:object-center"
             autoPlay
             muted
             loop
@@ -147,7 +151,7 @@ export default function FaircadoCaseStudyPage() {
 
       {/* Section 2: Role / Timeline / Team / Space + Impact, then Context */}
       <section className="mx-auto w-full max-w-[1220px] px-4 sm:px-10">
-        <div className="mx-auto flex w-fit max-w-full flex-col gap-10 rounded-case-xl bg-portfolio-grey-50 p-6 sm:p-10 lg:p-[60px]">
+        <div className="mx-auto flex w-fit max-w-full flex-col gap-10 rounded-case-mobile bg-portfolio-grey-50 p-6 sm:rounded-case-xl sm:p-10 lg:p-[60px]">
           {/* Grid (2 fixed columns) on mobile so My Role/Space stack in the left
               column and Team/Timeline stack in the right column — both pairs
               read as similarly narrow, so pairing them this way (instead of the
@@ -354,7 +358,7 @@ export default function FaircadoCaseStudyPage() {
             {/* Below lg the panel grows to its content with even padding;
                 on lg it keeps its fixed 340px height with no padding, since
                 the text sits beside the phone there. */}
-            <div className="relative z-0 flex min-h-[340px] w-full items-center rounded-case-3xl bg-portfolio-grey-50 py-10 lg:h-[340px] lg:min-h-0 lg:py-0">
+            <div className="relative z-0 flex min-h-[340px] w-full items-center rounded-case-mobile bg-portfolio-grey-50 py-10 sm:rounded-case-3xl lg:h-[340px] lg:min-h-0 lg:py-0">
               <div className="w-full px-6 sm:px-10 lg:px-[80px]">
                 {/* Explicit line breaks (rather than letting the text wrap
                     on its own) so the headline always renders as exactly
@@ -673,7 +677,7 @@ export default function FaircadoCaseStudyPage() {
             {results.statCards.map((card, i) => (
               <StatCard key={i} icon={card.icon} icons={card.icons} heading={card.heading} body={card.body} emphasis={card.emphasis} />
             ))}
-            <div className="flex flex-col items-center justify-center gap-4 rounded-case-2xl bg-portfolio-grey-50 p-6 text-center sm:p-10 lg:p-[80px]">
+            <div className="flex flex-col items-center justify-center gap-4 rounded-case-mobile bg-portfolio-grey-50 sm:rounded-case-2xl p-6 text-center sm:p-10 lg:p-[80px]">
               <Image
                 src={`${IMG}/impact-arrow.png`}
                 alt=""
@@ -686,7 +690,7 @@ export default function FaircadoCaseStudyPage() {
                 User feedback that made my day
               </p>
             </div>
-            <figure className="flex flex-col justify-center gap-7 rounded-case-2xl bg-portfolio-grey-50 p-6 sm:col-span-2 sm:p-10 lg:p-[80px]">
+            <figure className="flex flex-col justify-center gap-7 rounded-case-mobile bg-portfolio-grey-50 sm:rounded-case-2xl p-6 sm:col-span-2 sm:p-10 lg:p-[80px]">
               <img
                 src={`${IMG}/icon-quote-mark.svg`}
                 alt=""
@@ -729,7 +733,7 @@ export default function FaircadoCaseStudyPage() {
           <SectionHeading eyebrow={closingTakeaways.eyebrow} heading={closingTakeaways.heading} />
         </div>
         <div className="w-full">
-          <div className="grid gap-10 rounded-case-2xl bg-portfolio-grey-50 p-6 sm:grid-cols-3 sm:p-[60px]">
+          <div className="grid gap-10 rounded-case-mobile bg-portfolio-grey-50 sm:rounded-case-2xl p-6 sm:grid-cols-3 sm:p-[60px]">
             {closingTakeaways.testimonials.map((testimonial) => (
               <TestimonialCard key={testimonial.number} {...testimonial} />
             ))}
