@@ -45,6 +45,18 @@ Below `sm:` the case study uses three spacing steps and nothing else:
 
 Inside the heading block, `SectionHeading` already fixes eyebrow to title at 32px and title to body at 16px at every width. Desktop keeps its per-section tuning: any extra or negative section margin is scoped to `lg:` (`lg:mt-10`, `lg:-mt-[60px]`), and heading or card gaps restore their desktop value from `sm:` (`gap-12 sm:gap-16`). Approved exceptions on mobile: the Challenge panel sits 48px under "So our challenge became:" (`-mt-12`) and the numbered solution blocks sit close under the Final Solution title (`-mt-16`), because both continue the section above; and the My Approach 2x2 card grid uses an 8px gap (`gap-2 sm:gap-6`) so each small card keeps room for its content.
 
+## Mobile Rules
+
+Desktop is the approved, primary surface. Mobile is retrofitted onto it, so every rule below is applied with breakpoint-scoped classes that leave `lg:` (or `sm:`, where noted) rendering exactly as it was.
+
+1. **Desktop first.** No mobile fix may change how anything renders on desktop without explicit approval. If a shared value has to change, stop and ask; otherwise add a mobile-scoped override and restore the desktop value at its breakpoint (`p-6 sm:p-10`, `gap-12 sm:gap-16`).
+2. **Corner-positioned tag pills return to the flow below `lg:`,** centred above the card heading (`self-center lg:absolute lg:left-10 lg:top-10 lg:self-auto`, with `-mt-9 lg:mt-0` on the heading to tighten the gap). An absolutely positioned pill overlaps the heading once the card is narrow.
+3. **Fixed card heights and large fixed gaps only apply once cards sit side by side.** `h-[380px]`, `h-[431px]`, `gap-[100px]` exist to equalise cards in a row; scope them to the breakpoint where the grid becomes multi-column (`sm:h-[380px]`, `gap-10 sm:gap-[100px]`). Stacked in one column they only leave empty space.
+4. **Manual line breaks in headings are desktop-only.** `<br className="hidden lg:inline" />{" "}` (the `{" "}` restores the space) so short mobile lines wrap naturally instead of leaving orphan words. Where two words must stay together on phones, replace the break with a non-breaking space below `lg:`.
+5. **Large headings scale with `vw` up to `lg:`, never a fixed px below that.** A fixed px size (or a `calc(vw + px)` addend) still overflows tablets and narrow phones; use pure `vw` steps (`text-[12vw] sm:text-[7vw] md:text-[14vw] lg:text-[152px]`).
+6. **Decorative giant titles may crop at the screen edges, but must never cause horizontal scroll.** Give the title `w-max` inside a centred parent with `overflow-x-hidden`, so the word is cropped evenly on both sides (solution titles: `19vw` below `sm:`, number stacked above the word). Check `document.documentElement.scrollWidth` equals the viewport width after any such change.
+7. **Overlays that hang off a phone mockup scale with the phone.** Badges, loupes, tags and pins sized for the 250px desktop phone scale by 190/250 (0.76) below the phone's mobile breakpoint (`w-[213px] sm:w-[280px]` for the urgency tips; the peek cards use a 0.76 transform). Anything that hangs off the left edge also needs matching left padding in its scroll strip so it isn't clipped.
+
 ## Layout Containers
 
 Every case study section aligns to one of two nested containers. Reuse these exactly, don't invent new offsets per section.
@@ -90,3 +102,4 @@ First real case study copy (Faircado) is direct, confident, data-forward: short 
 - 2026-09-13: Mobile responsive pass on the Faircado case study. Standardized phone mockups at 190 x 411px below `lg:`, added the mobile horizontal scroll strip pattern (first used on the Insight section) and the `scrollbar-hide` utility in `app/globals.css`.
 - 2026-09-14: Added `--radius-case-mobile` (28px) as the single panel/card corner radius below `sm:`. 28px is a new value rather than the existing 24px token, chosen by eye on the phone against the hero and My Role panels.
 - 2026-09-14: Standardized mobile vertical rhythm (96 / 48 / 24px). Section-specific margins that existed for desktop are now `lg:`-only.
+- 2026-09-14: Added the "Mobile Rules" section (desktop-first, pills in flow, scoped fixed heights, desktop-only line breaks, vw headings, cropped giant titles, overlays scaling with the phone), promoted from the Faircado mobile pass.
