@@ -72,6 +72,13 @@
   /* Panels and cards below sm: one radius for every grey panel/card on
      phones, where the desktop 40/48px corners read too big. */
   --radius-case-mobile: 28px;
+
+  /* Site-wide (homepage) tokens, added 2026-09-14 from the Portfolio 2026
+     homepage Figma. Separate from the Faircado brand colors above. */
+  --color-portfolio-pink-500: #e53b7d;
+  /* Hero display size: 60px / 1.4 line-height. Use with tracking-[-0.04em]. */
+  --text-hero: 60px;
+  --text-hero--line-height: 1.4;
 }
 
 :root {
