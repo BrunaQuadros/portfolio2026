@@ -13,7 +13,9 @@ export const faircado: FaircadoContent = {
   hero: {
     logo: { src: `${IMG}/logo-faircado.svg`, alt: "Faircado logo" },
     headingLine1: "Redefining visual search:",
-    headingLine2: "from MVP to star feature",
+    headingLine2Before: "from MVP to star",
+    headingStar: { src: `${IMG}/icon-star-3d.png`, alt: "" },
+    headingLine2After: "feature",
     descriptionLead: "Faircado is a ",
     descriptionAccent1: "fashion aggregator app",
     descriptionMid1: " on a mission to make second-hand shopping as easy as buying new.",

@@ -99,7 +99,18 @@ export default function FaircadoCaseStudyPage() {
                   hiding the <br> below lg lets it wrap naturally there. */}
               <br className="hidden lg:block" />
               {" "}
-              {hero.headingLine2}
+              {hero.headingLine2Before}{" "}
+              {/* Decorative 3D star sized in em so it scales with the heading
+                  at every breakpoint. Empty alt: it's ornamental, the word
+                  "star" already carries the meaning for screen readers. */}
+              <Image
+                src={hero.headingStar.src}
+                alt={hero.headingStar.alt}
+                width={96}
+                height={96}
+                className="inline-block size-[1em] translate-x-0.5 align-[-0.15em]"
+              />{" "}
+              {hero.headingLine2After}
             </h1>
             <p className="font-manrope text-[22px] leading-[1.4] tracking-[-0.5px] text-portfolio-grey-900 sm:text-[28px] lg:text-[40px] lg:leading-[60px] lg:tracking-[-1.2px]">
               {hero.descriptionLead}
