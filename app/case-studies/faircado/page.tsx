@@ -216,7 +216,7 @@ export default function FaircadoCaseStudyPage() {
       </section>
 
       {/* Context */}
-      <section className="relative mx-auto flex w-full max-w-[1220px] flex-col gap-16 px-4 sm:px-10 lg:flex-row lg:items-center lg:justify-between lg:gap-0">
+      <section className="relative mx-auto flex w-full max-w-[1220px] flex-col gap-12 px-4 max-sm:overflow-x-hidden sm:gap-16 sm:px-10 lg:flex-row lg:items-center lg:justify-between lg:gap-0">
         <div
           className="w-full lg:max-w-[520px]"
           // Aligns this heading's left edge with the text inside the My
@@ -245,7 +245,14 @@ export default function FaircadoCaseStudyPage() {
             }
           />
         </div>
-        <div className="relative mx-auto aspect-[399/373] w-full max-w-[475px] shrink-0">
+        {/* Below sm the cluster box is 18% wider than the column, pulled
+            out with negative side margins so the three cards (which only
+            fill ~82% of the box's width, sitting slightly left of its
+            centre) read bigger and land centred on the screen. The margins
+            are uneven on purpose to correct that off-centre cluster. The cards also end at ~82% of the
+            box's height, so the negative bottom margin trims that empty
+            band before the next section. */}
+        <div className="relative -ml-[6%] -mr-[12%] -mb-8 w-[118%] aspect-[399/373] max-w-none shrink-0 sm:mx-auto sm:mb-0 sm:w-full sm:max-w-[475px]">
           {context.cards.map((card, i) => (
             <div
               key={i}
@@ -314,11 +321,7 @@ export default function FaircadoCaseStudyPage() {
                   <span className="font-bold">{problem.bodyAccent2}</span>
                   {problem.bodyText2Tail}
                 </p>
-                {/* Desktop only: below lg this line moves down to sit
-                    between the MVP phone and the grey challenge panel
-                    (see the Challenge section), per the mobile reading
-                    order text > phone > "So our challenge became:" > panel. */}
-                <p className="hidden font-bold lg:block">{problem.closingLine}</p>
+                <p className="font-bold">{problem.closingLine}</p>
               </div>
             }
           />
@@ -332,39 +335,28 @@ export default function FaircadoCaseStudyPage() {
           top margin to overlap the Problem section above — rather than
           sharing row space with the Problem text, which forced the box
           narrow and the headline down to a tiny font size. */}
-      {/* -mt-12 below lg pulls the MVP phone closer to the paragraph above
-          that talks about it (the page's default section gap is 96px). */}
+      {/* -mt-12 below lg: the grey panel sits 48px under "So our challenge
+          became:" (the heading-to-content step) instead of the 96px section
+          gap, since it completes that sentence. */}
       <section className="relative z-10 mx-auto -mt-12 w-full max-w-[1220px] px-4 sm:px-10 lg:-mt-[420px]">
         <div className="w-full">
-          {/* items-start below lg: the phone lines up with the text's left
-              edge instead of being centred. */}
-          <div className="flex flex-col items-start lg:items-center">
-            {/* Below lg the phone sits in normal flow above the closing
-                line and the panel (no overlap); on lg it overlaps the panel
-                by 150px and sits to the right, as before. */}
-            {/* Phone mockups are 190x411 below lg (the standard mobile
-                phone size, same 250:541 aspect ratio as desktop) and
-                250x541 on lg. */}
-            {/* flex-col-reverse below lg: caption under the phone; on lg the
-                caption goes back above it, as designed. */}
-            <div className="relative z-10 flex w-[190px] shrink-0 flex-col-reverse items-start gap-3 lg:w-[250px] lg:flex-col lg:items-center lg:mb-[-150px] lg:ml-auto lg:mr-16 lg:-translate-x-10">
-              <p className="w-full text-left font-manrope text-[14px] leading-[20px] text-portfolio-grey-600 lg:w-[226px] lg:text-center">
+          <div className="flex flex-col items-center">
+            {/* The MVP phone (with its caption) is desktop-only: on phones
+                it added little between the Problem text and the challenge
+                panel. On lg it overlaps the panel by 150px and sits to the
+                right, as before. */}
+            <div className="relative z-10 hidden w-[250px] shrink-0 flex-col items-center gap-3 lg:mb-[-150px] lg:ml-auto lg:mr-16 lg:flex lg:-translate-x-10">
+              <p className="w-[226px] text-center font-manrope text-[14px] leading-[20px] text-portfolio-grey-600">
                 The Image Search MVP
               </p>
-              <div className="relative h-[411px] w-[190px] overflow-hidden rounded-case-xl shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)] lg:h-[541px] lg:w-[250px]">
+              <div className="relative h-[541px] w-[250px] overflow-hidden rounded-case-xl shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)]">
                 <Image src={problem.beforeImage.src} alt={problem.beforeImage.alt} fill className="object-cover" />
               </div>
             </div>
-            {/* Mobile-only copy of "So our challenge became:", between the
-                phone and the panel. The desktop copy lives in the Problem
-                text block above (hidden below lg). */}
-            <p className="mt-10 mb-6 w-full font-manrope font-bold text-[18px] leading-[28px] text-portfolio-grey-900 lg:hidden">
-              {problem.closingLine}
-            </p>
             {/* Below lg the panel grows to its content with even padding;
                 on lg it keeps its fixed 340px height with no padding, since
                 the text sits beside the phone there. */}
-            <div className="relative z-0 flex min-h-[340px] w-full items-center rounded-case-mobile bg-portfolio-grey-50 py-10 sm:rounded-case-3xl lg:h-[340px] lg:min-h-0 lg:py-0">
+            <div className="relative z-0 flex w-full items-center rounded-case-mobile bg-portfolio-grey-50 py-6 sm:min-h-[340px] sm:rounded-case-3xl sm:py-10 lg:h-[340px] lg:min-h-0 lg:py-0">
               <div className="w-full px-6 sm:px-10 lg:px-[80px]">
                 {/* Explicit line breaks (rather than letting the text wrap
                     on its own) so the headline always renders as exactly
@@ -395,10 +387,10 @@ export default function FaircadoCaseStudyPage() {
       </section>
 
       {/* My Approach */}
-      {/* mt-10: +40px on top of the page's standard section gap, per
-          request to add extra breathing room after the Problem section's
-          grey CTA panel specifically. */}
-      <section className="mx-auto mt-10 flex w-full max-w-[1220px] flex-col gap-[60px] px-4 sm:px-10">
+      {/* lg:mt-10: +40px on top of the page's standard section gap on
+          desktop, per request to add extra breathing room after the Problem
+          section's grey CTA panel. Mobile keeps the plain 96px gap. */}
+      <section className="mx-auto flex w-full max-w-[1220px] flex-col gap-12 px-4 sm:gap-[60px] sm:px-10 lg:mt-10">
         <div
           // Same alignment trick as Context and Problem above: lines this
           // section's left edge up with the text inside the My Role/Impact
@@ -414,7 +406,10 @@ export default function FaircadoCaseStudyPage() {
             (no full-bleed breakout, to keep a consistent gutter at every
             desktop width). */}
         <div className="w-full">
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {/* gap-2 below sm: the 2x2 phone grid uses an 8px gap (an approved
+              exception to the 24px card gap) so each card gets more room for
+              its own content. */}
+          <div className="grid grid-cols-2 gap-2 sm:gap-6 lg:grid-cols-4">
             {approach.methods.map((method, i) => (
               <MethodCard key={i} {...method} />
             ))}
@@ -423,11 +418,12 @@ export default function FaircadoCaseStudyPage() {
       </section>
 
       {/* Insight */}
-      {/* mt-10: +40px on top of the page's standard section gap (128px),
-          bringing the gap above this section to 168px. */}
-      <section className="mx-auto mt-10 w-full max-w-[1220px] px-4 sm:px-10">
+      {/* lg:mt-10: +40px on top of the page's standard section gap (128px)
+          on desktop, bringing the gap above this section to 168px. Mobile
+          keeps the plain 96px section gap. */}
+      <section className="mx-auto w-full max-w-[1220px] px-4 sm:px-10 lg:mt-10">
         <div className="w-full">
-          <div className="flex flex-col items-start gap-16 lg:flex-row lg:items-center lg:gap-0">
+          <div className="flex flex-col items-start gap-12 sm:gap-16 lg:flex-row lg:items-center lg:gap-0">
             <div
               className="w-full lg:max-w-[348px] lg:shrink-0 lg:-translate-y-[70px]"
               // Same text-container alignment trick used by Context, Problem,
@@ -537,7 +533,7 @@ export default function FaircadoCaseStudyPage() {
           above, and the full page gap is wanted there. */}
       <section className="mx-auto w-full max-w-[1220px] px-4 sm:px-10 lg:-mt-[60px]">
         <div
-          className="mb-20 lg:max-w-[420px]"
+          className="mb-12 sm:mb-20 lg:max-w-[420px]"
           // Same text-container alignment trick used by Context, Problem,
           // My Approach, and Insight, so this heading's left edge lines up
           // with theirs.
@@ -597,9 +593,9 @@ export default function FaircadoCaseStudyPage() {
       </section>
 
       {/* Final solution intro */}
-      {/* mt-5: +20px on top of the base section gap, bringing the gap above
-          this title (from the problem cards) to 200px. */}
-      <section className="mx-auto mt-5 w-full max-w-[600px] px-4 sm:px-10">
+      {/* lg:mt-5: +20px on top of the base section gap on desktop, bringing
+          the gap above this title (from the problem cards) to 200px. */}
+      <section className="mx-auto w-full max-w-[600px] px-4 sm:px-10 lg:mt-5">
         <SectionHeading
           eyebrow={finalSolution.eyebrow}
           heading={finalSolution.heading}
@@ -636,9 +632,10 @@ export default function FaircadoCaseStudyPage() {
       </div>
 
       {/* Discarded ideas */}
-      {/* mt-[72px]: +72px on top of the base section gap (128px), bringing
-          the gap above this section (from the last Momentum card) to 200px. */}
-      <div className="mt-[72px]">
+      {/* lg:mt-[72px]: +72px on top of the base section gap (128px) on
+          desktop, bringing the gap above this section (from the last Momentum
+          card) to 200px. Mobile keeps the plain 96px gap. */}
+      <div className="lg:mt-[72px]">
         <DiscardedIdeasSection
           eyebrow={discardedIdeas.eyebrow}
           heading={discardedIdeas.heading}
@@ -654,7 +651,7 @@ export default function FaircadoCaseStudyPage() {
       {/* mt-[72px]: +72px on top of the base section gap (128px), bringing
           the gap above this section (from Discarded Ideas) to 200px, same
           as the gap above Discarded Ideas. */}
-      <section className="mx-auto mt-[72px] flex w-full max-w-[1220px] flex-col gap-16 px-4 sm:px-10">
+      <section className="mx-auto flex w-full max-w-[1220px] flex-col gap-12 px-4 sm:gap-16 sm:px-10 lg:mt-[72px]">
         <div
           className="w-full lg:max-w-[592px]"
           // Same text-container alignment trick used by Context, Problem, My
@@ -679,7 +676,7 @@ export default function FaircadoCaseStudyPage() {
               grids) so the feedback card's width matches a single stat card
               exactly, and the testimonial's width (col-span-2) matches the
               first two stat cards combined, including the gap between them. */}
-          <div className="grid grid-cols-1 gap-7 sm:grid-cols-3">
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-3 sm:gap-7">
             {results.statCards.map((card, i) => (
               <StatCard key={i} icon={card.icon} icons={card.icons} heading={card.heading} body={card.body} emphasis={card.emphasis} />
             ))}
@@ -731,7 +728,7 @@ export default function FaircadoCaseStudyPage() {
       {/* Closing takeaways */}
       {/* mt-[72px]: +72px on top of the base section gap (128px), bringing
           the gap above this section (from the Impact cards) to 200px. */}
-      <section className="mx-auto mt-[72px] flex w-full max-w-[1220px] flex-col gap-16 px-4 sm:px-10">
+      <section className="mx-auto flex w-full max-w-[1220px] flex-col gap-12 px-4 sm:gap-16 sm:px-10 lg:mt-[72px]">
         <div
           className="w-full lg:max-w-[592px]"
           // Same text-container alignment trick used by Context, Problem, My
@@ -742,7 +739,7 @@ export default function FaircadoCaseStudyPage() {
           <SectionHeading eyebrow={closingTakeaways.eyebrow} heading={closingTakeaways.heading} />
         </div>
         <div className="w-full">
-          <div className="grid gap-10 rounded-case-mobile bg-portfolio-grey-50 sm:rounded-case-2xl p-6 sm:grid-cols-3 sm:p-[60px]">
+          <div className="grid gap-6 rounded-case-mobile bg-portfolio-grey-50 sm:gap-10 sm:rounded-case-2xl p-6 sm:grid-cols-3 sm:p-[60px]">
             {closingTakeaways.testimonials.map((testimonial) => (
               <TestimonialCard key={testimonial.number} {...testimonial} />
             ))}

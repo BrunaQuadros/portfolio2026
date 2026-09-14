@@ -401,22 +401,31 @@ function MobileScrollStrip({ block, priority }: { block: SolutionBlockType; prio
 export function SolutionSection({ number, title, tagIcon, tag, blocks }: SolutionSectionProps) {
   return (
     <section className="flex w-full flex-col items-center gap-7 overflow-x-hidden" aria-labelledby={`solution-${title.toLowerCase()}`}>
+      {/* Below sm the title is deliberately wider than the phone screen
+          (~110% of it for "Awareness"): w-max keeps it on one line at its
+          natural width, and because the section centres its children and
+          clips overflow, the word is cropped evenly on both edges instead
+          of pushing the page into horizontal scroll. The number stacks
+          centred above the word there (flex-col), so it isn't the part
+          that gets cropped; from sm up both sit inline as on desktop. */}
       <h3
         id={`solution-${title.toLowerCase()}`}
-        className="font-[family-name:var(--font-inter-display)] font-bold leading-[1.1] tracking-[-2px] text-portfolio-grey-50 text-center"
+        className="flex w-max max-w-none flex-col items-center font-[family-name:var(--font-inter-display)] font-bold leading-[1.1] tracking-[-2px] text-portfolio-grey-50 text-center sm:block sm:w-auto"
       >
         {/* A third of the title's size (matches Figma), baseline-aligned
             with it by default since both are inline text in the same h3.
-            Mobile/sm sizes are pure vw (no flat px addend) so the longest
-            title word ("Awareness") scales down with the viewport instead
-            of overflowing it — the old `calc(15vw+40px)` stayed ~96px+ even
-            on the narrowest phones. The fixed 152px only kicks in at lg:
+            Mobile/sm sizes are pure vw (no flat px addend) so they scale
+            with the viewport. Below sm the title is intentionally oversized
+            (19vw, see the h3 comment) and cropped at the screen edges. The fixed 152px only kicks in at lg:
             at md (768-1023px) it still overflowed the content width, so
             md scales with the viewport too (14vw = ~107px at 768px). */}
-        <span className="text-[4vw] sm:text-[2.33vw] md:text-[3.4vw] lg:text-[2.33rem] text-faircado-green-400">{number}</span>
-        <span className="text-[12vw] sm:text-[7vw] md:text-[14vw] lg:text-[152px]">{title}</span>
+        {/* -mb-5 below sm pulls the stacked number 20px down into the word's
+            line box, so it sits tight against (slightly overlapping) the
+            word's cap height instead of floating above it. */}
+        <span className="-mb-5 text-[6.4vw] sm:mb-0 sm:text-[2.33vw] md:text-[3.4vw] lg:text-[2.33rem] text-faircado-green-400">{number}</span>
+        <span className="text-[19vw] sm:text-[7vw] md:text-[14vw] lg:text-[152px]">{title}</span>
       </h3>
-      <div className="flex w-full flex-col items-center gap-20">
+      <div className="flex w-full flex-col items-center gap-6 sm:gap-20">
         {/* Each block's gray panel simply sits inside the page's own
             px-6/sm:px-10 section padding (like the My Role/Impact box)
             instead of full-bleed breaking out of it — full-bleed left the

@@ -42,10 +42,13 @@ export function MethodCard({ title, description, logos, avatars, icons }: Method
         ))}
       </div>
       <div className="flex flex-col gap-3">
-        <p className="whitespace-nowrap font-manrope font-bold text-[22px] leading-[32px] tracking-[-0.5px] text-portfolio-grey-900 lg:text-[24px]">
+        {/* Below sm the cards sit two per row (~167px wide on a 390px
+            phone), so the title steps down to 18px and may wrap; from sm
+            up it stays on one line at 22/24px as before. */}
+        <p className="font-manrope font-bold text-[18px] leading-[24px] tracking-[-0.5px] text-portfolio-grey-900 sm:whitespace-nowrap sm:text-[22px] sm:leading-[32px] lg:text-[24px]">
           {title}
         </p>
-        <p className="font-manrope text-[16px] leading-[26px] text-portfolio-grey-900">{description}</p>
+        <p className="font-manrope text-[14px] leading-[20px] text-portfolio-grey-900 sm:text-[16px] sm:leading-[26px]">{description}</p>
       </div>
     </div>
   );

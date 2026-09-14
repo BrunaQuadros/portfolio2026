@@ -27,6 +27,7 @@ Don't duplicate long content from these docs into chat responses or into this fi
 - Any newly approved token must be added to docs/DESIGN.md immediately, so it's available for reuse next time
 - Mobile corner radius: below `sm:`, every grey panel and card uses `rounded-case-mobile` (28px), with the desktop token restored from `sm:` up (`rounded-case-mobile sm:rounded-case-2xl`). Never leave a panel with only its desktop radius. See docs/DESIGN.md, "Mobile panel radius"
 - Mobile scroll strips: phones inside a horizontal scroll strip are 40px apart (`gap-10`), unless a specific element (like the before/after pins) needs its own spacing. See docs/DESIGN.md, "Horizontal scroll strip"
+- Mobile vertical rhythm: below `sm:` use only 96px between sections, 48px between a heading block and its content, 24px between cards of a group. Desktop-specific margins must be scoped to `lg:`. See docs/DESIGN.md, "Vertical Rhythm (mobile)"
 - Reuse existing components before creating new ones. Check docs/COMPONENTS.md and the components/ui folder first
 - Any new pattern that repeats more than twice should become a reusable component, not copy-pasted
 

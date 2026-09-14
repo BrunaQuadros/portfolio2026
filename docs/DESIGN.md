@@ -33,6 +33,18 @@ These are project-specific brand colors for the Faircado case study, not the por
 
 No custom spacing tokens were needed. Figma's pixel-named spacing vars (e.g. `spacing-32`) map directly onto Tailwind's default numeric scale (`gap-8` = 8 × 4px = 32px), so standard Tailwind spacing utilities were used throughout.
 
+## Vertical Rhythm (mobile)
+
+Below `sm:` the case study uses three spacing steps and nothing else:
+
+| Between | Value | Tailwind |
+|---|---|---|
+| One section and the next | 96px | `gap-24` on the page's `<main>` |
+| A section heading block and its content | 48px | `gap-12` (or `mb-12`) on the section |
+| Cards in the same group | 24px | `gap-6` on the grid / strip |
+
+Inside the heading block, `SectionHeading` already fixes eyebrow to title at 32px and title to body at 16px at every width. Desktop keeps its per-section tuning: any extra or negative section margin is scoped to `lg:` (`lg:mt-10`, `lg:-mt-[60px]`), and heading or card gaps restore their desktop value from `sm:` (`gap-12 sm:gap-16`). Approved exceptions on mobile: the Challenge panel sits 48px under "So our challenge became:" (`-mt-12`) and the numbered solution blocks sit close under the Final Solution title (`-mt-16`), because both continue the section above; and the My Approach 2x2 card grid uses an 8px gap (`gap-2 sm:gap-6`) so each small card keeps room for its content.
+
 ## Layout Containers
 
 Every case study section aligns to one of two nested containers. Reuse these exactly, don't invent new offsets per section.
@@ -77,3 +89,4 @@ First real case study copy (Faircado) is direct, confident, data-forward: short 
 - 2026-08-30: Added Hanken Grotesk (`--font-hanken-grotesk`) for diegetic app-UI mockup copy only (Momentum urgency tip callouts), matching the real Faircado app's font per Figma — not a replacement for Manrope as the portfolio's own voice.
 - 2026-09-13: Mobile responsive pass on the Faircado case study. Standardized phone mockups at 190 x 411px below `lg:`, added the mobile horizontal scroll strip pattern (first used on the Insight section) and the `scrollbar-hide` utility in `app/globals.css`.
 - 2026-09-14: Added `--radius-case-mobile` (28px) as the single panel/card corner radius below `sm:`. 28px is a new value rather than the existing 24px token, chosen by eye on the phone against the hero and My Role panels.
+- 2026-09-14: Standardized mobile vertical rhythm (96 / 48 / 24px). Section-specific margins that existed for desktop are now `lg:`-only.

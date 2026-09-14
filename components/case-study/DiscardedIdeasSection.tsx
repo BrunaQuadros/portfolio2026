@@ -28,7 +28,7 @@ export function DiscardedIdeasSection({
   items,
 }: DiscardedIdeasSectionProps) {
   return (
-    <section className="mx-auto flex w-full max-w-[1220px] flex-col gap-16 px-6 sm:px-10">
+    <section className="mx-auto flex w-full max-w-[1220px] flex-col gap-12 px-6 sm:gap-16 sm:px-10">
       <div
         className="w-full lg:max-w-[592px]"
         // Same text-container alignment trick used by Context, Problem, My
