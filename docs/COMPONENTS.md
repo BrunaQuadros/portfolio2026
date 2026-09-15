@@ -44,6 +44,9 @@ Most of these categories are empty right now, add them as real components are bu
 `components/media/`:
 - `HoverPlayVideo.tsx` — client component. Muted looping video frozen on a chosen second (`startAt`) until the surrounding link is hovered or focused, then plays from there; pauses and returns to that frame on leave. Used for the second phone in the homepage project card
 
+- `ProjectMediaPhones.tsx` — the card's two phone mockups (still image + hover-play video), mobile scroll strip below `lg:`
+- `ProjectMediaPanel.tsx` — the card's alternative media block: brand-colored panel with a rounded screenshot inset, same 528 x 541 footprint as the phones. Use for case studies without phone mockups
+
 `components/navigation/`:
 - `SiteHeader.tsx` — homepage top bar: site name (links home) and a Contact link
 - `ExitButton.tsx` — fixed circular close button (top right) linking back to the homepage. Rendered by `app/case-studies/layout.tsx` so it appears on every case study page

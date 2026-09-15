@@ -1,11 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { HomeProjectCard } from "@/content/home";
-import { HoverPlayVideo } from "@/components/media/HoverPlayVideo";
+import { ProjectMediaPanel } from "@/components/home/ProjectMediaPanel";
+import { ProjectMediaPhones } from "@/components/home/ProjectMediaPhones";
 
 // Grey project panel on the homepage: company, title, one-line summary and
-// three highlights on the left, two phone mockups (image + looping video) on
-// the right. The whole panel is one link to the case study. Built for the
+// three highlights on the left, a media block on the right (two phones or a
+// brand-colored panel, see ProjectMediaPhones / ProjectMediaPanel). The whole panel is one link to the case study. Built for the
 // Faircado card, reused for every project added to the homepage.
 type ProjectCardProps = HomeProjectCard;
 
@@ -21,11 +22,6 @@ export function ProjectCard({
 }: ProjectCardProps) {
   // Phone mockups use the two approved sizes from DESIGN.md: 250 x 541 on
   // desktop, 190 x 411 below lg.
-// Hover: the phones lift 4px while the panel darkens one grey step.
-  // Skipped for visitors who prefer reduced motion.
-  const phoneClasses =
-    "relative h-[411px] w-[190px] shrink-0 snap-start overflow-hidden rounded-case-xl transition-transform duration-300 ease-out group-hover:-translate-y-1 group-focus-visible:-translate-y-1 motion-reduce:transform-none lg:h-[541px] lg:w-[250px]";
-
   return (
     <Link
       href={href}
@@ -73,36 +69,9 @@ export function ProjectCard({
       </div>
 
       {media.kind === "phones" ? (
-        // Below lg the two phones sit in the mobile horizontal scroll strip
-        // from DESIGN.md (40px gap, breaks out of the card padding so the
-        // second phone peeks in); on desktop they sit side by side.
-        <div className="scrollbar-hide -mx-6 flex snap-x snap-mandatory gap-10 overflow-x-auto px-6 scroll-pl-6 sm:-mx-10 sm:px-10 sm:scroll-pl-10 lg:mx-0 lg:items-center lg:gap-7 lg:overflow-visible lg:px-0">
-          <div className={phoneClasses}>
-            <Image src={media.image.src} alt={media.image.alt} fill sizes="250px" className="object-cover" />
-          </div>
-          <div className={phoneClasses}>
-            {/* Same clip as the "Retrained the model" solution card. Frozen on
-                the search results frame until the card is hovered, then it
-                plays from there in a loop. */}
-            <HoverPlayVideo
-              src={media.video.src}
-              alt={media.video.alt}
-              startAt={media.video.startAt}
-              className="absolute inset-0 size-full object-cover"
-            />
-          </div>
-        </div>
+        <ProjectMediaPhones image={media.image} video={media.video} />
       ) : (
-        // One wide brand-colored panel (488 x 498 on desktop, full width
-        // below lg) with the screenshot inset and cropped at the bottom,
-        // matching the Figma composition. Lifts on hover like the phones.
-        <div
-          className={`relative aspect-[488/498] w-full shrink-0 self-center overflow-hidden rounded-case-mobile transition-transform duration-300 ease-out group-hover:-translate-y-1 group-focus-visible:-translate-y-1 motion-reduce:transform-none sm:rounded-case-2xl lg:w-[488px] ${media.backgroundClass}`}
-        >
-          <div className="absolute left-[14%] top-[9.5%] h-full w-[72%]">
-            <Image src={media.image.src} alt={media.image.alt} fill sizes="352px" className="object-cover object-top" />
-          </div>
-        </div>
+        <ProjectMediaPanel image={media.image} backgroundClass={media.backgroundClass} />
       )}
     </Link>
   );
