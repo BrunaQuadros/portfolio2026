@@ -20,13 +20,15 @@ export function ProjectCard({
 }: ProjectCardProps) {
   // Phone mockups use the two approved sizes from DESIGN.md: 250 x 541 on
   // desktop, 190 x 411 below lg.
+// Hover: the phones lift 4px while the panel darkens one grey step.
+  // Skipped for visitors who prefer reduced motion.
   const phoneClasses =
-    "relative h-[411px] w-[190px] shrink-0 snap-start overflow-hidden rounded-case-xl lg:h-[541px] lg:w-[250px]";
+    "relative h-[411px] w-[190px] shrink-0 snap-start overflow-hidden rounded-case-xl transition-transform duration-300 ease-out group-hover:-translate-y-1 group-focus-visible:-translate-y-1 motion-reduce:transform-none lg:h-[541px] lg:w-[250px]";
 
   return (
     <Link
       href={href}
-      className="group flex w-full flex-col gap-12 rounded-case-mobile bg-portfolio-grey-50 p-6 transition-transform focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-portfolio-pink-500 sm:rounded-case-3xl sm:p-10 lg:flex-row lg:items-stretch lg:justify-between lg:p-20"
+      className="group flex w-full flex-col gap-12 rounded-case-mobile bg-portfolio-grey-50 p-6 transition-colors duration-300 ease-out hover:bg-portfolio-grey-100 focus-visible:bg-portfolio-grey-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-portfolio-pink-500 sm:rounded-case-3xl sm:p-10 lg:flex-row lg:items-stretch lg:justify-between lg:p-20"
     >
       <div className="flex flex-col justify-between gap-12 lg:w-[480px] lg:shrink-0">
         <div className="flex flex-col gap-8">
