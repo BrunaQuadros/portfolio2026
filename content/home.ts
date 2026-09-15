@@ -16,7 +16,8 @@ export type HomeProjectCard = {
   highlights: { icon: ImageAsset; label: string }[];
   media: {
     image: ImageAsset;
-    video: { src: string; alt: string };
+    // startAt: second of the clip shown while the card is not hovered.
+    video: { src: string; alt: string; startAt: number };
   };
 };
 
@@ -68,6 +69,7 @@ export const home = {
         video: {
           src: "/videos/case-studies/faircado/refine-text-search.mp4",
           alt: "Faircado image search results being refined with a text query",
+          startAt: 3,
         },
       },
     },

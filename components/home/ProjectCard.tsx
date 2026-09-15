@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { HomeProjectCard } from "@/content/home";
+import { HoverPlayVideo } from "@/components/media/HoverPlayVideo";
 
 // Grey project panel on the homepage: company, title, one-line summary and
 // three highlights on the left, two phone mockups (image + looping video) on
@@ -79,15 +80,14 @@ export function ProjectCard({
           <Image src={media.image.src} alt={media.image.alt} fill sizes="250px" className="object-cover" />
         </div>
         <div className={phoneClasses}>
-          {/* Same looping clip as the "Retrained the model" solution card. */}
-          <video
+          {/* Same clip as the "Retrained the model" solution card. Frozen on
+              the search results frame until the card is hovered, then it
+              plays from there in a loop. */}
+          <HoverPlayVideo
             src={media.video.src}
+            alt={media.video.alt}
+            startAt={media.video.startAt}
             className="absolute inset-0 size-full object-cover"
-            autoPlay
-            muted
-            loop
-            playsInline
-            aria-label={media.video.alt}
           />
         </div>
       </div>

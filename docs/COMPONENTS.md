@@ -41,6 +41,9 @@ Most of these categories are empty right now, add them as real components are bu
 `components/home/` — homepage patterns:
 - `ProjectCard.tsx` — grey full-width project panel (company, title, summary, three highlights, two phone mockups: image plus looping video). The whole panel links to the case study. One per project on the homepage; phones use the mobile scroll strip below `lg:`
 
+`components/media/`:
+- `HoverPlayVideo.tsx` — client component. Muted looping video frozen on a chosen second (`startAt`) until the surrounding link is hovered or focused, then plays from there; pauses and returns to that frame on leave. Used for the second phone in the homepage project card
+
 `components/navigation/`:
 - `SiteHeader.tsx` — homepage top bar: site name (links home) and a Contact link
 - `ExitButton.tsx` — fixed circular close button (top right) linking back to the homepage. Rendered by `app/case-studies/layout.tsx` so it appears on every case study page
