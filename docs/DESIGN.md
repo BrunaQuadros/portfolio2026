@@ -19,6 +19,7 @@ Defined in `app/globals.css` under `@theme inline`, used via Tailwind utilities 
 | `faircado-pink-600` | `#e50041` | Accent (thumbs-down chip) |
 | `faircado-green-400` | `#a9f185` | Section number accent ("01/") |
 | `faircado-green-500` | `#52c517` | Highlight text accent |
+| `impact-hero-green-900` | `#28391f` | Impact Hero brand color, homepage card panel background. Added 2026-09-15 |
 
 | `portfolio-pink-500` | `#e53b7d` | Site-wide accent (homepage hero highlight, focus rings on homepage links). Added 2026-09-14 |
 
@@ -98,7 +99,8 @@ First motion values, introduced 2026-09-14 on the Faircado hero star. Treat thes
 - **Settle** (playful landing): `cubic-bezier(0.34, 1.56, 0.64, 1)`, 500ms. Overshoots the target slightly and returns. For small decorative objects arriving somewhere (the sunglasses dropping onto the star). Not for layout or content reveals.
 - **Fade-in for the same object**: 150ms, so the object is visible for most of its travel.
 - **Tailwind 4 gotcha**: `translate`, `rotate` and `scale` are separate CSS properties, so list them by name in `transition-[...]`. Listing only `transform` makes the move snap.
-- **Reduced motion**: not yet handled. Decide a `prefers-reduced-motion` rule before adding scroll reveals or page transitions.
+- **Card hover** (homepage project card, 2026-09-15): panel background steps from `portfolio-grey-50` to `portfolio-grey-100` and the phone mockups lift 4px (`-translate-y-1`), both 300ms ease-out. Reuse for any clickable panel. The lift is disabled under `motion-reduce:`.
+- **Reduced motion**: only the card hover lift respects `prefers-reduced-motion` so far. Decide a `prefers-reduced-motion` rule before adding scroll reveals or page transitions.
 
 ## Inline heading icons
 

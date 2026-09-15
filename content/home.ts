@@ -6,6 +6,22 @@ const FAIRCADO_IMG = "/images/case-studies/faircado";
 
 type ImageAsset = { src: string; alt: string };
 
+// Two phone mockups (image + video frozen until hover), or one wide panel
+// with a website screenshot on a brand-colored background.
+export type ProjectCardMedia =
+  | {
+      kind: "phones";
+      image: ImageAsset;
+      // startAt: second of the clip shown while the card is not hovered.
+      video: { src: string; alt: string; startAt: number };
+    }
+  | {
+      kind: "panel";
+      image: ImageAsset;
+      // Tailwind background class using a color token from globals.css.
+      backgroundClass: string;
+    };
+
 export type HomeProjectCard = {
   href: string;
   company: { logo: ImageAsset; name: string };
@@ -14,10 +30,7 @@ export type HomeProjectCard = {
   descriptionLine1: string;
   descriptionLine2: string;
   highlights: { icon: ImageAsset; label: string }[];
-  media: {
-    image: ImageAsset;
-    video: { src: string; alt: string };
-  };
+  media: ProjectCardMedia;
 };
 
 export const home = {
@@ -61,6 +74,7 @@ export const home = {
         { icon: { src: `${IMG}/icon-highlight-adoption.png`, alt: "" }, label: "40% → 89% adoption" },
       ],
       media: {
+        kind: "phones",
         image: {
           src: `${IMG}/faircado-phone-model-training.png`,
           alt: "Faircado app scanning a photo of a pink sweater with the image search camera",
@@ -68,7 +82,33 @@ export const home = {
         video: {
           src: "/videos/case-studies/faircado/refine-text-search.mp4",
           alt: "Faircado image search results being refined with a text query",
+          startAt: 3,
         },
+      },
+    },
+    {
+      // No case study page yet; the route is reserved for it.
+      href: "/case-studies/impact-hero",
+      company: {
+        logo: { src: `${IMG}/logo-impact-hero.png`, alt: "" },
+        name: "impact hero",
+      },
+      headingLine1: "Building a lead conversion",
+      headingLine2: "tree gifting portal",
+      descriptionLine1: "Automated a tree-gifting portal, driving 20% more upsells",
+      descriptionLine2: "and a 30% higher conversion rate.",
+      highlights: [
+        { icon: { src: `${IMG}/icon-highlight-designer.png`, alt: "" }, label: "Sole designer" },
+        { icon: { src: `${IMG}/icon-highlight-tree.png`, alt: "" }, label: "IaaS | Climate tech" },
+        { icon: { src: `${IMG}/icon-highlight-adoption.png`, alt: "" }, label: "20% increase in upsold products" },
+      ],
+      media: {
+        kind: "panel",
+        image: {
+          src: `${IMG}/impact-hero-portal.png`,
+          alt: "Impact Hero tree gifting portal for Allianz Direct, with a gift redemption form and a world map of planting sites",
+        },
+        backgroundClass: "bg-impact-hero-green-900",
       },
     },
   ] satisfies HomeProjectCard[],

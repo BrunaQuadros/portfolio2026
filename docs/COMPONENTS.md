@@ -39,7 +39,13 @@ Most of these categories are empty right now, add them as real components are bu
 - `SolutionSection.tsx` — one of the three big numbered sections (01/, 02/, 03/), each holding cards with a tag, heading, and mobile screenshots
 
 `components/home/` — homepage patterns:
-- `ProjectCard.tsx` — grey full-width project panel (company, title, summary, three highlights, two phone mockups: image plus looping video). The whole panel links to the case study. One per project on the homepage; phones use the mobile scroll strip below `lg:`
+- `ProjectCard.tsx` — grey full-width project panel (company, title, summary, three highlights, and a media block that is either two phone mockups (image plus hover-play video) or one wide brand-colored panel with a screenshot, chosen by `media.kind`). The whole panel links to the case study. One per project on the homepage; phones use the mobile scroll strip below `lg:`
+
+`components/media/`:
+- `HoverPlayVideo.tsx` — client component. Muted looping video frozen on a chosen second (`startAt`) until the surrounding link is hovered or focused, then plays from there; pauses and returns to that frame on leave. Used for the second phone in the homepage project card
+
+- `ProjectMediaPhones.tsx` — the card's two phone mockups (still image + hover-play video), mobile scroll strip below `lg:`
+- `ProjectMediaPanel.tsx` — the card's alternative media block: brand-colored panel with a rounded screenshot inset, same 528 x 541 footprint as the phones. Use for case studies without phone mockups
 
 `components/navigation/`:
 - `SiteHeader.tsx` — homepage top bar: site name (links home) and a Contact link

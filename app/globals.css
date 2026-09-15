@@ -64,6 +64,9 @@
   --color-faircado-green-400: #a9f185;
   --color-faircado-green-500: #52c517;
 
+  /* Impact Hero case study brand color (homepage card panel). */
+  --color-impact-hero-green-900: #28391f;
+
   --radius-case-md: 12px;
   --radius-case-lg: 20px;
   --radius-case-xl: 24px;
