@@ -19,6 +19,7 @@ Defined in `app/globals.css` under `@theme inline`, used via Tailwind utilities 
 | `faircado-pink-600` | `#e50041` | Accent (thumbs-down chip) |
 | `faircado-green-400` | `#a9f185` | Section number accent ("01/") |
 | `faircado-green-500` | `#52c517` | Highlight text accent |
+| `impact-hero-green-900` | `#28391f` | Impact Hero brand color, homepage card panel background. Added 2026-09-15 |
 
 | `portfolio-pink-500` | `#e53b7d` | Site-wide accent (homepage hero highlight, focus rings on homepage links). Added 2026-09-14 |
 

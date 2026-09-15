@@ -72,25 +72,38 @@ export function ProjectCard({
         </ul>
       </div>
 
-      {/* Below lg the two phones sit in the mobile horizontal scroll strip
-          from DESIGN.md (40px gap, breaks out of the card padding so the
-          second phone peeks in); on desktop they sit side by side. */}
-      <div className="scrollbar-hide -mx-6 flex snap-x snap-mandatory gap-10 overflow-x-auto px-6 scroll-pl-6 sm:-mx-10 sm:px-10 sm:scroll-pl-10 lg:mx-0 lg:items-center lg:gap-7 lg:overflow-visible lg:px-0">
-        <div className={phoneClasses}>
-          <Image src={media.image.src} alt={media.image.alt} fill sizes="250px" className="object-cover" />
+      {media.kind === "phones" ? (
+        // Below lg the two phones sit in the mobile horizontal scroll strip
+        // from DESIGN.md (40px gap, breaks out of the card padding so the
+        // second phone peeks in); on desktop they sit side by side.
+        <div className="scrollbar-hide -mx-6 flex snap-x snap-mandatory gap-10 overflow-x-auto px-6 scroll-pl-6 sm:-mx-10 sm:px-10 sm:scroll-pl-10 lg:mx-0 lg:items-center lg:gap-7 lg:overflow-visible lg:px-0">
+          <div className={phoneClasses}>
+            <Image src={media.image.src} alt={media.image.alt} fill sizes="250px" className="object-cover" />
+          </div>
+          <div className={phoneClasses}>
+            {/* Same clip as the "Retrained the model" solution card. Frozen on
+                the search results frame until the card is hovered, then it
+                plays from there in a loop. */}
+            <HoverPlayVideo
+              src={media.video.src}
+              alt={media.video.alt}
+              startAt={media.video.startAt}
+              className="absolute inset-0 size-full object-cover"
+            />
+          </div>
         </div>
-        <div className={phoneClasses}>
-          {/* Same clip as the "Retrained the model" solution card. Frozen on
-              the search results frame until the card is hovered, then it
-              plays from there in a loop. */}
-          <HoverPlayVideo
-            src={media.video.src}
-            alt={media.video.alt}
-            startAt={media.video.startAt}
-            className="absolute inset-0 size-full object-cover"
-          />
+      ) : (
+        // One wide brand-colored panel (488 x 498 on desktop, full width
+        // below lg) with the screenshot inset and cropped at the bottom,
+        // matching the Figma composition. Lifts on hover like the phones.
+        <div
+          className={`relative aspect-[488/498] w-full shrink-0 self-center overflow-hidden rounded-case-mobile transition-transform duration-300 ease-out group-hover:-translate-y-1 group-focus-visible:-translate-y-1 motion-reduce:transform-none sm:rounded-case-2xl lg:w-[488px] ${media.backgroundClass}`}
+        >
+          <div className="absolute left-[14%] top-[9.5%] h-full w-[72%]">
+            <Image src={media.image.src} alt={media.image.alt} fill sizes="352px" className="object-cover object-top" />
+          </div>
         </div>
-      </div>
+      )}
     </Link>
   );
 }
