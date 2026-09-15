@@ -60,10 +60,11 @@ export default function Home() {
         </h1>
 
         {/* Full-bleed container (DESIGN.md "Layout Containers"): breaks out of
-            the section padding from sm: up so the panel reaches 1220px. */}
+            the section padding from sm: up so the panel reaches 1220px. Cards
+            are spaced like case study sections (96px, 128px from sm:). */}
         <section
           aria-label="Selected work"
-          className="flex flex-col gap-6 sm:-mx-10 sm:w-[calc(100%+5rem)]"
+          className="flex flex-col gap-24 sm:gap-32 sm:-mx-10 sm:w-[calc(100%+5rem)]"
         >
           {projects.map((project) => (
             <ProjectCard key={project.href} {...project} />
