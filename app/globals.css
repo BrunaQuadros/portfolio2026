@@ -67,6 +67,9 @@
   /* Impact Hero case study brand color (homepage card panel). */
   --color-impact-hero-green-900: #28391f;
 
+  /* eco.mio case study brand color (homepage card logo tile and panel). */
+  --color-eco-mio-blue-500: #6b81ee;
+
   --radius-case-md: 12px;
   --radius-case-lg: 20px;
   --radius-case-xl: 24px;

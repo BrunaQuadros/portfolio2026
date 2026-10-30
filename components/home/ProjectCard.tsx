@@ -30,7 +30,14 @@ export function ProjectCard({
       <div className="flex flex-col justify-between gap-12 lg:w-[480px] lg:shrink-0">
         <div className="flex flex-col gap-8">
           <div className="flex items-center gap-3">
-            <Image src={company.logo.src} alt={company.logo.alt} width={32} height={32} className="size-8" />
+            {company.logoBackgroundClass ? (
+              // Logo inset on a brand-colored 32px tile with 8px corners.
+              <span className={`flex size-8 items-center justify-center rounded-md ${company.logoBackgroundClass}`}>
+                <Image src={company.logo.src} alt={company.logo.alt} width={26} height={26} className="size-[81%]" />
+              </span>
+            ) : (
+              <Image src={company.logo.src} alt={company.logo.alt} width={32} height={32} className="size-8" />
+            )}
             <span className="font-manrope text-[18px] font-bold leading-[28px] text-portfolio-grey-900">
               {company.name}
             </span>
@@ -71,7 +78,7 @@ export function ProjectCard({
       {media.kind === "phones" ? (
         <ProjectMediaPhones image={media.image} video={media.video} />
       ) : (
-        <ProjectMediaPanel image={media.image} backgroundClass={media.backgroundClass} />
+        <ProjectMediaPanel screen={media.screen} crop={media.crop} backgroundClass={media.backgroundClass} />
       )}
     </Link>
   );

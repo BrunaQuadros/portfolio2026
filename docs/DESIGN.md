@@ -20,6 +20,7 @@ Defined in `app/globals.css` under `@theme inline`, used via Tailwind utilities 
 | `faircado-green-400` | `#a9f185` | Section number accent ("01/") |
 | `faircado-green-500` | `#52c517` | Highlight text accent |
 | `impact-hero-green-900` | `#28391f` | Impact Hero brand color, homepage card panel background. Added 2026-09-15 |
+| `eco-mio-blue-500` | `#6b81ee` | eco.mio brand color, homepage card logo tile and panel background. Added 2026-10-30 |
 
 | `portfolio-pink-500` | `#e53b7d` | Site-wide accent (homepage hero highlight, focus rings on homepage links). Added 2026-09-14 |
 
@@ -123,3 +124,4 @@ First real case study copy (Faircado) is direct, confident, data-forward: short 
 - 2026-09-14: Added the "Mobile Rules" section (desktop-first, pills in flow, scoped fixed heights, desktop-only line breaks, vw headings, cropped giant titles, overlays scaling with the phone), promoted from the Faircado mobile pass.
 - 2026-09-14: Added the "Motion" section (settle easing, 150ms fade, Tailwind 4 transition gotcha) and "Inline heading icons", both from the Faircado hero star with hover sunglasses.
 - 2026-09-14: Homepage built from the Portfolio 2026 Figma. Added `portfolio-pink-500` (#e53b7d) as the site-wide accent and `text-hero` (60px / 1.4) as the first type token. Figma used Inter for the hero and nav; the owner chose Manrope to keep one heading font. The 50px panel radius in Figma maps to the existing `rounded-case-3xl` (48px); the 230 x 498px phone mockups map to the approved 250 x 541px desktop size.
+- 2026-10-30: eco.mio homepage card (second project). Added `eco-mio-blue-500` (#6b81ee). Figma's 502 x 498px panel maps to the shared 528 x 541px media footprint so all cards line up; the demo GIF became a hover-play MP4 (frozen on its first frame), cropped on the right edge instead of the bottom.

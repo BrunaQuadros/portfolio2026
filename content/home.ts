@@ -6,25 +6,33 @@ const FAIRCADO_IMG = "/images/case-studies/faircado";
 
 type ImageAsset = { src: string; alt: string };
 
+// startAt: second of the clip shown while the card is not hovered.
+type VideoAsset = { src: string; alt: string; startAt: number };
+
 // Two phone mockups (image + video frozen until hover), or one wide panel
-// with a website screenshot on a brand-colored background.
+// with a website screenshot (still image or hover-play video) on a
+// brand-colored background.
 export type ProjectCardMedia =
   | {
       kind: "phones";
       image: ImageAsset;
-      // startAt: second of the clip shown while the card is not hovered.
-      video: { src: string; alt: string; startAt: number };
+      video: VideoAsset;
     }
   | {
       kind: "panel";
-      image: ImageAsset;
+      screen: ({ type: "image" } & ImageAsset) | ({ type: "video" } & VideoAsset);
+      // Which edge the screenshot runs off: "bottom" (inset at the top,
+      // cropped below) or "right" (centered vertically, cropped on the right).
+      crop: "bottom" | "right";
       // Tailwind background class using a color token from globals.css.
       backgroundClass: string;
     };
 
 export type HomeProjectCard = {
   href: string;
-  company: { logo: ImageAsset; name: string };
+  // logoBackgroundClass: optional brand-colored square behind the logo, for
+  // logos that sit inset on a tile (eco.mio).
+  company: { logo: ImageAsset; logoBackgroundClass?: string; name: string };
   headingLine1: string;
   headingLine2: string;
   descriptionLine1: string;
@@ -88,6 +96,36 @@ export const home = {
     },
     {
       // No case study page yet; the route is reserved for it.
+      href: "/case-studies/eco-mio",
+      company: {
+        logo: { src: `${IMG}/logo-eco-mio.jpg`, alt: "" },
+        logoBackgroundClass: "bg-eco-mio-blue-500",
+        name: "eco.mio",
+      },
+      headingLine1: "Automating sales demos",
+      headingLine2: "to save +15h a month",
+      descriptionLine1: "How I built a client-ready demo maker that turned 5 hours",
+      descriptionLine2: "of work into 30 minutes at a B2B climate tech company.",
+      highlights: [
+        { icon: { src: `${IMG}/icon-highlight-designer.png`, alt: "" }, label: "AI Product Engineer" },
+        { icon: { src: `${IMG}/icon-highlight-bolt.png`, alt: "" }, label: "Streamlining a cross-team process" },
+        { icon: { src: `${IMG}/icon-highlight-adoption.png`, alt: "" }, label: "5-hour process → 30 minutes" },
+        { icon: { src: `${IMG}/icon-highlight-tree.png`, alt: "" }, label: "Climate tech | B2B SaaS" },
+      ],
+      media: {
+        kind: "panel",
+        screen: {
+          type: "video",
+          src: "/videos/home/eco-mio-demo-maker.mp4",
+          alt: "Demo booking flow generated for a client: searching hotels in London, choosing a rate and confirming the trip",
+          startAt: 0,
+        },
+        crop: "right",
+        backgroundClass: "bg-eco-mio-blue-500",
+      },
+    },
+    {
+      // No case study page yet; the route is reserved for it.
       href: "/case-studies/impact-hero",
       company: {
         logo: { src: `${IMG}/logo-impact-hero.png`, alt: "" },
@@ -104,10 +142,12 @@ export const home = {
       ],
       media: {
         kind: "panel",
-        image: {
+        screen: {
+          type: "image",
           src: `${IMG}/impact-hero-portal.png`,
           alt: "Impact Hero tree gifting portal for Allianz Direct, with a gift redemption form and a world map of planting sites",
         },
+        crop: "bottom",
         backgroundClass: "bg-impact-hero-green-900",
       },
     },
