@@ -81,6 +81,7 @@ export const home = {
         { icon: { src: `${IMG}/icon-highlight-designer.png`, alt: "" }, label: "Product designer" },
         { icon: { src: `${IMG}/icon-highlight-zero-to-one.png`, alt: "" }, label: "0 → 1 product" },
         { icon: { src: `${IMG}/icon-highlight-adoption.png`, alt: "" }, label: "40% → 89% adoption" },
+        { icon: { src: `${IMG}/icon-highlight-cart.png`, alt: "" }, label: "E-commerce | consumer app" },
       ],
       media: {
         kind: "phones",
