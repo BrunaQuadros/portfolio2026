@@ -105,7 +105,7 @@ export const home = {
         name: "eco.mio",
       },
       headingLine1: "Automating sales demos",
-      headingLine2: "to save +15h a month",
+      headingLine2: "to cut 15h of work monthly",
       descriptionLine1: "How I built a client-ready demo maker that turned 5 hours",
       descriptionLine2: "of work into 30 minutes at a B2B climate tech company.",
       highlights: [
