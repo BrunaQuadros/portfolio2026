@@ -1,9 +1,9 @@
 import Image from "next/image";
 import type { ProjectCardMedia } from "@/content/home";
-import { HoverPlayVideo } from "@/components/media/HoverPlayVideo";
+import { AutoPlayVideo } from "@/components/media/AutoPlayVideo";
 
 // Media block for a homepage project card: one brand-colored panel with a
-// screenshot (still image or hover-play video) that runs off one edge.
+// screenshot (still image or autoplaying video) that runs off one edge.
 // Sized to the same footprint as the two phone mockups in ProjectMediaPhones
 // (528 x 541 on desktop, same aspect ratio below lg) so every card lines up.
 // Lifts on hover of the surrounding card, like the phones.
@@ -29,10 +29,9 @@ export function ProjectMediaPanel({ screen, crop, backgroundClass }: ProjectMedi
           framed browser window. */}
       <div className={`absolute overflow-hidden rounded-case-lg ${screenPlacement[crop]}`}>
         {screen.type === "video" ? (
-          <HoverPlayVideo
+          <AutoPlayVideo
             src={screen.src}
             alt={screen.alt}
-            startAt={screen.startAt}
             className="absolute inset-0 size-full object-cover object-left-top"
           />
         ) : (

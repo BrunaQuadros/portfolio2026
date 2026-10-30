@@ -101,7 +101,7 @@ First motion values, introduced 2026-09-14 on the Faircado hero star. Treat thes
 - **Fade-in for the same object**: 150ms, so the object is visible for most of its travel.
 - **Tailwind 4 gotcha**: `translate`, `rotate` and `scale` are separate CSS properties, so list them by name in `transition-[...]`. Listing only `transform` makes the move snap.
 - **Card hover** (homepage project card, 2026-09-15): panel background steps from `portfolio-grey-50` to `portfolio-grey-100` and the phone mockups lift 4px (`-translate-y-1`), both 300ms ease-out. Reuse for any clickable panel. The lift is disabled under `motion-reduce:`.
-- **Reduced motion**: only the card hover lift respects `prefers-reduced-motion` so far. Decide a `prefers-reduced-motion` rule before adding scroll reveals or page transitions.
+- **Reduced motion**: the card hover lift and the autoplaying panel video (`AutoPlayVideo`, paused on its first frame) respect `prefers-reduced-motion` so far. Decide a `prefers-reduced-motion` rule before adding scroll reveals or page transitions.
 
 ## Inline heading icons
 
@@ -124,4 +124,4 @@ First real case study copy (Faircado) is direct, confident, data-forward: short 
 - 2026-09-14: Added the "Mobile Rules" section (desktop-first, pills in flow, scoped fixed heights, desktop-only line breaks, vw headings, cropped giant titles, overlays scaling with the phone), promoted from the Faircado mobile pass.
 - 2026-09-14: Added the "Motion" section (settle easing, 150ms fade, Tailwind 4 transition gotcha) and "Inline heading icons", both from the Faircado hero star with hover sunglasses.
 - 2026-09-14: Homepage built from the Portfolio 2026 Figma. Added `portfolio-pink-500` (#e53b7d) as the site-wide accent and `text-hero` (60px / 1.4) as the first type token. Figma used Inter for the hero and nav; the owner chose Manrope to keep one heading font. The 50px panel radius in Figma maps to the existing `rounded-case-3xl` (48px); the 230 x 498px phone mockups map to the approved 250 x 541px desktop size.
-- 2026-10-30: eco.mio homepage card (second project). Added `eco-mio-blue-500` (#6b81ee). Figma's 502 x 498px panel maps to the shared 528 x 541px media footprint so all cards line up; the demo GIF became a hover-play MP4 (frozen on its first frame), cropped on the right edge instead of the bottom.
+- 2026-10-30: eco.mio homepage card (second project). Added `eco-mio-blue-500` (#6b81ee). Figma's 502 x 498px panel maps to the shared 528 x 541px media footprint so all cards line up; the demo GIF became an MP4 that autoplays in a loop (owner's call: no hover needed; still first frame under reduced motion), cropped on the right edge instead of the bottom.

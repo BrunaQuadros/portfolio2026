@@ -42,7 +42,8 @@ Most of these categories are empty right now, add them as real components are bu
 - `ProjectCard.tsx` — grey full-width project panel (company, title, summary, three or four highlights, and a media block that is either two phone mockups (image plus hover-play video) or one wide brand-colored panel with a screenshot, chosen by `media.kind`). The whole panel links to the case study. One per project on the homepage; phones use the mobile scroll strip below `lg:`
 
 `components/media/`:
-- `HoverPlayVideo.tsx` — client component. Muted looping video frozen on a chosen second (`startAt`) until the surrounding link is hovered or focused, then plays from there; pauses and returns to that frame on leave. Used for the second phone in the homepage project card and the eco.mio demo panel
+- `HoverPlayVideo.tsx` — client component. Muted looping video frozen on a chosen second (`startAt`) until the surrounding link is hovered or focused, then plays from there; pauses and returns to that frame on leave. Used for the second phone in the homepage project card
+- `AutoPlayVideo.tsx` — client component. Muted looping video that plays on load, or stays on its first frame when the visitor prefers reduced motion. Used for video screenshots in `ProjectMediaPanel` (eco.mio demo)
 
 - `ProjectMediaPhones.tsx` — the card's two phone mockups (still image + hover-play video), mobile scroll strip below `lg:`
 - `ProjectMediaPanel.tsx` — the card's alternative media block: brand-colored panel with a rounded screenshot (still image or `HoverPlayVideo`) that runs off the bottom (`crop: "bottom"`, Impact Hero) or the right edge (`crop: "right"`, eco.mio), same 528 x 541 footprint as the phones. Use for case studies without phone mockups

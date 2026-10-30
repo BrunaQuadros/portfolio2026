@@ -20,7 +20,8 @@ export type ProjectCardMedia =
     }
   | {
       kind: "panel";
-      screen: ({ type: "image" } & ImageAsset) | ({ type: "video" } & VideoAsset);
+      // A video here plays on its own (no hover needed), see AutoPlayVideo.
+      screen: ({ type: "image" } & ImageAsset) | ({ type: "video" } & ImageAsset);
       // Which edge the screenshot runs off: "bottom" (inset at the top,
       // cropped below) or "right" (centered vertically, cropped on the right).
       crop: "bottom" | "right";
@@ -118,7 +119,6 @@ export const home = {
           type: "video",
           src: "/videos/home/eco-mio-demo-maker.mp4",
           alt: "Demo booking flow generated for a client: searching hotels in London, choosing a rate and confirming the trip",
-          startAt: 0,
         },
         crop: "right",
         backgroundClass: "bg-eco-mio-blue-500",
