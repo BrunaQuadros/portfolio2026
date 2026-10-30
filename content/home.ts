@@ -22,9 +22,9 @@ export type ProjectCardMedia =
       kind: "panel";
       // A video here plays on its own (no hover needed), see AutoPlayVideo.
       screen: ({ type: "image" } & ImageAsset) | ({ type: "video" } & ImageAsset);
-      // Which edge the screenshot runs off: "bottom" (inset at the top,
-      // cropped below) or "right" (centered vertically, cropped on the right).
-      crop: "bottom" | "right";
+      // "bottom": screenshot inset at the top and cropped below.
+      // "fill": covers the whole panel, for videos with their own background.
+      crop: "bottom" | "fill";
       // Tailwind background class using a color token from globals.css.
       backgroundClass: string;
     };
@@ -118,10 +118,10 @@ export const home = {
         kind: "panel",
         screen: {
           type: "video",
-          src: "/videos/home/eco-mio-demo-maker.mp4",
-          alt: "Demo booking flow generated for a client: searching hotels in London, choosing a rate and confirming the trip",
+          src: "/videos/home/eco-mio-demo-studio.mp4",
+          alt: "Demo Studio walkthrough: creating a flight demo for a client, filling in route, dates and fare cards, publishing it, then the generated Concur booking flow",
         },
-        crop: "right",
+        crop: "fill",
         backgroundClass: "bg-eco-mio-blue-500",
       },
     },

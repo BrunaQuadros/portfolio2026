@@ -46,7 +46,7 @@ Most of these categories are empty right now, add them as real components are bu
 - `AutoPlayVideo.tsx` — client component. Muted looping video that plays on load, or stays on its first frame when the visitor prefers reduced motion. Used for video screenshots in `ProjectMediaPanel` (eco.mio demo)
 
 - `ProjectMediaPhones.tsx` — the card's two phone mockups (still image + hover-play video), mobile scroll strip below `lg:`
-- `ProjectMediaPanel.tsx` — the card's alternative media block: brand-colored panel with a rounded screenshot (still image or `HoverPlayVideo`) that runs off the bottom (`crop: "bottom"`, Impact Hero) or the right edge (`crop: "right"`, eco.mio), same 528 x 541 footprint as the phones. Use for case studies without phone mockups
+- `ProjectMediaPanel.tsx` — the card's alternative media block: brand-colored panel with either a rounded screenshot that runs off the bottom (`crop: "bottom"`, Impact Hero) or a video covering the whole panel (`crop: "fill"`, eco.mio, for recordings with their own background). Videos use `AutoPlayVideo`. Same 528 x 541 footprint as the phones. Use for case studies without phone mockups
 
 `components/navigation/`:
 - `SiteHeader.tsx` — homepage top bar: site name (links home) and a Contact link
