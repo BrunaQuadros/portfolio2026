@@ -162,6 +162,7 @@ export default function EcoMioCaseStudyPage() {
             width={context.compare.width}
             height={context.compare.height}
             corner={0}
+            labels={false}
             className="w-full"
           />
         </div>
