@@ -133,14 +133,16 @@ export default function EcoMioCaseStudyPage() {
         </div>
       </section>
 
-      {/* Context: heading block, then a full-width brand-blue panel (same
-          size and corners as the hero panel) holding a before/after
-          drag-to-compare of the Concur results without and with eco.mio.
-          Full width so the fare details stay readable. Corner 0 on the
-          compare: the screenshots carry their own rounded browser window
-          and shadow, which float on the blue. */}
-      <section className="relative mx-auto flex w-full max-w-[1220px] flex-col gap-12 px-4 sm:gap-16 sm:px-10">
-        <div className="w-full lg:max-w-[494px]" style={TEXT_COLUMN}>
+      {/* Context: heading block on the left, and a brand-blue panel on
+          the right holding a before/after drag-to-compare of the Concur
+          results without and with eco.mio. The text column is narrowed to
+          420px on desktop so the panel can take the rest of the row and
+          stay as large as possible; below lg the panel stacks under the
+          text at full width. Corner 0 on the compare: the screenshots carry
+          their own rounded browser window and shadow, which float on the
+          blue. */}
+      <section className="relative mx-auto flex w-full max-w-[1220px] flex-col gap-12 px-4 sm:gap-16 sm:px-10 lg:flex-row lg:items-center">
+        <div className="w-full lg:max-w-[420px] lg:shrink-0" style={TEXT_COLUMN}>
           <SectionHeading
             eyebrow={context.eyebrow}
             heading={context.heading}
@@ -156,7 +158,7 @@ export default function EcoMioCaseStudyPage() {
             }
           />
         </div>
-        <div className={`w-full rounded-case-mobile p-4 sm:rounded-case-2xl sm:p-10 lg:rounded-case-3xl lg:p-[60px] ${ACCENT_BG}`}>
+        <div className={`w-full rounded-case-mobile p-4 sm:rounded-case-2xl sm:p-10 lg:min-w-0 lg:flex-1 lg:rounded-case-3xl lg:p-8 ${ACCENT_BG}`}>
           <ImageCompare
             label={context.compare.label}
             before={context.compare.before}
@@ -165,7 +167,7 @@ export default function EcoMioCaseStudyPage() {
             height={context.compare.height}
             corner={0}
             labels={false}
-            className="mx-auto w-full max-w-[960px]"
+            className="mx-auto w-full max-w-[960px] lg:max-w-none"
           />
         </div>
       </section>
