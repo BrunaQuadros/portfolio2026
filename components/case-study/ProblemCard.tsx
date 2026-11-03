@@ -4,7 +4,7 @@ import { TagPill } from "./TagPill";
 // Momentum). Repeats 3 times on the page, so it's a shared component.
 type ProblemCardProps = {
   tag: string;
-  tagIcon: string;
+  tagIcon?: string;
   heading: string;
   headingAccent?: string;
   headingTail?: string;

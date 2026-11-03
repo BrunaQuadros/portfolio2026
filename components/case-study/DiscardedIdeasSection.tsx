@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { TagPill } from "./TagPill";
 import { SectionHeading } from "./SectionHeading";
+import { ImagePlaceholder } from "./ImagePlaceholder";
 import type { DiscardedIdea } from "@/content/projects/types";
 
 // Section 7: "Some of the many 'NOs'" — a closing side note listing ideas
@@ -12,10 +13,14 @@ type DiscardedIdeasSectionProps = {
   eyebrow: string;
   heading: string;
   bodyLead: string;
-  bodyAccent1: string;
-  bodyMid: string;
-  bodyAccent2: string;
+  // The bold phrases are optional: eco.mio's "What's next" reuses this
+  // layout with a plain one-line body.
+  bodyAccent1?: string;
+  bodyMid?: string;
+  bodyAccent2?: string;
   items: DiscardedIdea[];
+  // Eyebrow color, passed to SectionHeading. Defaults to Faircado pink.
+  accentClass?: string;
 };
 
 export function DiscardedIdeasSection({
@@ -26,6 +31,7 @@ export function DiscardedIdeasSection({
   bodyMid,
   bodyAccent2,
   items,
+  accentClass,
 }: DiscardedIdeasSectionProps) {
   return (
     <section className="mx-auto flex w-full max-w-[1220px] flex-col gap-12 px-6 sm:gap-16 sm:px-10">
@@ -39,12 +45,13 @@ export function DiscardedIdeasSection({
         <SectionHeading
           eyebrow={eyebrow}
           heading={heading}
+          accentClass={accentClass}
           body={
             <p>
               {bodyLead}
-              <span className="font-bold">{bodyAccent1}</span>
+              {bodyAccent1 ? <span className="font-bold">{bodyAccent1}</span> : null}
               {bodyMid}
-              <span className="font-bold">{bodyAccent2}</span>
+              {bodyAccent2 ? <span className="font-bold">{bodyAccent2}</span> : null}
             </p>
           }
         />
@@ -61,7 +68,11 @@ export function DiscardedIdeasSection({
             <TagPill icon={item.tagIcon} label={item.tag} />
             <figure className="flex w-full flex-col items-center gap-3">
               <div className="relative aspect-[250/541] w-full overflow-hidden rounded-case-xl shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)]">
-                <Image src={item.image.src} alt={item.image.alt} fill className="object-cover" />
+                {item.image.src ? (
+                  <Image src={item.image.src} alt={item.image.alt} fill className="object-cover" />
+                ) : (
+                  <ImagePlaceholder label={item.image.alt} className="size-full" />
+                )}
               </div>
               <figcaption className="flex flex-col gap-1 text-center">
                 <p className="font-manrope font-bold text-[14px] leading-[20px] text-portfolio-grey-600">

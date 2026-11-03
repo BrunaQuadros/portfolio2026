@@ -37,6 +37,15 @@ Most of these categories are empty right now, add them as real components are bu
 - `StatCard.tsx` — icon + heading + body. One of the impact/result cards near the end of the case study
 - `TagPill.tsx` — small rounded icon + label pill (e.g. "Awareness", "Match accuracy"). Shared across problem cards, results cards, and every solution section
 - `SolutionSection.tsx` — one of the three big numbered sections (01/, 02/, 03/), each holding cards with a tag, heading, and mobile screenshots
+- `ImagePlaceholder.tsx` — flat `portfolio-grey-400` box standing in for a screenshot, avatar or icon not exported from Figma yet. Takes the size/corner classes of the image it replaces; `label` gives screen readers the slot's meaning. Images in content without a `src` render through it (phones in `SolutionSection` and `DiscardedIdeasSection`, the `TeamAvatarGroup` photo)
+- `RichText.tsx` — renders a sentence stored as `RichSegment[]` (plain strings plus `{ text, bold?, accent? }` pieces), so content files can mark bold or brand-colored phrases anywhere in a sentence. First used on eco.mio
+
+Theming for a second case study (added for eco.mio, 2026-11-03). Every prop below is optional and defaults to the Faircado value, so Faircado renders unchanged:
+- `accentClass` on `SectionHeading` (eyebrow color), `TeamAvatarGroup` ("+N" badge background), `TestimonialCard` (number color) and `DiscardedIdeasSection` (passed to its heading)
+- `SolutionSection`: `numberClass` (the small "01." color), `arrow` (`{ src, width, phoneHeight? }` for the connector between two phones; `phoneHeight` top-aligns the row when the SVG canvas is as tall as the phone), optional `tagIcon`
+- `TagPill` and `ProblemCard`: the icon is optional (text-only pills)
+- `StatCard`: `iconNode` (custom icon slot, e.g. a placeholder), `size="short"` (383px instead of 431px from `sm:`), and `emphasis` may sit anywhere in the body, not only at the start
+- `DiscardedIdeasSection`: the bold body phrases are optional, so it doubles as eco.mio's "What's next" (tag + phone + two-line caption)
 
 `components/home/` — homepage patterns:
 - `ProjectCard.tsx` — grey full-width project panel (company, title, summary, three or four highlights, and a media block that is either two phone mockups (image plus hover-play video) or one wide brand-colored panel with a screenshot, chosen by `media.kind`). The whole panel links to the case study. One per project on the homepage; phones use the mobile scroll strip below `lg:`

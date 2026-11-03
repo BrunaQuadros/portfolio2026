@@ -11,7 +11,7 @@ Defined in `app/globals.css` under `@theme inline`, used via Tailwind utilities 
 | `portfolio-grey-50` | `#f7f7f7` | Section/card background |
 | `portfolio-grey-100` | `#f0f0f0` | Subtle fill (logo chips) |
 | `portfolio-grey-200` | `#e7e7e7` | Borders on light cards |
-| `portfolio-grey-400` | `#cfcfcf` | Placeholder/empty image fill |
+| `portfolio-grey-400` | `#cfcfcf` | Placeholder/empty image fill (`ImagePlaceholder`) |
 | `portfolio-grey-600` | `#5e5f5d` | Secondary/muted text |
 | `portfolio-grey-900` | `#121212` | Primary text |
 | `faircado-pink-400` | `#ff80a4` | Numbered annotation pills |
@@ -20,7 +20,7 @@ Defined in `app/globals.css` under `@theme inline`, used via Tailwind utilities 
 | `faircado-green-400` | `#a9f185` | Section number accent ("01/") |
 | `faircado-green-500` | `#52c517` | Highlight text accent |
 | `impact-hero-green-900` | `#28391f` | Impact Hero brand color, homepage card panel background. Added 2026-09-15 |
-| `eco-mio-blue-500` | `#6b81ee` | eco.mio brand color, homepage card logo tile and panel background. Added 2026-10-30 |
+| `eco-mio-blue-500` | `#6b81ee` | eco.mio brand color: homepage card logo tile and panel, and every accent on the eco.mio case study (eyebrows, highlighted phrases, numbers). Added 2026-10-30 |
 
 | `portfolio-pink-500` | `#e53b7d` | Site-wide accent (homepage hero highlight, focus rings on homepage links). Added 2026-09-14 |
 
@@ -126,3 +126,4 @@ First real case study copy (Faircado) is direct, confident, data-forward: short 
 - 2026-09-14: Homepage built from the Portfolio 2026 Figma. Added `portfolio-pink-500` (#e53b7d) as the site-wide accent and `text-hero` (60px / 1.4) as the first type token. Figma used Inter for the hero and nav; the owner chose Manrope to keep one heading font. The 50px panel radius in Figma maps to the existing `rounded-case-3xl` (48px); the 230 x 498px phone mockups map to the approved 250 x 541px desktop size.
 - 2026-10-30: eco.mio homepage card (second project). Added `eco-mio-blue-500` (#6b81ee). Figma's 502 x 498px panel maps to the shared 528 x 541px media footprint so all cards line up; the demo GIF became an MP4 that autoplays in a loop (owner's call: no hover needed; still first frame under reduced motion), cropped on the right edge instead of the bottom.
 - 2026-10-30: eco.mio panel now shows the owner's Demo Studio recording (1200 x 1200, own blue background) covering the whole panel (`crop: "fill"`), replacing the inset Concur screenshot. The unused right-crop layout was removed.
+- 2026-11-03: eco.mio case study page built from the Portfolio 2026 Figma, following the Faircado page's desktop layout and every Mobile Rule. Figma's `#6985f3` accent maps to the existing `eco-mio-blue-500` (`#6b81ee`) and its `#e8e8f0` empty frames to `portfolio-grey-400`, both approved by the owner instead of new tokens. Tool logo tiles (Claude Code `#faf5ed`, Cursor/GitHub near-black) map to `portfolio-grey-50` and `portfolio-grey-900`. The Discarded Ideas eyebrow is blue like the rest of the page (Figma's pink was a Faircado leftover) and Learnings sits in the grey panel like Faircado's closing takeaways.

@@ -16,6 +16,6 @@ Status: Placeholder. Voice/tone section pending extraction from finalized case s
 ## Content Source of Truth
 
 - Homepage copy lives in `content/home.ts` (header, hero sentence, project cards).
-- Case study copy lives in `content/projects/<slug>.ts`.
+- Case study copy lives in `content/projects/<slug>.ts` (`faircado.ts`, `eco-mio.ts`). eco.mio stores emphasized phrases as `RichSegment[]` (see COMPONENTS.md, `RichText`).
 
 Page copy should live as structured content (see ARCHITECTURE.md's Content Architecture section), not scattered inline across components.

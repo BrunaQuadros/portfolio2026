@@ -11,15 +11,26 @@ type TestimonialCardProps = {
   detailBold?: string;
   detailRest?: string;
   number?: string;
+  // Color of the number. Defaults to Faircado green.
+  accentClass?: string;
 };
 
-export function TestimonialCard({ quote, quoteLine2, detail, detailLead, detailBold, detailRest, number }: TestimonialCardProps) {
+export function TestimonialCard({
+  quote,
+  quoteLine2,
+  detail,
+  detailLead,
+  detailBold,
+  detailRest,
+  number,
+  accentClass = "text-faircado-green-500",
+}: TestimonialCardProps) {
   return (
     <figure className="flex flex-col gap-6">
       {number ? (
         <p
           aria-hidden="true"
-          className="font-[family-name:var(--font-inter-display)] font-bold text-[40px] leading-[1.2] tracking-[-1.5px] text-faircado-green-500"
+          className={`font-[family-name:var(--font-inter-display)] font-bold text-[40px] leading-[1.2] tracking-[-1.5px] ${accentClass}`}
         >
           {number}
         </p>

@@ -97,7 +97,6 @@ export const home = {
       },
     },
     {
-      // No case study page yet; the route is reserved for it.
       href: "/case-studies/eco-mio",
       company: {
         logo: { src: `${IMG}/logo-eco-mio.jpg`, alt: "" },

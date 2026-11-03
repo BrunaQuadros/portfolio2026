@@ -2,30 +2,39 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import { ImagePlaceholder } from "./ImagePlaceholder";
 
 // The avatar stack under "Team": a photo plus a "+N" badge whose tooltip
 // lists the roles it's standing in for. Needs real click state (not just
 // CSS :hover/:focus) because iOS Safari doesn't focus a tapped <button> —
 // group-focus never fires there, so the tooltip would never open on mobile.
 type TeamAvatarGroupProps = {
-  avatar: { src: string; alt: string };
+  // Without a `src` the photo slot shows a grey placeholder (eco.mio, until
+  // the photo is exported).
+  avatar: { src?: string; alt: string };
   extra: string;
   extraBreakdown: string;
+  // Background of the "+N" badge. Defaults to Faircado pink.
+  accentClass?: string;
 };
 
-export function TeamAvatarGroup({ avatar, extra, extraBreakdown }: TeamAvatarGroupProps) {
+export function TeamAvatarGroup({ avatar, extra, extraBreakdown, accentClass = "bg-faircado-pink-500" }: TeamAvatarGroupProps) {
   const [open, setOpen] = useState(false);
 
   return (
     <div className="flex items-center">
       <div className="relative z-10 size-[52px] shrink-0 overflow-hidden rounded-full border-2 border-white shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)]">
-        <Image src={avatar.src} alt={avatar.alt} fill className="object-cover" />
+        {avatar.src ? (
+          <Image src={avatar.src} alt={avatar.alt} fill className="object-cover" />
+        ) : (
+          <ImagePlaceholder label={avatar.alt} className="size-full" />
+        )}
       </div>
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}
         aria-expanded={open}
-        className="group relative -ml-3 flex size-[52px] shrink-0 items-center justify-center rounded-full border-2 border-white bg-faircado-pink-500 shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)] focus:outline-none"
+        className={`group relative -ml-3 flex size-[52px] shrink-0 items-center justify-center rounded-full border-2 border-white shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)] focus:outline-none ${accentClass}`}
       >
         <span className="font-manrope font-bold text-[14px] text-white">{extra}</span>
         {/* Desktop: real mouse hover still reveals the tooltip on its own via
