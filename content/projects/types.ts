@@ -315,7 +315,15 @@ export type EcoMioContent = {
     eyebrow: string;
     heading: string;
     paragraphs: RichSegment[][];
-    image: { src: string; alt: string; width: number; height: number };
+    // Before/after drag-to-compare (ImageCompare): the two screenshots
+    // share one frame and natural size.
+    compare: {
+      label: string;
+      before: { src: string; alt: string };
+      after: { src: string; alt: string };
+      width: number;
+      height: number;
+    };
   };
   problem: {
     eyebrow: string;

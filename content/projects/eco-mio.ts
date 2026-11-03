@@ -81,11 +81,18 @@ export const ecoMio: EcoMioContent = {
         },
       ],
     ],
-    image: {
-      src: `${IMG}/context-concur-results.png`,
-      alt: "SAP Concur flight results for London to Amsterdam, listing dozens of fares across economy and business classes",
-      width: 1438,
-      height: 4096,
+    compare: {
+      label: "Compare Concur flight results without and with eco.mio",
+      before: {
+        src: `${IMG}/context-before-concur.png`,
+        alt: "SAP Concur results for London to Amsterdam: a long list of flights, each with up to four fares to weigh up",
+      },
+      after: {
+        src: `${IMG}/context-after-eco-mio.png`,
+        alt: "The same search with eco.mio: three options side by side, with Eurostar recommended as best value and greener, comparing travel time, price and emissions",
+      },
+      width: 1600,
+      height: 1105,
     },
   },
   problem: {

@@ -11,6 +11,7 @@ import { DiscardedIdeasSection } from "@/components/case-study/DiscardedIdeasSec
 import { ImagePlaceholder } from "@/components/case-study/ImagePlaceholder";
 import { RichText } from "@/components/case-study/RichText";
 import { AutoPlayVideo } from "@/components/media/AutoPlayVideo";
+import { ImageCompare } from "@/components/media/ImageCompare";
 
 const IMG = "/images/case-studies/eco-mio";
 
@@ -132,9 +133,10 @@ export default function EcoMioCaseStudyPage() {
         </div>
       </section>
 
-      {/* Context: heading block on the left, the Concur results screenshot
-          on the right (stacked below lg). The screenshot is a tall capture
-          shown from the top and cropped by its frame, as in Figma. */}
+      {/* Context: heading block on the left, a before/after drag-to-compare
+          of the Concur results without and with eco.mio on the right
+          (stacked below lg, full column width). Corner 0: the screenshots
+          carry their own rounded browser window and shadow. */}
       <section className="relative mx-auto flex w-full max-w-[1220px] flex-col gap-12 px-4 sm:gap-16 sm:px-10 lg:flex-row lg:items-center lg:justify-between lg:gap-0">
         <div className="w-full lg:max-w-[494px]" style={TEXT_COLUMN}>
           <SectionHeading
@@ -152,17 +154,16 @@ export default function EcoMioCaseStudyPage() {
             }
           />
         </div>
-        <div className="relative mx-auto aspect-[399/373] w-full max-w-[400px] shrink-0 overflow-hidden lg:mx-0 lg:mr-[3%]">
-          <div className="absolute left-[7.51%] top-[9.2%] w-[84.95%]">
-            <Image
-              src={context.image.src}
-              alt={context.image.alt}
-              width={context.image.width}
-              height={context.image.height}
-              sizes="340px"
-              className="h-auto w-full"
-            />
-          </div>
+        <div className="w-full shrink-0 lg:w-[460px]">
+          <ImageCompare
+            label={context.compare.label}
+            before={context.compare.before}
+            after={context.compare.after}
+            width={context.compare.width}
+            height={context.compare.height}
+            corner={0}
+            className="w-full"
+          />
         </div>
       </section>
 

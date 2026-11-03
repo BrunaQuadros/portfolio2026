@@ -52,6 +52,7 @@ Theming for a second case study (added for eco.mio, 2026-11-03). Every prop belo
 
 `components/media/`:
 - `HoverPlayVideo.tsx` — client component. Muted looping video frozen on a chosen second (`startAt`) until the surrounding link is hovered or focused, then plays from there; pauses and returns to that frame on leave. Used for the second phone in the homepage project card
+- `ImageCompare.tsx` — client component, from Bencho's "Image compare" block (MIT, bencho.dev/licence). Two screenshots of the same frame with a draggable line between them (the line bends on a spring while dragging; flicks glide to the edge). Keyboard: arrows, Home, End. Jumps without animation under reduced motion. Styles are the `.cmp*` classes in `app/globals.css`, with Bencho's tokens mapped to ours on the component root. Used for the eco.mio Context before/after (Concur list vs eco.mio recommendations)
 - `AutoPlayVideo.tsx` — client component. Muted looping video that plays on load, or stays on its first frame when the visitor prefers reduced motion. Used for video screenshots in `ProjectMediaPanel` (eco.mio demo)
 
 - `ProjectMediaPhones.tsx` — the card's two phone mockups (still image + hover-play video), mobile scroll strip below `lg:`
