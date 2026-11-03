@@ -133,11 +133,13 @@ export default function EcoMioCaseStudyPage() {
         </div>
       </section>
 
-      {/* Context: heading block on the left, a before/after drag-to-compare
-          of the Concur results without and with eco.mio on the right
-          (stacked below lg, full column width). Corner 0: the screenshots
-          carry their own rounded browser window and shadow. */}
-      <section className="relative mx-auto flex w-full max-w-[1220px] flex-col gap-12 px-4 sm:gap-16 sm:px-10 lg:flex-row lg:items-center lg:justify-between lg:gap-0">
+      {/* Context: heading block, then a full-width brand-blue panel (same
+          size and corners as the hero panel) holding a before/after
+          drag-to-compare of the Concur results without and with eco.mio.
+          Full width so the fare details stay readable. Corner 0 on the
+          compare: the screenshots carry their own rounded browser window
+          and shadow, which float on the blue. */}
+      <section className="relative mx-auto flex w-full max-w-[1220px] flex-col gap-12 px-4 sm:gap-16 sm:px-10">
         <div className="w-full lg:max-w-[494px]" style={TEXT_COLUMN}>
           <SectionHeading
             eyebrow={context.eyebrow}
@@ -154,7 +156,7 @@ export default function EcoMioCaseStudyPage() {
             }
           />
         </div>
-        <div className="w-full shrink-0 lg:w-[460px]">
+        <div className={`w-full rounded-case-mobile p-4 sm:rounded-case-2xl sm:p-10 lg:rounded-case-3xl lg:p-[60px] ${ACCENT_BG}`}>
           <ImageCompare
             label={context.compare.label}
             before={context.compare.before}
@@ -163,7 +165,7 @@ export default function EcoMioCaseStudyPage() {
             height={context.compare.height}
             corner={0}
             labels={false}
-            className="w-full"
+            className="mx-auto w-full max-w-[960px]"
           />
         </div>
       </section>
