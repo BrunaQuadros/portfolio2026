@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Search, X } from "lucide-react";
 import { TagPill } from "./TagPill";
+import { ImagePlaceholder } from "./ImagePlaceholder";
 import type {
   AnnotatedImage,
   BeforeAfterPair,
@@ -20,9 +21,17 @@ const IMG = "/images/case-studies/faircado";
 type SolutionSectionProps = {
   number: string;
   title: string;
-  tagIcon: string;
+  tagIcon?: string;
   tag: string;
   blocks: SolutionBlockType[];
+  // Color of the small "01." number. Defaults to Faircado green.
+  numberClass?: string;
+  // Connector drawn between the two phones of a `connectWithArrow` block,
+  // at its own pixel width. Defaults to Faircado's find-similar arrow.
+  // `phoneHeight`: the SVG is drawn on a canvas as tall as the phone
+  // (eco.mio), so the row top-aligns the phones and the arrow instead of
+  // centring them (which shifts the phones when captions wrap differently).
+  arrow?: { src: string; width: number; phoneHeight?: boolean };
 };
 
 // A small circular close-up of the same image, connected by a black line to
@@ -137,16 +146,18 @@ function ScreenshotFrame({ image, priority = false }: { image: AnnotatedImage; p
               playsInline
               aria-label={image.alt}
             />
-            {image.video.overlayFrame ? (
+            {image.video.overlayFrame && image.src ? (
               // Static PNG has a transparent center (Figma export), so the UI chrome
               // (status bar, button) sits over the looping video underneath it.
               <Image src={image.src} alt="" aria-hidden="true" fill className="absolute inset-0 object-cover" priority={priority} />
             ) : null}
           </>
-        ) : (
+        ) : image.src ? (
           <Image src={image.src} alt={image.alt} fill className="rounded-case-xl object-cover shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)]" priority={priority} />
+        ) : (
+          <ImagePlaceholder label={image.alt} className="absolute inset-0 rounded-case-xl shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)]" />
         )}
-        {image.badge ? <ImageBadge src={image.src} badge={image.badge} /> : null}
+        {image.badge && image.src ? <ImageBadge src={image.src} badge={image.badge} /> : null}
         {image.overlayTag ? (
           <img
             src={`${IMG}/tag-find-similar.png`}
@@ -257,7 +268,11 @@ function BeforeAfterImage({
   return (
     <figure className="flex w-[190px] shrink-0 flex-col items-center gap-3 mr-16 sm:w-[250px]">
       <div className="relative aspect-[250/541] w-full overflow-visible rounded-case-xl shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)]">
-        <Image src={image.src} alt={image.alt} fill className="rounded-case-xl object-cover" />
+        {image.src ? (
+          <Image src={image.src} alt={image.alt} fill className="rounded-case-xl object-cover" />
+        ) : (
+          <ImagePlaceholder label={image.alt} className="absolute inset-0 rounded-case-xl" />
+        )}
         {pins.map((pin) => (
           <Pin key={pin.number} number={pin.number} top={pin.top} left={pin.left} />
         ))}
@@ -398,7 +413,15 @@ function MobileScrollStrip({ block, priority }: { block: SolutionBlockType; prio
   );
 }
 
-export function SolutionSection({ number, title, tagIcon, tag, blocks }: SolutionSectionProps) {
+export function SolutionSection({
+  number,
+  title,
+  tagIcon,
+  tag,
+  blocks,
+  numberClass = "text-faircado-green-400",
+  arrow = { src: `${IMG}/find-similar-arrow.svg`, width: 100 },
+}: SolutionSectionProps) {
   return (
     <section className="flex w-full flex-col items-center gap-7 overflow-x-hidden" aria-labelledby={`solution-${title.toLowerCase()}`}>
       {/* Below sm the title is deliberately wider than the phone screen
@@ -422,7 +445,7 @@ export function SolutionSection({ number, title, tagIcon, tag, blocks }: Solutio
         {/* -mb-5 below sm pulls the stacked number 20px down into the word's
             line box, so it sits tight against (slightly overlapping) the
             word's cap height instead of floating above it. */}
-        <span className="-mb-5 text-[6.4vw] sm:mb-0 sm:text-[2.33vw] md:text-[3.4vw] lg:text-[2.33rem] text-faircado-green-400">{number}</span>
+        <span className={`-mb-5 text-[6.4vw] sm:mb-0 sm:text-[2.33vw] md:text-[3.4vw] lg:text-[2.33rem] ${numberClass}`}>{number}</span>
         <span className="text-[19vw] sm:text-[7vw] md:text-[14vw] lg:text-[152px]">{title}</span>
       </h3>
       <div className="flex w-full flex-col items-center gap-6 sm:gap-20">
@@ -512,13 +535,14 @@ export function SolutionSection({ number, title, tagIcon, tag, blocks }: Solutio
                   <PeekCard image={block.peekCards[1].image} badgeIcon={block.peekCards[1].badgeIcon} />
                 </div>
               ) : block.connectWithArrow ? (
-                <div className="hidden flex-wrap items-center justify-center lg:flex">
+                <div className={`hidden flex-wrap justify-center lg:flex ${arrow.phoneHeight ? "items-start" : "items-center"}`}>
                   <ScreenshotFrame image={block.images[0]} priority={i === 0} />
                   <img
-                    src={`${IMG}/find-similar-arrow.svg`}
+                    src={arrow.src}
                     alt=""
                     aria-hidden="true"
-                    className="hidden w-[100px] shrink-0 sm:block"
+                    width={arrow.width}
+                    className="hidden shrink-0 sm:block"
                   />
                   <ScreenshotFrame image={block.images[1]} />
                 </div>

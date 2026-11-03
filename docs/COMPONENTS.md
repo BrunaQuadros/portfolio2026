@@ -37,15 +37,25 @@ Most of these categories are empty right now, add them as real components are bu
 - `StatCard.tsx` — icon + heading + body. One of the impact/result cards near the end of the case study
 - `TagPill.tsx` — small rounded icon + label pill (e.g. "Awareness", "Match accuracy"). Shared across problem cards, results cards, and every solution section
 - `SolutionSection.tsx` — one of the three big numbered sections (01/, 02/, 03/), each holding cards with a tag, heading, and mobile screenshots
+- `ImagePlaceholder.tsx` — flat `portfolio-grey-400` box standing in for a screenshot, avatar or icon not exported from Figma yet. Takes the size/corner classes of the image it replaces; `label` gives screen readers the slot's meaning. Images in content without a `src` render through it (phones in `SolutionSection` and `DiscardedIdeasSection`, the `TeamAvatarGroup` photo)
+- `RichText.tsx` — renders a sentence stored as `RichSegment[]` (plain strings plus `{ text, bold?, accent? }` pieces), so content files can mark bold or brand-colored phrases anywhere in a sentence. First used on eco.mio
+
+Theming for a second case study (added for eco.mio, 2026-11-03). Every prop below is optional and defaults to the Faircado value, so Faircado renders unchanged:
+- `accentClass` on `SectionHeading` (eyebrow color), `TeamAvatarGroup` ("+N" badge background), `TestimonialCard` (number color) and `DiscardedIdeasSection` (passed to its heading)
+- `SolutionSection`: `numberClass` (the small "01." color), `arrow` (`{ src, width, phoneHeight? }` for the connector between two phones; `phoneHeight` top-aligns the row when the SVG canvas is as tall as the phone), optional `tagIcon`
+- `TagPill` and `ProblemCard`: the icon is optional (text-only pills)
+- `StatCard`: `iconNode` (custom icon slot, e.g. a placeholder), `size="short"` (383px instead of 431px from `sm:`), and `emphasis` may sit anywhere in the body, not only at the start
+- `DiscardedIdeasSection`: the bold body phrases are optional, so it doubles as eco.mio's "What's next" (tag + phone + two-line caption)
 
 `components/home/` — homepage patterns:
-- `ProjectCard.tsx` — grey full-width project panel (company, title, summary, three highlights, and a media block that is either two phone mockups (image plus hover-play video) or one wide brand-colored panel with a screenshot, chosen by `media.kind`). The whole panel links to the case study. One per project on the homepage; phones use the mobile scroll strip below `lg:`
+- `ProjectCard.tsx` — grey full-width project panel (company, title, summary, three or four highlights, and a media block that is either two phone mockups (image plus hover-play video) or one wide brand-colored panel with a screenshot, chosen by `media.kind`). The whole panel links to the case study. One per project on the homepage; phones use the mobile scroll strip below `lg:`
 
 `components/media/`:
 - `HoverPlayVideo.tsx` — client component. Muted looping video frozen on a chosen second (`startAt`) until the surrounding link is hovered or focused, then plays from there; pauses and returns to that frame on leave. Used for the second phone in the homepage project card
+- `AutoPlayVideo.tsx` — client component. Muted looping video that plays on load, or stays on its first frame when the visitor prefers reduced motion. Used for video screenshots in `ProjectMediaPanel` (eco.mio demo)
 
 - `ProjectMediaPhones.tsx` — the card's two phone mockups (still image + hover-play video), mobile scroll strip below `lg:`
-- `ProjectMediaPanel.tsx` — the card's alternative media block: brand-colored panel with a rounded screenshot inset, same 528 x 541 footprint as the phones. Use for case studies without phone mockups
+- `ProjectMediaPanel.tsx` — the card's alternative media block: brand-colored panel with either a rounded screenshot that runs off the bottom (`crop: "bottom"`, Impact Hero) or a video covering the whole panel (`crop: "fill"`, eco.mio, for recordings with their own background). Videos use `AutoPlayVideo`. Same 528 x 541 footprint as the phones. Use for case studies without phone mockups
 
 `components/navigation/`:
 - `SiteHeader.tsx` — homepage top bar: site name (links home) and a Contact link

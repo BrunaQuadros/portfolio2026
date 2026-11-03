@@ -74,7 +74,9 @@ export type ImageBadge = {
 };
 
 export type AnnotatedImage = {
-  src: string;
+  // No `src` = grey placeholder phone until the screenshot is exported
+  // (eco.mio). Badges and overlays need a real image.
+  src?: string;
   alt: string;
   caption?: string;
   // overlayFrame: when true, `src` is drawn on top of the video (used for a
@@ -158,8 +160,9 @@ export type StatCard = {
 
 export type DiscardedIdea = {
   tag: string;
-  tagIcon: string;
-  image: { src: string; alt: string };
+  tagIcon?: string;
+  // No `src` = grey placeholder until the screenshot is exported.
+  image: { src?: string; alt: string };
   captionTitle: string;
   captionBody: string;
 };
@@ -282,5 +285,92 @@ export type FaircadoContent = {
     eyebrow: string;
     heading: string;
     testimonials: (Testimonial & { number: string })[];
+  };
+};
+
+// A sentence stored as pieces: plain strings, or phrases marked bold and/or
+// in the brand accent color. Rendered by components/case-study/RichText.
+export type RichSegment = string | { text: string; bold?: boolean; accent?: boolean };
+
+// eco.mio case study. Same section order as Faircado, but the copy uses
+// RichSegment paragraphs instead of per-phrase lead/accent/tail fields.
+// Images without a `src` render as grey placeholders until exported.
+export type EcoMioContent = {
+  meta: { slug: string; title: string; description: string; year: string };
+  hero: {
+    logo: { src: string; alt: string };
+    headingLine1: string;
+    headingLine2: string;
+    description: RichSegment[];
+    video: { src: string; alt: string };
+  };
+  roleInfo: {
+    role: { title: string; subtitle: string };
+    timeline: { title: string; subtitle: string };
+    team: { avatar: { src?: string; alt: string }; extra: string; extraBreakdown: string };
+    space: { title: string; subtitle: string };
+    impact: RichSegment[][];
+  };
+  context: {
+    eyebrow: string;
+    heading: string;
+    paragraphs: RichSegment[][];
+    image: { src: string; alt: string; width: number; height: number };
+  };
+  problem: {
+    eyebrow: string;
+    headingLine1: string;
+    headingLine2: string;
+    paragraphs: RichSegment[][];
+    closingLine: string;
+    challenge: RichSegment[];
+    processImage: { src?: string; alt: string; caption: string };
+  };
+  approach: {
+    eyebrow: string;
+    heading: string;
+    body: string;
+    processPanel: string;
+  };
+  findings: {
+    eyebrow: string;
+    heading: string;
+    body: string;
+    cards: ({ tagIcon: string } & ProblemCard)[];
+    scope: { icon: string; label: string };
+    build: {
+      heading: string;
+      body: string;
+      tools: { src: string; alt: string; tileClass: string; inset: "logo" | "icon" }[];
+    };
+  };
+  finalSolution: { eyebrow: string; heading: string; body: string };
+  solutionSections: (SolutionSection & { tagIcon?: string })[];
+  discardedIdeas: {
+    eyebrow: string;
+    heading: string;
+    body: RichSegment[];
+    cards: { heading: string; body: string; emphasis: string }[];
+  };
+  results: {
+    eyebrow: string;
+    heading: string;
+    statCards: { heading: string; body: string; emphasis: string }[];
+    feedbackIntro: string;
+    featuredTestimonial: {
+      quote: string;
+      user: { avatar: { src?: string; alt: string }; name: string };
+    };
+  };
+  closingTakeaways: {
+    eyebrow: string;
+    heading: string;
+    testimonials: (Testimonial & { number: string })[];
+  };
+  whatsNext: {
+    eyebrow: string;
+    heading: string;
+    body: string;
+    items: DiscardedIdea[];
   };
 };

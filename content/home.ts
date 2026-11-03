@@ -6,25 +6,34 @@ const FAIRCADO_IMG = "/images/case-studies/faircado";
 
 type ImageAsset = { src: string; alt: string };
 
+// startAt: second of the clip shown while the card is not hovered.
+type VideoAsset = { src: string; alt: string; startAt: number };
+
 // Two phone mockups (image + video frozen until hover), or one wide panel
-// with a website screenshot on a brand-colored background.
+// with a website screenshot (still image or hover-play video) on a
+// brand-colored background.
 export type ProjectCardMedia =
   | {
       kind: "phones";
       image: ImageAsset;
-      // startAt: second of the clip shown while the card is not hovered.
-      video: { src: string; alt: string; startAt: number };
+      video: VideoAsset;
     }
   | {
       kind: "panel";
-      image: ImageAsset;
+      // A video here plays on its own (no hover needed), see AutoPlayVideo.
+      screen: ({ type: "image" } & ImageAsset) | ({ type: "video" } & ImageAsset);
+      // "bottom": screenshot inset at the top and cropped below.
+      // "fill": covers the whole panel, for videos with their own background.
+      crop: "bottom" | "fill";
       // Tailwind background class using a color token from globals.css.
       backgroundClass: string;
     };
 
 export type HomeProjectCard = {
   href: string;
-  company: { logo: ImageAsset; name: string };
+  // logoBackgroundClass: optional brand-colored square behind the logo, for
+  // logos that sit inset on a tile (eco.mio).
+  company: { logo: ImageAsset; logoBackgroundClass?: string; name: string };
   headingLine1: string;
   headingLine2: string;
   descriptionLine1: string;
@@ -72,6 +81,7 @@ export const home = {
         { icon: { src: `${IMG}/icon-highlight-designer.png`, alt: "" }, label: "Product designer" },
         { icon: { src: `${IMG}/icon-highlight-zero-to-one.png`, alt: "" }, label: "0 → 1 product" },
         { icon: { src: `${IMG}/icon-highlight-adoption.png`, alt: "" }, label: "40% → 89% adoption" },
+        { icon: { src: `${IMG}/icon-highlight-cart.png`, alt: "" }, label: "E-commerce | consumer app" },
       ],
       media: {
         kind: "phones",
@@ -84,6 +94,34 @@ export const home = {
           alt: "Faircado image search results being refined with a text query",
           startAt: 3,
         },
+      },
+    },
+    {
+      href: "/case-studies/eco-mio",
+      company: {
+        logo: { src: `${IMG}/logo-eco-mio.jpg`, alt: "" },
+        logoBackgroundClass: "bg-eco-mio-blue-500",
+        name: "eco.mio",
+      },
+      headingLine1: "Automating sales demos",
+      headingLine2: "to cut 15h of work monthly",
+      descriptionLine1: "How I built a client-ready demo maker that turned 5 hours",
+      descriptionLine2: "of work into 30 minutes at a B2B climate tech company.",
+      highlights: [
+        { icon: { src: `${IMG}/icon-highlight-designer.png`, alt: "" }, label: "AI Product Engineer" },
+        { icon: { src: `${IMG}/icon-highlight-bolt.png`, alt: "" }, label: "Streamlining a cross-team process" },
+        { icon: { src: `${IMG}/icon-highlight-adoption.png`, alt: "" }, label: "5-hour process → 30 minutes" },
+        { icon: { src: `${IMG}/icon-highlight-tree.png`, alt: "" }, label: "Climate tech | B2B SaaS" },
+      ],
+      media: {
+        kind: "panel",
+        screen: {
+          type: "video",
+          src: "/videos/home/eco-mio-demo-studio.mp4",
+          alt: "Demo Studio walkthrough: creating a flight demo for a client, filling in route, dates and fare cards, publishing it, then the generated Concur booking flow",
+        },
+        crop: "fill",
+        backgroundClass: "bg-eco-mio-blue-500",
       },
     },
     {
@@ -104,10 +142,12 @@ export const home = {
       ],
       media: {
         kind: "panel",
-        image: {
+        screen: {
+          type: "image",
           src: `${IMG}/impact-hero-portal.png`,
           alt: "Impact Hero tree gifting portal for Allianz Direct, with a gift redemption form and a world map of planting sites",
         },
+        crop: "bottom",
         backgroundClass: "bg-impact-hero-green-900",
       },
     },

@@ -8,6 +8,9 @@ type SectionHeadingProps = {
   body?: React.ReactNode;
   align?: "left" | "center";
   className?: string;
+  // Eyebrow text color. Defaults to Faircado pink; other case studies pass
+  // their own brand token (eco.mio: "text-eco-mio-blue-500").
+  accentClass?: string;
 };
 
 export function SectionHeading({
@@ -16,12 +19,13 @@ export function SectionHeading({
   body,
   align = "left",
   className = "",
+  accentClass = "text-faircado-pink-500",
 }: SectionHeadingProps) {
   return (
     <div
       className={`flex flex-col gap-8 ${align === "center" ? "items-center text-center" : "items-start"} ${className}`}
     >
-      <p className="font-manrope font-extrabold text-[16px] leading-[20px] tracking-[0.48px] uppercase text-faircado-pink-500">
+      <p className={`font-manrope font-extrabold text-[16px] leading-[20px] tracking-[0.48px] uppercase ${accentClass}`}>
         {eyebrow}
       </p>
       <div className="flex flex-col gap-4 w-full">

@@ -11,13 +11,13 @@ export const faircado: FaircadoContent = {
     year: "2025-2026",
   },
   hero: {
-    logo: { src: `${IMG}/logo-faircado.svg`, alt: "Faircado logo" },
+    logo: { src: `${IMG}/logo-faircado.svg`, alt: "faircado logo" },
     headingLine1: "Redefining visual search:",
     headingLine2Before: "from MVP to star",
     headingStar: { src: `${IMG}/icon-star.png`, alt: "" },
     headingStarGlasses: { src: `${IMG}/icon-sunglasses.png`, alt: "" },
     headingLine2After: "feature",
-    descriptionLead: "Faircado is a ",
+    descriptionLead: "faircado is a ",
     descriptionAccent1: "fashion aggregator app",
     descriptionMid1: " on a mission to make second-hand shopping as easy as buying new.",
     descriptionMid2: " By 2025 it had over ",
@@ -25,7 +25,7 @@ export const faircado: FaircadoContent = {
     descriptionTail: ", mostly Gen Z.",
     image: {
       src: `${IMG}/hero-app-visual.png`,
-      alt: "Faircado app visual search screens showing camera capture and image results",
+      alt: "faircado app visual search screens showing camera capture and image results",
     },
   },
   context: {
@@ -431,11 +431,11 @@ export const faircado: FaircadoContent = {
     ],
     featuredTestimonial: {
       quote:
-        "I've noticed Faircado is pricier than eBay, but I don't mind because the experience is way better.",
+        "I've noticed faircado is pricier than eBay, but I don't mind because the experience is way better.",
       user: {
-        name: "Faircado user,",
+        name: "faircado user,",
         location: "the Netherlands",
-        avatar: { src: `${IMG}/impact-faircado-user.jpg`, alt: "Faircado user" },
+        avatar: { src: `${IMG}/impact-faircado-user.jpg`, alt: "faircado user" },
       },
     },
   },
