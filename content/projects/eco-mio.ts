@@ -35,7 +35,8 @@ export const ecoMio: EcoMioContent = {
     role: { title: "Product Designer", subtitle: "AI Product Engineer" },
     timeline: { title: "3 months", subtitle: "2026" },
     team: {
-      avatar: { alt: "Team member photo, coming soon" },
+      // Same photo as the Faircado case study's Team slot.
+      avatar: { src: "/images/case-studies/faircado/avatar-team-lead.jpg", alt: "Bruna" },
       extra: "+4",
       extraBreakdown: "1 PM, 2 Devs, 1 Sales",
     },
