@@ -70,28 +70,34 @@ export const ecoMio: EcoMioContent = {
   },
   context: {
     eyebrow: "context",
-    heading: "Why tailored demos?",
-    // Same emphasis pattern as the Faircado Context: a bold opening
-    // sentence, then a bold accent phrase and a bold closing phrase.
+    heading: "Why so many demos?",
+    // Owner's layout: the booking tools phrase in bold accent, the closing
+    // paragraph all bold, and set line breaks (wide screens only, see the
+    // page's Context section).
     paragraphs: [
       [
-        { text: "eco.mio works inside any booking tool.", bold: true },
-        " Each client books different routes, with different priorities: lower cost, train over plane, lower CO₂ or faster decisions.",
+        "eco.mio runs inside any of the ",
+        { text: "16+ online booking tools", bold: true, accent: true },
+        { br: true },
+        "(OBTs) corporations use. Each client books different routes,",
+        { br: true },
+        "with different priorities: lower cost, train over plane, lower",
+        { br: true },
+        "CO₂ or faster decisions.",
       ],
       [
-        "Clients want to see the flow ",
-        { text: "on their own routes, in their own tool", bold: true, accent: true },
-        ", so ",
-        { text: "every new lead means building a custom prototype.", bold: true },
+        { text: "Clients want to see the flow on their routes, in their OBT.", bold: true },
+        { br: true },
+        { text: "So every new lead means building a custom prototype.", bold: true },
       ],
     ],
-    // The flight search start page in three booking tools eco.mio runs
-    // inside. Order follows ContextCardCluster: [0] behind, [1] top left,
-    // [2] top right.
+    // Three booking tools eco.mio runs inside. Order follows
+    // ContextCardCluster's slots: [0] low and centred (lifted to the front
+    // on this page), [1] top left, [2] top right.
     cards: [
       {
-        src: `${IMG}/context-card-cytric.png`,
-        alt: "Cytric by Amadeus: the start flight booking page with a Zurich to Frankfurt search",
+        src: `${IMG}/context-card-cytric-dashboard.png`,
+        alt: "Cytric by Amadeus: the personal dashboard with buttons to book a flight, train, hotel or car",
       },
       {
         src: `${IMG}/context-card-concur.png`,
@@ -123,55 +129,129 @@ export const ecoMio: EcoMioContent = {
       { text: "automate demo creation to win back those hours", accent: true },
       " and take PM out of the process?",
     ],
-    processImage: {
-      alt: "The demo process when I joined the company, coming soon",
-      caption: "Process when I joined the company",
+    // The old demo process, drawn in code (HandoffChart) in the phone
+    // mockup slot. `handoffs` lists who holds the work at each step, top to
+    // bottom: 0 Sales, 1 PM, 2 Design.
+    processChart: {
+      label: "Old demo process: each demo bounced between Sales, PM and Design, back and forth through PM, whose part alone took 2 hours, for 5 hours per demo",
+      titleLead: "Old",
+      titleAccent: "demo process",
+      people: [{ name: "Sales" }, { name: "PM", highlight: true }, { name: "Design" }],
+      handoffs: [0, 1, 0, 1, 1, 2, 1, 0],
+      note: { person: 1, text: "2 h" },
+      total: { value: "5 hours", unit: "per demo" },
     },
   },
+  // "My process": one section in three steps (Audit, Align, Scope), from
+  // the owner's "Copy round 2" artboard, 2026-11-04.
   approach: {
-    eyebrow: "MY APPROACH",
+    eyebrow: "MY PROCESS",
     heading: "Audit → Align → Scope",
-    body: "I audited the process myself, aligned with sales and PM on needs & constraints. Scope came next.",
-    processPanel: "Process that took 5 hours",
-  },
-  findings: {
-    eyebrow: "FINDINGS",
-    heading: "What the team needs",
-    body: "I audited the process myself, aligned with sales and PM on needs & constraints. Scope came next.",
-    cards: [
-      {
-        tag: "Speed",
-        tagIcon: `${IMG}/icon-tag-speed.png`,
-        heading: "Automate to speed up the manual work",
-        body: "Auditing revealed two bottlenecks: PM scraping flights and design replacing info manually.",
-      },
-      {
-        tag: "Personalization",
-        tagIcon: `${IMG}/icon-tag-personalization.png`,
-        heading: "Sales needed high personalized demos",
-        body: "Aligning with sales revealed that clients want to see the demo on their own OBT, routes and highlights.",
-      },
-      {
-        tag: "Decentralization",
-        tagIcon: `${IMG}/icon-tag-decentralization.png`,
-        heading: "Demos shouldn’t depend on PM time",
-        body: "PM was the bottleneck. She was overloaded and ideally had to be taken off the process.",
-      },
+    body: [
+      "After my second demo, I knew this couldn’t keep going. ",
+      { text: "The solution was left open for me to create,", bold: true, accent: true },
+      " so I started with how demos really got made.",
     ],
-    scope: { icon: `${IMG}/icon-scope-arrow.png`, label: "Scope" },
-    build: {
-      heading: "Building Demo Studio",
-      body: "With no dev time, I designed and built it myself, with Claude Code, Cursor and GitHub, on eco.mio's own codebase and current design.",
-      // tileClass: the tile behind each logo, mapped to the closest
-      // existing tokens (Figma's #faf5ed, #17171a and #1f2126 brand tiles).
-      // inset "logo": full-color mark inset at ~80% of the tile;
-      // "icon": a 28px glyph centred on a dark tile.
-      tools: [
-        { src: `${IMG}/logo-claude-code.png`, alt: "Claude Code", tileClass: "bg-portfolio-grey-50", inset: "logo" },
-        { src: `${IMG}/logo-cursor.svg`, alt: "Cursor", tileClass: "bg-portfolio-grey-900", inset: "icon" },
-        { src: `${IMG}/logo-github.svg`, alt: "GitHub", tileClass: "bg-portfolio-grey-900", inset: "icon" },
-        { src: `${IMG}/logo-netlify.png`, alt: "Netlify", tileClass: "bg-white", inset: "logo" },
+    audit: {
+      label: "1. Audit",
+      heading: "Process complexity, mapped",
+      body: [
+        "One demo took ",
+        { text: "6 handoffs across 3 roles", bold: true },
+        ", and vague briefs left the PM and me guessing what sales needed. Keeping it made even less sense.",
       ],
+      caption: "The old process, from Trello brief to final Figma link.",
+      // Drawn in code (ProcessSwimlane): steps run left to right, `lane` is
+      // 0 Sales, 1 PM, 2 Design.
+      processDiagram: {
+        label: "Process diagram across Sales, PM and Design: Sales writes a Trello brief, PM sends questions and Sales answers, PM collects flight screenshots on Notion and sends a brief to design, Design builds it by hand in Figma, PM reviews the Figma link, and the Figma link goes to Sales",
+        regionLabel: "Process diagram, scroll sideways to see all of it",
+        lanes: [{ name: "Sales" }, { name: "PM", highlight: true }, { name: "Design" }],
+        steps: [
+          { label: "Trello brief", lane: 0, node: "card", labelPosition: "above" },
+          { label: "Questions", lane: 1, node: "question", labelPosition: "below" },
+          { label: "Answers", lane: 0, node: "reply", labelPosition: "above" },
+          { label: "Notion flight screenshots", lane: 1, node: "screens", labelPosition: "below" },
+          { label: "Brief to design", lane: 1, node: "send", labelPosition: "above" },
+          { label: "Figma by hand", lane: 2, node: "figma", labelPosition: "below" },
+          { label: "Figma link review", lane: 1, node: "link", labelPosition: "below", labelAlign: "start" },
+          { label: "Figma link sales", lane: 0, node: "link", labelPosition: "above" },
+        ],
+      },
+    },
+    align: {
+      label: "2. Align",
+      heading: "Stakeholders on the same page",
+      body: "I brought sales and the PM together to decide what had to change.",
+      cards: [
+        {
+          tag: "Automation",
+          tagIcon: `${IMG}/icon-tag-automation.png`,
+          heading: "Faster demos",
+          body: [
+            "Reduce the 5h of manual work with AI, starting with the bottlenecks: ",
+            { text: "PM and design", bold: true },
+            ".",
+          ],
+        },
+        {
+          tag: "Personalization",
+          tagIcon: `${IMG}/icon-tag-personalization.png`,
+          heading: "Even more tailored",
+          body: [
+            "Sales showed that clients expect ",
+            { text: "higher quality", bold: true },
+            ", on their own routes and in their own OBT.",
+          ],
+        },
+        {
+          tag: "Decentralization",
+          tagIcon: `${IMG}/icon-tag-decentralization.png`,
+          heading: "No PM involved",
+          body: [
+            "Sitting between sales and design ",
+            { text: "made no sense", bold: true },
+            ", and the PM wanted out.",
+          ],
+        },
+      ],
+    },
+    scope: {
+      label: "3. Scope",
+      heading: "One key constraint. Two scope decisions.",
+      // The blue card; its arrow points at the two decisions it shaped.
+      constraint: {
+        tag: "Constraint",
+        // Owner's 3D "no" sign, recoloured from red to black.
+        tagIcon: `${IMG}/icon-tag-constraint.png`,
+        heading: "No dev time",
+        body: [
+          "Dev had no capacity in this phase. ",
+          { text: "No new features", bold: true },
+          ", only what eco.mio can do now.",
+        ],
+        arrowLabel: "The constraint shaped these decisions",
+      },
+      eightyTwenty: {
+        heading: "Automate the 80%",
+        body: "We’d cover the most common requests. Edge cases stay manual, but equally adaptable.",
+        emphasis: "Edge cases stay manual",
+      },
+      build: {
+        heading: "Build on real code",
+        body: "I built it myself on eco.mio’s own codebase, using real product components.",
+        emphasis: "real product components",
+        // tileClass: the tile behind each logo, in the style of the owner's
+        // app icons: Claude orange, Cursor near-black, GitHub purple.
+        // inset "logo": full-color mark inset at ~80% of the tile;
+        // "icon": a 28px glyph centred on a dark tile.
+        tools: [
+          { src: `${IMG}/logo-claude-code-white.png`, alt: "Claude Code", tileClass: "bg-claude-orange-500", inset: "logo" },
+          { src: `${IMG}/logo-cursor-cube.svg`, alt: "Cursor", tileClass: "bg-portfolio-grey-900", inset: "icon" },
+          { src: `${IMG}/logo-github.svg`, alt: "GitHub", tileClass: "bg-github-purple-500", inset: "icon" },
+          { src: `${IMG}/logo-netlify.png`, alt: "Netlify", tileClass: "bg-white", inset: "logo" },
+        ],
+      },
     },
   },
   finalSolution: {
@@ -182,9 +262,9 @@ export const ecoMio: EcoMioContent = {
   solutionSections: [
     {
       number: "01.",
-      title: "Speed",
-      tag: "Speed",
-      tagIcon: `${IMG}/icon-tag-speed.png`,
+      title: "Automation",
+      tag: "Automation",
+      tagIcon: `${IMG}/icon-tag-automation.png`,
       blocks: [
         {
           heading: "AI reads three screenshots and fills every field",
@@ -206,8 +286,9 @@ export const ecoMio: EcoMioContent = {
     },
     {
       number: "02.",
-      title: "Tailored",
-      tag: "Tailored",
+      title: "Personalization",
+      tag: "Personalization",
+      tagIcon: `${IMG}/icon-tag-personalization.png`,
       blocks: [
         {
           heading: "Built on eco.mio's own components, so the demo is the product",
@@ -232,8 +313,9 @@ export const ecoMio: EcoMioContent = {
     },
     {
       number: "03.",
-      title: "Autonomy",
-      tag: "Autonomy",
+      title: "Decentralization",
+      tag: "Decentralization",
+      tagIcon: `${IMG}/icon-tag-decentralization.png`,
       blocks: [
         {
           heading: "Every field stays editable when a screenshot can't be read",

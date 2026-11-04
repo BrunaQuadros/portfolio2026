@@ -21,6 +21,12 @@ Defined in `app/globals.css` under `@theme inline`, used via Tailwind utilities 
 | `faircado-green-500` | `#52c517` | Highlight text accent |
 | `impact-hero-green-900` | `#28391f` | Impact Hero brand color, homepage card panel background. Added 2026-09-15 |
 | `eco-mio-blue-500` | `#6b81ee` | eco.mio brand color: homepage card logo tile and panel, and every accent on the eco.mio case study (eyebrows, highlighted phrases, numbers). Added 2026-10-30 |
+| `eco-mio-blue-600` | `#4f63d2` | eco.mio process diagrams: icons and bars on white nodes. Added 2026-11-04 |
+| `eco-mio-navy-900` | `#1e2352` | eco.mio process diagrams: icons and bars on yellow nodes. Added 2026-11-04 |
+| `eco-mio-yellow-400` | `#edd96a` | eco.mio process diagrams: the PM lane (highlighted lane), its nodes and labels. Added 2026-11-04 |
+| `eco-mio-green-600` | `#3e8e6a` | eco.mio process diagrams: the selected Figma screen. Added 2026-11-04 |
+| `claude-orange-500` | `#d97757` | Claude Code logo tile (eco.mio tool stack card), white mark on top. Added 2026-11-04 |
+| `github-purple-500` | `#893cb9` | GitHub logo tile (eco.mio tool stack card), sampled from the owner's GitHub app icon. Added 2026-11-04 |
 
 | `portfolio-pink-500` | `#e53b7d` | Site-wide accent (homepage hero highlight, focus rings on homepage links). Added 2026-09-14 |
 
@@ -48,7 +54,7 @@ Below `sm:` the case study uses three spacing steps and nothing else:
 | A section heading block and its content | 48px | `gap-12` (or `mb-12`) on the section |
 | Cards in the same group | 24px | `gap-6` on the grid / strip |
 
-Inside the heading block, `SectionHeading` already fixes eyebrow to title at 32px and title to body at 16px at every width. Desktop keeps its per-section tuning: any extra or negative section margin is scoped to `lg:` (`lg:mt-10`, `lg:-mt-[60px]`), and heading or card gaps restore their desktop value from `sm:` (`gap-12 sm:gap-16`). Approved exceptions on mobile: the Challenge panel sits 48px under "So our challenge became:" (`-mt-12`) and the numbered solution blocks sit close under the Final Solution title (`-mt-16`), because both continue the section above; and the My Approach 2x2 card grid uses an 8px gap (`gap-2 sm:gap-6`) so each small card keeps room for its content.
+Inside the heading block, `SectionHeading` already fixes eyebrow to title at 32px and title to body at 16px at every width. Desktop keeps its per-section tuning: any extra or negative section margin is scoped to `lg:` (`lg:mt-10`, `lg:-mt-[60px]`), and heading or card gaps restore their desktop value from `sm:` (`gap-12 sm:gap-16`). Approved exceptions on mobile: the Challenge panel sits 48px under "So my challenge became:" (`-mt-12`) and the numbered solution blocks sit close under the Final Solution title (`-mt-16`), because both continue the section above; and the My Approach 2x2 card grid uses an 8px gap (`gap-2 sm:gap-6`) so each small card keeps room for its content.
 
 ## Mobile Rules
 
@@ -128,3 +134,5 @@ First real case study copy (Faircado) is direct, confident, data-forward: short 
 - 2026-10-30: eco.mio panel now shows the owner's Demo Studio recording (1200 x 1200, own blue background) covering the whole panel (`crop: "fill"`), replacing the inset Concur screenshot. The unused right-crop layout was removed.
 - 2026-11-03: eco.mio case study page built from the Portfolio 2026 Figma, following the Faircado page's desktop layout and every Mobile Rule. Figma's `#6985f3` accent maps to the existing `eco-mio-blue-500` (`#6b81ee`) and its `#e8e8f0` empty frames to `portfolio-grey-400`, both approved by the owner instead of new tokens. Tool logo tiles (Claude Code `#faf5ed`, Cursor/GitHub near-black) map to `portfolio-grey-50` and `portfolio-grey-900`. The Discarded Ideas eyebrow is blue like the rest of the page (Figma's pink was a Faircado leftover) and Learnings sits in the grey panel like Faircado's closing takeaways.
 - 2026-11-03: eco.mio Context visual is a before/after `ImageCompare` (Bencho block). Its CSS is the one plain-CSS exception to Tailwind-only styling, approved by the owner: the `.cmp*` classes in `app/globals.css`. Bencho's tokens map to ours locally on `.cmp` (`--ink` = `portfolio-grey-900`, `--signal` = `portfolio-pink-500` focus ring, `--font-ui` = Manrope, knob on the ShadCN `--card` white). Two departures from the source, both commented: `touch-action: pan-y` so phones can still scroll the page over it, and a transparent ground because the screenshots carry their own transparent margin and window shadow.
+- 2026-11-04: eco.mio's two process diagrams (the horizontal swimlane under My Approach and the vertical "Old demo process" chart in the Problem phone slot) are drawn in code from the owner's PNGs so they can be edited by request. Added four `eco-mio-*` colour tokens sampled from those files (blue-600, navy-900, yellow-400, green-600); lighter tints are opacity on existing tokens. Text uses Manrope instead of the PNGs' rounder font (no new font), and icons come from lucide-react.
+- 2026-11-04: eco.mio's My Approach and Findings merged into one "My process" section from the owner's "Copy round 2" artboard: three steps (Audit, Align, Scope) with `StepHeading`, 96px between blocks and 48px from each step heading to its content at every width. The step h3 reuses the existing 28px / 32px heading sizes; the 80 / 20 bar is `portfolio-grey-900` on white; the Constraint card is `eco-mio-blue-500` with white text and a white arrow chip between it and the next card.

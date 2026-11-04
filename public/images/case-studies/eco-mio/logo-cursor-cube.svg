@@ -1,0 +1,9 @@
+<svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+<!-- Cursor app icon cube, drawn from the owner's dock screenshot: six shaded facets around the centre point. -->
+<path d="M2.74 7.5L14 1L25.26 7.5Z" fill="#5A5A56"/>
+<path d="M2.74 7.5H25.26L14 14Z" fill="#FFFFFF"/>
+<path d="M2.74 7.5L14 14L2.74 20.5Z" fill="#6E6E6A"/>
+<path d="M2.74 20.5L14 14V27Z" fill="#9A9A96"/>
+<path d="M25.26 7.5L14 14V27Z" fill="#E6E6E4"/>
+<path d="M25.26 7.5V20.5L14 27Z" fill="#5E5E5A"/>
+</svg>

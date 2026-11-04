@@ -21,8 +21,8 @@ type ContextCardClusterProps = {
   // Index of a card to lift above the other two without moving it (eco.mio
   // brings the back card, [0], to the front). By default [2] is on top.
   frontCard?: number;
-  // 12px card corners (the case study md radius) instead of Faircado's
-  // 20px, for screenshots whose own browser corners are small.
+  // 8px card corners (the ShadCN md radius) instead of Faircado's 20px,
+  // for screenshots whose own browser corners are small (owner's request).
   smallCorners?: boolean;
   // Extra classes on the cluster box, e.g. a larger desktop max width.
   className?: string;
@@ -44,7 +44,7 @@ export function ContextCardCluster({
   smallCorners = false,
   className = "",
 }: ContextCardClusterProps) {
-  const corner = smallCorners ? "rounded-case-md" : "rounded-[20px]";
+  const corner = smallCorners ? "rounded-md" : "rounded-[20px]";
   return (
     // Below sm the cluster box is 18% wider than the column, pulled out with
     // negative side margins so the three cards (which only fill ~82% of the

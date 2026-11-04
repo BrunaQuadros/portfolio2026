@@ -7,12 +7,15 @@ import Image from "next/image";
 // tags are text only.
 type TagPillProps = {
   icon?: string;
+  // A ready-made icon (e.g. a lucide icon) instead of an image file.
+  iconNode?: React.ReactNode;
   label: string;
 };
 
-export function TagPill({ icon, label }: TagPillProps) {
+export function TagPill({ icon, iconNode, label }: TagPillProps) {
   return (
     <span className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-2 shadow-[0px_4px_12.5px_0px_rgba(94,95,93,0.1)]">
+      {iconNode}
       {icon ? <Image src={icon} alt="" aria-hidden="true" width={24} height={24} className="size-6" /> : null}
       <span className="font-manrope font-bold text-[18px] leading-[28px] text-portfolio-grey-900 whitespace-nowrap">
         {label}

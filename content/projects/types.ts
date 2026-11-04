@@ -294,6 +294,39 @@ export type FaircadoContent = {
 // components/case-study/RichText.
 export type RichSegment = string | { text: string; bold?: boolean; accent?: boolean } | { br: true };
 
+// Process diagrams drawn in code (components/case-study/ProcessSwimlane and
+// HandoffChart), so wording and order are data, not pixels in an image.
+export type SwimlaneNode = "card" | "question" | "reply" | "screens" | "send" | "figma" | "link";
+
+export type ProcessSwimlaneData = {
+  // Accessible description of the whole diagram (it is one image to
+  // screen readers).
+  label: string;
+  // Exactly three lanes, top to bottom; the highlighted one is yellow.
+  lanes: { name: string; highlight?: boolean }[];
+  // Left to right. `lane` is the index into `lanes`.
+  steps: {
+    label: string;
+    lane: number;
+    node: SwimlaneNode;
+    labelPosition: "above" | "below";
+    labelAlign?: "center" | "start";
+  }[];
+};
+
+export type HandoffChartData = {
+  label: string;
+  titleLead: string;
+  titleAccent: string;
+  // Exactly three people, left to right; the highlighted one is yellow.
+  people: { name: string; highlight?: boolean }[];
+  // Who holds the work at each handoff, top to bottom (index into people).
+  handoffs: number[];
+  // Optional note under one person's column (e.g. their time).
+  note?: { person: number; text: string };
+  total: { value: string; unit: string };
+};
+
 // eco.mio case study. Same section order as Faircado, but the copy uses
 // RichSegment paragraphs instead of per-phrase lead/accent/tail fields.
 // Images without a `src` render as grey placeholders until exported.
@@ -333,24 +366,40 @@ export type EcoMioContent = {
     paragraphs: RichSegment[][];
     closingLine: string;
     challenge: RichSegment[];
-    processImage: { src?: string; alt: string; caption: string };
+    processChart: HandoffChartData;
   };
+  // "My process": a heading block, then three steps, each with a small
+  // label ("1. Audit"), a heading and a body above its content.
   approach: {
     eyebrow: string;
     heading: string;
-    body: string;
-    processPanel: string;
-  };
-  findings: {
-    eyebrow: string;
-    heading: string;
-    body: string;
-    cards: ({ tagIcon: string } & ProblemCard)[];
-    scope: { icon: string; label: string };
-    build: {
+    body: RichSegment[];
+    audit: {
+      label: string;
+      heading: string;
+      body: RichSegment[];
+      caption: string;
+      // Process diagram under the step heading (scrolls sideways below lg).
+      processDiagram: ProcessSwimlaneData & { regionLabel: string };
+    };
+    align: {
+      label: string;
       heading: string;
       body: string;
-      tools: { src: string; alt: string; tileClass: string; inset: "logo" | "icon" }[];
+      // Problem cards with the tag pills used through the case study.
+      cards: { tag: string; tagIcon: string; heading: string; body: RichSegment[] }[];
+    };
+    scope: {
+      label: string;
+      heading: string;
+      constraint: { tag: string; tagIcon: string; heading: string; body: RichSegment[]; arrowLabel: string };
+      eightyTwenty: { heading: string; body: string; emphasis: string };
+      build: {
+        heading: string;
+        body: string;
+        emphasis: string;
+        tools: { src: string; alt: string; tileClass: string; inset: "logo" | "icon" }[];
+      };
     };
   };
   finalSolution: { eyebrow: string; heading: string; body: string };

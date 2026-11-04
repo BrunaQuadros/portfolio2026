@@ -28,6 +28,14 @@ type SolutionSectionProps = {
   numberClass?: string;
   // Connector drawn between the two phones of a `connectWithArrow` block,
   // at its own pixel width. Defaults to Faircado's find-similar arrow.
+  // Smaller giant title for long words (eco.mio "Personalization",
+  // "Decentralization", 15-16 letters), which at the default 152px would
+  // overflow the 1140px content width. Faircado's titles use the default.
+  longTitle?: boolean;
+  // Keep the tag pill in flow above the block heading up to xl (1280px)
+  // instead of lg. Long tags (eco.mio "Personalization") in the card's
+  // corner run into the centred heading on 1024-1279px screens.
+  tagInFlowUntilXl?: boolean;
   // `phoneHeight`: the SVG is drawn on a canvas as tall as the phone
   // (eco.mio), so the row top-aligns the phones and the arrow instead of
   // centring them (which shifts the phones when captions wrap differently).
@@ -421,7 +429,18 @@ export function SolutionSection({
   blocks,
   numberClass = "text-faircado-green-400",
   arrow = { src: `${IMG}/find-similar-arrow.svg`, width: 100 },
+  longTitle = false,
+  tagInFlowUntilXl = false,
 }: SolutionSectionProps) {
+  const tagPosition = tagInFlowUntilXl
+    ? "self-center xl:absolute xl:left-10 xl:top-10 xl:self-auto"
+    : "self-center lg:absolute lg:left-10 lg:top-10 lg:self-auto";
+  const headingTopMargin = tagInFlowUntilXl ? "-mt-9 xl:mt-0" : "-mt-9 lg:mt-0";
+  // Long words: still cropped a little at the phone edges below sm (Mobile
+  // Rule 6), and fitted to the content width from sm up.
+  const titleSize = longTitle
+    ? "text-[12vw] sm:text-[8vw] lg:text-[104px]"
+    : "text-[19vw] sm:text-[7vw] md:text-[14vw] lg:text-[152px]";
   return (
     <section className="flex w-full flex-col items-center gap-7 overflow-x-hidden" aria-labelledby={`solution-${title.toLowerCase()}`}>
       {/* Below sm the title is deliberately wider than the phone screen
@@ -446,7 +465,7 @@ export function SolutionSection({
             line box, so it sits tight against (slightly overlapping) the
             word's cap height instead of floating above it. */}
         <span className={`-mb-5 text-[6.4vw] sm:mb-0 sm:text-[2.33vw] md:text-[3.4vw] lg:text-[2.33rem] ${numberClass}`}>{number}</span>
-        <span className="text-[19vw] sm:text-[7vw] md:text-[14vw] lg:text-[152px]">{title}</span>
+        <span className={titleSize}>{title}</span>
       </h3>
       <div className="flex w-full flex-col items-center gap-6 sm:gap-20">
         {/* Each block's gray panel simply sits inside the page's own
@@ -465,7 +484,7 @@ export function SolutionSection({
                   centered like the heading. From lg up it's absolutely
                   positioned in the card's top-left corner, out of flow, as in
                   the Figma. */}
-              <div className="self-center lg:absolute lg:left-10 lg:top-10 lg:self-auto">
+              <div className={tagPosition}>
                 <TagPill icon={tagIcon} label={tag} />
               </div>
               {/* Centered across the card's full width, ignoring the pill's
@@ -473,7 +492,7 @@ export function SolutionSection({
                   negative top margin below lg tightens the pill-to-heading
                   gap from the card's 60px gap down to 24px. */}
               <p
-                className="-mt-9 text-center font-manrope font-bold text-[24px] leading-[32px] tracking-[-0.5px] text-portfolio-grey-900 sm:text-[28px] sm:leading-[38px] lg:mt-0"
+                className={`${headingTopMargin} text-center font-manrope font-bold text-[24px] leading-[32px] tracking-[-0.5px] text-portfolio-grey-900 sm:text-[28px] sm:leading-[38px]`}
                 style={{ maxWidth: block.headingMaxWidth ?? 500 }}
               >
                 {block.heading}

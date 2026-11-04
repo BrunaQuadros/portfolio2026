@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import { ArrowRight } from "lucide-react";
 import { ecoMio } from "@/content/projects/eco-mio";
 import { SectionHeading } from "@/components/case-study/SectionHeading";
 import { ProblemCard } from "@/components/case-study/ProblemCard";
+import { StepHeading } from "@/components/case-study/StepHeading";
+import { TagPill } from "@/components/case-study/TagPill";
 import { TestimonialCard } from "@/components/case-study/TestimonialCard";
 import { StatCard } from "@/components/case-study/StatCard";
 import { SolutionSection } from "@/components/case-study/SolutionSection";
@@ -11,6 +14,8 @@ import { DiscardedIdeasSection } from "@/components/case-study/DiscardedIdeasSec
 import { ImagePlaceholder } from "@/components/case-study/ImagePlaceholder";
 import { RichText } from "@/components/case-study/RichText";
 import { ContextCardCluster } from "@/components/case-study/ContextCardCluster";
+import { ProcessSwimlane } from "@/components/case-study/ProcessSwimlane";
+import { HandoffChart } from "@/components/case-study/HandoffChart";
 import { AutoPlayVideo } from "@/components/media/AutoPlayVideo";
 
 const IMG = "/images/case-studies/eco-mio";
@@ -31,6 +36,18 @@ const ROLE_LABEL = `font-manrope font-extrabold text-[16px] tracking-[0.48px] up
 const ROLE_VALUE =
   "whitespace-nowrap font-manrope font-bold text-[15px] leading-[24px] sm:whitespace-normal sm:text-[18px] sm:leading-[28px]";
 
+// The 80 / 20 split bar on the "Automate the 80%" card: a full-width pill,
+// 80% near-black with "80%" in white, 20% white with "20%" (owner's artboard).
+// Decorative: the card's heading and body say the same thing in words.
+function EightyTwentyBar() {
+  return (
+    <div aria-hidden="true" className="flex h-11 w-full overflow-hidden rounded-full bg-white font-manrope text-[14px] font-bold">
+      <span className="flex w-4/5 items-center justify-center bg-portfolio-grey-900 text-white">80%</span>
+      <span className="flex w-1/5 items-center justify-center text-portfolio-grey-900">20%</span>
+    </div>
+  );
+}
+
 export const metadata: Metadata = {
   title: ecoMio.meta.title,
   description: ecoMio.meta.description,
@@ -43,7 +60,6 @@ export default function EcoMioCaseStudyPage() {
     context,
     problem,
     approach,
-    findings,
     finalSolution,
     solutionSections,
     discardedIdeas,
@@ -166,25 +182,41 @@ export default function EcoMioCaseStudyPage() {
 
       {/* Context: same layout and card cluster as the Faircado Context
           section (heading block left, three tilted black-and-white cards
-          right, stacked below lg). */}
+          right, stacked below lg). Here the cards take the screenshots' own
+          shape so each booking tool shows whole. lg: the text column is
+          420px and the cluster 560px. xl: the text is set in the owner's
+          line breaks (~575px at 18px), so the column sizes to its longest
+          line (w-max) and the cluster is 535px, its box running 40px into
+          the page margin (-mr-10) so the cards themselves start ~64px from
+          the text and end inside the content edge, nudged 40px down
+          (translate-y-10) from the text's centre line. */}
       <section className="relative mx-auto flex w-full max-w-[1220px] flex-col gap-12 px-4 max-sm:overflow-x-hidden sm:gap-16 sm:px-10 lg:flex-row lg:items-center lg:justify-between lg:gap-0">
-        <div className="w-full lg:max-w-[520px]" style={TEXT_COLUMN}>
+        <div className="w-full lg:max-w-[420px] xl:w-max xl:max-w-none" style={TEXT_COLUMN}>
           <SectionHeading
             eyebrow={context.eyebrow}
             heading={context.heading}
             accentClass={ACCENT_TEXT}
             body={
-              <div className="flex flex-col gap-4">
+              // gap-7: one blank 28px line between paragraphs, as in the
+              // owner's layout.
+              <div className="flex flex-col gap-7">
                 {context.paragraphs.map((paragraph, i) => (
                   <p key={i}>
-                    <RichText segments={paragraph} accentClass={ACCENT_TEXT} />
+                    <RichText segments={paragraph} accentClass={ACCENT_TEXT} breakClass="hidden xl:inline" />
                   </p>
                 ))}
               </div>
             }
           />
         </div>
-        <ContextCardCluster cards={context.cards} />
+        <ContextCardCluster
+          cards={context.cards}
+          cardAspect="2564 / 2188"
+          boxAspect="399 / 321"
+          frontCard={0}
+          smallCorners
+          className="lg:max-w-[560px] xl:-mr-10 xl:max-w-[535px] xl:translate-y-10"
+        />
       </section>
 
       {/* Problem statement */}
@@ -215,30 +247,28 @@ export default function EcoMioCaseStudyPage() {
       </section>
 
       {/* Challenge headline. Same composition as Faircado: pulled up beside
-          the Problem text on desktop, with the "process when I joined"
+          the Problem text on desktop, with the old process diagram
           phone overlapping the grey panel by 150px. Below lg the panel sits
           48px under "So my challenge became:" (-mt-12) and the phone is
           hidden, as on Faircado. */}
       <section className="relative z-10 mx-auto -mt-12 w-full max-w-[1220px] px-4 sm:px-10 lg:-mt-[420px]">
         <div className="flex flex-col items-center">
-          <figure className="relative z-10 hidden w-[250px] shrink-0 flex-col items-center gap-3 lg:mb-[-150px] lg:ml-auto lg:mr-16 lg:flex lg:-translate-x-10">
-            <figcaption className="w-[226px] text-center font-manrope text-[14px] leading-[20px] text-portfolio-grey-600">
-              {problem.processImage.caption}
-            </figcaption>
-            {problem.processImage.src ? (
-              <div className="relative h-[541px] w-[250px] overflow-hidden rounded-case-xl shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)]">
-                <Image src={problem.processImage.src} alt={problem.processImage.alt} fill className="object-cover" />
-              </div>
-            ) : (
-              <ImagePlaceholder
-                label={problem.processImage.alt}
-                className="h-[541px] w-[250px] rounded-case-xl shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)]"
-              />
-            )}
-          </figure>
+          {/* lg:translate-y-10: the diagram sits 40px lower than Faircado's
+              phone (owner's request), overlapping the panel a little more. */}
+          <div className="relative z-10 hidden w-[250px] shrink-0 flex-col items-center lg:mb-[-150px] lg:ml-auto lg:mr-16 lg:flex lg:-translate-x-10 lg:translate-y-10">
+            {/* The old demo process, drawn in code (HandoffChart) at the
+                phone mockup's size and corners. */}
+            <div className="h-[541px] w-[250px] overflow-hidden rounded-case-xl shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)]">
+              <HandoffChart chart={problem.processChart} className="block size-full" />
+            </div>
+          </div>
           <div className="relative z-0 flex w-full items-center rounded-case-mobile bg-portfolio-grey-50 py-6 sm:min-h-[340px] sm:rounded-case-3xl sm:py-10 lg:h-[340px] lg:min-h-0 lg:py-0">
             <div className="w-full px-6 sm:px-10 lg:px-[80px]">
-              <p className="max-w-[560px] text-left font-manrope font-bold text-[28px] leading-[1.4] tracking-[-0.5px] text-portfolio-grey-900 lg:max-w-[698px] lg:text-[36px] lg:leading-[1.4]">
+              {/* lg:max-w-[640px] (no <br>): narrow enough that the headline
+                  wraps on its own into the owner's three lines, "...demo
+                  creation" / "to win back...take PM" / "out of the process?",
+                  while smaller screens keep wrapping naturally. */}
+              <p className="max-w-[560px] text-left font-manrope font-bold text-[28px] leading-[1.4] tracking-[-0.5px] text-portfolio-grey-900 lg:max-w-[640px] lg:text-[36px] lg:leading-[1.4]">
                 <RichText segments={problem.challenge} accentClass={ACCENT_TEXT} />
               </p>
             </div>
@@ -246,85 +276,164 @@ export default function EcoMioCaseStudyPage() {
         </div>
       </section>
 
-      {/* My Approach: heading, then the "Process that took 5 hours" panel
-          (same grey panel and type as the Challenge headline). lg:mt-10
-          matches the extra breathing room Faircado adds after the Challenge
-          panel. */}
-      <section className="mx-auto flex w-full max-w-[1220px] flex-col gap-12 px-4 sm:gap-20 sm:px-10 lg:mt-10">
+      {/* My process: the section heading, then three steps (Audit, Align,
+          Scope), each a StepHeading above its content. 96px between the
+          blocks and 48px from each step heading to its content, on every
+          screen size (the mobile rhythm; the owner's artboard uses the same
+          96px on desktop). Align and Scope add lg:mt-16, so on desktop they
+          sit 160px under the step above (owner's request). lg:mt-10 matches the extra breathing room
+          Faircado adds after the Challenge panel. */}
+      <section className="mx-auto flex w-full max-w-[1220px] flex-col gap-24 px-4 sm:px-10 lg:mt-10">
         <div style={TEXT_COLUMN}>
           <SectionHeading
             eyebrow={approach.eyebrow}
             heading={approach.heading}
-            body={<p>{approach.body}</p>}
+            body={
+              <p>
+                <RichText segments={approach.body} accentClass={ACCENT_TEXT} />
+              </p>
+            }
             accentClass={ACCENT_TEXT}
-            className="max-w-[516px]"
+            className="max-w-[640px]"
           />
         </div>
-        <div className="flex w-full items-center rounded-case-mobile bg-portfolio-grey-50 px-6 py-10 sm:rounded-case-3xl sm:p-10 lg:p-20">
-          <p className="font-manrope font-bold text-[28px] leading-[1.4] tracking-[-0.5px] text-portfolio-grey-900 lg:text-[36px]">
-            {approach.processPanel}
-          </p>
-        </div>
-      </section>
 
-      {/* Findings: three need cards, then the "Scope" intro card and the
-          wide "Building Demo Studio" card, on one shared 3-column grid (same
-          approach as the Faircado results grid, so the wide card spans
-          exactly two columns). lg:-mt-12 brings it 80px under the process
-          panel on desktop, as in Figma; mobile keeps the 96px section gap. */}
-      <section className="mx-auto flex w-full max-w-[1220px] flex-col gap-12 px-4 sm:gap-20 sm:px-10 lg:-mt-12">
-        <div style={TEXT_COLUMN}>
-          <SectionHeading
-            eyebrow={findings.eyebrow}
-            heading={findings.heading}
-            body={<p>{findings.body}</p>}
-            accentClass={ACCENT_TEXT}
-            className="max-w-[516px]"
-          />
-        </div>
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-3 sm:gap-x-7 sm:gap-y-10">
-          {findings.cards.map((card) => (
-            <ProblemCard key={card.tag} tag={card.tag} tagIcon={card.tagIcon} heading={card.heading} body={card.body} />
-          ))}
-          {/* Hidden below sm, like Faircado's "User feedback that made my
-              day" intro card: on phones the label card is a whole extra
-              card before the one it introduces. */}
-          <div className="hidden flex-col items-center justify-center gap-7 rounded-case-mobile bg-portfolio-grey-50 p-6 text-center sm:flex sm:rounded-case-2xl sm:p-10">
-            <span className="flex size-[52px] items-center justify-center overflow-hidden rounded-full border border-portfolio-grey-200 bg-white shadow-[0px_16.75px_25.125px_0px_rgba(0,0,0,0.12)]">
-              <Image src={findings.scope.icon} alt="" aria-hidden="true" width={45} height={45} className="size-[45px] max-w-none" />
-            </span>
-            <p className="font-manrope font-bold text-[24px] leading-[32px] tracking-[-0.5px] text-portfolio-grey-900 sm:text-[28px] sm:leading-[38px]">
-              {findings.scope.label}
-            </p>
+        {/* 1. Audit: the old process diagram, drawn in code
+            (ProcessSwimlane, its blue rounded panel included), with a
+            caption under it. */}
+        <div className="flex flex-col gap-12">
+          <div style={TEXT_COLUMN}>
+            <StepHeading
+              label={approach.audit.label}
+              heading={approach.audit.heading}
+              body={
+                <p>
+                  <RichText segments={approach.audit.body} />
+                </p>
+              }
+              accentClass={ACCENT_TEXT}
+            />
           </div>
-          <div className="flex flex-col justify-between gap-10 rounded-case-mobile bg-portfolio-grey-50 p-6 sm:col-span-2 sm:h-[383px] sm:rounded-case-2xl sm:p-10">
-            {/* Overlapping, slightly tilted tool logos (Figma's -6 / +5
-                degree alternation). The names are in the copy below, but the
-                logos still get alt text since Netlify is only shown here. */}
-            <ul className="flex items-center" aria-label="Tools used">
-              {findings.build.tools.map((tool, i) => (
-                <li
-                  key={tool.alt}
-                  className={`flex size-[52px] shrink-0 items-center justify-center rounded-case-md shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)] ${tool.tileClass} ${i % 2 === 0 ? "-rotate-6" : "rotate-5"} ${i > 0 ? "-ml-3" : ""}`}
-                >
-                  <Image
-                    src={tool.src}
-                    alt={tool.alt}
-                    width={42}
-                    height={42}
-                    className={tool.inset === "logo" ? "size-[80%] object-contain" : "size-7"}
-                  />
-                </li>
-              ))}
-            </ul>
-            <div className="flex flex-col gap-3">
-              <p className="font-manrope font-bold text-[24px] leading-[32px] tracking-[-0.5px] text-portfolio-grey-900 sm:text-[28px] sm:leading-[38px]">
-                {findings.build.heading}
-              </p>
-              <p className="font-manrope text-[16px] leading-[26px] text-portfolio-grey-900 sm:text-[18px] sm:leading-[28px]">
-                {findings.build.body}
-              </p>
+          <figure className="flex flex-col gap-4">
+            {/* From lg the diagram fills the content width. Below lg, shrunk
+                to the screen its labels would be ~4px, so it keeps a readable
+                300px height and scrolls sideways (the horizontal scroll strip
+                pattern, docs/DESIGN.md), breaking out of the section padding
+                so it runs edge to edge. Focusable so keyboard users can
+                scroll it too. */}
+            <div
+              className="scrollbar-hide -mx-4 overflow-x-auto px-4 sm:-mx-10 sm:px-10 lg:mx-0 lg:overflow-visible lg:px-0"
+              tabIndex={0}
+              role="region"
+              aria-label={approach.audit.processDiagram.regionLabel}
+            >
+              {/* 921 x 300 below lg keeps the 2002:652 canvas shape at a
+                  readable height. */}
+              <ProcessSwimlane
+                diagram={approach.audit.processDiagram}
+                className="block h-[300px] w-[921px] max-w-none lg:h-auto lg:w-full"
+              />
             </div>
+            <figcaption
+              style={TEXT_COLUMN}
+              className="font-manrope text-[14px] leading-[20px] tracking-[0.48px] text-portfolio-grey-600"
+            >
+              {approach.audit.caption}
+            </figcaption>
+          </figure>
+        </div>
+
+        {/* 2. Align: the three goals, with the tag pills used through the
+            rest of the case study. */}
+        <div className="flex flex-col gap-12 lg:mt-16">
+          <div style={TEXT_COLUMN}>
+            <StepHeading
+              label={approach.align.label}
+              heading={approach.align.heading}
+              body={<p>{approach.align.body}</p>}
+              accentClass={ACCENT_TEXT}
+            />
+          </div>
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-3 sm:gap-7">
+            {approach.align.cards.map((card) => (
+              <ProblemCard
+                key={card.tag}
+                tag={card.tag}
+                tagIcon={card.tagIcon}
+                heading={card.heading}
+                body={<RichText segments={card.body} />}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* 3. Scope: the constraint (blue) and the two decisions it shaped.
+            One column below lg, three from lg. */}
+        <div className="flex flex-col gap-12 lg:mt-16">
+          <div style={TEXT_COLUMN}>
+            <StepHeading label={approach.scope.label} heading={approach.scope.heading} accentClass={ACCENT_TEXT} />
+          </div>
+          <div className="grid grid-cols-1 gap-6 lg:grid-cols-3 lg:gap-7">
+            <div
+              className={`relative flex flex-col items-start justify-between gap-8 rounded-case-mobile p-6 sm:rounded-case-2xl sm:p-10 lg:h-[383px] ${ACCENT_BG}`}
+            >
+              <TagPill
+                label={approach.scope.constraint.tag}
+                icon={approach.scope.constraint.tagIcon}
+              />
+              <div className="flex flex-col gap-3 text-white">
+                <p className="font-manrope font-bold text-[24px] leading-[32px] tracking-[-0.5px] sm:text-[28px] sm:leading-[38px]">
+                  {approach.scope.constraint.heading}
+                </p>
+                <p className="font-manrope text-[16px] leading-[26px] sm:text-[18px] sm:leading-[28px]">
+                  <RichText segments={approach.scope.constraint.body} />
+                </p>
+              </div>
+              {/* The arrow from the constraint to the two decisions: centred
+                  in the gap below the card on phones (pointing down), in the
+                  gap to its right from lg (pointing right). */}
+              <span
+                role="img"
+                aria-label={approach.scope.constraint.arrowLabel}
+                className="absolute -bottom-9 left-1/2 z-10 flex size-12 -translate-x-1/2 rotate-90 items-center justify-center rounded-full bg-white shadow-[0px_4px_16px_0px_rgba(17,17,17,0.16)] lg:top-1/2 lg:-right-[38px] lg:bottom-auto lg:left-auto lg:translate-x-0 lg:-translate-y-1/2 lg:rotate-0"
+              >
+                <ArrowRight className="size-6 text-eco-mio-blue-600" strokeWidth={2.5} aria-hidden="true" />
+              </span>
+            </div>
+            <StatCard
+              size="short"
+              iconNode={<EightyTwentyBar />}
+              heading={approach.scope.eightyTwenty.heading}
+              body={approach.scope.eightyTwenty.body}
+              emphasis={approach.scope.eightyTwenty.emphasis}
+            />
+            <StatCard
+              size="short"
+              iconNode={
+                // Overlapping, slightly tilted tool logos (-6 / +5 degree
+                // alternation). The names are in the copy elsewhere, so the
+                // logos still get alt text for the list.
+                <ul className="flex items-center" aria-label="Tools used">
+                  {approach.scope.build.tools.map((tool, i) => (
+                    <li
+                      key={tool.alt}
+                      className={`flex size-[52px] shrink-0 items-center justify-center rounded-case-md shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)] ${tool.tileClass} ${i % 2 === 0 ? "-rotate-6" : "rotate-5"} ${i > 0 ? "-ml-3" : ""}`}
+                    >
+                      <Image
+                        src={tool.src}
+                        alt={tool.alt}
+                        width={42}
+                        height={42}
+                        className={tool.inset === "logo" ? "size-[80%] object-contain" : "size-7"}
+                      />
+                    </li>
+                  ))}
+                </ul>
+              }
+              heading={approach.scope.build.heading}
+              body={approach.scope.build.body}
+              emphasis={approach.scope.build.emphasis}
+            />
           </div>
         </div>
       </section>
@@ -353,6 +462,8 @@ export default function EcoMioCaseStudyPage() {
             blocks={section.blocks}
             numberClass={ACCENT_TEXT}
             arrow={{ src: `${IMG}/tailored-arrow.svg`, width: 160, phoneHeight: true }}
+            longTitle={section.title.length > 12}
+            tagInFlowUntilXl
           />
         ))}
       </div>
