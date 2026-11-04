@@ -87,7 +87,7 @@ export const faircado: FaircadoContent = {
     bodyText2Lead: "Despite the potential, ",
     bodyAccent2: "only ~40% of users",
     bodyText2Tail: " ever tried image search, and the ones who did use it weren't converting.",
-    closingLine: "So our challenge became:",
+    closingLine: "So my challenge became:",
     challengeLine1: "How can we improve the image",
     challengeLine2Lead: "search MVP to ",
     challengeAccentLine2: "drive sales and grow",

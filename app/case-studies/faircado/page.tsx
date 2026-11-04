@@ -327,7 +327,7 @@ export default function FaircadoCaseStudyPage() {
           top margin to overlap the Problem section above — rather than
           sharing row space with the Problem text, which forced the box
           narrow and the headline down to a tiny font size. */}
-      {/* -mt-12 below lg: the grey panel sits 48px under "So our challenge
+      {/* -mt-12 below lg: the grey panel sits 48px under "So my challenge
           became:" (the heading-to-content step) instead of the 96px section
           gap, since it completes that sentence. */}
       <section className="relative z-10 mx-auto -mt-12 w-full max-w-[1220px] px-4 sm:px-10 lg:-mt-[420px]">

@@ -48,7 +48,7 @@ Below `sm:` the case study uses three spacing steps and nothing else:
 | A section heading block and its content | 48px | `gap-12` (or `mb-12`) on the section |
 | Cards in the same group | 24px | `gap-6` on the grid / strip |
 
-Inside the heading block, `SectionHeading` already fixes eyebrow to title at 32px and title to body at 16px at every width. Desktop keeps its per-section tuning: any extra or negative section margin is scoped to `lg:` (`lg:mt-10`, `lg:-mt-[60px]`), and heading or card gaps restore their desktop value from `sm:` (`gap-12 sm:gap-16`). Approved exceptions on mobile: the Challenge panel sits 48px under "So our challenge became:" (`-mt-12`) and the numbered solution blocks sit close under the Final Solution title (`-mt-16`), because both continue the section above; and the My Approach 2x2 card grid uses an 8px gap (`gap-2 sm:gap-6`) so each small card keeps room for its content.
+Inside the heading block, `SectionHeading` already fixes eyebrow to title at 32px and title to body at 16px at every width. Desktop keeps its per-section tuning: any extra or negative section margin is scoped to `lg:` (`lg:mt-10`, `lg:-mt-[60px]`), and heading or card gaps restore their desktop value from `sm:` (`gap-12 sm:gap-16`). Approved exceptions on mobile: the Challenge panel sits 48px under "So my challenge became:" (`-mt-12`) and the numbered solution blocks sit close under the Final Solution title (`-mt-16`), because both continue the section above; and the My Approach 2x2 card grid uses an 8px gap (`gap-2 sm:gap-6`) so each small card keeps room for its content.
 
 ## Mobile Rules
 

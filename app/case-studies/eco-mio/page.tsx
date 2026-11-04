@@ -237,7 +237,9 @@ export default function EcoMioCaseStudyPage() {
           hidden, as on Faircado. */}
       <section className="relative z-10 mx-auto -mt-12 w-full max-w-[1220px] px-4 sm:px-10 lg:-mt-[420px]">
         <div className="flex flex-col items-center">
-          <div className="relative z-10 hidden w-[250px] shrink-0 flex-col items-center lg:mb-[-150px] lg:ml-auto lg:mr-16 lg:flex lg:-translate-x-10">
+          {/* lg:translate-y-10: the diagram sits 40px lower than Faircado's
+              phone (owner's request), overlapping the panel a little more. */}
+          <div className="relative z-10 hidden w-[250px] shrink-0 flex-col items-center lg:mb-[-150px] lg:ml-auto lg:mr-16 lg:flex lg:-translate-x-10 lg:translate-y-10">
             {problem.processImage.src ? (
               <div className="relative h-[541px] w-[250px] overflow-hidden rounded-case-xl shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)]">
                 <Image src={problem.processImage.src} alt={problem.processImage.alt} fill className="object-cover" />
@@ -251,7 +253,11 @@ export default function EcoMioCaseStudyPage() {
           </div>
           <div className="relative z-0 flex w-full items-center rounded-case-mobile bg-portfolio-grey-50 py-6 sm:min-h-[340px] sm:rounded-case-3xl sm:py-10 lg:h-[340px] lg:min-h-0 lg:py-0">
             <div className="w-full px-6 sm:px-10 lg:px-[80px]">
-              <p className="max-w-[560px] text-left font-manrope font-bold text-[28px] leading-[1.4] tracking-[-0.5px] text-portfolio-grey-900 lg:max-w-[698px] lg:text-[36px] lg:leading-[1.4]">
+              {/* lg:max-w-[640px] (no <br>): narrow enough that the headline
+                  wraps on its own into the owner's three lines, "...demo
+                  creation" / "to win back...take PM" / "out of the process?",
+                  while smaller screens keep wrapping naturally. */}
+              <p className="max-w-[560px] text-left font-manrope font-bold text-[28px] leading-[1.4] tracking-[-0.5px] text-portfolio-grey-900 lg:max-w-[640px] lg:text-[36px] lg:leading-[1.4]">
                 <RichText segments={problem.challenge} accentClass={ACCENT_TEXT} />
               </p>
             </div>
