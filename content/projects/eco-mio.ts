@@ -9,7 +9,7 @@ const IMG = "/images/case-studies/eco-mio";
 export const ecoMio: EcoMioContent = {
   meta: {
     slug: "eco-mio",
-    title: "Automating sales demo on AI recommendation engine",
+    title: "Automating sales demos to cut 15h of work monthly",
     description:
       "eco.mio turns 200+ flight options into 3 curated ones, right inside each company’s travel booking tool. How I built Demo Studio, an automated demo maker that turned 5 hours of work into 30 minutes.",
     year: "2026",
@@ -17,8 +17,8 @@ export const ecoMio: EcoMioContent = {
   hero: {
     // Same file as the homepage card logo (identical bytes in Figma).
     logo: { src: "/images/home/logo-eco-mio.jpg", alt: "eco.mio logo" },
-    headingLine1: "Automating sales demo",
-    headingLine2: "on AI recommendation engine",
+    headingLine1: "Automating sales demos",
+    headingLine2: "to cut 15h of work monthly",
     description: [
       "eco.mio turns ",
       { text: "200+ flight options into 3 curated ones", accent: true },
