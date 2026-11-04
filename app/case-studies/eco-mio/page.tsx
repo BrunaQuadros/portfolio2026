@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { TimerOff } from "lucide-react";
+import { ArrowRight, TimerOff } from "lucide-react";
 import { ecoMio } from "@/content/projects/eco-mio";
 import { SectionHeading } from "@/components/case-study/SectionHeading";
 import { ProblemCard } from "@/components/case-study/ProblemCard";
+import { StepHeading } from "@/components/case-study/StepHeading";
+import { TagPill } from "@/components/case-study/TagPill";
 import { TestimonialCard } from "@/components/case-study/TestimonialCard";
 import { StatCard } from "@/components/case-study/StatCard";
 import { SolutionSection } from "@/components/case-study/SolutionSection";
@@ -34,17 +36,14 @@ const ROLE_LABEL = `font-manrope font-extrabold text-[16px] tracking-[0.48px] up
 const ROLE_VALUE =
   "whitespace-nowrap font-manrope font-bold text-[15px] leading-[24px] sm:whitespace-normal sm:text-[18px] sm:leading-[28px]";
 
-// The 80 / 20 rule card's visual: one pill split 80% eco.mio blue (the
-// demos the tool covers) and 20% light (the rare ones that stay manual).
-// Decorative: the card's heading and copy carry the meaning.
+// The 80 / 20 split bar on the "Automate the 80%" card: a full-width pill,
+// 80% near-black with "80" in white, 20% white with "20" (owner's artboard).
+// Decorative: the card's heading and body say the same thing in words.
 function EightyTwentyBar() {
   return (
-    <div
-      aria-hidden="true"
-      className="flex h-11 w-full max-w-[200px] overflow-hidden rounded-full bg-white font-manrope text-[14px] font-bold shadow-[0px_4px_12.5px_0px_rgba(94,95,93,0.1)]"
-    >
-      <span className="flex w-4/5 items-center justify-center bg-eco-mio-blue-500 text-white">80%</span>
-      <span className="flex w-1/5 items-center justify-center text-eco-mio-blue-600">20%</span>
+    <div aria-hidden="true" className="flex h-11 w-full overflow-hidden rounded-full bg-white font-manrope text-[14px] font-bold">
+      <span className="flex w-4/5 items-center justify-center bg-portfolio-grey-900 text-white">80</span>
+      <span className="flex w-1/5 items-center justify-center text-portfolio-grey-900">20</span>
     </div>
   );
 }
@@ -61,7 +60,6 @@ export default function EcoMioCaseStudyPage() {
     context,
     problem,
     approach,
-    findings,
     finalSolution,
     solutionSections,
     discardedIdeas,
@@ -278,93 +276,144 @@ export default function EcoMioCaseStudyPage() {
         </div>
       </section>
 
-      {/* My Approach: heading, then the process diagram, drawn in code
-          (ProcessSwimlane, its blue rounded panel included).
-          lg:mt-10 matches the extra breathing room Faircado adds after the
-          Challenge panel. */}
-      <section className="mx-auto flex w-full max-w-[1220px] flex-col gap-12 px-4 sm:gap-20 sm:px-10 lg:mt-10">
+      {/* My process: the section heading, then three steps (Audit, Align,
+          Scope), each a StepHeading above its content. 96px between the
+          blocks and 48px from each step heading to its content, on every
+          screen size (the mobile rhythm; the owner's artboard uses the same
+          96px on desktop). lg:mt-10 matches the extra breathing room
+          Faircado adds after the Challenge panel. */}
+      <section className="mx-auto flex w-full max-w-[1220px] flex-col gap-24 px-4 sm:px-10 lg:mt-10">
         <div style={TEXT_COLUMN}>
           <SectionHeading
             eyebrow={approach.eyebrow}
             heading={approach.heading}
-            body={<p>{approach.body}</p>}
+            body={
+              <p>
+                <RichText segments={approach.body} accentClass={ACCENT_TEXT} />
+              </p>
+            }
             accentClass={ACCENT_TEXT}
-            className="max-w-[516px]"
+            className="max-w-[640px]"
           />
         </div>
-        {/* From lg the diagram fills the content width. Below lg, shrunk to
-            the screen its labels would be ~4px, so it keeps a readable 300px
-            height and scrolls sideways (the horizontal scroll strip pattern,
-            docs/DESIGN.md), breaking out of the section padding so it runs
-            edge to edge. Focusable so keyboard users can scroll it too. */}
-        <div
-          className="scrollbar-hide -mx-4 overflow-x-auto px-4 sm:-mx-10 sm:px-10 lg:mx-0 lg:overflow-visible lg:px-0"
-          tabIndex={0}
-          role="region"
-          aria-label={approach.processDiagram.regionLabel}
-        >
-          {/* 921 x 300 below lg keeps the 2002:652 canvas shape at a
-              readable height. */}
-          <ProcessSwimlane diagram={approach.processDiagram} className="block h-[300px] w-[921px] max-w-none lg:h-auto lg:w-full" />
-        </div>
-      </section>
 
-      {/* Findings: the three needs on a 3-column row, then the two
-          constraints and the wide "Scope and tool stack" card on a
-          4-column row (the wide card spans two, matching Figma's
-          287 / 287 / 590 split). Rows sit 40px apart from sm up, 24px on
-          phones. lg:mt-10 leaves the same space under the process diagram
-          as between the grey challenge panel and My Approach (owner's
-          request); mobile keeps the 96px section gap. */}
-      <section className="mx-auto flex w-full max-w-[1220px] flex-col gap-12 px-4 sm:gap-20 sm:px-10 lg:mt-10">
-        <div style={TEXT_COLUMN}>
-          <SectionHeading
-            eyebrow={findings.eyebrow}
-            heading={findings.heading}
-            body={<p>{findings.body}</p>}
-            accentClass={ACCENT_TEXT}
-            className="max-w-[560px]"
-          />
+        {/* 1. Audit: the old process diagram, drawn in code
+            (ProcessSwimlane, its blue rounded panel included), with a
+            caption under it. */}
+        <div className="flex flex-col gap-12">
+          <div style={TEXT_COLUMN}>
+            <StepHeading
+              label={approach.audit.label}
+              heading={approach.audit.heading}
+              body={
+                <p>
+                  <RichText segments={approach.audit.body} />
+                </p>
+              }
+              accentClass={ACCENT_TEXT}
+            />
+          </div>
+          <figure className="flex flex-col gap-4">
+            {/* From lg the diagram fills the content width. Below lg, shrunk
+                to the screen its labels would be ~4px, so it keeps a readable
+                300px height and scrolls sideways (the horizontal scroll strip
+                pattern, docs/DESIGN.md), breaking out of the section padding
+                so it runs edge to edge. Focusable so keyboard users can
+                scroll it too. */}
+            <div
+              className="scrollbar-hide -mx-4 overflow-x-auto px-4 sm:-mx-10 sm:px-10 lg:mx-0 lg:overflow-visible lg:px-0"
+              tabIndex={0}
+              role="region"
+              aria-label={approach.audit.processDiagram.regionLabel}
+            >
+              {/* 921 x 300 below lg keeps the 2002:652 canvas shape at a
+                  readable height. */}
+              <ProcessSwimlane
+                diagram={approach.audit.processDiagram}
+                className="block h-[300px] w-[921px] max-w-none lg:h-auto lg:w-full"
+              />
+            </div>
+            <figcaption
+              style={TEXT_COLUMN}
+              className="font-manrope text-[14px] leading-[20px] tracking-[0.48px] text-portfolio-grey-600"
+            >
+              {approach.audit.caption}
+            </figcaption>
+          </figure>
         </div>
-        <div className="flex flex-col gap-6 sm:gap-10">
+
+        {/* 2. Align: the three goals, with the tag pills used through the
+            rest of the case study. */}
+        <div className="flex flex-col gap-12">
+          <div style={TEXT_COLUMN}>
+            <StepHeading
+              label={approach.align.label}
+              heading={approach.align.heading}
+              body={<p>{approach.align.body}</p>}
+              accentClass={ACCENT_TEXT}
+            />
+          </div>
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-3 sm:gap-7">
-            {findings.cards.map((card) => (
-              <ProblemCard key={card.tag} tag={card.tag} tagIcon={card.tagIcon} heading={card.heading} body={card.body} />
+            {approach.align.cards.map((card) => (
+              <ProblemCard
+                key={card.tag}
+                tag={card.tag}
+                tagIcon={card.tagIcon}
+                heading={card.heading}
+                body={<RichText segments={card.body} />}
+              />
             ))}
           </div>
-          {/* Sub-heading for the second row, in the card-title type style.
-              mt-6 on top of the 24px / 40px row gap puts it 48px under the
-              needs on phones and 72px from sm up; 24px above its cards.
-              TEXT_COLUMN lines it up with "Team's needs & constraints". */}
-          <div className="mt-6 flex flex-col gap-6 sm:mt-8">
-            <h3 style={TEXT_COLUMN} className="font-manrope font-bold text-[24px] leading-[32px] tracking-[-0.5px] text-portfolio-grey-900 sm:text-[28px] sm:leading-[38px]">
-              {findings.constraintsHeading}
-            </h3>
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-7 lg:grid-cols-4">
-              <StatCard
-                size="short"
-                iconNode={<EightyTwentyBar />}
-                heading={findings.constraints[0].heading}
-                body={findings.constraints[0].body}
-                emphasis={findings.constraints[0].emphasis}
+        </div>
+
+        {/* 3. Scope: the constraint (blue) and the two decisions it shaped.
+            One column below lg, three from lg. */}
+        <div className="flex flex-col gap-12">
+          <div style={TEXT_COLUMN}>
+            <StepHeading label={approach.scope.label} heading={approach.scope.heading} accentClass={ACCENT_TEXT} />
+          </div>
+          <div className="grid grid-cols-1 gap-6 lg:grid-cols-3 lg:gap-7">
+            <div
+              className={`relative flex flex-col items-start justify-between gap-8 rounded-case-mobile p-6 sm:rounded-case-2xl sm:p-10 lg:h-[383px] ${ACCENT_BG}`}
+            >
+              <TagPill
+                label={approach.scope.constraint.tag}
+                iconNode={<TimerOff className="size-6 text-eco-mio-blue-600" strokeWidth={2} aria-hidden="true" />}
               />
-              <StatCard
-                size="short"
-                iconNode={
-                  <span className="flex size-[52px] items-center justify-center rounded-full bg-white shadow-[0px_8px_12px_0px_rgba(0,0,0,0.12)]">
-                    <TimerOff className="size-7 text-eco-mio-blue-600" strokeWidth={2} aria-hidden="true" />
-                  </span>
-                }
-                heading={findings.constraints[1].heading}
-                body={findings.constraints[1].body}
-                emphasis={findings.constraints[1].emphasis}
-              />
-              <div className="flex flex-col justify-between gap-10 rounded-case-mobile bg-portfolio-grey-50 p-6 sm:col-span-2 sm:h-[383px] sm:rounded-case-2xl sm:p-10">
-                {/* Overlapping, slightly tilted tool logos (Figma's -6 / +5
-                    degree alternation). The names are in the copy below, so the
-                    logos still get alt text for the list. */}
+              <div className="flex flex-col gap-3 text-white">
+                <p className="font-manrope font-bold text-[24px] leading-[32px] tracking-[-0.5px] sm:text-[28px] sm:leading-[38px]">
+                  {approach.scope.constraint.heading}
+                </p>
+                <p className="font-manrope text-[16px] leading-[26px] sm:text-[18px] sm:leading-[28px]">
+                  <RichText segments={approach.scope.constraint.body} />
+                </p>
+              </div>
+              {/* The arrow from the constraint to the two decisions: centred
+                  in the gap below the card on phones (pointing down), in the
+                  gap to its right from lg (pointing right). */}
+              <span
+                role="img"
+                aria-label={approach.scope.constraint.arrowLabel}
+                className="absolute -bottom-9 left-1/2 z-10 flex size-12 -translate-x-1/2 rotate-90 items-center justify-center rounded-full bg-white shadow-[0px_4px_16px_0px_rgba(17,17,17,0.16)] lg:top-1/2 lg:-right-[38px] lg:bottom-auto lg:left-auto lg:translate-x-0 lg:-translate-y-1/2 lg:rotate-0"
+              >
+                <ArrowRight className="size-6 text-eco-mio-blue-600" strokeWidth={2.5} aria-hidden="true" />
+              </span>
+            </div>
+            <StatCard
+              size="short"
+              iconNode={<EightyTwentyBar />}
+              heading={approach.scope.eightyTwenty.heading}
+              body={approach.scope.eightyTwenty.body}
+              emphasis={approach.scope.eightyTwenty.emphasis}
+            />
+            <StatCard
+              size="short"
+              iconNode={
+                // Overlapping, slightly tilted tool logos (-6 / +5 degree
+                // alternation). The names are in the copy elsewhere, so the
+                // logos still get alt text for the list.
                 <ul className="flex items-center" aria-label="Tools used">
-                  {findings.build.tools.map((tool, i) => (
+                  {approach.scope.build.tools.map((tool, i) => (
                     <li
                       key={tool.alt}
                       className={`flex size-[52px] shrink-0 items-center justify-center rounded-case-md shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)] ${tool.tileClass} ${i % 2 === 0 ? "-rotate-6" : "rotate-5"} ${i > 0 ? "-ml-3" : ""}`}
@@ -379,16 +428,11 @@ export default function EcoMioCaseStudyPage() {
                     </li>
                   ))}
                 </ul>
-                <div className="flex flex-col gap-3">
-                  <p className="font-manrope font-bold text-[24px] leading-[32px] tracking-[-0.5px] text-portfolio-grey-900 sm:text-[28px] sm:leading-[38px]">
-                    {findings.build.heading}
-                  </p>
-                  <p className="font-manrope text-[16px] leading-[26px] text-portfolio-grey-900 sm:text-[18px] sm:leading-[28px]">
-                    {findings.build.body}
-                  </p>
-                </div>
-              </div>
-            </div>
+              }
+              heading={approach.scope.build.heading}
+              body={approach.scope.build.body}
+              emphasis={approach.scope.build.emphasis}
+            />
           </div>
         </div>
       </section>

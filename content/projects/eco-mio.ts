@@ -142,78 +142,114 @@ export const ecoMio: EcoMioContent = {
       total: { value: "5 hours", unit: "per demo" },
     },
   },
+  // "My process": one section in three steps (Audit, Align, Scope), from
+  // the owner's "Copy round 2" artboard, 2026-11-04.
   approach: {
-    eyebrow: "MY APPROACH",
+    eyebrow: "MY PROCESS",
     heading: "Audit → Align → Scope",
-    body: "After taking a closer look at the process and aligning with Sales, PM and Dev, the bottlenecks and the limits were clear.",
-    // Drawn in code (ProcessSwimlane): steps run left to right, `lane` is
-    // 0 Sales, 1 PM, 2 Design.
-    processDiagram: {
-      label: "Process diagram across Sales, PM and Design: Sales writes a Trello brief, PM sends questions and Sales answers, PM collects flight screenshots on Notion and sends a brief to design, Design builds it by hand in Figma, PM reviews the Figma link, and the Figma link goes to Sales",
-      regionLabel: "Process diagram, scroll sideways to see all of it",
-      lanes: [{ name: "Sales" }, { name: "PM", highlight: true }, { name: "Design" }],
-      steps: [
-        { label: "Trello brief", lane: 0, node: "card", labelPosition: "above" },
-        { label: "Questions", lane: 1, node: "question", labelPosition: "below" },
-        { label: "Answers", lane: 0, node: "reply", labelPosition: "above" },
-        { label: "Notion flight screenshots", lane: 1, node: "screens", labelPosition: "below" },
-        { label: "Brief to design", lane: 1, node: "send", labelPosition: "above" },
-        { label: "Figma by hand", lane: 2, node: "figma", labelPosition: "below" },
-        { label: "Figma link review", lane: 1, node: "link", labelPosition: "below", labelAlign: "start" },
-        { label: "Figma link sales", lane: 0, node: "link", labelPosition: "above" },
+    body: [
+      "After my second demo, I knew this couldn’t keep going. ",
+      { text: "The solution was left open for me to create,", bold: true, accent: true },
+      " so I started with how demos really got made.",
+    ],
+    audit: {
+      label: "1. Audit",
+      heading: "Process complexity, mapped",
+      body: [
+        "One demo took ",
+        { text: "6 handoffs across 3 roles", bold: true },
+        ", and vague briefs left the PM and me guessing what sales needed. Keeping it made even less sense.",
+      ],
+      caption: "The old process, from Trello brief to final Figma link.",
+      // Drawn in code (ProcessSwimlane): steps run left to right, `lane` is
+      // 0 Sales, 1 PM, 2 Design.
+      processDiagram: {
+        label: "Process diagram across Sales, PM and Design: Sales writes a Trello brief, PM sends questions and Sales answers, PM collects flight screenshots on Notion and sends a brief to design, Design builds it by hand in Figma, PM reviews the Figma link, and the Figma link goes to Sales",
+        regionLabel: "Process diagram, scroll sideways to see all of it",
+        lanes: [{ name: "Sales" }, { name: "PM", highlight: true }, { name: "Design" }],
+        steps: [
+          { label: "Trello brief", lane: 0, node: "card", labelPosition: "above" },
+          { label: "Questions", lane: 1, node: "question", labelPosition: "below" },
+          { label: "Answers", lane: 0, node: "reply", labelPosition: "above" },
+          { label: "Notion flight screenshots", lane: 1, node: "screens", labelPosition: "below" },
+          { label: "Brief to design", lane: 1, node: "send", labelPosition: "above" },
+          { label: "Figma by hand", lane: 2, node: "figma", labelPosition: "below" },
+          { label: "Figma link review", lane: 1, node: "link", labelPosition: "below", labelAlign: "start" },
+          { label: "Figma link sales", lane: 0, node: "link", labelPosition: "above" },
+        ],
+      },
+    },
+    align: {
+      label: "2. Align",
+      heading: "Stakeholder goals, aligned",
+      body: "I brought sales and the PM together to decide what had to change.",
+      cards: [
+        {
+          tag: "Automation",
+          tagIcon: `${IMG}/icon-tag-automation.png`,
+          heading: "Faster demos",
+          body: [
+            "Reduce the 5h of manual work with AI, starting with the bottlenecks: ",
+            { text: "PM and design", bold: true },
+            ".",
+          ],
+        },
+        {
+          tag: "Personalization",
+          tagIcon: `${IMG}/icon-tag-personalization.png`,
+          heading: "Even more tailored",
+          body: [
+            "Sales showed that clients expect ",
+            { text: "higher quality", bold: true },
+            ", on their own routes and in their own OBT.",
+          ],
+        },
+        {
+          tag: "Decentralization",
+          tagIcon: `${IMG}/icon-tag-decentralization.png`,
+          heading: "No PM involved",
+          body: [
+            "Sitting between sales and design ",
+            { text: "made no sense", bold: true },
+            ", and the PM wanted out.",
+          ],
+        },
       ],
     },
-  },
-  findings: {
-    eyebrow: "FINDINGS",
-    heading: "Team’s needs & constraints",
-    body: "Three needs shaped what to build. Two constraints shaped how.",
-    cards: [
-      {
-        tag: "Automation",
-        tagIcon: `${IMG}/icon-tag-automation.png`,
-        heading: "Automate to speed up the manual work",
-        body: "Two bottlenecks: PM scraping flights and Design replacing info by hand.",
-      },
-      {
-        tag: "Personalization",
-        tagIcon: `${IMG}/icon-tag-personalization.png`,
-        heading: "Sales needed high personalized demos",
-        body: "Sales showed that clients want to see the demo on their own OBT and routes.",
-      },
-      {
-        tag: "Decentralization",
-        tagIcon: `${IMG}/icon-tag-decentralization.png`,
-        heading: "Demos shouldn’t depend on PM time",
-        body: "PM was the bottleneck. She was overloaded and ideally had to be taken off the process.",
-      },
-    ],
-    constraintsHeading: "Constraints and scope",
-    constraints: [
-      {
-        heading: "80 / 20 rule",
-        body: "Cover the 80% that repeats. The other 20% stays manual.",
-        emphasis: "80% that repeats",
-      },
-      {
+    scope: {
+      label: "3. Scope",
+      heading: "One constraint. Two scope decisions.",
+      // The blue card; its arrow points at the two decisions it shaped.
+      constraint: {
+        tag: "Constraint",
         heading: "No dev time",
-        body: "Dev had no capacity, so I designed and built it myself.",
-        emphasis: "no capacity",
+        body: [
+          "Dev had no capacity in this phase. ",
+          { text: "No new features", bold: true },
+          ", only what eco.mio can do now.",
+        ],
+        arrowLabel: "The constraint shaped these decisions",
       },
-    ],
-    build: {
-      heading: "Scope and tool stack",
-      body: "I built Demo Studio with Claude Code, Cursor and GitHub, on eco.mio's own codebase and current design, and published it on Netlify.",
-      // tileClass: the tile behind each logo, in the style of the owner's
-      // app icons: Claude orange, Cursor near-black, GitHub purple.
-      // inset "logo": full-color mark inset at ~80% of the tile;
-      // "icon": a 28px glyph centred on a dark tile.
-      tools: [
-        { src: `${IMG}/logo-claude-code-white.png`, alt: "Claude Code", tileClass: "bg-claude-orange-500", inset: "logo" },
-        { src: `${IMG}/logo-cursor-cube.svg`, alt: "Cursor", tileClass: "bg-portfolio-grey-900", inset: "icon" },
-        { src: `${IMG}/logo-github.svg`, alt: "GitHub", tileClass: "bg-github-purple-500", inset: "icon" },
-        { src: `${IMG}/logo-netlify.png`, alt: "Netlify", tileClass: "bg-white", inset: "logo" },
-      ],
+      eightyTwenty: {
+        heading: "Automate the 80%",
+        body: "Cover what repeats in every demo. Edge cases stay manual, and every field stays editable.",
+        emphasis: "Edge cases stay manual",
+      },
+      build: {
+        heading: "Build on real code",
+        body: "I built it myself on eco.mio’s own codebase, using real product components.",
+        emphasis: "real product components",
+        // tileClass: the tile behind each logo, in the style of the owner's
+        // app icons: Claude orange, Cursor near-black, GitHub purple.
+        // inset "logo": full-color mark inset at ~80% of the tile;
+        // "icon": a 28px glyph centred on a dark tile.
+        tools: [
+          { src: `${IMG}/logo-claude-code-white.png`, alt: "Claude Code", tileClass: "bg-claude-orange-500", inset: "logo" },
+          { src: `${IMG}/logo-cursor-cube.svg`, alt: "Cursor", tileClass: "bg-portfolio-grey-900", inset: "icon" },
+          { src: `${IMG}/logo-github.svg`, alt: "GitHub", tileClass: "bg-github-purple-500", inset: "icon" },
+          { src: `${IMG}/logo-netlify.png`, alt: "Netlify", tileClass: "bg-white", inset: "logo" },
+        ],
+      },
     },
   },
   finalSolution: {

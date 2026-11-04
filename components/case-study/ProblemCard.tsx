@@ -8,7 +8,9 @@ type ProblemCardProps = {
   heading: string;
   headingAccent?: string;
   headingTail?: string;
-  body: string;
+  // A plain string (Faircado), or rich content with bold phrases (eco.mio
+  // passes <RichText>).
+  body: React.ReactNode;
 };
 
 export function ProblemCard({ tag, tagIcon, heading, headingAccent, headingTail, body }: ProblemCardProps) {

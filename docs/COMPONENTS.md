@@ -35,9 +35,10 @@ Most of these categories are empty right now, add them as real components are bu
 - `MethodCard.tsx` — title + description + a row of logos/avatars/icons. One of the four research-method cards under My Approach
 - `TestimonialCard.tsx` — quote + supporting data point, with an optional number. Used under Takeaways and again in the closing insights
 - `StatCard.tsx` — icon + heading + body. One of the impact/result cards near the end of the case study
+- `StepHeading.tsx` — numbered step label (accent color) + h3 one size below the section h2 + optional body. One per step in a multi-step section (eco.mio's My process: 1. Audit, 2. Align, 3. Scope)
 - `TagPill.tsx` — small rounded icon + label pill (e.g. "Awareness", "Match accuracy"). Shared across problem cards, results cards, and every solution section
 - `SolutionSection.tsx` — one of the three big numbered sections (01/, 02/, 03/), each holding cards with a tag, heading, and mobile screenshots
-- `ProcessSwimlane.tsx` — horizontal process diagram drawn in SVG from data: three lanes (people), steps left to right hopping between them, each a small node (card, circle icon, screenshots tile, Figma card, link pill) with a label above or below. The highlighted lane is yellow. Used under eco.mio's My Approach; edit the steps in `content/projects/eco-mio.ts`
+- `ProcessSwimlane.tsx` — horizontal process diagram drawn in SVG from data: three lanes (people), steps left to right hopping between them, each a small node (card, circle icon, screenshots tile, Figma card, link pill) with a label above or below. The highlighted lane and its nodes are yellow; every step label is white. Used in eco.mio's My process (1. Audit); edit the steps in `content/projects/eco-mio.ts`
 - `HandoffChart.tsx` — vertical handoff chart in SVG, sized for the 250 x 541 phone slot: three people as columns, a zigzag dot per handoff, an optional note under one column and a big total. Used for eco.mio's "Old demo process"; edit `handoffs` and the totals in the content file
 - `ContextCardCluster.tsx` — the three overlapping, slightly tilted cards beside a Context section (black and white, full color and 8% bigger on hover). Moved out of the Faircado page unchanged (pixel-identical) when eco.mio reused it. Exactly three cards: [0] behind, [1] top left, [2] top right; a card without `src` shows a placeholder
 - `ImagePlaceholder.tsx` — flat `portfolio-grey-400` box standing in for a screenshot, avatar or icon not exported from Figma yet. Takes the size/corner classes of the image it replaces; `label` gives screen readers the slot's meaning. Images in content without a `src` render through it (phones in `SolutionSection` and `DiscardedIdeasSection`, the `TeamAvatarGroup` photo)
@@ -47,6 +48,8 @@ Theming for a second case study (added for eco.mio, 2026-11-03). Every prop belo
 - `accentClass` on `SectionHeading` (eyebrow color), `TeamAvatarGroup` ("+N" badge background), `TestimonialCard` (number color) and `DiscardedIdeasSection` (passed to its heading)
 - `SolutionSection`: `longTitle` (a smaller giant title for 15+ letter words such as "Decentralization"), `tagInFlowUntilXl` (keeps long tag pills above the block heading up to 1280px so they don't run into it), `numberClass` (the small "01." color), `arrow` (`{ src, width, phoneHeight? }` for the connector between two phones; `phoneHeight` top-aligns the row when the SVG canvas is as tall as the phone), optional `tagIcon`
 - `TagPill` and `ProblemCard`: the icon is optional (text-only pills)
+- `TagPill`: `iconNode` takes a ready-made icon (a lucide icon) instead of an image file (eco.mio's "Constraint" pill)
+- `ProblemCard`: `body` accepts rich content as well as a string, so eco.mio passes `<RichText>` for bold phrases
 - `StatCard`: `iconNode` (custom icon slot, e.g. a placeholder), `size="short"` (383px instead of 431px from `sm:`), and `emphasis` may sit anywhere in the body, not only at the start
 - `DiscardedIdeasSection`: the bold body phrases are optional, so it doubles as eco.mio's "What's next" (tag + phone + two-line caption)
 

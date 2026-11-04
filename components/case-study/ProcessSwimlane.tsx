@@ -6,7 +6,8 @@ import type { ProcessSwimlaneData, SwimlaneNode } from "@/content/projects/types
 // label. Drawn in SVG from data (first the eco.mio "closer look at the
 // process" diagram, rebuilt from the owner's PNG) so wording, order or
 // lanes can change without redrawing anything. The highlighted lane (PM)
-// and its nodes and labels are yellow; the others are white.
+// and its nodes are yellow; the others are white. Every step label is white
+// (owner's request, so the copy reads as one line of text across lanes).
 //
 // Every number below is in the 2002 x 652 design canvas, measured from the
 // owner's file (half its 4004 x 1304 export); the SVG scales as a whole.
@@ -219,7 +220,7 @@ export function ProcessSwimlane({ diagram, className = "" }: ProcessSwimlaneProp
                 fontSize={LABEL.fontSize}
                 fontWeight={600}
                 textAnchor={step.labelAlign === "start" ? "start" : "middle"}
-                className={colors.text}
+                className="fill-white"
               >
                 {step.label}
               </text>

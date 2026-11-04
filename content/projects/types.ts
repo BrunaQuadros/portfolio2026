@@ -368,27 +368,38 @@ export type EcoMioContent = {
     challenge: RichSegment[];
     processChart: HandoffChartData;
   };
+  // "My process": a heading block, then three steps, each with a small
+  // label ("1. Audit"), a heading and a body above its content.
   approach: {
     eyebrow: string;
     heading: string;
-    body: string;
-    // Process diagram under the heading (scrolls sideways below lg).
-    processDiagram: ProcessSwimlaneData & { regionLabel: string };
-  };
-  findings: {
-    eyebrow: string;
-    heading: string;
-    body: string;
-    cards: ({ tagIcon: string } & ProblemCard)[];
-    // The two constraints in the second row ("80 / 20 rule", "No dev
-    // time"), each with its own small visual in the page.
-    // Sub-heading between the needs row and the constraints row.
-    constraintsHeading: string;
-    constraints: { heading: string; body: string; emphasis: string }[];
-    build: {
+    body: RichSegment[];
+    audit: {
+      label: string;
+      heading: string;
+      body: RichSegment[];
+      caption: string;
+      // Process diagram under the step heading (scrolls sideways below lg).
+      processDiagram: ProcessSwimlaneData & { regionLabel: string };
+    };
+    align: {
+      label: string;
       heading: string;
       body: string;
-      tools: { src: string; alt: string; tileClass: string; inset: "logo" | "icon" }[];
+      // Problem cards with the tag pills used through the case study.
+      cards: { tag: string; tagIcon: string; heading: string; body: RichSegment[] }[];
+    };
+    scope: {
+      label: string;
+      heading: string;
+      constraint: { tag: string; heading: string; body: RichSegment[]; arrowLabel: string };
+      eightyTwenty: { heading: string; body: string; emphasis: string };
+      build: {
+        heading: string;
+        body: string;
+        emphasis: string;
+        tools: { src: string; alt: string; tileClass: string; inset: "logo" | "icon" }[];
+      };
     };
   };
   finalSolution: { eyebrow: string; heading: string; body: string };
