@@ -311,6 +311,7 @@ export default function EcoMioCaseStudyPage() {
                   <RichText segments={approach.audit.body} />
                 </p>
               }
+              accentClass={ACCENT_TEXT}
             />
           </div>
           <figure className="flex flex-col gap-4">
@@ -350,6 +351,7 @@ export default function EcoMioCaseStudyPage() {
               label={approach.align.label}
               heading={approach.align.heading}
               body={<p>{approach.align.body}</p>}
+              accentClass={ACCENT_TEXT}
             />
           </div>
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-3 sm:gap-7">
@@ -369,7 +371,7 @@ export default function EcoMioCaseStudyPage() {
             One column below lg, three from lg. */}
         <div className="flex flex-col gap-12 lg:mt-16">
           <div style={TEXT_COLUMN}>
-            <StepHeading label={approach.scope.label} heading={approach.scope.heading} />
+            <StepHeading label={approach.scope.label} heading={approach.scope.heading} accentClass={ACCENT_TEXT} />
           </div>
           <div className="grid grid-cols-1 gap-6 lg:grid-cols-3 lg:gap-7">
             <div
