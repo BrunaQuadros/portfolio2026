@@ -9,17 +9,42 @@ import { ImagePlaceholder } from "./ImagePlaceholder";
 // the same slot until its screenshot is exported.
 type ContextCardClusterProps = {
   cards: { src?: string; alt: string }[];
+  // Shape of each card (CSS aspect-ratio). Square by default (Faircado's
+  // photos); pass the screenshots' own ratio to show them whole instead of
+  // cropped (eco.mio: "2564 / 2188").
+  cardAspect?: string;
+  // Shape of the whole cluster box. Landscape cards are shorter than
+  // squares, so a shorter box keeps the same overlap between the back card
+  // and the two front ones (eco.mio: "399 / 321"; Faircado's default is
+  // 399 / 373).
+  boxAspect?: string;
+  // Index of a card to lift above the other two without moving it (eco.mio
+  // brings the back card, [0], to the front). By default [2] is on top.
+  frontCard?: number;
+  // 12px card corners (the case study md radius) instead of Faircado's
+  // 20px, for screenshots whose own browser corners are small.
+  smallCorners?: boolean;
+  // Extra classes on the cluster box, e.g. a larger desktop max width.
+  className?: string;
 };
 
 // Tightly overlapping cluster (article card behind, tucked under the two stat
 // cards). Positions and rotations match the exact Figma values.
 const SLOTS = [
-  { position: { left: "20%", top: "42%", width: "40%", aspectRatio: "1 / 1", zIndex: 1 }, rotate: "-1.72deg" },
-  { position: { left: "6%", top: "4%", width: "44%", aspectRatio: "1 / 1", zIndex: 2 }, rotate: "2.31deg" },
-  { position: { left: "46%", top: "10%", width: "42%", aspectRatio: "1 / 1", zIndex: 3 }, rotate: "-3.58deg" },
+  { position: { left: "20%", top: "42%", width: "40%", zIndex: 1 }, rotate: "-1.72deg" },
+  { position: { left: "6%", top: "4%", width: "44%", zIndex: 2 }, rotate: "2.31deg" },
+  { position: { left: "46%", top: "10%", width: "42%", zIndex: 3 }, rotate: "-3.58deg" },
 ];
 
-export function ContextCardCluster({ cards }: ContextCardClusterProps) {
+export function ContextCardCluster({
+  cards,
+  cardAspect = "1 / 1",
+  boxAspect = "399 / 373",
+  frontCard,
+  smallCorners = false,
+  className = "",
+}: ContextCardClusterProps) {
+  const corner = smallCorners ? "rounded-case-md" : "rounded-[20px]";
   return (
     // Below sm the cluster box is 18% wider than the column, pulled out with
     // negative side margins so the three cards (which only fill ~82% of the
@@ -28,7 +53,10 @@ export function ContextCardCluster({ cards }: ContextCardClusterProps) {
     // that off-centre cluster. The cards also end at ~82% of the box's
     // height, so the negative bottom margin trims that empty band before the
     // next section.
-    <div className="relative -ml-[6%] -mr-[12%] -mb-8 w-[118%] aspect-[399/373] max-w-none shrink-0 sm:mx-auto sm:mb-0 sm:w-full sm:max-w-[475px]">
+    <div
+      className={`relative -ml-[6%] -mr-[12%] -mb-8 w-[118%] max-w-none shrink-0 sm:mx-auto sm:mb-0 sm:w-full sm:max-w-[475px] ${className}`}
+      style={{ aspectRatio: boxAspect }}
+    >
       {cards.slice(0, 3).map((card, i) => (
         <div
           key={i}
@@ -38,7 +66,7 @@ export function ContextCardCluster({ cards }: ContextCardClusterProps) {
           // Shadow/L token. The rotation is a wrapper around this div (below)
           // so the hover scale above doesn't fight with it for the single
           // `transform` property.
-          style={SLOTS[i].position}
+          style={{ ...SLOTS[i].position, aspectRatio: cardAspect, ...(i === frontCard ? { zIndex: 4 } : {}) }}
         >
           <div className="relative size-full" style={{ transform: `rotate(${SLOTS[i].rotate})` }}>
             {/* Black and white by default; hovering the card (the whole
@@ -50,12 +78,12 @@ export function ContextCardCluster({ cards }: ContextCardClusterProps) {
                 src={card.src}
                 alt={card.alt}
                 fill
-                className="rounded-[20px] object-cover shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)] grayscale transition-[filter] duration-300 ease-out hover:grayscale-0"
+                className={`${corner} object-cover shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)] grayscale transition-[filter] duration-300 ease-out hover:grayscale-0`}
               />
             ) : (
               <ImagePlaceholder
                 label={card.alt}
-                className="absolute inset-0 rounded-[20px] shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)]"
+                className={`absolute inset-0 ${corner} shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)]`}
               />
             )}
           </div>
