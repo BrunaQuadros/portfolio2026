@@ -10,7 +10,6 @@ import { TeamAvatarGroup } from "@/components/case-study/TeamAvatarGroup";
 import { DiscardedIdeasSection } from "@/components/case-study/DiscardedIdeasSection";
 import { ImagePlaceholder } from "@/components/case-study/ImagePlaceholder";
 import { RichText } from "@/components/case-study/RichText";
-import { AutoPlayVideo } from "@/components/media/AutoPlayVideo";
 import { ImageCompare } from "@/components/media/ImageCompare";
 
 const IMG = "/images/case-studies/eco-mio";
@@ -54,10 +53,12 @@ export default function EcoMioCaseStudyPage() {
 
   return (
     <main className="flex flex-col gap-24 pb-32 sm:gap-32">
-      {/* Hero: same layout as the Faircado hero. The panel plays the Demo
-          Studio recording (same file as the homepage card) on the brand
-          blue; object-contain keeps the square video whole inside the wide
-          panel, and the video's own blue background blends into it. */}
+      {/* Hero: same layout as the Faircado hero. The blue panel holds the
+          same before/after drag-to-compare as the Context section (Concur
+          results without and with eco.mio). From lg up the panel keeps the
+          hero's fixed 1220:728 shape and the compare fills its height,
+          centred; below lg the panel hugs the full-width compare, since a
+          fixed tall shape would leave a band of empty blue on phones. */}
       <section className="mx-auto flex w-full max-w-[1220px] flex-col items-center gap-16 px-4 pt-20 sm:px-10 lg:gap-[110px] lg:pt-32">
         <div className="flex w-full max-w-[968px] flex-col gap-10 lg:gap-16">
           <span className={`flex size-16 items-center justify-center rounded-md ${ACCENT_BG}`}>
@@ -77,9 +78,18 @@ export default function EcoMioCaseStudyPage() {
           </div>
         </div>
         <div
-          className={`relative w-full aspect-[9/13] overflow-hidden rounded-case-mobile sm:aspect-[16/10] sm:rounded-case-2xl lg:aspect-[1220/728] lg:rounded-case-3xl ${ACCENT_BG}`}
+          className={`flex w-full items-center justify-center overflow-hidden rounded-case-mobile p-4 sm:rounded-case-2xl sm:p-10 lg:aspect-[1220/728] lg:rounded-case-3xl lg:p-[60px] ${ACCENT_BG}`}
         >
-          <AutoPlayVideo src={hero.video.src} alt={hero.video.alt} className="absolute inset-0 size-full object-contain" />
+          <ImageCompare
+            label={context.compare.label}
+            before={context.compare.before}
+            after={context.compare.after}
+            width={context.compare.width}
+            height={context.compare.height}
+            corner={0}
+            labels={false}
+            className="w-full lg:h-full lg:w-auto lg:max-w-full"
+          />
         </div>
       </section>
 

@@ -302,7 +302,6 @@ export type EcoMioContent = {
     headingLine1: string;
     headingLine2: string;
     description: RichSegment[];
-    video: { src: string; alt: string };
   };
   roleInfo: {
     role: { title: string; subtitle: string };

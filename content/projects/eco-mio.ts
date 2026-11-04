@@ -26,10 +26,6 @@ export const ecoMio: EcoMioContent = {
       { text: "10% on travel costs a year", accent: true },
       ".",
     ],
-    video: {
-      src: "/videos/home/eco-mio-demo-studio.mp4",
-      alt: "Demo Studio walkthrough: creating a flight demo for a client, filling in route, dates and fare cards, publishing it, then the generated Concur booking flow",
-    },
   },
   roleInfo: {
     role: { title: "Product Designer", subtitle: "AI Product Engineer" },
