@@ -280,7 +280,8 @@ export default function EcoMioCaseStudyPage() {
           Scope), each a StepHeading above its content. 96px between the
           blocks and 48px from each step heading to its content, on every
           screen size (the mobile rhythm; the owner's artboard uses the same
-          96px on desktop). lg:mt-10 matches the extra breathing room
+          96px on desktop). Align and Scope add lg:mt-16, so on desktop they
+          sit 160px under the step above (owner's request). lg:mt-10 matches the extra breathing room
           Faircado adds after the Challenge panel. */}
       <section className="mx-auto flex w-full max-w-[1220px] flex-col gap-24 px-4 sm:px-10 lg:mt-10">
         <div style={TEXT_COLUMN}>
@@ -344,7 +345,7 @@ export default function EcoMioCaseStudyPage() {
 
         {/* 2. Align: the three goals, with the tag pills used through the
             rest of the case study. */}
-        <div className="flex flex-col gap-12">
+        <div className="flex flex-col gap-12 lg:mt-16">
           <div style={TEXT_COLUMN}>
             <StepHeading
               label={approach.align.label}
@@ -368,7 +369,7 @@ export default function EcoMioCaseStudyPage() {
 
         {/* 3. Scope: the constraint (blue) and the two decisions it shaped.
             One column below lg, three from lg. */}
-        <div className="flex flex-col gap-12">
+        <div className="flex flex-col gap-12 lg:mt-16">
           <div style={TEXT_COLUMN}>
             <StepHeading label={approach.scope.label} heading={approach.scope.heading} accentClass={ACCENT_TEXT} />
           </div>
