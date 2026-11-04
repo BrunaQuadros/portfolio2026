@@ -181,7 +181,7 @@ export const ecoMio: EcoMioContent = {
     },
     align: {
       label: "2. Align",
-      heading: "Stakeholder goals, aligned",
+      heading: "Stakeholders on the same page",
       body: "I brought sales and the PM together to decide what had to change.",
       cards: [
         {
