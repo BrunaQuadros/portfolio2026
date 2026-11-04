@@ -218,7 +218,7 @@ export const ecoMio: EcoMioContent = {
     },
     scope: {
       label: "3. Scope",
-      heading: "One constraint. Two scope decisions.",
+      heading: "One key constraint. Two scope decisions.",
       // The blue card; its arrow points at the two decisions it shaped.
       constraint: {
         tag: "Constraint",
