@@ -234,7 +234,7 @@ export const ecoMio: EcoMioContent = {
       },
       eightyTwenty: {
         heading: "Automate the 80%",
-        body: "Cover what repeats in every demo. Edge cases stay manual, and every field stays editable.",
+        body: "We’d cover the most common requests. Edge cases stay manual, but equally adaptable.",
         emphasis: "Edge cases stay manual",
       },
       build: {
