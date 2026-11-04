@@ -313,9 +313,10 @@ export default function EcoMioCaseStudyPage() {
           constraints and the wide "Scope and tool stack" card on a
           4-column row (the wide card spans two, matching Figma's
           287 / 287 / 590 split). Rows sit 40px apart from sm up, 24px on
-          phones. lg:-mt-12 brings it 80px under the process diagram on
-          desktop, as in Figma; mobile keeps the 96px section gap. */}
-      <section className="mx-auto flex w-full max-w-[1220px] flex-col gap-12 px-4 sm:gap-20 sm:px-10 lg:-mt-12">
+          phones. lg:mt-10 leaves the same space under the process diagram
+          as between the grey challenge panel and My Approach (owner's
+          request); mobile keeps the 96px section gap. */}
+      <section className="mx-auto flex w-full max-w-[1220px] flex-col gap-12 px-4 sm:gap-20 sm:px-10 lg:mt-10">
         <div style={TEXT_COLUMN}>
           <SectionHeading
             eyebrow={findings.eyebrow}

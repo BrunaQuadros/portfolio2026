@@ -203,14 +203,14 @@ export const ecoMio: EcoMioContent = {
     build: {
       heading: "Scope and tool stack",
       body: "I built Demo Studio with Claude Code, Cursor and GitHub, on eco.mio's own codebase and current design, and published it on Netlify.",
-      // tileClass: the tile behind each logo, mapped to the closest
-      // existing tokens (Figma's #faf5ed, #17171a and #1f2126 brand tiles).
+      // tileClass: the tile behind each logo, in the style of the owner's
+      // app icons: Claude orange, Cursor near-black, GitHub purple.
       // inset "logo": full-color mark inset at ~80% of the tile;
       // "icon": a 28px glyph centred on a dark tile.
       tools: [
-        { src: `${IMG}/logo-claude-code.png`, alt: "Claude Code", tileClass: "bg-portfolio-grey-50", inset: "logo" },
-        { src: `${IMG}/logo-cursor.svg`, alt: "Cursor", tileClass: "bg-portfolio-grey-900", inset: "icon" },
-        { src: `${IMG}/logo-github.svg`, alt: "GitHub", tileClass: "bg-portfolio-grey-900", inset: "icon" },
+        { src: `${IMG}/logo-claude-code-white.png`, alt: "Claude Code", tileClass: "bg-claude-orange-500", inset: "logo" },
+        { src: `${IMG}/logo-cursor-cube.svg`, alt: "Cursor", tileClass: "bg-portfolio-grey-900", inset: "icon" },
+        { src: `${IMG}/logo-github.svg`, alt: "GitHub", tileClass: "bg-github-purple-500", inset: "icon" },
         { src: `${IMG}/logo-netlify.png`, alt: "Netlify", tileClass: "bg-white", inset: "logo" },
       ],
     },

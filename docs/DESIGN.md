@@ -25,6 +25,8 @@ Defined in `app/globals.css` under `@theme inline`, used via Tailwind utilities 
 | `eco-mio-navy-900` | `#1e2352` | eco.mio process diagrams: icons and bars on yellow nodes. Added 2026-11-04 |
 | `eco-mio-yellow-400` | `#edd96a` | eco.mio process diagrams: the PM lane (highlighted lane), its nodes and labels. Added 2026-11-04 |
 | `eco-mio-green-600` | `#3e8e6a` | eco.mio process diagrams: the selected Figma screen. Added 2026-11-04 |
+| `claude-orange-500` | `#d97757` | Claude Code logo tile (eco.mio tool stack card), white mark on top. Added 2026-11-04 |
+| `github-purple-500` | `#893cb9` | GitHub logo tile (eco.mio tool stack card), sampled from the owner's GitHub app icon. Added 2026-11-04 |
 
 | `portfolio-pink-500` | `#e53b7d` | Site-wide accent (homepage hero highlight, focus rings on homepage links). Added 2026-09-14 |
 

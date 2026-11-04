@@ -76,6 +76,11 @@
   --color-eco-mio-navy-900: #1e2352;
   --color-eco-mio-yellow-400: #edd96a;
   --color-eco-mio-green-600: #3e8e6a;
+  /* Tool logo tiles (eco.mio "Scope and tool stack" card), 2026-11-04:
+     Claude's brand orange and the purple sampled from the owner's GitHub
+     app icon. */
+  --color-claude-orange-500: #d97757;
+  --color-github-purple-500: #893cb9;
 
   --radius-case-md: 12px;
   --radius-case-lg: 20px;
