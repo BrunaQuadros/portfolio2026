@@ -332,52 +332,61 @@ export default function EcoMioCaseStudyPage() {
               <ProblemCard key={card.tag} tag={card.tag} tagIcon={card.tagIcon} heading={card.heading} body={card.body} />
             ))}
           </div>
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-7 lg:grid-cols-4">
-            <StatCard
-              size="short"
-              iconNode={<EightyTwentyBar />}
-              heading={findings.constraints[0].heading}
-              body={findings.constraints[0].body}
-              emphasis={findings.constraints[0].emphasis}
-            />
-            <StatCard
-              size="short"
-              iconNode={
-                <span className="flex size-[52px] items-center justify-center rounded-full bg-white shadow-[0px_8px_12px_0px_rgba(0,0,0,0.12)]">
-                  <TimerOff className="size-7 text-eco-mio-blue-600" strokeWidth={2} aria-hidden="true" />
-                </span>
-              }
-              heading={findings.constraints[1].heading}
-              body={findings.constraints[1].body}
-              emphasis={findings.constraints[1].emphasis}
-            />
-            <div className="flex flex-col justify-between gap-10 rounded-case-mobile bg-portfolio-grey-50 p-6 sm:col-span-2 sm:h-[383px] sm:rounded-case-2xl sm:p-10">
-              {/* Overlapping, slightly tilted tool logos (Figma's -6 / +5
-                  degree alternation). The names are in the copy below, so the
-                  logos still get alt text for the list. */}
-              <ul className="flex items-center" aria-label="Tools used">
-                {findings.build.tools.map((tool, i) => (
-                  <li
-                    key={tool.alt}
-                    className={`flex size-[52px] shrink-0 items-center justify-center rounded-case-md shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)] ${tool.tileClass} ${i % 2 === 0 ? "-rotate-6" : "rotate-5"} ${i > 0 ? "-ml-3" : ""}`}
-                  >
-                    <Image
-                      src={tool.src}
-                      alt={tool.alt}
-                      width={42}
-                      height={42}
-                      className={tool.inset === "logo" ? "size-[80%] object-contain" : "size-7"}
-                    />
-                  </li>
-                ))}
-              </ul>
-              <div className="flex flex-col gap-3">
-                <p className="font-manrope font-bold text-[24px] leading-[32px] tracking-[-0.5px] text-portfolio-grey-900 sm:text-[28px] sm:leading-[38px]">
-                  {findings.build.heading}
-                </p>
-                <p className="font-manrope text-[16px] leading-[26px] text-portfolio-grey-900 sm:text-[18px] sm:leading-[28px]">
-                  {findings.build.body}
-                </p>
+          {/* Sub-heading for the second row, in the card-title type style.
+              mt-6 on top of the 24px / 40px row gap puts it 48px under the
+              needs on phones and 72px from sm up; 24px above its cards.
+              TEXT_COLUMN lines it up with "Team's needs & constraints". */}
+          <div className="mt-6 flex flex-col gap-6 sm:mt-8">
+            <h3 style={TEXT_COLUMN} className="font-manrope font-bold text-[24px] leading-[32px] tracking-[-0.5px] text-portfolio-grey-900 sm:text-[28px] sm:leading-[38px]">
+              {findings.constraintsHeading}
+            </h3>
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-7 lg:grid-cols-4">
+              <StatCard
+                size="short"
+                iconNode={<EightyTwentyBar />}
+                heading={findings.constraints[0].heading}
+                body={findings.constraints[0].body}
+                emphasis={findings.constraints[0].emphasis}
+              />
+              <StatCard
+                size="short"
+                iconNode={
+                  <span className="flex size-[52px] items-center justify-center rounded-full bg-white shadow-[0px_8px_12px_0px_rgba(0,0,0,0.12)]">
+                    <TimerOff className="size-7 text-eco-mio-blue-600" strokeWidth={2} aria-hidden="true" />
+                  </span>
+                }
+                heading={findings.constraints[1].heading}
+                body={findings.constraints[1].body}
+                emphasis={findings.constraints[1].emphasis}
+              />
+              <div className="flex flex-col justify-between gap-10 rounded-case-mobile bg-portfolio-grey-50 p-6 sm:col-span-2 sm:h-[383px] sm:rounded-case-2xl sm:p-10">
+                {/* Overlapping, slightly tilted tool logos (Figma's -6 / +5
+                    degree alternation). The names are in the copy below, so the
+                    logos still get alt text for the list. */}
+                <ul className="flex items-center" aria-label="Tools used">
+                  {findings.build.tools.map((tool, i) => (
+                    <li
+                      key={tool.alt}
+                      className={`flex size-[52px] shrink-0 items-center justify-center rounded-case-md shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)] ${tool.tileClass} ${i % 2 === 0 ? "-rotate-6" : "rotate-5"} ${i > 0 ? "-ml-3" : ""}`}
+                    >
+                      <Image
+                        src={tool.src}
+                        alt={tool.alt}
+                        width={42}
+                        height={42}
+                        className={tool.inset === "logo" ? "size-[80%] object-contain" : "size-7"}
+                      />
+                    </li>
+                  ))}
+                </ul>
+                <div className="flex flex-col gap-3">
+                  <p className="font-manrope font-bold text-[24px] leading-[32px] tracking-[-0.5px] text-portfolio-grey-900 sm:text-[28px] sm:leading-[38px]">
+                    {findings.build.heading}
+                  </p>
+                  <p className="font-manrope text-[16px] leading-[26px] text-portfolio-grey-900 sm:text-[18px] sm:leading-[28px]">
+                    {findings.build.body}
+                  </p>
+                </div>
               </div>
             </div>
           </div>

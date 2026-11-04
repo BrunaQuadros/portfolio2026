@@ -188,6 +188,7 @@ export const ecoMio: EcoMioContent = {
         body: "PM was the bottleneck. She was overloaded and ideally had to be taken off the process.",
       },
     ],
+    constraintsHeading: "Constraints and scope",
     constraints: [
       {
         heading: "80 / 20 rule",

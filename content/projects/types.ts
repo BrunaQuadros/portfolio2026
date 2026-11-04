@@ -382,6 +382,8 @@ export type EcoMioContent = {
     cards: ({ tagIcon: string } & ProblemCard)[];
     // The two constraints in the second row ("80 / 20 rule", "No dev
     // time"), each with its own small visual in the page.
+    // Sub-heading between the needs row and the constraints row.
+    constraintsHeading: string;
     constraints: { heading: string; body: string; emphasis: string }[];
     build: {
       heading: string;
