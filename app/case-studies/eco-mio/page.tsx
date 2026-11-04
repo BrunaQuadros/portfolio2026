@@ -11,6 +11,8 @@ import { DiscardedIdeasSection } from "@/components/case-study/DiscardedIdeasSec
 import { ImagePlaceholder } from "@/components/case-study/ImagePlaceholder";
 import { RichText } from "@/components/case-study/RichText";
 import { ContextCardCluster } from "@/components/case-study/ContextCardCluster";
+import { ProcessSwimlane } from "@/components/case-study/ProcessSwimlane";
+import { HandoffChart } from "@/components/case-study/HandoffChart";
 import { AutoPlayVideo } from "@/components/media/AutoPlayVideo";
 
 const IMG = "/images/case-studies/eco-mio";
@@ -240,16 +242,11 @@ export default function EcoMioCaseStudyPage() {
           {/* lg:translate-y-10: the diagram sits 40px lower than Faircado's
               phone (owner's request), overlapping the panel a little more. */}
           <div className="relative z-10 hidden w-[250px] shrink-0 flex-col items-center lg:mb-[-150px] lg:ml-auto lg:mr-16 lg:flex lg:-translate-x-10 lg:translate-y-10">
-            {problem.processImage.src ? (
-              <div className="relative h-[541px] w-[250px] overflow-hidden rounded-case-xl shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)]">
-                <Image src={problem.processImage.src} alt={problem.processImage.alt} fill className="object-cover" />
-              </div>
-            ) : (
-              <ImagePlaceholder
-                label={problem.processImage.alt}
-                className="h-[541px] w-[250px] rounded-case-xl shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)]"
-              />
-            )}
+            {/* The old demo process, drawn in code (HandoffChart) at the
+                phone mockup's size and corners. */}
+            <div className="h-[541px] w-[250px] overflow-hidden rounded-case-xl shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)]">
+              <HandoffChart chart={problem.processChart} className="block size-full" />
+            </div>
           </div>
           <div className="relative z-0 flex w-full items-center rounded-case-mobile bg-portfolio-grey-50 py-6 sm:min-h-[340px] sm:rounded-case-3xl sm:py-10 lg:h-[340px] lg:min-h-0 lg:py-0">
             <div className="w-full px-6 sm:px-10 lg:px-[80px]">
@@ -265,8 +262,8 @@ export default function EcoMioCaseStudyPage() {
         </div>
       </section>
 
-      {/* My Approach: heading, then the owner's process diagram (its own
-          blue rounded panel is part of the image).
+      {/* My Approach: heading, then the process diagram, drawn in code
+          (ProcessSwimlane, its blue rounded panel included).
           lg:mt-10 matches the extra breathing room Faircado adds after the
           Challenge panel. */}
       <section className="mx-auto flex w-full max-w-[1220px] flex-col gap-12 px-4 sm:gap-20 sm:px-10 lg:mt-10">
@@ -288,16 +285,11 @@ export default function EcoMioCaseStudyPage() {
           className="scrollbar-hide -mx-4 overflow-x-auto px-4 sm:-mx-10 sm:px-10 lg:mx-0 lg:overflow-visible lg:px-0"
           tabIndex={0}
           role="region"
-          aria-label={approach.processImage.regionLabel}
+          aria-label={approach.processDiagram.regionLabel}
         >
-          <Image
-            src={approach.processImage.src}
-            alt={approach.processImage.alt}
-            width={approach.processImage.width}
-            height={approach.processImage.height}
-            sizes="(min-width: 1024px) 1140px, 905px"
-            className="h-[300px] w-auto max-w-none lg:h-auto lg:w-full"
-          />
+          {/* 921 x 300 below lg keeps the 2002:652 canvas shape at a
+              readable height. */}
+          <ProcessSwimlane diagram={approach.processDiagram} className="block h-[300px] w-[921px] max-w-none lg:h-auto lg:w-full" />
         </div>
       </section>
 

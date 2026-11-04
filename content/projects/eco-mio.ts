@@ -129,23 +129,39 @@ export const ecoMio: EcoMioContent = {
       { text: "automate demo creation to win back those hours", accent: true },
       " and take PM out of the process?",
     ],
-    // Owner's diagram of the old process, in the phone mockup slot
-    // (780 x 1688, the mockup's exact 250:541 shape).
-    processImage: {
-      src: `${IMG}/problem-old-demo-process.png`,
-      alt: "Old demo process diagram: each demo bounced between Sales, PM and Design, back and forth through PM, whose part alone took 2 hours, for 5 hours per demo",
+    // The old demo process, drawn in code (HandoffChart) in the phone
+    // mockup slot. `handoffs` lists who holds the work at each step, top to
+    // bottom: 0 Sales, 1 PM, 2 Design.
+    processChart: {
+      label: "Old demo process: each demo bounced between Sales, PM and Design, back and forth through PM, whose part alone took 2 hours, for 5 hours per demo",
+      titleLead: "Old",
+      titleAccent: "demo process",
+      people: [{ name: "Sales" }, { name: "PM", highlight: true }, { name: "Design" }],
+      handoffs: [0, 1, 0, 1, 1, 2, 1, 0],
+      note: { person: 1, text: "2 h" },
+      total: { value: "5 hours", unit: "per demo" },
     },
   },
   approach: {
     eyebrow: "MY APPROACH",
     heading: "Audit → Align → Scope",
     body: "I audited the process myself, aligned with sales and PM on needs & constraints. Scope came next.",
-    processImage: {
-      src: `${IMG}/approach-process-diagram.png`,
-      alt: "Process diagram across Sales, PM and Design: Sales writes a Trello brief, PM sends questions and Sales answers, PM collects flight screenshots on Notion and sends a brief to design, Design builds it by hand in Figma, PM reviews the Figma link, and the Figma link goes to Sales",
-      width: 2400,
-      height: 782,
+    // Drawn in code (ProcessSwimlane): steps run left to right, `lane` is
+    // 0 Sales, 1 PM, 2 Design.
+    processDiagram: {
+      label: "Process diagram across Sales, PM and Design: Sales writes a Trello brief, PM sends questions and Sales answers, PM collects flight screenshots on Notion and sends a brief to design, Design builds it by hand in Figma, PM reviews the Figma link, and the Figma link goes to Sales",
       regionLabel: "Process diagram, scroll sideways to see all of it",
+      lanes: [{ name: "Sales" }, { name: "PM", highlight: true }, { name: "Design" }],
+      steps: [
+        { label: "Trello brief", lane: 0, node: "card", labelPosition: "above" },
+        { label: "Questions", lane: 1, node: "question", labelPosition: "below" },
+        { label: "Answers", lane: 0, node: "reply", labelPosition: "above" },
+        { label: "Notion flight screenshots", lane: 1, node: "screens", labelPosition: "below" },
+        { label: "Brief to design", lane: 1, node: "send", labelPosition: "above" },
+        { label: "Figma by hand", lane: 2, node: "figma", labelPosition: "below" },
+        { label: "Figma link review", lane: 1, node: "link", labelPosition: "below", labelAlign: "start" },
+        { label: "Figma link sales", lane: 0, node: "link", labelPosition: "above" },
+      ],
     },
   },
   findings: {

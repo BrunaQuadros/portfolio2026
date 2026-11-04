@@ -294,6 +294,39 @@ export type FaircadoContent = {
 // components/case-study/RichText.
 export type RichSegment = string | { text: string; bold?: boolean; accent?: boolean } | { br: true };
 
+// Process diagrams drawn in code (components/case-study/ProcessSwimlane and
+// HandoffChart), so wording and order are data, not pixels in an image.
+export type SwimlaneNode = "card" | "question" | "reply" | "screens" | "send" | "figma" | "link";
+
+export type ProcessSwimlaneData = {
+  // Accessible description of the whole diagram (it is one image to
+  // screen readers).
+  label: string;
+  // Exactly three lanes, top to bottom; the highlighted one is yellow.
+  lanes: { name: string; highlight?: boolean }[];
+  // Left to right. `lane` is the index into `lanes`.
+  steps: {
+    label: string;
+    lane: number;
+    node: SwimlaneNode;
+    labelPosition: "above" | "below";
+    labelAlign?: "center" | "start";
+  }[];
+};
+
+export type HandoffChartData = {
+  label: string;
+  titleLead: string;
+  titleAccent: string;
+  // Exactly three people, left to right; the highlighted one is yellow.
+  people: { name: string; highlight?: boolean }[];
+  // Who holds the work at each handoff, top to bottom (index into people).
+  handoffs: number[];
+  // Optional note under one person's column (e.g. their time).
+  note?: { person: number; text: string };
+  total: { value: string; unit: string };
+};
+
 // eco.mio case study. Same section order as Faircado, but the copy uses
 // RichSegment paragraphs instead of per-phrase lead/accent/tail fields.
 // Images without a `src` render as grey placeholders until exported.
@@ -333,14 +366,14 @@ export type EcoMioContent = {
     paragraphs: RichSegment[][];
     closingLine: string;
     challenge: RichSegment[];
-    processImage: { src?: string; alt: string };
+    processChart: HandoffChartData;
   };
   approach: {
     eyebrow: string;
     heading: string;
     body: string;
-    // Owner's process diagram under the heading (scrolls sideways below lg).
-    processImage: { src: string; alt: string; width: number; height: number; regionLabel: string };
+    // Process diagram under the heading (scrolls sideways below lg).
+    processDiagram: ProcessSwimlaneData & { regionLabel: string };
   };
   findings: {
     eyebrow: string;
