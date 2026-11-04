@@ -277,7 +277,10 @@ export default function FaircadoCaseStudyPage() {
             }
           />
         </div>
-        <ContextCardCluster cards={context.cards} />
+        {/* lg:translate-y-10: cards sit 40px below the text's centre line on
+            desktop (owner's request, matching eco.mio); stacked phones keep
+            their position. */}
+        <ContextCardCluster cards={context.cards} className="lg:translate-y-10" />
       </section>
 
       {/* Problem statement */}
