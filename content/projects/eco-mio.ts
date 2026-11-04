@@ -141,16 +141,11 @@ export const ecoMio: EcoMioContent = {
     heading: "Audit → Align → Scope",
     body: "I audited the process myself, aligned with sales and PM on needs & constraints. Scope came next.",
     processImage: {
-      src: `${IMG}/approach-process-closer-look.png`,
-      alt: "A closer look at the process: Sales writes a Trello brief, PM sends questions and Sales answers, PM collects screenshots on Notion and sends a brief to design, Design rebuilds 36+ fields by hand in Figma, PM reviews the Figma file, and the link goes back to Sales",
+      src: `${IMG}/approach-process-diagram.png`,
+      alt: "Process diagram across Sales, PM and Design: Sales writes a Trello brief, PM sends questions and Sales answers, PM collects flight screenshots on Notion and sends a brief to design, Design builds it by hand in Figma, PM reviews the Figma link, and the Figma link goes to Sales",
       width: 2400,
-      height: 796,
+      height: 782,
       regionLabel: "Process diagram, scroll sideways to see all of it",
-    },
-    // TEMPORARY: blue variant the owner is comparing (`?process=blue`).
-    processImageBlue: {
-      src: `${IMG}/approach-process-closer-look-blue.png`,
-      alt: "A closer look at the process: Sales writes a Trello brief, PM sends questions and Sales answers, PM collects flight screenshots on Notion and sends a brief to design, Design builds it by hand in Figma, PM reviews the Figma link, and the Figma link goes to Sales",
     },
   },
   findings: {

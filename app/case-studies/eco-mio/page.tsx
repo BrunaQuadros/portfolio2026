@@ -36,16 +36,7 @@ export const metadata: Metadata = {
   description: ecoMio.meta.description,
 };
 
-// TEMPORARY (owner comparing two process diagrams): `?process=blue` swaps
-// in the blue version. Remove this, `processImageBlue` in the content file
-// and the unused image once one is chosen; it also makes the page render
-// per request instead of being prebuilt.
-export default async function EcoMioCaseStudyPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
-}) {
-  const showBlueProcess = (await searchParams).process === "blue";
+export default function EcoMioCaseStudyPage() {
   const {
     hero,
     roleInfo,
@@ -274,8 +265,8 @@ export default async function EcoMioCaseStudyPage({
         </div>
       </section>
 
-      {/* My Approach: heading, then the owner's "A closer look at the
-          process" diagram (its own grey rounded panel is part of the image).
+      {/* My Approach: heading, then the owner's process diagram (its own
+          blue rounded panel is part of the image).
           lg:mt-10 matches the extra breathing room Faircado adds after the
           Challenge panel. */}
       <section className="mx-auto flex w-full max-w-[1220px] flex-col gap-12 px-4 sm:gap-20 sm:px-10 lg:mt-10">
@@ -300,8 +291,8 @@ export default async function EcoMioCaseStudyPage({
           aria-label={approach.processImage.regionLabel}
         >
           <Image
-            src={showBlueProcess ? approach.processImageBlue.src : approach.processImage.src}
-            alt={showBlueProcess ? approach.processImageBlue.alt : approach.processImage.alt}
+            src={approach.processImage.src}
+            alt={approach.processImage.alt}
             width={approach.processImage.width}
             height={approach.processImage.height}
             sizes="(min-width: 1024px) 1140px, 905px"
