@@ -302,17 +302,17 @@ export default function EcoMioCaseStudyPage() {
             (ProcessSwimlane, its blue rounded panel included), with a
             caption under it. */}
         <div className="flex flex-col gap-12">
-          <StepHeading
-            number={approach.audit.number}
-            title={approach.audit.title}
-            numberClass={ACCENT_TEXT}
-            heading={approach.audit.heading}
-            body={
-              <p>
-                <RichText segments={approach.audit.body} />
-              </p>
-            }
-          />
+          <div style={TEXT_COLUMN}>
+            <StepHeading
+              label={approach.audit.label}
+              heading={approach.audit.heading}
+              body={
+                <p>
+                  <RichText segments={approach.audit.body} />
+                </p>
+              }
+            />
+          </div>
           <figure className="flex flex-col gap-4">
             {/* From lg the diagram fills the content width. Below lg, shrunk
                 to the screen its labels would be ~4px, so it keeps a readable
@@ -333,7 +333,10 @@ export default function EcoMioCaseStudyPage() {
                 className="block h-[300px] w-[921px] max-w-none lg:h-auto lg:w-full"
               />
             </div>
-            <figcaption className="text-center font-manrope text-[14px] leading-[20px] tracking-[0.48px] text-portfolio-grey-600">
+            <figcaption
+              style={TEXT_COLUMN}
+              className="font-manrope text-[14px] leading-[20px] tracking-[0.48px] text-portfolio-grey-600"
+            >
               {approach.audit.caption}
             </figcaption>
           </figure>
@@ -342,13 +345,13 @@ export default function EcoMioCaseStudyPage() {
         {/* 2. Align: the three goals, with the tag pills used through the
             rest of the case study. */}
         <div className="flex flex-col gap-12 lg:mt-16">
-          <StepHeading
-            number={approach.align.number}
-            title={approach.align.title}
-            numberClass={ACCENT_TEXT}
-            heading={approach.align.heading}
-            body={<p>{approach.align.body}</p>}
-          />
+          <div style={TEXT_COLUMN}>
+            <StepHeading
+              label={approach.align.label}
+              heading={approach.align.heading}
+              body={<p>{approach.align.body}</p>}
+            />
+          </div>
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-3 sm:gap-7">
             {approach.align.cards.map((card) => (
               <ProblemCard
@@ -365,12 +368,9 @@ export default function EcoMioCaseStudyPage() {
         {/* 3. Scope: the constraint (blue) and the two decisions it shaped.
             One column below lg, three from lg. */}
         <div className="flex flex-col gap-12 lg:mt-16">
-          <StepHeading
-            number={approach.scope.number}
-            title={approach.scope.title}
-            numberClass={ACCENT_TEXT}
-            heading={approach.scope.heading}
-          />
+          <div style={TEXT_COLUMN}>
+            <StepHeading label={approach.scope.label} heading={approach.scope.heading} />
+          </div>
           <div className="grid grid-cols-1 gap-6 lg:grid-cols-3 lg:gap-7">
             <div
               className={`relative flex flex-col items-start justify-between gap-8 rounded-case-mobile p-6 sm:rounded-case-2xl sm:p-10 lg:h-[383px] ${ACCENT_BG}`}

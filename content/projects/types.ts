@@ -368,15 +368,14 @@ export type EcoMioContent = {
     challenge: RichSegment[];
     processChart: HandoffChartData;
   };
-  // "My process": a heading block, then three steps, each with a giant
-  // numbered word ("01. Audit"), a heading and a body above its content.
+  // "My process": a heading block, then three steps, each with a small
+  // label ("1. Audit"), a heading and a body above its content.
   approach: {
     eyebrow: string;
     heading: string;
     body: RichSegment[];
     audit: {
-      number: string;
-      title: string;
+      label: string;
       heading: string;
       body: RichSegment[];
       caption: string;
@@ -384,16 +383,14 @@ export type EcoMioContent = {
       processDiagram: ProcessSwimlaneData & { regionLabel: string };
     };
     align: {
-      number: string;
-      title: string;
+      label: string;
       heading: string;
       body: string;
       // Problem cards with the tag pills used through the case study.
       cards: { tag: string; tagIcon: string; heading: string; body: RichSegment[] }[];
     };
     scope: {
-      number: string;
-      title: string;
+      label: string;
       heading: string;
       constraint: { tag: string; heading: string; body: RichSegment[]; arrowLabel: string };
       eightyTwenty: { heading: string; body: string; emphasis: string };
