@@ -322,15 +322,9 @@ export type EcoMioContent = {
     eyebrow: string;
     heading: string;
     paragraphs: RichSegment[][];
-    // Before/after drag-to-compare (ImageCompare): the two screenshots
-    // share one frame and natural size.
-    compare: {
-      label: string;
-      before: { src: string; alt: string };
-      after: { src: string; alt: string };
-      width: number;
-      height: number;
-    };
+    // Three cards for ContextCardCluster ([0] behind, [1] top left,
+    // [2] top right). No `src` = grey placeholder.
+    cards: { src?: string; alt: string }[];
   };
   problem: {
     eyebrow: string;

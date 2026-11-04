@@ -9,6 +9,7 @@ import { StatCard } from "@/components/case-study/StatCard";
 import { SolutionSection } from "@/components/case-study/SolutionSection";
 import { TeamAvatarGroup } from "@/components/case-study/TeamAvatarGroup";
 import { DiscardedIdeasSection } from "@/components/case-study/DiscardedIdeasSection";
+import { ContextCardCluster } from "@/components/case-study/ContextCardCluster";
 
 const IMG = "/images/case-studies/faircado";
 
@@ -276,50 +277,7 @@ export default function FaircadoCaseStudyPage() {
             }
           />
         </div>
-        {/* Below sm the cluster box is 18% wider than the column, pulled
-            out with negative side margins so the three cards (which only
-            fill ~82% of the box's width, sitting slightly left of its
-            centre) read bigger and land centred on the screen. The margins
-            are uneven on purpose to correct that off-centre cluster. The cards also end at ~82% of the
-            box's height, so the negative bottom margin trims that empty
-            band before the next section. */}
-        <div className="relative -ml-[6%] -mr-[12%] -mb-8 w-[118%] aspect-[399/373] max-w-none shrink-0 sm:mx-auto sm:mb-0 sm:w-full sm:max-w-[475px]">
-          {context.cards.map((card, i) => (
-            <div
-              key={i}
-              className="absolute transition-transform duration-300 ease-out hover:z-30 hover:scale-[1.08]"
-              // Tightly overlapping cluster (article card behind, tucked under the
-              // two stat cards). Rotations match the exact Figma values; radius and
-              // shadow are applied here in CSS since these are now plain flat photos
-              // (no chrome/shadow baked in), per the design system's Shadow/L token.
-              // The rotation is a wrapper around this div (below) so the hover scale
-              // above doesn't fight with it for the single `transform` property.
-              style={
-                i === 0
-                  ? { left: "20%", top: "42%", width: "40%", aspectRatio: "1 / 1", zIndex: 1 }
-                  : i === 1
-                    ? { left: "6%", top: "4%", width: "44%", aspectRatio: "1 / 1", zIndex: 2 }
-                    : { left: "46%", top: "10%", width: "42%", aspectRatio: "1 / 1", zIndex: 3 }
-              }
-            >
-              <div
-                className="relative size-full"
-                style={{ transform: `rotate(${i === 0 ? "-1.72deg" : i === 1 ? "2.31deg" : "-3.58deg"})` }}
-              >
-                {/* Black and white by default; hovering the card (the whole
-                    absolutely-positioned wrapper above, which this image fills)
-                    reveals full color. A CSS filter, not a second image file, so
-                    there's only one asset per card to keep track of. */}
-                <Image
-                  src={card.src}
-                  alt={card.alt}
-                  fill
-                  className="rounded-[20px] object-cover shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)] grayscale transition-[filter] duration-300 ease-out hover:grayscale-0"
-                />
-              </div>
-            </div>
-          ))}
-        </div>
+        <ContextCardCluster cards={context.cards} />
       </section>
 
       {/* Problem statement */}

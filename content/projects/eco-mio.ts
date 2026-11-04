@@ -71,38 +71,37 @@ export const ecoMio: EcoMioContent = {
   context: {
     eyebrow: "context",
     heading: "Why tailored demos?",
+    // Same emphasis pattern as the Faircado Context: a bold opening
+    // sentence, then a bold accent phrase and a bold closing phrase.
     paragraphs: [
       [
-        "Corporate booking tools (OBTs) show travelers ",
-        { text: "30+ options per trip,", bold: true },
-        " causing decision fatigue, delayed bookings and missed savings.",
+        { text: "eco.mio works inside any booking tool.", bold: true },
+        " Each client books different routes, with different priorities: lower cost, train over plane, lower CO₂ or faster decisions.",
       ],
       [
-        "eco.mio narrows them to ",
-        { text: "3 recommendations", bold: true },
-        " based on what each client prioritizes: lower cost, train over plane, or lower CO₂.",
-      ],
-      [
-        {
-          text: "Routes and priorities differ by client, so every lead needs its own custom prototype.",
-          bold: true,
-          accent: true,
-        },
+        "Clients want to see the flow ",
+        { text: "on their own routes, in their own tool", bold: true, accent: true },
+        ", so ",
+        { text: "every new lead means building a custom prototype.", bold: true },
       ],
     ],
-    compare: {
-      label: "Compare Concur flight results without and with eco.mio",
-      before: {
-        src: `${IMG}/context-before-concur.png`,
-        alt: "SAP Concur results for London to Amsterdam: a long list of flights, each with up to four fares to weigh up",
+    // The flight search start page in three booking tools eco.mio runs
+    // inside. Order follows ContextCardCluster: [0] behind, [1] top left,
+    // [2] top right.
+    cards: [
+      {
+        src: `${IMG}/context-card-cytric.png`,
+        alt: "Cytric by Amadeus: the start flight booking page with a Zurich to Frankfurt search",
       },
-      after: {
-        src: `${IMG}/context-after-eco-mio.png`,
-        alt: "The same search with eco.mio: three options side by side, with Eurostar recommended as best value and greener, comparing travel time, price and emissions",
+      {
+        src: `${IMG}/context-card-concur.png`,
+        alt: "SAP Concur: the travel home page with a London to Amsterdam flight search",
       },
-      width: 1600,
-      height: 1105,
-    },
+      {
+        src: `${IMG}/context-card-egencia.png`,
+        alt: "Egencia: the book a flight form with an Oslo to Bergen search",
+      },
+    ],
   },
   problem: {
     eyebrow: "PROBLEM",

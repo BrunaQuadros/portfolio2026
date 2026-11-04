@@ -10,8 +10,8 @@ import { TeamAvatarGroup } from "@/components/case-study/TeamAvatarGroup";
 import { DiscardedIdeasSection } from "@/components/case-study/DiscardedIdeasSection";
 import { ImagePlaceholder } from "@/components/case-study/ImagePlaceholder";
 import { RichText } from "@/components/case-study/RichText";
+import { ContextCardCluster } from "@/components/case-study/ContextCardCluster";
 import { AutoPlayVideo } from "@/components/media/AutoPlayVideo";
-import { ImageCompare } from "@/components/media/ImageCompare";
 
 const IMG = "/images/case-studies/eco-mio";
 
@@ -164,16 +164,11 @@ export default function EcoMioCaseStudyPage() {
         </div>
       </section>
 
-      {/* Context: heading block on the left, and a brand-blue panel on
-          the right holding a before/after drag-to-compare of the Concur
-          results without and with eco.mio. The text column is narrowed to
-          420px on desktop so the panel can take the rest of the row and
-          stay as large as possible; below lg the panel stacks under the
-          text at full width. Corner 0 on the compare: the screenshots carry
-          their own rounded browser window and shadow, which float on the
-          blue. */}
-      <section className="relative mx-auto flex w-full max-w-[1220px] flex-col gap-12 px-4 sm:gap-16 sm:px-10 lg:flex-row lg:items-center">
-        <div className="w-full lg:max-w-[420px] lg:shrink-0" style={TEXT_COLUMN}>
+      {/* Context: same layout and card cluster as the Faircado Context
+          section (heading block left, three tilted black-and-white cards
+          right, stacked below lg). */}
+      <section className="relative mx-auto flex w-full max-w-[1220px] flex-col gap-12 px-4 max-sm:overflow-x-hidden sm:gap-16 sm:px-10 lg:flex-row lg:items-center lg:justify-between lg:gap-0">
+        <div className="w-full lg:max-w-[520px]" style={TEXT_COLUMN}>
           <SectionHeading
             eyebrow={context.eyebrow}
             heading={context.heading}
@@ -189,20 +184,7 @@ export default function EcoMioCaseStudyPage() {
             }
           />
         </div>
-        {/* Same corners as the My Role/Impact box above it (28px on phones,
-            24px from sm up). */}
-        <div className={`w-full rounded-case-mobile p-4 sm:rounded-case-xl sm:p-10 lg:min-w-0 lg:flex-1 lg:p-8 ${ACCENT_BG}`}>
-          <ImageCompare
-            label={context.compare.label}
-            before={context.compare.before}
-            after={context.compare.after}
-            width={context.compare.width}
-            height={context.compare.height}
-            corner={0}
-            labels={false}
-            className="mx-auto w-full max-w-[960px] lg:max-w-none"
-          />
-        </div>
+        <ContextCardCluster cards={context.cards} />
       </section>
 
       {/* Problem statement */}
