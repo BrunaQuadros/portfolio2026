@@ -37,13 +37,13 @@ const ROLE_VALUE =
   "whitespace-nowrap font-manrope font-bold text-[15px] leading-[24px] sm:whitespace-normal sm:text-[18px] sm:leading-[28px]";
 
 // The 80 / 20 split bar on the "Automate the 80%" card: a full-width pill,
-// 80% near-black with "80" in white, 20% white with "20" (owner's artboard).
+// 80% near-black with "80%" in white, 20% white with "20%" (owner's artboard).
 // Decorative: the card's heading and body say the same thing in words.
 function EightyTwentyBar() {
   return (
     <div aria-hidden="true" className="flex h-11 w-full overflow-hidden rounded-full bg-white font-manrope text-[14px] font-bold">
-      <span className="flex w-4/5 items-center justify-center bg-portfolio-grey-900 text-white">80</span>
-      <span className="flex w-1/5 items-center justify-center text-portfolio-grey-900">20</span>
+      <span className="flex w-4/5 items-center justify-center bg-portfolio-grey-900 text-white">80%</span>
+      <span className="flex w-1/5 items-center justify-center text-portfolio-grey-900">20%</span>
     </div>
   );
 }
