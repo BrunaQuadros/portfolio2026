@@ -36,8 +36,8 @@ export const ecoMio: EcoMioContent = {
       width: 1800,
       height: 1210,
     },
-    // White Bayer cross, rebuilt as a transparent PNG from the owner's JPG
-    // (which had a checkerboard baked in), shown straight on the blue.
+    // White Bayer cross on transparent (owner's PNG, resized to 256px),
+    // shown straight on the blue.
     clientLogo: { src: `${IMG}/logo-bayer-white.png`, alt: "Bayer", width: 256, height: 256 },
   },
   roleInfo: {

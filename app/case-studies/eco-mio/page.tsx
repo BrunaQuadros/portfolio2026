@@ -98,7 +98,13 @@ export default function EcoMioCaseStudyPage() {
             alt={hero.clientLogo.alt}
             width={hero.clientLogo.width}
             height={hero.clientLogo.height}
-            className="size-10 self-start lg:absolute lg:left-[3.6%] lg:top-[6%]"
+            // Sized and placed like the App Store icon inside the Faircado
+            // hero's badge: that icon is 80px of the 518px-wide badge, and
+            // the badge is 24% of the panel's width on desktop (36% below),
+            // so the icon is 3.71% of the panel width on lg (42px at 1440)
+            // and ~5.6% below lg (6% of this panel's padded content box).
+            // lg:left/top put it on the icon's own spot within that badge.
+            className="h-auto w-[6%] self-start lg:absolute lg:left-[5.18%] lg:top-[9.03%] lg:w-[3.71%]"
           />
           <AutoPlayVideo
             src={hero.video.src}
