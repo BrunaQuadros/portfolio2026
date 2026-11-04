@@ -18,6 +18,12 @@ type ContextCardClusterProps = {
   // and the two front ones (eco.mio: "399 / 321"; Faircado's default is
   // 399 / 373).
   boxAspect?: string;
+  // Index of a card to lift above the other two without moving it (eco.mio
+  // brings the back card, [0], to the front). By default [2] is on top.
+  frontCard?: number;
+  // 12px card corners (the case study md radius) instead of Faircado's
+  // 20px, for screenshots whose own browser corners are small.
+  smallCorners?: boolean;
   // Extra classes on the cluster box, e.g. a larger desktop max width.
   className?: string;
 };
@@ -34,8 +40,11 @@ export function ContextCardCluster({
   cards,
   cardAspect = "1 / 1",
   boxAspect = "399 / 373",
+  frontCard,
+  smallCorners = false,
   className = "",
 }: ContextCardClusterProps) {
+  const corner = smallCorners ? "rounded-case-md" : "rounded-[20px]";
   return (
     // Below sm the cluster box is 18% wider than the column, pulled out with
     // negative side margins so the three cards (which only fill ~82% of the
@@ -57,7 +66,7 @@ export function ContextCardCluster({
           // Shadow/L token. The rotation is a wrapper around this div (below)
           // so the hover scale above doesn't fight with it for the single
           // `transform` property.
-          style={{ ...SLOTS[i].position, aspectRatio: cardAspect }}
+          style={{ ...SLOTS[i].position, aspectRatio: cardAspect, ...(i === frontCard ? { zIndex: 4 } : {}) }}
         >
           <div className="relative size-full" style={{ transform: `rotate(${SLOTS[i].rotate})` }}>
             {/* Black and white by default; hovering the card (the whole
@@ -69,12 +78,12 @@ export function ContextCardCluster({
                 src={card.src}
                 alt={card.alt}
                 fill
-                className="rounded-[20px] object-cover shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)] grayscale transition-[filter] duration-300 ease-out hover:grayscale-0"
+                className={`${corner} object-cover shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)] grayscale transition-[filter] duration-300 ease-out hover:grayscale-0`}
               />
             ) : (
               <ImagePlaceholder
                 label={card.alt}
-                className="absolute inset-0 rounded-[20px] shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)]"
+                className={`absolute inset-0 ${corner} shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)]`}
               />
             )}
           </div>

@@ -70,28 +70,28 @@ export const ecoMio: EcoMioContent = {
   },
   context: {
     eyebrow: "context",
-    heading: "Why tailored demos?",
+    heading: "Why so many demos?",
     // Same emphasis pattern as the Faircado Context: a bold opening
     // sentence, then a bold accent phrase and a bold closing phrase.
     paragraphs: [
       [
-        { text: "eco.mio works inside any booking tool.", bold: true },
+        { text: "eco.mio runs inside any of the 16+ online booking tools (OBTs) companies use.", bold: true },
         " Each client books different routes, with different priorities: lower cost, train over plane, lower CO₂ or faster decisions.",
       ],
       [
         "Clients want to see the flow ",
-        { text: "on their own routes, in their own tool", bold: true, accent: true },
-        ", so ",
+        { text: "on their routes, in their OBT", bold: true, accent: true },
+        ". So ",
         { text: "every new lead means building a custom prototype.", bold: true },
       ],
     ],
-    // The flight search start page in three booking tools eco.mio runs
-    // inside. Order follows ContextCardCluster: [0] behind, [1] top left,
-    // [2] top right.
+    // Three booking tools eco.mio runs inside. Order follows
+    // ContextCardCluster's slots: [0] low and centred (lifted to the front
+    // on this page), [1] top left, [2] top right.
     cards: [
       {
-        src: `${IMG}/context-card-cytric.png`,
-        alt: "Cytric by Amadeus: the start flight booking page with a Zurich to Frankfurt search",
+        src: `${IMG}/context-card-cytric-dashboard.png`,
+        alt: "Cytric by Amadeus: the personal dashboard with buttons to book a flight, train, hotel or car",
       },
       {
         src: `${IMG}/context-card-concur.png`,

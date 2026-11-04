@@ -186,7 +186,14 @@ export default function EcoMioCaseStudyPage() {
             }
           />
         </div>
-        <ContextCardCluster cards={context.cards} cardAspect="2564 / 2188" boxAspect="399 / 321" className="lg:max-w-[560px]" />
+        <ContextCardCluster
+          cards={context.cards}
+          cardAspect="2564 / 2188"
+          boxAspect="399 / 321"
+          frontCard={0}
+          smallCorners
+          className="lg:max-w-[560px]"
+        />
       </section>
 
       {/* Problem statement */}
