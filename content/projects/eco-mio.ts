@@ -129,9 +129,11 @@ export const ecoMio: EcoMioContent = {
       { text: "automate demo creation to win back those hours", accent: true },
       " and take PM out of the process?",
     ],
+    // Owner's diagram of the old process, in the phone mockup slot
+    // (780 x 1688, the mockup's exact 250:541 shape).
     processImage: {
-      alt: "The demo process when I joined the company, coming soon",
-      caption: "Process when I joined the company",
+      src: `${IMG}/problem-old-process.png`,
+      alt: "Old process diagram: each demo bounced between Sales, PM and Design, back and forth through PM, adding up to 15 hours a month",
     },
   },
   approach: {

@@ -333,7 +333,7 @@ export type EcoMioContent = {
     paragraphs: RichSegment[][];
     closingLine: string;
     challenge: RichSegment[];
-    processImage: { src?: string; alt: string; caption: string };
+    processImage: { src?: string; alt: string };
   };
   approach: {
     eyebrow: string;

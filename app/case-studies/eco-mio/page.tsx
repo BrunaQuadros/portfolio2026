@@ -231,16 +231,13 @@ export default function EcoMioCaseStudyPage() {
       </section>
 
       {/* Challenge headline. Same composition as Faircado: pulled up beside
-          the Problem text on desktop, with the "process when I joined"
+          the Problem text on desktop, with the old process diagram
           phone overlapping the grey panel by 150px. Below lg the panel sits
           48px under "So my challenge became:" (-mt-12) and the phone is
           hidden, as on Faircado. */}
       <section className="relative z-10 mx-auto -mt-12 w-full max-w-[1220px] px-4 sm:px-10 lg:-mt-[420px]">
         <div className="flex flex-col items-center">
-          <figure className="relative z-10 hidden w-[250px] shrink-0 flex-col items-center gap-3 lg:mb-[-150px] lg:ml-auto lg:mr-16 lg:flex lg:-translate-x-10">
-            <figcaption className="w-[226px] text-center font-manrope text-[14px] leading-[20px] text-portfolio-grey-600">
-              {problem.processImage.caption}
-            </figcaption>
+          <div className="relative z-10 hidden w-[250px] shrink-0 flex-col items-center lg:mb-[-150px] lg:ml-auto lg:mr-16 lg:flex lg:-translate-x-10">
             {problem.processImage.src ? (
               <div className="relative h-[541px] w-[250px] overflow-hidden rounded-case-xl shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)]">
                 <Image src={problem.processImage.src} alt={problem.processImage.alt} fill className="object-cover" />
@@ -251,7 +248,7 @@ export default function EcoMioCaseStudyPage() {
                 className="h-[541px] w-[250px] rounded-case-xl shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)]"
               />
             )}
-          </figure>
+          </div>
           <div className="relative z-0 flex w-full items-center rounded-case-mobile bg-portfolio-grey-50 py-6 sm:min-h-[340px] sm:rounded-case-3xl sm:py-10 lg:h-[340px] lg:min-h-0 lg:py-0">
             <div className="w-full px-6 sm:px-10 lg:px-[80px]">
               <p className="max-w-[560px] text-left font-manrope font-bold text-[28px] leading-[1.4] tracking-[-0.5px] text-portfolio-grey-900 lg:max-w-[698px] lg:text-[36px] lg:leading-[1.4]">
