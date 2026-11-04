@@ -11,7 +11,7 @@ export const ecoMio: EcoMioContent = {
     slug: "eco-mio",
     title: "Automating sales demos to cut 15h of work monthly",
     description:
-      "eco.mio is an AI recommendation engine making business travel simpler, faster and greener. How I built Demo Studio, an automated demo maker that turned 5 hours of work into 30 minutes.",
+      "eco.mio turns a 200+ flight list into 3 recommendations, right inside each company’s travel booking tool. How I built Demo Studio, an automated demo maker that turned 5 hours of work into 30 minutes.",
     year: "2026",
   },
   hero: {
@@ -20,11 +20,11 @@ export const ecoMio: EcoMioContent = {
     headingLine1: "Automating sales demos",
     headingLine2: "to cut 15h of work monthly",
     description: [
-      "eco.mio is an ",
-      { text: "AI recommendation engine", accent: true },
-      " making business travel simpler, faster and greener. Companies like Bayer use it to save up to ",
-      { text: "10% on travel costs", accent: true },
-      " a year.",
+      "eco.mio turns a ",
+      { text: "200+ flight list into 3 recommendations", accent: true },
+      ", right inside each company’s travel booking tool. Clients like Bayer use it to save up to ",
+      { text: "10% on travel costs a year", accent: true },
+      ".",
     ],
     video: {
       src: "/videos/home/eco-mio-demo-studio.mp4",
