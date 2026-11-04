@@ -35,7 +35,8 @@ Most of these categories are empty right now, add them as real components are bu
 - `MethodCard.tsx` — title + description + a row of logos/avatars/icons. One of the four research-method cards under My Approach
 - `TestimonialCard.tsx` — quote + supporting data point, with an optional number. Used under Takeaways and again in the closing insights
 - `StatCard.tsx` — icon + heading + body. One of the impact/result cards near the end of the case study
-- `StepHeading.tsx` — step name in a `TagPill` + h3 one size below the section h2 + optional body. One per step in a multi-step section (eco.mio's My process: 1. Audit, 2. Align, 3. Scope)
+- `GiantTitle.tsx` — the giant pale-grey word with a small accent number ("01. Automation"). Used by `SolutionSection` and `StepHeading`; the parent must centre it and clip overflow
+- `StepHeading.tsx` — `GiantTitle` ("01. Audit") + centred h3 one size below the section h2 + optional body. One per step in a multi-step section (eco.mio's My process: 1. Audit, 2. Align, 3. Scope)
 - `TagPill.tsx` — small rounded icon + label pill (e.g. "Awareness", "Match accuracy"). Shared across problem cards, results cards, and every solution section
 - `SolutionSection.tsx` — one of the three big numbered sections (01/, 02/, 03/), each holding cards with a tag, heading, and mobile screenshots
 - `ProcessSwimlane.tsx` — horizontal process diagram drawn in SVG from data: three lanes (people), steps left to right hopping between them, each a small node (card, circle icon, screenshots tile, Figma card, link pill) with a label above or below. The highlighted lane and its nodes are yellow; every step label is white. Used in eco.mio's My process (1. Audit); edit the steps in `content/projects/eco-mio.ts`

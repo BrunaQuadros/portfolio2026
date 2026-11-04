@@ -153,7 +153,8 @@ export const ecoMio: EcoMioContent = {
       " so I started with how demos really got made.",
     ],
     audit: {
-      label: "1. Audit",
+      number: "01.",
+      title: "Audit",
       heading: "Process complexity, mapped",
       body: [
         "One demo took ",
@@ -180,7 +181,8 @@ export const ecoMio: EcoMioContent = {
       },
     },
     align: {
-      label: "2. Align",
+      number: "02.",
+      title: "Align",
       heading: "Stakeholders on the same page",
       body: "I brought sales and the PM together to decide what had to change.",
       cards: [
@@ -217,7 +219,8 @@ export const ecoMio: EcoMioContent = {
       ],
     },
     scope: {
-      label: "3. Scope",
+      number: "03.",
+      title: "Scope",
       heading: "One constraint. Two scope decisions.",
       // The blue card; its arrow points at the two decisions it shaped.
       constraint: {
