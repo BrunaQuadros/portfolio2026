@@ -339,7 +339,10 @@ export type EcoMioContent = {
     eyebrow: string;
     heading: string;
     body: string;
-    processPanel: string;
+    // Owner's process diagram under the heading (scrolls sideways below lg).
+    processImage: { src: string; alt: string; width: number; height: number; regionLabel: string };
+    // TEMPORARY: blue variant for comparison (`?process=blue`), same size.
+    processImageBlue: { src: string; alt: string };
   };
   findings: {
     eyebrow: string;

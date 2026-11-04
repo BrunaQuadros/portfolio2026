@@ -36,7 +36,16 @@ export const metadata: Metadata = {
   description: ecoMio.meta.description,
 };
 
-export default function EcoMioCaseStudyPage() {
+// TEMPORARY (owner comparing two process diagrams): `?process=blue` swaps
+// in the blue version. Remove this, `processImageBlue` in the content file
+// and the unused image once one is chosen; it also makes the page render
+// per request instead of being prebuilt.
+export default async function EcoMioCaseStudyPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}) {
+  const showBlueProcess = (await searchParams).process === "blue";
   const {
     hero,
     roleInfo,
@@ -265,10 +274,10 @@ export default function EcoMioCaseStudyPage() {
         </div>
       </section>
 
-      {/* My Approach: heading, then the "Process that took 5 hours" panel
-          (same grey panel and type as the Challenge headline). lg:mt-10
-          matches the extra breathing room Faircado adds after the Challenge
-          panel. */}
+      {/* My Approach: heading, then the owner's "A closer look at the
+          process" diagram (its own grey rounded panel is part of the image).
+          lg:mt-10 matches the extra breathing room Faircado adds after the
+          Challenge panel. */}
       <section className="mx-auto flex w-full max-w-[1220px] flex-col gap-12 px-4 sm:gap-20 sm:px-10 lg:mt-10">
         <div style={TEXT_COLUMN}>
           <SectionHeading
@@ -279,10 +288,25 @@ export default function EcoMioCaseStudyPage() {
             className="max-w-[516px]"
           />
         </div>
-        <div className="flex w-full items-center rounded-case-mobile bg-portfolio-grey-50 px-6 py-10 sm:rounded-case-3xl sm:p-10 lg:p-20">
-          <p className="font-manrope font-bold text-[28px] leading-[1.4] tracking-[-0.5px] text-portfolio-grey-900 lg:text-[36px]">
-            {approach.processPanel}
-          </p>
+        {/* From lg the diagram fills the content width. Below lg, shrunk to
+            the screen its labels would be ~4px, so it keeps a readable 300px
+            height and scrolls sideways (the horizontal scroll strip pattern,
+            docs/DESIGN.md), breaking out of the section padding so it runs
+            edge to edge. Focusable so keyboard users can scroll it too. */}
+        <div
+          className="scrollbar-hide -mx-4 overflow-x-auto px-4 sm:-mx-10 sm:px-10 lg:mx-0 lg:overflow-visible lg:px-0"
+          tabIndex={0}
+          role="region"
+          aria-label={approach.processImage.regionLabel}
+        >
+          <Image
+            src={showBlueProcess ? approach.processImageBlue.src : approach.processImage.src}
+            alt={showBlueProcess ? approach.processImageBlue.alt : approach.processImage.alt}
+            width={approach.processImage.width}
+            height={approach.processImage.height}
+            sizes="(min-width: 1024px) 1140px, 905px"
+            className="h-[300px] w-auto max-w-none lg:h-auto lg:w-full"
+          />
         </div>
       </section>
 
