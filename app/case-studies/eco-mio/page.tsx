@@ -167,19 +167,24 @@ export default function EcoMioCaseStudyPage() {
       {/* Context: same layout and card cluster as the Faircado Context
           section (heading block left, three tilted black-and-white cards
           right, stacked below lg). Here the cards take the screenshots' own
-          shape so each booking tool shows whole, and on desktop the text
-          column is narrowed to 420px so the cluster can grow to 560px. */}
+          shape so each booking tool shows whole. lg: the text column is
+          420px and the cluster 560px. xl: the text is set in the owner's
+          line breaks (~575px at 18px), so the column sizes to its longest
+          line (w-max) and the cluster steps down to 460px and runs 40px
+          into the page margin (-mr-10) to make room. */}
       <section className="relative mx-auto flex w-full max-w-[1220px] flex-col gap-12 px-4 max-sm:overflow-x-hidden sm:gap-16 sm:px-10 lg:flex-row lg:items-center lg:justify-between lg:gap-0">
-        <div className="w-full lg:max-w-[420px]" style={TEXT_COLUMN}>
+        <div className="w-full lg:max-w-[420px] xl:w-max xl:max-w-none" style={TEXT_COLUMN}>
           <SectionHeading
             eyebrow={context.eyebrow}
             heading={context.heading}
             accentClass={ACCENT_TEXT}
             body={
-              <div className="flex flex-col gap-4">
+              // gap-7: one blank 28px line between paragraphs, as in the
+              // owner's layout.
+              <div className="flex flex-col gap-7">
                 {context.paragraphs.map((paragraph, i) => (
                   <p key={i}>
-                    <RichText segments={paragraph} accentClass={ACCENT_TEXT} />
+                    <RichText segments={paragraph} accentClass={ACCENT_TEXT} breakClass="hidden xl:inline" />
                   </p>
                 ))}
               </div>
@@ -192,7 +197,7 @@ export default function EcoMioCaseStudyPage() {
           boxAspect="399 / 321"
           frontCard={0}
           smallCorners
-          className="lg:max-w-[560px]"
+          className="lg:max-w-[560px] xl:-mr-10 xl:max-w-[460px]"
         />
       </section>
 

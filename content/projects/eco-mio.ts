@@ -71,18 +71,24 @@ export const ecoMio: EcoMioContent = {
   context: {
     eyebrow: "context",
     heading: "Why so many demos?",
-    // Same emphasis pattern as the Faircado Context: a bold opening
-    // sentence, then a bold accent phrase and a bold closing phrase.
+    // Owner's layout: the booking tools phrase in bold accent, the closing
+    // paragraph all bold, and set line breaks (wide screens only, see the
+    // page's Context section).
     paragraphs: [
       [
-        { text: "eco.mio runs inside any of the 16+ online booking tools (OBTs) companies use.", bold: true },
-        " Each client books different routes, with different priorities: lower cost, train over plane, lower CO₂ or faster decisions.",
+        "eco.mio runs inside any of the ",
+        { text: "16+ online booking tools", bold: true, accent: true },
+        { br: true },
+        "(OBTs) corporations use. Each client books different routes,",
+        { br: true },
+        "with different priorities: lower cost, train over plane, lower",
+        { br: true },
+        "CO₂ or faster decisions.",
       ],
       [
-        "Clients want to see the flow ",
-        { text: "on their routes, in their OBT", bold: true, accent: true },
-        ". So ",
-        { text: "every new lead means building a custom prototype.", bold: true },
+        { text: "Clients want to see the flow on their routes, in their OBT.", bold: true },
+        { br: true },
+        { text: "So every new lead means building a custom prototype.", bold: true },
       ],
     ],
     // Three booking tools eco.mio runs inside. Order follows
