@@ -222,6 +222,8 @@ export const ecoMio: EcoMioContent = {
       // The blue card; its arrow points at the two decisions it shaped.
       constraint: {
         tag: "Constraint",
+        // Owner's 3D "no" sign, recoloured from red to black.
+        tagIcon: `${IMG}/icon-tag-constraint.png`,
         heading: "No dev time",
         body: [
           "Dev had no capacity in this phase. ",

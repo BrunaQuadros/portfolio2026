@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { ArrowRight, TimerOff } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { ecoMio } from "@/content/projects/eco-mio";
 import { SectionHeading } from "@/components/case-study/SectionHeading";
 import { ProblemCard } from "@/components/case-study/ProblemCard";
@@ -379,7 +379,7 @@ export default function EcoMioCaseStudyPage() {
             >
               <TagPill
                 label={approach.scope.constraint.tag}
-                iconNode={<TimerOff className="size-6 text-eco-mio-blue-600" strokeWidth={2} aria-hidden="true" />}
+                icon={approach.scope.constraint.tagIcon}
               />
               <div className="flex flex-col gap-3 text-white">
                 <p className="font-manrope font-bold text-[24px] leading-[32px] tracking-[-0.5px] sm:text-[28px] sm:leading-[38px]">

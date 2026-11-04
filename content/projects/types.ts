@@ -392,7 +392,7 @@ export type EcoMioContent = {
     scope: {
       label: string;
       heading: string;
-      constraint: { tag: string; heading: string; body: RichSegment[]; arrowLabel: string };
+      constraint: { tag: string; tagIcon: string; heading: string; body: RichSegment[]; arrowLabel: string };
       eightyTwenty: { heading: string; body: string; emphasis: string };
       build: {
         heading: string;
