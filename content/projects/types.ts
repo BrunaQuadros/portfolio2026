@@ -380,7 +380,9 @@ export type EcoMioContent = {
     heading: string;
     body: string;
     cards: ({ tagIcon: string } & ProblemCard)[];
-    scope: { icon: string; label: string };
+    // The two constraints in the second row ("80 / 20 rule", "No dev
+    // time"), each with its own small visual in the page.
+    constraints: { heading: string; body: string; emphasis: string }[];
     build: {
       heading: string;
       body: string;

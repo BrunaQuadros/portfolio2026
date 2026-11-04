@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import { TimerOff } from "lucide-react";
 import { ecoMio } from "@/content/projects/eco-mio";
 import { SectionHeading } from "@/components/case-study/SectionHeading";
 import { ProblemCard } from "@/components/case-study/ProblemCard";
@@ -32,6 +33,21 @@ const TEXT_COLUMN = { marginLeft: "max(0px, calc((100% - 975px) / 2 + 40px))" };
 const ROLE_LABEL = `font-manrope font-extrabold text-[16px] tracking-[0.48px] uppercase ${ACCENT_TEXT}`;
 const ROLE_VALUE =
   "whitespace-nowrap font-manrope font-bold text-[15px] leading-[24px] sm:whitespace-normal sm:text-[18px] sm:leading-[28px]";
+
+// The 80 / 20 rule card's visual: one pill split 80% eco.mio blue (the
+// demos the tool covers) and 20% light (the rare ones that stay manual).
+// Decorative: the card's heading and copy carry the meaning.
+function EightyTwentyBar() {
+  return (
+    <div
+      aria-hidden="true"
+      className="flex h-11 w-full max-w-[200px] overflow-hidden rounded-full bg-white font-manrope text-[14px] font-bold shadow-[0px_4px_12.5px_0px_rgba(94,95,93,0.1)]"
+    >
+      <span className="flex w-4/5 items-center justify-center bg-eco-mio-blue-500 text-white">80%</span>
+      <span className="flex w-1/5 items-center justify-center text-eco-mio-blue-600">20%</span>
+    </div>
+  );
+}
 
 export const metadata: Metadata = {
   title: ecoMio.meta.title,
@@ -293,11 +309,12 @@ export default function EcoMioCaseStudyPage() {
         </div>
       </section>
 
-      {/* Findings: three need cards, then the "Scope" intro card and the
-          wide "Building Demo Studio" card, on one shared 3-column grid (same
-          approach as the Faircado results grid, so the wide card spans
-          exactly two columns). lg:-mt-12 brings it 80px under the process
-          panel on desktop, as in Figma; mobile keeps the 96px section gap. */}
+      {/* Findings: the three needs on a 3-column row, then the two
+          constraints and the wide "Scope and tool stack" card on a
+          4-column row (the wide card spans two, matching Figma's
+          287 / 287 / 590 split). Rows sit 40px apart from sm up, 24px on
+          phones. lg:-mt-12 brings it 80px under the process diagram on
+          desktop, as in Figma; mobile keeps the 96px section gap. */}
       <section className="mx-auto flex w-full max-w-[1220px] flex-col gap-12 px-4 sm:gap-20 sm:px-10 lg:-mt-12">
         <div style={TEXT_COLUMN}>
           <SectionHeading
@@ -305,51 +322,62 @@ export default function EcoMioCaseStudyPage() {
             heading={findings.heading}
             body={<p>{findings.body}</p>}
             accentClass={ACCENT_TEXT}
-            className="max-w-[516px]"
+            className="max-w-[560px]"
           />
         </div>
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-3 sm:gap-x-7 sm:gap-y-10">
-          {findings.cards.map((card) => (
-            <ProblemCard key={card.tag} tag={card.tag} tagIcon={card.tagIcon} heading={card.heading} body={card.body} />
-          ))}
-          {/* Hidden below sm, like Faircado's "User feedback that made my
-              day" intro card: on phones the label card is a whole extra
-              card before the one it introduces. */}
-          <div className="hidden flex-col items-center justify-center gap-7 rounded-case-mobile bg-portfolio-grey-50 p-6 text-center sm:flex sm:rounded-case-2xl sm:p-10">
-            <span className="flex size-[52px] items-center justify-center overflow-hidden rounded-full border border-portfolio-grey-200 bg-white shadow-[0px_16.75px_25.125px_0px_rgba(0,0,0,0.12)]">
-              <Image src={findings.scope.icon} alt="" aria-hidden="true" width={45} height={45} className="size-[45px] max-w-none" />
-            </span>
-            <p className="font-manrope font-bold text-[24px] leading-[32px] tracking-[-0.5px] text-portfolio-grey-900 sm:text-[28px] sm:leading-[38px]">
-              {findings.scope.label}
-            </p>
+        <div className="flex flex-col gap-6 sm:gap-10">
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-3 sm:gap-7">
+            {findings.cards.map((card) => (
+              <ProblemCard key={card.tag} tag={card.tag} tagIcon={card.tagIcon} heading={card.heading} body={card.body} />
+            ))}
           </div>
-          <div className="flex flex-col justify-between gap-10 rounded-case-mobile bg-portfolio-grey-50 p-6 sm:col-span-2 sm:h-[383px] sm:rounded-case-2xl sm:p-10">
-            {/* Overlapping, slightly tilted tool logos (Figma's -6 / +5
-                degree alternation). The names are in the copy below, but the
-                logos still get alt text since Netlify is only shown here. */}
-            <ul className="flex items-center" aria-label="Tools used">
-              {findings.build.tools.map((tool, i) => (
-                <li
-                  key={tool.alt}
-                  className={`flex size-[52px] shrink-0 items-center justify-center rounded-case-md shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)] ${tool.tileClass} ${i % 2 === 0 ? "-rotate-6" : "rotate-5"} ${i > 0 ? "-ml-3" : ""}`}
-                >
-                  <Image
-                    src={tool.src}
-                    alt={tool.alt}
-                    width={42}
-                    height={42}
-                    className={tool.inset === "logo" ? "size-[80%] object-contain" : "size-7"}
-                  />
-                </li>
-              ))}
-            </ul>
-            <div className="flex flex-col gap-3">
-              <p className="font-manrope font-bold text-[24px] leading-[32px] tracking-[-0.5px] text-portfolio-grey-900 sm:text-[28px] sm:leading-[38px]">
-                {findings.build.heading}
-              </p>
-              <p className="font-manrope text-[16px] leading-[26px] text-portfolio-grey-900 sm:text-[18px] sm:leading-[28px]">
-                {findings.build.body}
-              </p>
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-7 lg:grid-cols-4">
+            <StatCard
+              size="short"
+              iconNode={<EightyTwentyBar />}
+              heading={findings.constraints[0].heading}
+              body={findings.constraints[0].body}
+              emphasis={findings.constraints[0].emphasis}
+            />
+            <StatCard
+              size="short"
+              iconNode={
+                <span className="flex size-[52px] items-center justify-center rounded-full bg-white shadow-[0px_8px_12px_0px_rgba(0,0,0,0.12)]">
+                  <TimerOff className="size-7 text-eco-mio-blue-600" strokeWidth={2} aria-hidden="true" />
+                </span>
+              }
+              heading={findings.constraints[1].heading}
+              body={findings.constraints[1].body}
+              emphasis={findings.constraints[1].emphasis}
+            />
+            <div className="flex flex-col justify-between gap-10 rounded-case-mobile bg-portfolio-grey-50 p-6 sm:col-span-2 sm:h-[383px] sm:rounded-case-2xl sm:p-10">
+              {/* Overlapping, slightly tilted tool logos (Figma's -6 / +5
+                  degree alternation). The names are in the copy below, so the
+                  logos still get alt text for the list. */}
+              <ul className="flex items-center" aria-label="Tools used">
+                {findings.build.tools.map((tool, i) => (
+                  <li
+                    key={tool.alt}
+                    className={`flex size-[52px] shrink-0 items-center justify-center rounded-case-md shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)] ${tool.tileClass} ${i % 2 === 0 ? "-rotate-6" : "rotate-5"} ${i > 0 ? "-ml-3" : ""}`}
+                  >
+                    <Image
+                      src={tool.src}
+                      alt={tool.alt}
+                      width={42}
+                      height={42}
+                      className={tool.inset === "logo" ? "size-[80%] object-contain" : "size-7"}
+                    />
+                  </li>
+                ))}
+              </ul>
+              <div className="flex flex-col gap-3">
+                <p className="font-manrope font-bold text-[24px] leading-[32px] tracking-[-0.5px] text-portfolio-grey-900 sm:text-[28px] sm:leading-[38px]">
+                  {findings.build.heading}
+                </p>
+                <p className="font-manrope text-[16px] leading-[26px] text-portfolio-grey-900 sm:text-[18px] sm:leading-[28px]">
+                  {findings.build.body}
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -379,6 +407,8 @@ export default function EcoMioCaseStudyPage() {
             blocks={section.blocks}
             numberClass={ACCENT_TEXT}
             arrow={{ src: `${IMG}/tailored-arrow.svg`, width: 160, phoneHeight: true }}
+            longTitle={section.title.length > 12}
+            tagInFlowUntilXl
           />
         ))}
       </div>

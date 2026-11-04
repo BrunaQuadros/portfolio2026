@@ -145,7 +145,7 @@ export const ecoMio: EcoMioContent = {
   approach: {
     eyebrow: "MY APPROACH",
     heading: "Audit → Align → Scope",
-    body: "I audited the process myself, aligned with sales and PM on needs & constraints. Scope came next.",
+    body: "After taking a closer look at the process and aligning with Sales, PM and Dev, the bottlenecks and the limits were clear.",
     // Drawn in code (ProcessSwimlane): steps run left to right, `lane` is
     // 0 Sales, 1 PM, 2 Design.
     processDiagram: {
@@ -166,12 +166,12 @@ export const ecoMio: EcoMioContent = {
   },
   findings: {
     eyebrow: "FINDINGS",
-    heading: "What the team needs",
-    body: "I audited the process myself, aligned with sales and PM on needs & constraints. Scope came next.",
+    heading: "Team’s needs & constraints",
+    body: "Three needs shaped what to build. Two constraints shaped how.",
     cards: [
       {
-        tag: "Speed",
-        tagIcon: `${IMG}/icon-tag-speed.png`,
+        tag: "Automation",
+        tagIcon: `${IMG}/icon-tag-automation.png`,
         heading: "Automate to speed up the manual work",
         body: "Auditing revealed two bottlenecks: PM scraping flights and design replacing info manually.",
       },
@@ -188,10 +188,21 @@ export const ecoMio: EcoMioContent = {
         body: "PM was the bottleneck. She was overloaded and ideally had to be taken off the process.",
       },
     ],
-    scope: { icon: `${IMG}/icon-scope-arrow.png`, label: "Scope" },
+    constraints: [
+      {
+        heading: "80 / 20 rule",
+        body: "Cover the 80% of demos that repeat. The other 20% stays manual.",
+        emphasis: "80% of demos that repeat",
+      },
+      {
+        heading: "No dev time",
+        body: "Dev had no capacity, so I designed and built it myself.",
+        emphasis: "no capacity",
+      },
+    ],
     build: {
-      heading: "Building Demo Studio",
-      body: "With no dev time, I designed and built it myself, with Claude Code, Cursor and GitHub, on eco.mio's own codebase and current design.",
+      heading: "Scope and tool stack",
+      body: "I built Demo Studio with Claude Code, Cursor and GitHub, on eco.mio's own codebase and current design, and published it on Netlify.",
       // tileClass: the tile behind each logo, mapped to the closest
       // existing tokens (Figma's #faf5ed, #17171a and #1f2126 brand tiles).
       // inset "logo": full-color mark inset at ~80% of the tile;
@@ -212,9 +223,9 @@ export const ecoMio: EcoMioContent = {
   solutionSections: [
     {
       number: "01.",
-      title: "Speed",
-      tag: "Speed",
-      tagIcon: `${IMG}/icon-tag-speed.png`,
+      title: "Automation",
+      tag: "Automation",
+      tagIcon: `${IMG}/icon-tag-automation.png`,
       blocks: [
         {
           heading: "AI reads three screenshots and fills every field",
@@ -236,8 +247,9 @@ export const ecoMio: EcoMioContent = {
     },
     {
       number: "02.",
-      title: "Tailored",
-      tag: "Tailored",
+      title: "Personalization",
+      tag: "Personalization",
+      tagIcon: `${IMG}/icon-tag-personalization.png`,
       blocks: [
         {
           heading: "Built on eco.mio's own components, so the demo is the product",
@@ -262,8 +274,9 @@ export const ecoMio: EcoMioContent = {
     },
     {
       number: "03.",
-      title: "Autonomy",
-      tag: "Autonomy",
+      title: "Decentralization",
+      tag: "Decentralization",
+      tagIcon: `${IMG}/icon-tag-decentralization.png`,
       blocks: [
         {
           heading: "Every field stays editable when a screenshot can't be read",
