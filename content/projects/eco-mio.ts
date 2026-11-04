@@ -173,13 +173,13 @@ export const ecoMio: EcoMioContent = {
         tag: "Automation",
         tagIcon: `${IMG}/icon-tag-automation.png`,
         heading: "Automate to speed up the manual work",
-        body: "Auditing revealed two bottlenecks: PM scraping flights and design replacing info manually.",
+        body: "Two bottlenecks: PM scraping flights and Design replacing info by hand.",
       },
       {
         tag: "Personalization",
         tagIcon: `${IMG}/icon-tag-personalization.png`,
         heading: "Sales needed high personalized demos",
-        body: "Aligning with sales revealed that clients want to see the demo on their own OBT, routes and highlights.",
+        body: "Sales showed that clients want to see the demo on their own OBT and routes.",
       },
       {
         tag: "Decentralization",
@@ -191,8 +191,8 @@ export const ecoMio: EcoMioContent = {
     constraints: [
       {
         heading: "80 / 20 rule",
-        body: "Cover the 80% of demos that repeat. The other 20% stays manual.",
-        emphasis: "80% of demos that repeat",
+        body: "Cover the 80% that repeats. The other 20% stays manual.",
+        emphasis: "80% that repeats",
       },
       {
         heading: "No dev time",
