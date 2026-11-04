@@ -26,13 +26,6 @@ const ACCENT_BG = "bg-eco-mio-blue-500";
 // heading block on the Faircado page.
 const TEXT_COLUMN = { marginLeft: "max(0px, calc((100% - 975px) / 2 + 40px))" };
 
-// Lines a block's right edge up with the right edge of the My Role/Impact
-// box. That box hugs its content (998px wide on desktop, measured) and is
-// centred, so its right edge sits half the leftover width in from the
-// section's content edge; below that width the box fills the column and
-// the margin is 0.
-const ROLE_BOX_RIGHT_EDGE = { marginRight: "max(0px, calc((100% - 998px) / 2))" };
-
 // Role box label and value styles, shared by the four columns.
 const ROLE_LABEL = `font-manrope font-extrabold text-[16px] tracking-[0.48px] uppercase ${ACCENT_TEXT}`;
 const ROLE_VALUE =
@@ -165,10 +158,9 @@ export default function EcoMioCaseStudyPage() {
             }
           />
         </div>
-        <div
-          className={`w-full rounded-case-mobile p-4 sm:rounded-case-2xl sm:p-10 lg:min-w-0 lg:flex-1 lg:rounded-case-3xl lg:p-8 ${ACCENT_BG}`}
-          style={ROLE_BOX_RIGHT_EDGE}
-        >
+        {/* Same corners as the My Role/Impact box above it (28px on phones,
+            24px from sm up). */}
+        <div className={`w-full rounded-case-mobile p-4 sm:rounded-case-xl sm:p-10 lg:min-w-0 lg:flex-1 lg:p-8 ${ACCENT_BG}`}>
           <ImageCompare
             label={context.compare.label}
             before={context.compare.before}
