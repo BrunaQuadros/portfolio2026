@@ -170,8 +170,10 @@ export default function EcoMioCaseStudyPage() {
           shape so each booking tool shows whole. lg: the text column is
           420px and the cluster 560px. xl: the text is set in the owner's
           line breaks (~575px at 18px), so the column sizes to its longest
-          line (w-max) and the cluster steps down to 460px and runs 40px
-          into the page margin (-mr-10) to make room. */}
+          line (w-max) and the cluster is 535px, its box running 40px into
+          the page margin (-mr-10) so the cards themselves start ~64px from
+          the text and end inside the content edge, nudged 40px down
+          (translate-y-10) from the text's centre line. */}
       <section className="relative mx-auto flex w-full max-w-[1220px] flex-col gap-12 px-4 max-sm:overflow-x-hidden sm:gap-16 sm:px-10 lg:flex-row lg:items-center lg:justify-between lg:gap-0">
         <div className="w-full lg:max-w-[420px] xl:w-max xl:max-w-none" style={TEXT_COLUMN}>
           <SectionHeading
@@ -197,7 +199,7 @@ export default function EcoMioCaseStudyPage() {
           boxAspect="399 / 321"
           frontCard={0}
           smallCorners
-          className="lg:max-w-[560px] xl:-mr-10 xl:max-w-[460px]"
+          className="lg:max-w-[560px] xl:-mr-10 xl:max-w-[535px] xl:translate-y-10"
         />
       </section>
 
