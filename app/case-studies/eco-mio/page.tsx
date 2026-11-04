@@ -10,6 +10,7 @@ import { TeamAvatarGroup } from "@/components/case-study/TeamAvatarGroup";
 import { DiscardedIdeasSection } from "@/components/case-study/DiscardedIdeasSection";
 import { ImagePlaceholder } from "@/components/case-study/ImagePlaceholder";
 import { RichText } from "@/components/case-study/RichText";
+import { AutoPlayVideo } from "@/components/media/AutoPlayVideo";
 import { ImageCompare } from "@/components/media/ImageCompare";
 
 const IMG = "/images/case-studies/eco-mio";
@@ -53,12 +54,18 @@ export default function EcoMioCaseStudyPage() {
 
   return (
     <main className="flex flex-col gap-24 pb-32 sm:gap-32">
-      {/* Hero: same layout as the Faircado hero. The blue panel holds the
-          same before/after drag-to-compare as the Context section (Concur
-          results without and with eco.mio). From lg up the panel keeps the
-          hero's fixed 1220:728 shape and the compare fills its height,
-          centred; below lg the panel hugs the full-width compare, since a
-          fixed tall shape would leave a band of empty blue on phones. */}
+      {/* Hero: same layout as the Faircado hero. The blue panel plays the
+          Concur to eco.mio recording on a loop (AutoPlayVideo: muted, still
+          first frame under reduced motion), with the Bayer logo where the
+          Faircado hero has its "featured by App Store" badge. From lg up the
+          panel keeps the hero's fixed 1220:728 shape, the video fills its
+          height centred, and the badge sits in the top-left corner; below lg
+          the badge goes back in flow above the video (Mobile Rule 2) and the
+          panel hugs its content, since a fixed tall shape would leave a band
+          of empty blue on phones. lg:p-[80px] leaves the corner badge room
+          beside the video instead of overlapping it. rounded-case-md clips
+          the recording's own window corners (~12px at this size), which are
+          off-white in the source and would show on the blue. */}
       <section className="mx-auto flex w-full max-w-[1220px] flex-col items-center gap-16 px-4 pt-20 sm:px-10 lg:gap-[110px] lg:pt-32">
         <div className="flex w-full max-w-[968px] flex-col gap-10 lg:gap-16">
           <span className={`flex size-16 items-center justify-center rounded-md ${ACCENT_BG}`}>
@@ -84,17 +91,21 @@ export default function EcoMioCaseStudyPage() {
           </div>
         </div>
         <div
-          className={`flex w-full items-center justify-center overflow-hidden rounded-case-mobile p-4 sm:rounded-case-2xl sm:p-10 lg:aspect-[1220/728] lg:rounded-case-3xl lg:p-[60px] ${ACCENT_BG}`}
+          className={`relative flex w-full flex-col items-center justify-center gap-4 overflow-hidden rounded-case-mobile p-4 sm:gap-6 sm:rounded-case-2xl sm:p-10 lg:aspect-[1220/728] lg:rounded-case-3xl lg:p-[80px] ${ACCENT_BG}`}
         >
-          <ImageCompare
-            label={context.compare.label}
-            before={context.compare.before}
-            after={context.compare.after}
-            width={context.compare.width}
-            height={context.compare.height}
-            corner={0}
-            labels={false}
-            className="w-full lg:h-full lg:w-auto lg:max-w-full"
+          <span className="self-start rounded-full bg-white px-3 py-2 shadow-[0px_4px_12.5px_0px_rgba(94,95,93,0.1)] lg:absolute lg:left-[3.6%] lg:top-[6%]">
+            <Image
+              src={hero.clientLogo.src}
+              alt={hero.clientLogo.alt}
+              width={hero.clientLogo.width}
+              height={hero.clientLogo.height}
+              className="h-auto w-24"
+            />
+          </span>
+          <AutoPlayVideo
+            src={hero.video.src}
+            alt={hero.video.alt}
+            className="aspect-[1800/1210] w-full rounded-case-md shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)] lg:h-full lg:w-auto lg:max-w-full"
           />
         </div>
       </section>

@@ -304,6 +304,12 @@ export type EcoMioContent = {
     headingLine1: string;
     headingLine2: string;
     description: RichSegment[];
+    // Looping screen recording in the blue hero panel, with its natural
+    // size for the aspect ratio before it loads.
+    video: { src: string; alt: string; width: number; height: number };
+    // Client logo badge in the panel's top-left corner (the Faircado hero's
+    // "featured by App Store" spot), at its natural size.
+    clientLogo: { src: string; alt: string; width: number; height: number };
   };
   roleInfo: {
     role: { title: string; subtitle: string };

@@ -30,6 +30,14 @@ export const ecoMio: EcoMioContent = {
       { text: "10% on travel costs a year", accent: true },
       ".",
     ],
+    video: {
+      src: "/videos/case-studies/eco-mio/hero-concur-to-eco-mio.mp4",
+      alt: "Screen recording in SAP Concur: a London to Amsterdam search lists 200+ flights, a Show recommendations button appears, and the list turns into eco.mio's three options, with Eurostar recommended as best value and greener",
+      width: 1800,
+      height: 1210,
+    },
+    // Same file the eco.mio Bayer prototypes use (162 x 55).
+    clientLogo: { src: `${IMG}/logo-bayer.jpg`, alt: "Bayer", width: 162, height: 55 },
   },
   roleInfo: {
     role: { title: "Product Designer", subtitle: "AI Product Engineer" },
