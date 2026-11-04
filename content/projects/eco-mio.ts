@@ -132,8 +132,8 @@ export const ecoMio: EcoMioContent = {
     // Owner's diagram of the old process, in the phone mockup slot
     // (780 x 1688, the mockup's exact 250:541 shape).
     processImage: {
-      src: `${IMG}/problem-old-process.png`,
-      alt: "Old process diagram: each demo bounced between Sales, PM and Design, back and forth through PM, adding up to 15 hours a month",
+      src: `${IMG}/problem-old-demo-process.png`,
+      alt: "Old demo process diagram: each demo bounced between Sales, PM and Design, back and forth through PM, whose part alone took 2 hours, for 5 hours per demo",
     },
   },
   approach: {
