@@ -166,9 +166,11 @@ export default function EcoMioCaseStudyPage() {
 
       {/* Context: same layout and card cluster as the Faircado Context
           section (heading block left, three tilted black-and-white cards
-          right, stacked below lg). */}
+          right, stacked below lg). Here the cards take the screenshots' own
+          shape so each booking tool shows whole, and on desktop the text
+          column is narrowed to 420px so the cluster can grow to 560px. */}
       <section className="relative mx-auto flex w-full max-w-[1220px] flex-col gap-12 px-4 max-sm:overflow-x-hidden sm:gap-16 sm:px-10 lg:flex-row lg:items-center lg:justify-between lg:gap-0">
-        <div className="w-full lg:max-w-[520px]" style={TEXT_COLUMN}>
+        <div className="w-full lg:max-w-[420px]" style={TEXT_COLUMN}>
           <SectionHeading
             eyebrow={context.eyebrow}
             heading={context.heading}
@@ -184,7 +186,7 @@ export default function EcoMioCaseStudyPage() {
             }
           />
         </div>
-        <ContextCardCluster cards={context.cards} />
+        <ContextCardCluster cards={context.cards} cardAspect="2564 / 2188" boxAspect="399 / 321" className="lg:max-w-[560px]" />
       </section>
 
       {/* Problem statement */}
