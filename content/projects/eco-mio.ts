@@ -11,7 +11,7 @@ export const ecoMio: EcoMioContent = {
     slug: "eco-mio",
     title: "Automating sales demos to cut 15h of work monthly",
     description:
-      "eco.mio turns a 200+ flight list into 3 recommendations, right inside each company’s travel booking tool. How I built Demo Studio, an automated demo maker that turned 5 hours of work into 30 minutes.",
+      "eco.mio turns 200+ flight options into 3 recommendations, right inside each company’s travel booking tool. How I built Demo Studio, an automated demo maker that turned 5 hours of work into 30 minutes.",
     year: "2026",
   },
   hero: {
@@ -20,8 +20,8 @@ export const ecoMio: EcoMioContent = {
     headingLine1: "Automating sales demos",
     headingLine2: "to cut 15h of work monthly",
     description: [
-      "eco.mio turns a ",
-      { text: "200+ flight list into 3 recommendations", accent: true },
+      "eco.mio turns ",
+      { text: "200+ flight options into 3 recommendations", accent: true },
       ", right inside each company’s travel booking tool. Clients like Bayer use it to save up to ",
       { text: "10% on travel costs a year", accent: true },
       ".",
