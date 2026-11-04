@@ -15,10 +15,7 @@ import type { ProcessSwimlaneData, SwimlaneNode } from "@/content/projects/types
 const CANVAS = { width: 2002, height: 652, radius: 67 };
 const LANE_Y = [186, 316, 446];
 const LANE_LINE = { x1: 340, x2: 1841 };
-// Lane names sit near the panel's left edge: at the full 1140px desktop
-// width the person icon lines up with the 40px card padding below the
-// diagram (the "Faster demos" card), owner's request.
-const LANE_HEADER = { iconX: 67, iconSize: 29, labelX: 112, fontSize: 27 };
+const LANE_HEADER = { iconX: 165, iconSize: 29, labelX: 210, fontSize: 27 };
 // Steps sit at even columns between the first and last measured nodes.
 const FIRST_STEP_X = 435.5;
 const LAST_STEP_X = 1728;
