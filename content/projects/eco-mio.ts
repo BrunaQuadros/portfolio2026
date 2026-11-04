@@ -9,7 +9,7 @@ const IMG = "/images/case-studies/eco-mio";
 export const ecoMio: EcoMioContent = {
   meta: {
     slug: "eco-mio",
-    title: "Automating sales demos to cut 15h of work monthly",
+    title: "Automating sales demo on AI recommendation engine",
     description:
       "eco.mio turns 200+ flight options into 3 recommendations, right inside each company’s travel booking tool. How I built Demo Studio, an automated demo maker that turned 5 hours of work into 30 minutes.",
     year: "2026",
@@ -17,8 +17,8 @@ export const ecoMio: EcoMioContent = {
   hero: {
     // Same file as the homepage card logo (identical bytes in Figma).
     logo: { src: "/images/home/logo-eco-mio.jpg", alt: "eco.mio logo" },
-    headingLine1: "Automating sales demos",
-    headingLine2: "to cut 15h of work monthly",
+    headingLine1: "Automating sales demo",
+    headingLine2: "on AI recommendation engine",
     description: [
       "eco.mio turns ",
       { text: "200+ flight options into 3 recommendations", accent: true },
@@ -36,8 +36,9 @@ export const ecoMio: EcoMioContent = {
       width: 1800,
       height: 1210,
     },
-    // Same file the eco.mio Bayer prototypes use (162 x 55).
-    clientLogo: { src: `${IMG}/logo-bayer.jpg`, alt: "Bayer", width: 162, height: 55 },
+    // White Bayer cross, rebuilt as a transparent PNG from the owner's JPG
+    // (which had a checkerboard baked in), shown straight on the blue.
+    clientLogo: { src: `${IMG}/logo-bayer-white.png`, alt: "Bayer", width: 256, height: 256 },
   },
   roleInfo: {
     role: { title: "Product Designer", subtitle: "AI Product Engineer" },

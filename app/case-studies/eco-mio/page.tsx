@@ -93,15 +93,13 @@ export default function EcoMioCaseStudyPage() {
         <div
           className={`relative flex w-full flex-col items-center justify-center gap-4 overflow-hidden rounded-case-mobile p-4 sm:gap-6 sm:rounded-case-2xl sm:p-10 lg:aspect-[1220/728] lg:rounded-case-3xl lg:p-[80px] ${ACCENT_BG}`}
         >
-          <span className="self-start rounded-full bg-white px-3 py-2 shadow-[0px_4px_12.5px_0px_rgba(94,95,93,0.1)] lg:absolute lg:left-[3.6%] lg:top-[6%]">
-            <Image
-              src={hero.clientLogo.src}
-              alt={hero.clientLogo.alt}
-              width={hero.clientLogo.width}
-              height={hero.clientLogo.height}
-              className="h-auto w-24"
-            />
-          </span>
+          <Image
+            src={hero.clientLogo.src}
+            alt={hero.clientLogo.alt}
+            width={hero.clientLogo.width}
+            height={hero.clientLogo.height}
+            className="size-10 self-start lg:absolute lg:left-[3.6%] lg:top-[6%]"
+          />
           <AutoPlayVideo
             src={hero.video.src}
             alt={hero.video.alt}
