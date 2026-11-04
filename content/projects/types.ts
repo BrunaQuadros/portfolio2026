@@ -288,9 +288,11 @@ export type FaircadoContent = {
   };
 };
 
-// A sentence stored as pieces: plain strings, or phrases marked bold and/or
-// in the brand accent color. Rendered by components/case-study/RichText.
-export type RichSegment = string | { text: string; bold?: boolean; accent?: boolean };
+// A sentence stored as pieces: plain strings, phrases marked bold and/or
+// in the brand accent color, or `{ br: true }` for an art-directed line
+// break that only applies on wide screens (Mobile Rule 4). Rendered by
+// components/case-study/RichText.
+export type RichSegment = string | { text: string; bold?: boolean; accent?: boolean } | { br: true };
 
 // eco.mio case study. Same section order as Faircado, but the copy uses
 // RichSegment paragraphs instead of per-phrase lead/accent/tail fields.

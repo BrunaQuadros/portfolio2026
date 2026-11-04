@@ -22,7 +22,11 @@ export const ecoMio: EcoMioContent = {
     description: [
       "eco.mio turns ",
       { text: "200+ flight options into 3 recommendations", accent: true },
-      ", right inside each company’s travel booking tool. Clients like Bayer use it to save up to ",
+      ",",
+      { br: true },
+      "right inside each company’s travel booking tool. Clients like",
+      { br: true },
+      "Bayer use it to save up to ",
       { text: "10% on travel costs a year", accent: true },
       ".",
     ],

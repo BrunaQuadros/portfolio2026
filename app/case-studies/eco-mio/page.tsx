@@ -72,8 +72,14 @@ export default function EcoMioCaseStudyPage() {
               <br className="hidden lg:block" />{" "}
               {hero.headingLine2}
             </h1>
-            <p className="font-manrope text-[22px] leading-[1.4] tracking-[-0.5px] text-portfolio-grey-900 sm:text-[28px] lg:text-[40px] lg:leading-[60px] lg:tracking-[-1.2px]">
-              <RichText segments={hero.description} accentClass={ACCENT_TEXT} />
+            {/* From xl up the description is set in three art-directed
+                lines (owner's layout); they're ~1040px long at 40px, wider
+                than the 968px hero column, so the paragraph sizes to its
+                longest line (w-max) and runs past the column on the right.
+                Below xl (where 1040px no longer fits) the breaks are hidden
+                and the text wraps naturally inside the column. */}
+            <p className="font-manrope text-[22px] leading-[1.4] tracking-[-0.5px] text-portfolio-grey-900 sm:text-[28px] lg:text-[40px] lg:leading-[60px] lg:tracking-[-1.2px] xl:w-max xl:max-w-none">
+              <RichText segments={hero.description} accentClass={ACCENT_TEXT} breakClass="hidden xl:inline" />
             </p>
           </div>
         </div>

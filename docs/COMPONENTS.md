@@ -38,7 +38,7 @@ Most of these categories are empty right now, add them as real components are bu
 - `TagPill.tsx` — small rounded icon + label pill (e.g. "Awareness", "Match accuracy"). Shared across problem cards, results cards, and every solution section
 - `SolutionSection.tsx` — one of the three big numbered sections (01/, 02/, 03/), each holding cards with a tag, heading, and mobile screenshots
 - `ImagePlaceholder.tsx` — flat `portfolio-grey-400` box standing in for a screenshot, avatar or icon not exported from Figma yet. Takes the size/corner classes of the image it replaces; `label` gives screen readers the slot's meaning. Images in content without a `src` render through it (phones in `SolutionSection` and `DiscardedIdeasSection`, the `TeamAvatarGroup` photo)
-- `RichText.tsx` — renders a sentence stored as `RichSegment[]` (plain strings plus `{ text, bold?, accent? }` pieces), so content files can mark bold or brand-colored phrases anywhere in a sentence. First used on eco.mio
+- `RichText.tsx` — renders a sentence stored as `RichSegment[]` (plain strings plus `{ text, bold?, accent? }` pieces), so content files can mark bold or brand-colored phrases anywhere in a sentence. `{ br: true }` is an art-directed line break shown only from `breakClass` up (default `hidden lg:inline`, Mobile Rule 4); the eco.mio hero uses `hidden xl:inline` because its three lines are wider than the hero column. First used on eco.mio
 
 Theming for a second case study (added for eco.mio, 2026-11-03). Every prop below is optional and defaults to the Faircado value, so Faircado renders unchanged:
 - `accentClass` on `SectionHeading` (eyebrow color), `TeamAvatarGroup` ("+N" badge background), `TestimonialCard` (number color) and `DiscardedIdeasSection` (passed to its heading)
