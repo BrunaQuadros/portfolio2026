@@ -272,19 +272,40 @@ export const ecoMio: EcoMioContent = {
     eyebrow: "FINAL SOLUTION",
     heading: "Demo Studio, the demo maker",
     body: "An internal tool anyone can use. Create a demo, add the client and routes, upload three screenshots, publish. One person, no handovers.",
-    // A first look at Demo Studio before the three numbered sections, about
-    // decentralization (anyone can build a demo). Video placeholder until
-    // the owner sends the recording.
-    preview: {
-      tag: "Decentralization",
-      tagIcon: `${IMG}/icon-tag-decentralization.png`,
-      heading: "Anyone can build a demo",
-      video: { alt: "Demo Studio preview video, coming soon", aspectClass: "aspect-[2884/1940]" },
-    },
   },
   solutionSections: [
     {
       number: "01.",
+      title: "Decentralization",
+      tag: "Decentralization",
+      tagIcon: `${IMG}/icon-tag-decentralization.png`,
+      blocks: [
+        // First look at Demo Studio (it opens the solution sections).
+        // Video placeholder until the owner sends the recording.
+        {
+          heading: "Anyone can build a demo",
+          images: [],
+          video: { alt: "Demo Studio preview video, coming soon", aspectClass: "aspect-[2884/1940]" },
+        },
+        {
+          heading: "Every field stays editable when a screenshot can't be read",
+          images: [
+            { alt: "CMS-style backend, coming soon", caption: "CMS-style backend, every field editable" },
+            { alt: "Logo library picker, coming soon", caption: "Logos fill from a library, with manual upload as backup" },
+          ],
+        },
+        {
+          heading: "One click publishes a live link anyone can share",
+          headingMaxWidth: 538,
+          images: [
+            { alt: "Publish button, coming soon", caption: "Publish in one click" },
+            { alt: "The published demo link, coming soon", caption: "A live link the client keeps" },
+          ],
+        },
+      ],
+    },
+    {
+      number: "02.",
       title: "Automation",
       tag: "Automation",
       tagIcon: `${IMG}/icon-tag-automation.png`,
@@ -323,7 +344,7 @@ export const ecoMio: EcoMioContent = {
       ],
     },
     {
-      number: "02.",
+      number: "03.",
       title: "Personalization",
       tag: "Personalization",
       tagIcon: `${IMG}/icon-tag-personalization.png`,
@@ -345,29 +366,6 @@ export const ecoMio: EcoMioContent = {
           images: [
             { alt: "The demo in Egencia, coming soon", caption: "The demo in Egencia" },
             { alt: "The same demo in Concur and Cytric, coming soon", caption: "The same demo in Concur and Cytric" },
-          ],
-        },
-      ],
-    },
-    {
-      number: "03.",
-      title: "Decentralization",
-      tag: "Decentralization",
-      tagIcon: `${IMG}/icon-tag-decentralization.png`,
-      blocks: [
-        {
-          heading: "Every field stays editable when a screenshot can't be read",
-          images: [
-            { alt: "CMS-style backend, coming soon", caption: "CMS-style backend, every field editable" },
-            { alt: "Logo library picker, coming soon", caption: "Logos fill from a library, with manual upload as backup" },
-          ],
-        },
-        {
-          heading: "One click publishes a live link anyone can share",
-          headingMaxWidth: 538,
-          images: [
-            { alt: "Publish button, coming soon", caption: "Publish in one click" },
-            { alt: "The published demo link, coming soon", caption: "A live link the client keeps" },
           ],
         },
       ],
