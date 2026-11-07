@@ -341,16 +341,16 @@ export const ecoMio: EcoMioContent = {
       tagIcon: `${IMG}/icon-tag-personalization.png`,
       blocks: [
         {
-          heading: "High-fidelity Egencia, Concur and Cytric layouts",
+          heading: "Easily edit routes and dates. Switch between class or emission highlights.",
           images: [],
           // Video placeholder until the owner sends the recording.
-          video: { alt: "The demo in Egencia, Concur and Cytric layouts, video coming soon", aspectClass: "aspect-[2884/1940]" },
+          video: { alt: "Editing a demo's routes and dates and switching its highlights, video coming soon", aspectClass: "aspect-[2884/1940]" },
         },
         {
-          heading: "Routes, dates, emissions or class are easily editable",
+          heading: "Easy switch to client’s OBT",
           images: [],
           // Video placeholder until the owner sends the recording.
-          video: { alt: "Editing a demo's routes, dates, emissions and class, video coming soon", aspectClass: "aspect-[2884/1940]" },
+          video: { alt: "Switching the demo to the client's booking tool, video coming soon", aspectClass: "aspect-[2884/1940]" },
         },
       ],
     },
