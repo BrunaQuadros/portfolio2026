@@ -329,7 +329,7 @@ export const ecoMio: EcoMioContent = {
       tagIcon: `${IMG}/icon-tag-personalization.png`,
       blocks: [
         {
-          heading: "Built on eco.mio's own components, so the demo is the product",
+          heading: "High-fidelity Egencia, Concur and Cytric layouts",
           images: [
             {
               alt: "The full demo flow, coming soon",
