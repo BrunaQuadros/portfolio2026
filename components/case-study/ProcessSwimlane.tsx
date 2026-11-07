@@ -265,15 +265,22 @@ export function ProcessSwimlane({ diagram, className = "" }: ProcessSwimlaneProp
             className="group absolute z-20 hidden cursor-zoom-in rounded-md outline-none ring-white/60 transition-shadow hover:ring-4 focus-visible:ring-4 lg:block"
             style={{ left: pctX(x - halfW), top: pctY(y - halfH), width: pctX(halfW * 2), height: pctY(halfH * 2) }}
           >
-            <span className="pointer-events-none absolute bottom-[calc(100%+16px)] left-1/2 block w-[560px] -translate-x-1/2 translate-y-2 overflow-hidden rounded-case-md bg-white opacity-0 shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)] transition duration-200 ease-out group-hover:translate-y-0 group-hover:opacity-100 group-focus-visible:translate-y-0 group-focus-visible:opacity-100">
-              <Image
-                src={step.preview.src}
-                alt={step.preview.alt}
-                width={step.preview.width}
-                height={step.preview.height}
-                sizes="560px"
-                className="block h-auto w-full"
-              />
+            {/* The preview is part of the button, so moving the mouse up onto
+                it keeps it open; its transparent pb-4 bridges the 16px gap
+                above the node so the hover isn't lost on the way. It only
+                takes pointer events while shown. 600px screenshot inside a
+                24px white margin. */}
+            <span className="pointer-events-none absolute bottom-full left-1/2 block -translate-x-1/2 translate-y-2 pb-4 opacity-0 transition duration-200 ease-out group-hover:pointer-events-auto group-hover:translate-y-0 group-hover:opacity-100 group-focus-visible:translate-y-0 group-focus-visible:opacity-100">
+              <span className="block w-[648px] cursor-default rounded-case-md bg-white p-6 shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)]">
+                <Image
+                  src={step.preview.src}
+                  alt={step.preview.alt}
+                  width={step.preview.width}
+                  height={step.preview.height}
+                  sizes="600px"
+                  className="block h-auto w-full"
+                />
+              </span>
             </span>
           </button>
         );

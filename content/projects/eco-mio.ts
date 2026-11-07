@@ -145,7 +145,10 @@ export const ecoMio: EcoMioContent = {
   // the owner's "Copy round 2" artboard, 2026-11-04.
   approach: {
     eyebrow: "MY PROCESS",
-    heading: "Audit → Align → Scope",
+    // Read by screen readers; on screen the heading is the numbered
+    // 01 / 02 / 03 row made from `stepNames`.
+    heading: "Audit, Align, Scope",
+    stepNames: ["Audit", "Align", "Scope"],
     body: [
       "After my second demo, I knew this couldn’t keep going. ",
       { text: "The solution was left open for me to create,", bold: true, accent: true },

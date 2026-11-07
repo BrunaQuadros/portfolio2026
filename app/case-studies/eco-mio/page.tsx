@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, MoveRight } from "lucide-react";
 import { ecoMio } from "@/content/projects/eco-mio";
 import { SectionHeading } from "@/components/case-study/SectionHeading";
 import { ProblemCard } from "@/components/case-study/ProblemCard";
@@ -286,18 +286,52 @@ export default function EcoMioCaseStudyPage() {
           sit 160px under the step above (owner's request). lg:mt-10 matches the extra breathing room
           Faircado adds after the Challenge panel. */}
       <section className="mx-auto flex w-full max-w-[1220px] flex-col gap-24 px-4 sm:px-10 lg:mt-10">
-        <div style={TEXT_COLUMN}>
-          <SectionHeading
-            eyebrow={approach.eyebrow}
-            heading={approach.heading}
-            body={
-              <p>
-                <RichText segments={approach.body} accentClass={ACCENT_TEXT} />
-              </p>
-            }
-            accentClass={ACCENT_TEXT}
-            className="max-w-[640px]"
-          />
+        {/* The heading block, then the numbered step row as the visible
+            heading: the h2 itself is screen-reader only (sr-only takes it
+            out of the flex flow, so no gap is left where it sits). */}
+        <div className="flex flex-col gap-12">
+          <div style={TEXT_COLUMN}>
+            <SectionHeading
+              eyebrow={approach.eyebrow}
+              heading={<span className="sr-only">{approach.heading}</span>}
+              body={
+                <p>
+                  <RichText segments={approach.body} accentClass={ACCENT_TEXT} />
+                </p>
+              }
+              accentClass={ACCENT_TEXT}
+              className="max-w-[640px]"
+            />
+          </div>
+          {/* Faircado's Takeaways layout: a big pale-grey 01 / 02 / 03 behind
+              each column (same numeral files), the step name where Faircado
+              has its quote, and blue arrows linking one column to the next. */}
+          <div aria-hidden="true" className="grid grid-cols-3 gap-4 sm:gap-10">
+            {approach.stepNames.map((name, i) => (
+              <div key={name} className="relative">
+                <img
+                  src={`/images/case-studies/faircado/takeaways-number-0${i + 1}.svg`}
+                  alt=""
+                  className="pointer-events-none absolute left-0 top-0 -z-10 w-[calc(68%+40px)]"
+                />
+                {/* pt-[109px] from sm: the name sits where Faircado's quote
+                    starts (pt-14, its 29px quote mark and 24px gap). */}
+                <div className="relative pl-3 pt-8 sm:pl-10 sm:pt-[109px]">
+                  <p className="font-manrope font-bold text-[24px] leading-[32px] tracking-[-0.5px] text-portfolio-grey-900 sm:text-[28px] sm:leading-[38px]">
+                    {name}
+                  </p>
+                  {/* Centred in the gap to the next column (16px on phones,
+                      40px from sm), level with the name. */}
+                  {i < approach.stepNames.length - 1 ? (
+                    <MoveRight
+                      strokeWidth={2.5}
+                      className={`absolute bottom-1.5 -right-[18px] size-5 sm:bottom-1 sm:-right-9 sm:size-8 ${ACCENT_TEXT}`}
+                    />
+                  ) : null}
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
 
         {/* 1. Audit: the old process diagram, drawn in code

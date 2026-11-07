@@ -384,6 +384,8 @@ export type EcoMioContent = {
   approach: {
     eyebrow: string;
     heading: string;
+    // The three step names in the big numbered row under the heading.
+    stepNames: string[];
     body: RichSegment[];
     audit: {
       label: string;
