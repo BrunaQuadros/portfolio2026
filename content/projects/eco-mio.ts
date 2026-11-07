@@ -153,11 +153,9 @@ export const ecoMio: EcoMioContent = {
       label: "1. Audit",
       heading: "Process complexity, mapped",
       body: [
-        "One demo took ",
-        { text: "6 handoffs across 3 roles", bold: true },
-        " and 5 hours. Most of it went to two manual steps: ",
-        { text: "2h of Notion flight screenshots and 3h of Figma by hand", bold: true },
-        ". Vague briefs left the PM and me guessing what sales needed.",
+        "One demo bounced across 3 roles and 6 handoffs. ",
+        { text: "Two bottlenecks ate most of the 5 hours.", bold: true, accent: true },
+        " Vague briefs made both slower.",
       ],
       caption: "The old process, from Trello brief to final Figma link.",
       // Drawn in code (ProcessSwimlane): steps run left to right, `lane` is

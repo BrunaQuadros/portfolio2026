@@ -339,7 +339,7 @@ export default function EcoMioCaseStudyPage() {
               heading={approach.audit.heading}
               body={
                 <p>
-                  <RichText segments={approach.audit.body} />
+                  <RichText segments={approach.audit.body} accentClass={ACCENT_TEXT} />
                 </p>
               }
               accentClass={ACCENT_TEXT}

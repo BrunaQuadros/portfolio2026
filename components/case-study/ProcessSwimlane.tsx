@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Clock, Link as LinkIcon, MessageCircleQuestionMark, Send, Undo2, User } from "lucide-react";
+import { Link as LinkIcon, MessageCircleQuestionMark, Send, Undo2, User } from "lucide-react";
 import type { ProcessSwimlaneData, SwimlaneNode } from "@/content/projects/types";
 
 // A horizontal "who does what" process diagram: three lanes (people) and a
@@ -21,9 +21,13 @@ const LANE_HEADER = { iconX: 165, iconSize: 29, labelX: 210, fontSize: 27 };
 const FIRST_STEP_X = 435.5;
 const LAST_STEP_X = 1728;
 const LABEL = { fontSize: 22, gapAbove: 12, gapBelow: 28 };
-// Bottleneck time badge: a dark pill above the node, `gap` above its top,
-// nudged `dx` right so it clears the line coming in from the upper left.
-const BADGE = { height: 40, width: 96, gap: 14, dx: 18, iconSize: 22, fontSize: 22 };
+// Bottleneck hover layer: a hand-drawn loop around each step with a
+// `duration`, holding its node and label, plus the time written by hand
+// beside it (owner's spec).
+const LOOP = { padTop: 24, padBottom: 28, padSide: 30, cornerPad: 16, strokeWidth: 5 };
+const HANDWRITING = { fontSize: 44 };
+// Rough width of a label, in canvas units (Manrope semibold ~0.52em a character).
+const labelHalfWidth = (text: string) => (text.length * LABEL.fontSize * 0.52) / 2;
 // The big decorative ring in the top-right corner, cropped by the panel.
 const RING = { cx: 1973, cy: -191, r: 391.5, width: 117 };
 
@@ -147,19 +151,45 @@ function FigmaNode({ cx, cy }: { cx: number; cy: number }) {
   );
 }
 
-// "2h" in a navy pill with a yellow clock, marking a bottleneck step.
-function DurationBadge({ cx, bottom, text }: { cx: number; bottom: number; text: string }) {
-  const x = cx + BADGE.dx - BADGE.width / 2;
-  const y = bottom - BADGE.height;
-  return (
-    <g>
-      <rect x={x} y={y} width={BADGE.width} height={BADGE.height} rx={BADGE.height / 2} className="fill-eco-mio-navy-900" />
-      <Icon as={Clock} cx={x + 30} cy={y + BADGE.height / 2} size={BADGE.iconSize} className="text-eco-mio-yellow-400" />
-      <text x={x + 48} y={y + BADGE.height / 2 + 8} fontSize={BADGE.fontSize} fontWeight={700} className="fill-white">
-        {text}
-      </text>
-    </g>
-  );
+// A hand-drawn loop: a slightly wobbly, slightly tilted ellipse that runs
+// a little past its start and spirals outward, so its ends overlap like a
+// pen loop. Points are smoothed into curves (Catmull-Rom to cubic Bezier).
+function loopPath(cx: number, cy: number, rx: number, ry: number) {
+  const start = Math.PI * 1.1;
+  const sweep = Math.PI * 2 + 0.5;
+  const steps = 28;
+  const tilt = (-4 * Math.PI) / 180;
+  const points = Array.from({ length: steps + 1 }, (_, i) => {
+    const t = start + (sweep * i) / steps;
+    const wobble = 1 + 0.035 * Math.sin(3 * t + 1) + (0.06 * i) / steps;
+    const px = rx * wobble * Math.cos(t);
+    const py = ry * wobble * Math.sin(t);
+    return [cx + px * Math.cos(tilt) - py * Math.sin(tilt), cy + px * Math.sin(tilt) + py * Math.cos(tilt)];
+  });
+  const round = (n: number) => Math.round(n * 10) / 10;
+  let d = `M${round(points[0][0])} ${round(points[0][1])}`;
+  for (let i = 0; i < points.length - 1; i++) {
+    const p0 = points[Math.max(i - 1, 0)];
+    const [p1, p2] = [points[i], points[i + 1]];
+    const p3 = points[Math.min(i + 2, points.length - 1)];
+    const c1 = [p1[0] + (p2[0] - p0[0]) / 6, p1[1] + (p2[1] - p0[1]) / 6];
+    const c2 = [p2[0] - (p3[0] - p1[0]) / 6, p2[1] - (p3[1] - p1[1]) / 6];
+    d += ` C${round(c1[0])} ${round(c1[1])} ${round(c2[0])} ${round(c2[1])} ${round(p2[0])} ${round(p2[1])}`;
+  }
+  return d;
+}
+
+// The loop's ellipse for a step: it holds the node and its label (below
+// it), and is wide enough that the node's corners sit inside the curve.
+function loopFor(x: number, y: number, node: SwimlaneNode, label: string, labelY: number) {
+  const top = y - HALF_HEIGHT[node] - LOOP.padTop;
+  const bottom = labelY + LOOP.padBottom;
+  const cy = (top + bottom) / 2;
+  const ry = (bottom - top) / 2;
+  const cornerDy = (y - HALF_HEIGHT[node] - cy) / ry;
+  const rxForCorners = HALF_WIDTH[node] / Math.sqrt(1 - cornerDy * cornerDy) + LOOP.cornerPad;
+  const rx = Math.max(labelHalfWidth(label) + LOOP.padSide, rxForCorners);
+  return { cx: x, cy, rx, ry };
 }
 
 function StepNode({ node, cx, cy, colors }: { node: SwimlaneNode; cx: number; cy: number; colors: Colors }) {
@@ -203,7 +233,7 @@ export function ProcessSwimlane({ diagram, className = "" }: ProcessSwimlaneProp
   return (
     // The wrapper takes the sizing classes; the SVG fills it, and any
     // preview hover targets sit over their nodes in percentages.
-    <div className={`relative ${className}`}>
+    <div className={`group/diagram relative ${className}`}>
       <svg
         viewBox={`0 0 ${CANVAS.width} ${CANVAS.height}`}
         role="img"
@@ -250,9 +280,17 @@ export function ProcessSwimlane({ diagram, className = "" }: ProcessSwimlaneProp
             // link review pill) instead of centring it.
             const labelX = step.labelAlign === "start" ? x - 46 : x;
             return (
-              <g key={`${step.label}-${i}`}>
+              // Steps without a duration fade to 40% while the diagram is
+              // hovered, so the bottlenecks stand out.
+              <g
+                key={`${step.label}-${i}`}
+                className={
+                  step.duration
+                    ? undefined
+                    : "transition-opacity duration-300 group-hover/diagram:opacity-40 motion-reduce:transition-none"
+                }
+              >
                 <StepNode node={step.node} cx={x} cy={y} colors={colors} />
-              {step.duration ? <DurationBadge cx={x} bottom={y - half - BADGE.gap} text={step.duration} /> : null}
                 <text
                   x={labelX}
                   y={labelY}
@@ -263,6 +301,47 @@ export function ProcessSwimlane({ diagram, className = "" }: ProcessSwimlaneProp
                 >
                   {step.label}
                 </text>
+              </g>
+            );
+          })}
+
+          {/* Bottleneck hover layer, drawn on top: a loop around each step
+              with a duration, drawing itself in 700ms (the second 150ms
+              later), then its time written by hand fading in and rising 6px
+              (500ms and 650ms in, over 350ms). The first time sits to the
+              lower left of its loop, the others to the right. pathLength 1
+              lets the dash offset animate the whole stroke. */}
+          {steps.map((step, i) => {
+            if (!step.duration) return null;
+            const order = steps.slice(0, i).filter((s) => s.duration).length;
+            const { x, y } = points[i];
+            const half = HALF_HEIGHT[step.node];
+            const labelY = step.labelPosition === "above" ? y - half - LABEL.gapAbove : y + half + LABEL.gapBelow;
+            const loop = loopFor(x, y, step.node, step.label, labelY);
+            const first = order === 0;
+            const textX = first ? loop.cx - loop.rx * 0.78 : loop.cx + loop.rx + 18;
+            const textY = first ? loop.cy + loop.ry + 30 : loop.cy + 30;
+            return (
+              <g key={`bottleneck-${i}`} aria-hidden="true">
+                <path
+                  d={loopPath(loop.cx, loop.cy, loop.rx, loop.ry)}
+                  pathLength={1}
+                  fill="none"
+                  strokeWidth={LOOP.strokeWidth}
+                  strokeLinecap="round"
+                  className={`stroke-eco-mio-yellow-300 [stroke-dasharray:1] [stroke-dashoffset:1] transition-[stroke-dashoffset] duration-700 ease-out group-hover/diagram:[stroke-dashoffset:0] motion-reduce:transition-none ${first ? "" : "group-hover/diagram:delay-150"}`}
+                />
+                <g transform={`rotate(${first ? -8 : -6} ${textX} ${textY})`}>
+                  <text
+                    x={textX}
+                    y={textY}
+                    fontSize={HANDWRITING.fontSize}
+                    textAnchor={first ? "end" : "start"}
+                    className={`fill-eco-mio-yellow-300 font-handwritten font-bold opacity-0 translate-y-[6px] transition duration-350 ease-out group-hover/diagram:translate-y-0 group-hover/diagram:opacity-100 motion-reduce:transition-none ${first ? "group-hover/diagram:delay-500" : "group-hover/diagram:delay-650"}`}
+                  >
+                    {step.duration}
+                  </text>
+                </g>
               </g>
             );
           })}
