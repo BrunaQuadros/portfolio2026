@@ -288,12 +288,10 @@ export const ecoMio: EcoMioContent = {
           video: { alt: "Demo Studio preview video, coming soon", aspectClass: "aspect-[2884/1940]" },
         },
         {
-          heading: "One click publishes a live link anyone can share",
-          headingMaxWidth: 538,
-          images: [
-            { alt: "Publish button, coming soon", caption: "Publish in one click" },
-            { alt: "The published demo link, coming soon", caption: "A live link the client keeps" },
-          ],
+          heading: "Hit publish to create a demo",
+          images: [],
+          // Video placeholder until the owner sends the recording.
+          video: { alt: "Publishing a demo in one click, video coming soon", aspectClass: "aspect-[2884/1940]" },
         },
       ],
     },
