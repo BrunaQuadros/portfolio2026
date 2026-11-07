@@ -271,11 +271,14 @@ export const ecoMio: EcoMioContent = {
   finalSolution: {
     eyebrow: "FINAL SOLUTION",
     heading: "Demo Studio: the automated demo maker",
-    body: "Create a demo, add the client and routes, upload three screenshots, publish. One person, no handovers.",
-    // A first look at Demo Studio as a whole, before the three numbered
-    // sections. Video placeholder until the owner sends the recording.
+    body: "An internal tool anyone can use. Create a demo, add the client and routes, upload three screenshots, publish. One person, no handovers.",
+    // A first look at Demo Studio before the three numbered sections, about
+    // decentralization (anyone can build a demo). Video placeholder until
+    // the owner sends the recording.
     preview: {
-      heading: "An internal tool anyone can use",
+      tag: "Decentralization",
+      tagIcon: `${IMG}/icon-tag-decentralization.png`,
+      heading: "Anyone on the team can build a demo",
       video: { alt: "Demo Studio preview video, coming soon", aspectClass: "aspect-[2884/1940]" },
     },
   },
@@ -306,12 +309,10 @@ export const ecoMio: EcoMioContent = {
           },
         },
         {
-          heading: "From 36+ fields typed by hand to one upload",
+          heading: "Every field remains editable",
           images: [],
-          beforeAfter: {
-            before: { alt: "Demo fields typed by hand, coming soon" },
-            after: { alt: "Demo fields filled from one upload, coming soon" },
-          },
+          // Video placeholder until the owner sends the recording.
+          video: { alt: "Editing a filled-in demo field, video coming soon", aspectClass: "aspect-[2884/1940]" },
         },
       ],
     },

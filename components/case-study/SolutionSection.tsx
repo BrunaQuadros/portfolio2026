@@ -508,12 +508,19 @@ export function SolutionSection({
                 // 1440 (its panel's 520px content height x the 1.49 video
                 // shape). Starts from the beginning once it's on screen.
                 <div className="relative mb-6 w-full lg:mb-10 lg:max-w-[774px]">
-                  <AutoPlayVideo
-                    src={block.video.src}
-                    alt={block.video.alt}
-                    startOnView
-                    className={`w-full rounded-case-md shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)] ${block.video.aspectClass}`}
-                  />
+                  {block.video.src ? (
+                    <AutoPlayVideo
+                      src={block.video.src}
+                      alt={block.video.alt}
+                      startOnView
+                      className={`w-full rounded-case-md shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)] ${block.video.aspectClass}`}
+                    />
+                  ) : (
+                    <ImagePlaceholder
+                      label={block.video.alt}
+                      className={`w-full rounded-case-md shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)] ${block.video.aspectClass}`}
+                    />
+                  )}
                   {/* Portrait image overlapping the video's lower left
                       corner, sized as a share of the video so it scales with
                       it; it pokes out 6% past the left edge (another 40px

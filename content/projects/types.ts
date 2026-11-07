@@ -147,8 +147,9 @@ export type SolutionBlock = {
   // "aspect-[2884/1940]"). `overlay` is an image overlapping the video's
   // lower left corner (a grey 3:4 placeholder while it has no `src`); its
   // own `aspectClass` keeps the image's shape.
+  // Without `src` the video is a grey placeholder of the same size.
   video?: {
-    src: string;
+    src?: string;
     alt: string;
     aspectClass: string;
     overlay?: { src?: string; alt: string; aspectClass?: string };
@@ -435,7 +436,12 @@ export type EcoMioContent = {
     body: string;
     // Grey card under the intro: a heading and a video (placeholder while
     // it has no `src`).
-    preview: { heading: string; video: { src?: string; alt: string; aspectClass: string } };
+    preview: {
+      tag: string;
+      tagIcon: string;
+      heading: string;
+      video: { src?: string; alt: string; aspectClass: string };
+    };
   };
   solutionSections: (SolutionSection & { tagIcon?: string })[];
   discardedIdeas: {

@@ -471,12 +471,12 @@ export default function EcoMioCaseStudyPage() {
 
       {/* Final solution intro, then a preview card: Demo Studio as a whole
           before the three numbered sections. The card is styled like a
-          solution block (grey card, centred heading) without a tag pill,
+          solution block (grey card, Decentralization pill, centred heading),
           and its video sits like the Automation recording (full width below
           lg, 774px from lg, rounded with a soft shadow). lg:mt-5: same extra
           desktop gap as Faircado. */}
       <section className="mx-auto flex w-full max-w-[1220px] flex-col gap-12 px-4 sm:gap-16 sm:px-10 lg:mt-5">
-        <div className="mx-auto w-full max-w-[600px] sm:px-10">
+        <div className="mx-auto w-full max-w-[680px] sm:px-10">
           <SectionHeading
             eyebrow={finalSolution.eyebrow}
             heading={finalSolution.heading}
@@ -485,8 +485,14 @@ export default function EcoMioCaseStudyPage() {
             accentClass={ACCENT_TEXT}
           />
         </div>
-        <div className="flex w-full flex-col items-center gap-15 rounded-case-mobile bg-portfolio-grey-50 px-6 pb-15 pt-10 sm:rounded-case-3xl sm:px-10">
-          <p className="max-w-[640px] text-center font-manrope font-bold text-[24px] leading-[32px] tracking-[-0.5px] text-portfolio-grey-900 sm:text-[28px] sm:leading-[38px]">
+        <div className="relative flex w-full flex-col items-center gap-15 rounded-case-mobile bg-portfolio-grey-50 px-6 pb-15 pt-10 sm:rounded-case-3xl sm:px-10">
+          {/* Same small pill as the solution blocks: in the top-left corner
+              from xl, centred above the heading below it (-mt-9 tightens the
+              gap to 24px there). */}
+          <div className="self-center xl:absolute xl:left-10 xl:top-10 xl:self-auto">
+            <TagPill label={finalSolution.preview.tag} icon={finalSolution.preview.tagIcon} size="sm" />
+          </div>
+          <p className="-mt-9 max-w-[640px] text-center font-manrope xl:mt-0 font-bold text-[24px] leading-[32px] tracking-[-0.5px] text-portfolio-grey-900 sm:text-[28px] sm:leading-[38px]">
             {finalSolution.preview.heading}
           </p>
           {finalSolution.preview.video.src ? (
