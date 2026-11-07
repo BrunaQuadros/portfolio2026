@@ -213,9 +213,9 @@ export const ecoMio: EcoMioContent = {
           tagIcon: `${IMG}/icon-tag-personalization.png`,
           heading: "Even more tailored",
           body: [
-            "Sales showed that clients expect ",
+            "Sales showed that clients expect even ",
             { text: "higher quality", bold: true },
-            ", on their own routes and in their own OBT.",
+            " than we were delivering.",
           ],
         },
         {
