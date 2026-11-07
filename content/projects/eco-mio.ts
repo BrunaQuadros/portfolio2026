@@ -203,8 +203,8 @@ export const ecoMio: EcoMioContent = {
           tagIcon: `${IMG}/icon-tag-automation.png`,
           heading: "Faster demos",
           body: [
-            "Reduce the 5h of manual work with AI, starting with the bottlenecks: ",
-            { text: "PM and design", bold: true },
+            "Reduce the 5h of manual work with AI, especially on ",
+            { text: "the bottlenecks", bold: true },
             ".",
           ],
         },
