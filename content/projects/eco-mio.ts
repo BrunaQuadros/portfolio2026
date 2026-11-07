@@ -288,13 +288,6 @@ export const ecoMio: EcoMioContent = {
           video: { alt: "Demo Studio preview video, coming soon", aspectClass: "aspect-[2884/1940]" },
         },
         {
-          heading: "Every field stays editable when a screenshot can't be read",
-          images: [
-            { alt: "CMS-style backend, coming soon", caption: "CMS-style backend, every field editable" },
-            { alt: "Logo library picker, coming soon", caption: "Logos fill from a library, with manual upload as backup" },
-          ],
-        },
-        {
           heading: "One click publishes a live link anyone can share",
           headingMaxWidth: 538,
           images: [
