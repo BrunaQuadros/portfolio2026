@@ -287,7 +287,7 @@ export const ecoMio: EcoMioContent = {
             src: "/videos/case-studies/eco-mio/automation-autofill.mp4",
             alt: "Demo Studio: three flight screenshots are uploaded and AI fills in every field of the demo",
             aspectClass: "aspect-[2884/1940]",
-            // Slot for an image overlapping the video's lower right corner
+            // Slot for an image overlapping the video's lower left corner
             // (grey placeholder until the owner picks one).
             overlay: { alt: "Image coming soon" },
           },

@@ -511,11 +511,11 @@ export function SolutionSection({
                     startOnView
                     className={`w-full rounded-case-md shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)] ${block.video.aspectClass}`}
                   />
-                  {/* Portrait image overlapping the video's lower right
+                  {/* Portrait image overlapping the video's lower left
                       corner, sized as a share of the video so it scales with
-                      it; it pokes out 6% past the right edge and 8% below. */}
+                      it; it pokes out 6% past the left edge and 8% below. */}
                   {block.video.overlay ? (
-                    <div className="absolute -bottom-[8%] -right-[6%] aspect-[3/4] w-[26%] overflow-hidden rounded-case-md shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)]">
+                    <div className="absolute -bottom-[8%] -left-[6%] aspect-[3/4] w-[26%] overflow-hidden rounded-case-md shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)]">
                       {block.video.overlay.src ? (
                         <Image src={block.video.overlay.src} alt={block.video.overlay.alt} fill className="object-cover" />
                       ) : (
