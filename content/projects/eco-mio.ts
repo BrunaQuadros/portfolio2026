@@ -270,7 +270,7 @@ export const ecoMio: EcoMioContent = {
   },
   finalSolution: {
     eyebrow: "FINAL SOLUTION",
-    heading: "Demo Studio: the automated demo maker",
+    heading: "Demo Studio, the demo maker",
     body: "An internal tool anyone can use. Create a demo, add the client and routes, upload three screenshots, publish. One person, no handovers.",
     // A first look at Demo Studio before the three numbered sections, about
     // decentralization (anyone can build a demo). Video placeholder until
