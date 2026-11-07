@@ -33,10 +33,10 @@ type SolutionSectionProps = {
   // "Decentralization", 15-16 letters), which at the default 152px would
   // overflow the 1140px content width. Faircado's titles use the default.
   longTitle?: boolean;
-  // Keep the tag pill in flow above the block heading up to xl (1280px)
-  // instead of lg. Long tags (eco.mio "Personalization") in the card's
-  // corner run into the centred heading on 1024-1279px screens.
-  tagInFlowUntilXl?: boolean;
+  // Small tag pill centred above the block heading at every width, instead
+  // of in the card's top-left corner from lg (eco.mio; also keeps long tags
+  // like "Personalization" clear of the heading).
+  tagCentered?: boolean;
   // `phoneHeight`: the SVG is drawn on a canvas as tall as the phone
   // (eco.mio), so the row top-aligns the phones and the arrow instead of
   // centring them (which shifts the phones when captions wrap differently).
@@ -431,12 +431,12 @@ export function SolutionSection({
   numberClass = "text-faircado-green-400",
   arrow = { src: `${IMG}/find-similar-arrow.svg`, width: 100 },
   longTitle = false,
-  tagInFlowUntilXl = false,
+  tagCentered = false,
 }: SolutionSectionProps) {
-  const tagPosition = tagInFlowUntilXl
-    ? "self-center xl:absolute xl:left-10 xl:top-10 xl:self-auto"
-    : "self-center lg:absolute lg:left-10 lg:top-10 lg:self-auto";
-  const headingTopMargin = tagInFlowUntilXl ? "-mt-9 xl:mt-0" : "-mt-9 lg:mt-0";
+  const tagPosition = tagCentered ? "self-center" : "self-center lg:absolute lg:left-10 lg:top-10 lg:self-auto";
+  // Tightens the pill-to-heading gap from the card's 60px down to 24px
+  // wherever the pill is in flow.
+  const headingTopMargin = tagCentered ? "-mt-9" : "-mt-9 lg:mt-0";
   // Long words: still cropped a little at the phone edges below sm (Mobile
   // Rule 6), and fitted to the content width from sm up.
   const titleSize = longTitle
@@ -486,7 +486,7 @@ export function SolutionSection({
                   positioned in the card's top-left corner, out of flow, as in
                   the Figma. */}
               <div className={tagPosition}>
-                <TagPill icon={tagIcon} label={tag} />
+                <TagPill icon={tagIcon} label={tag} size={tagCentered ? "sm" : "default"} />
               </div>
               {/* Centered across the card's full width, ignoring the pill's
                   width on desktop (where the pill is out of flow). The
@@ -513,9 +513,11 @@ export function SolutionSection({
                   />
                   {/* Portrait image overlapping the video's lower left
                       corner, sized as a share of the video so it scales with
-                      it; it pokes out 6% past the left edge and 8% below. */}
+                      it; it pokes out 6% past the left edge (another 40px
+                      from lg, owner's request; phones keep it inside the
+                      card) and 8% below. */}
                   {block.video.overlay ? (
-                    <div className="absolute -bottom-[8%] -left-[6%] aspect-[3/4] w-[26%] overflow-hidden rounded-case-md shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)]">
+                    <div className="absolute -bottom-[8%] -left-[6%] aspect-[3/4] lg:-left-[calc(6%+40px)] w-[26%] overflow-hidden rounded-case-md shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)]">
                       {block.video.overlay.src ? (
                         <Image src={block.video.overlay.src} alt={block.video.overlay.alt} fill className="object-cover" />
                       ) : (

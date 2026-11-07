@@ -280,7 +280,9 @@ export const ecoMio: EcoMioContent = {
       tagIcon: `${IMG}/icon-tag-automation.png`,
       blocks: [
         {
-          heading: "AI fills every field",
+          heading: "Screenshot reader fills every field",
+          // One line on desktop (owner's request); wraps on phones.
+          headingMaxWidth: 640,
           images: [],
           // Recording from the owner's Desktop (demo-studio-autofill.mp4).
           video: {
