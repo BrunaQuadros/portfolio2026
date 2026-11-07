@@ -38,6 +38,9 @@ type SolutionSectionProps = {
   // since long tags like "Personalization" in the corner run into the
   // centred heading on 1024-1279px screens.
   compactTag?: boolean;
+  // Leave out the giant numbered title and show only the cards (eco.mio's
+  // What's next uses the same cards under its own section heading).
+  hideTitle?: boolean;
   // `phoneHeight`: the SVG is drawn on a canvas as tall as the phone
   // (eco.mio), so the row top-aligns the phones and the arrow instead of
   // centring them (which shifts the phones when captions wrap differently).
@@ -433,6 +436,7 @@ export function SolutionSection({
   arrow = { src: `${IMG}/find-similar-arrow.svg`, width: 100 },
   longTitle = false,
   compactTag = false,
+  hideTitle = false,
 }: SolutionSectionProps) {
   const tagPosition = compactTag
     ? "self-center xl:absolute xl:left-10 xl:top-10 xl:self-auto"
@@ -446,7 +450,11 @@ export function SolutionSection({
     ? "text-[12vw] sm:text-[8vw] lg:text-[104px]"
     : "text-[19vw] sm:text-[7vw] md:text-[14vw] lg:text-[152px]";
   return (
-    <section className="flex w-full flex-col items-center gap-7 overflow-x-hidden" aria-labelledby={`solution-${title.toLowerCase()}`}>
+    <section
+      className="flex w-full flex-col items-center gap-7 overflow-x-hidden"
+      aria-labelledby={hideTitle ? undefined : `solution-${title.toLowerCase()}`}
+      aria-label={hideTitle ? title : undefined}
+    >
       {/* Below sm the title is deliberately wider than the phone screen
           (~110% of it for "Awareness"): w-max keeps it on one line at its
           natural width, and because the section centres its children and
@@ -454,6 +462,7 @@ export function SolutionSection({
           of pushing the page into horizontal scroll. The number stacks
           centred above the word there (flex-col), so it isn't the part
           that gets cropped; from sm up both sit inline as on desktop. */}
+      {hideTitle ? null : (
       <h3
         id={`solution-${title.toLowerCase()}`}
         className="flex w-max max-w-none flex-col items-center font-[family-name:var(--font-inter-display)] font-bold leading-[1.1] tracking-[-2px] text-portfolio-grey-50 text-center sm:block sm:w-auto"
@@ -471,6 +480,7 @@ export function SolutionSection({
         <span className={`-mb-5 text-[6.4vw] sm:mb-0 sm:text-[2.33vw] md:text-[3.4vw] lg:text-[2.33rem] ${numberClass}`}>{number}</span>
         <span className={titleSize}>{title}</span>
       </h3>
+      )}
       <div className="flex w-full flex-col items-center gap-6 sm:gap-20">
         {/* Each block's gray panel simply sits inside the page's own
             px-6/sm:px-10 section padding (like the My Role/Impact box)
@@ -489,18 +499,23 @@ export function SolutionSection({
                   positioned in the card's top-left corner, out of flow, as in
                   the Figma. */}
               <div className={tagPosition}>
-                <TagPill icon={tagIcon} label={tag} size={compactTag ? "sm" : "default"} />
+                <TagPill icon={block.tagIcon ?? tagIcon} label={block.tag ?? tag} size={compactTag ? "sm" : "default"} />
               </div>
               {/* Centered across the card's full width, ignoring the pill's
                   width on desktop (where the pill is out of flow). The
                   negative top margin below lg tightens the pill-to-heading
                   gap from the card's 60px gap down to 24px. */}
-              <p
-                className={`${headingTopMargin} text-center font-manrope font-bold text-[24px] leading-[32px] tracking-[-0.5px] text-portfolio-grey-900 sm:text-[28px] sm:leading-[38px]`}
-                style={{ maxWidth: block.headingMaxWidth ?? 500 }}
-              >
-                {block.heading}
-              </p>
+              <div className={`${headingTopMargin} flex flex-col items-center gap-3`} style={{ maxWidth: block.headingMaxWidth ?? 500 }}>
+                <p className="text-center font-manrope font-bold text-[24px] leading-[32px] tracking-[-0.5px] text-portfolio-grey-900 sm:text-[28px] sm:leading-[38px]">
+                  {block.heading}
+                </p>
+                {/* Optional one-line description under the heading. */}
+                {block.body ? (
+                  <p className="text-center font-manrope text-[16px] leading-[26px] text-portfolio-grey-900 sm:text-[18px] sm:leading-[28px]">
+                    {block.body}
+                  </p>
+                ) : null}
+              </div>
               {block.video ? (
                 // A recording on the grey card at every width (no scroll
                 // strip), styled and sized like the eco.mio hero video: full

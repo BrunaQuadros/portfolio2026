@@ -10,7 +10,6 @@ import { TestimonialCard } from "@/components/case-study/TestimonialCard";
 import { StatCard } from "@/components/case-study/StatCard";
 import { SolutionSection } from "@/components/case-study/SolutionSection";
 import { TeamAvatarGroup } from "@/components/case-study/TeamAvatarGroup";
-import { DiscardedIdeasSection } from "@/components/case-study/DiscardedIdeasSection";
 import { ImagePlaceholder } from "@/components/case-study/ImagePlaceholder";
 import { RichText } from "@/components/case-study/RichText";
 import { ContextCardCluster } from "@/components/case-study/ContextCardCluster";
@@ -62,7 +61,6 @@ export default function EcoMioCaseStudyPage() {
     approach,
     finalSolution,
     solutionSections,
-    discardedIdeas,
     results,
     closingTakeaways,
     whatsNext,
@@ -501,36 +499,6 @@ export default function EcoMioCaseStudyPage() {
         ))}
       </div>
 
-      {/* Discarded ideas. lg:mt-[72px]: 200px above on desktop, as on
-          Faircado. Eyebrow in blue like every other eyebrow here (the pink
-          in Figma is a leftover from the Faircado file). */}
-      <section className="mx-auto flex w-full max-w-[1220px] flex-col gap-12 px-4 sm:gap-16 sm:px-10 lg:mt-[72px]">
-        <div className="w-full lg:max-w-[592px]" style={TEXT_COLUMN}>
-          <SectionHeading
-            eyebrow={discardedIdeas.eyebrow}
-            heading={discardedIdeas.heading}
-            accentClass={ACCENT_TEXT}
-            body={
-              <p>
-                <RichText segments={discardedIdeas.body} />
-              </p>
-            }
-          />
-        </div>
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
-          {discardedIdeas.cards.map((card) => (
-            <StatCard
-              key={card.heading}
-              size="short"
-              iconNode={<ImagePlaceholder className="h-[58px] w-[94px] rounded-full" />}
-              heading={card.heading}
-              body={card.body}
-              emphasis={card.emphasis}
-            />
-          ))}
-        </div>
-      </section>
-
       {/* Results / impact: same shared 3-column grid as Faircado (stat
           cards, then the intro card and the 2-column quote). */}
       <section className="mx-auto flex w-full max-w-[1220px] flex-col gap-12 px-4 sm:gap-16 sm:px-10 lg:mt-[72px]">
@@ -584,17 +552,29 @@ export default function EcoMioCaseStudyPage() {
         </div>
       </section>
 
-      {/* What's next: same tag + phone + caption layout as Faircado's
-          discarded ideas (scroll strip below lg). */}
-      <div className="lg:mt-[72px]">
-        <DiscardedIdeasSection
-          eyebrow={whatsNext.eyebrow}
-          heading={whatsNext.heading}
-          bodyLead={whatsNext.body}
-          items={whatsNext.items}
-          accentClass={ACCENT_TEXT}
+      {/* What's next: its heading, then cards in the solution sections'
+          style (each with its own tag pill, a heading, a one-line
+          description and a video placeholder), without a giant title.
+          lg:mt-[72px]: same extra desktop gap as the sections above. */}
+      <section className="mx-auto flex w-full max-w-[1220px] flex-col gap-12 px-4 sm:gap-16 sm:px-10 lg:mt-[72px]">
+        <div className="w-full lg:max-w-[592px]" style={TEXT_COLUMN}>
+          <SectionHeading
+            eyebrow={whatsNext.eyebrow}
+            heading={whatsNext.heading}
+            body={<p>{whatsNext.body}</p>}
+            accentClass={ACCENT_TEXT}
+          />
+        </div>
+        <SolutionSection
+          number=""
+          title={whatsNext.heading}
+          tag=""
+          blocks={whatsNext.blocks}
+          numberClass={ACCENT_TEXT}
+          compactTag
+          hideTitle
         />
-      </div>
+      </section>
     </main>
   );
 }

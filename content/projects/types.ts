@@ -126,6 +126,12 @@ export type BeforeAfterPair = {
 
 export type SolutionBlock = {
   heading: string;
+  // Optional description under the heading (eco.mio What's next).
+  body?: string;
+  // This block's own tag pill, instead of the section's (eco.mio What's
+  // next: "Hotels", "Dev").
+  tag?: string;
+  tagIcon?: string;
   // Overrides the heading's default 500px wrap width (e.g. to force a long
   // heading like Accuracy block 2's back down to 2 lines instead of 3).
   headingMaxWidth?: number;
@@ -436,12 +442,6 @@ export type EcoMioContent = {
     body: string;
   };
   solutionSections: (SolutionSection & { tagIcon?: string })[];
-  discardedIdeas: {
-    eyebrow: string;
-    heading: string;
-    body: RichSegment[];
-    cards: { heading: string; body: string; emphasis: string }[];
-  };
   results: {
     eyebrow: string;
     heading: string;
@@ -461,6 +461,7 @@ export type EcoMioContent = {
     eyebrow: string;
     heading: string;
     body: string;
-    items: DiscardedIdea[];
+    // Cards in the solution sections' style, each with its own tag.
+    blocks: SolutionBlock[];
   };
 };

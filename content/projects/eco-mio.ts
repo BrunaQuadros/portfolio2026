@@ -355,21 +355,6 @@ export const ecoMio: EcoMioContent = {
       ],
     },
   ],
-  discardedIdeas: {
-    eyebrow: "DISCARDED IDEAS",
-    heading: "Some of the many ‘NOs’",
-    body: [
-      "For each front, I came up with many ideas that didn't make the cut due to ",
-      { text: "complexity, tech constraints", bold: true },
-      " or lack of resources. Prioritizing what moved the needle took careful thinking and ",
-      { text: "real tradeoffs.", bold: true },
-    ],
-    cards: [
-      { heading: "80%, not 100%", body: "We'd cover the most common requests. Edge cases stay manual.", emphasis: "most common requests" },
-      { heading: "No dev time", body: "The team had no capacity to invest.", emphasis: "no capacity" },
-      { heading: "Today's product only", body: "No new features, so demos show what eco.mio can do now.", emphasis: "No new features" },
-    ],
-  },
   results: {
     eyebrow: "IMPACT",
     heading: "Demos went from 5 hours to 30 minutes",
@@ -421,18 +406,22 @@ export const ecoMio: EcoMioContent = {
     eyebrow: "WHAT'S NEXT",
     heading: "The team liked it so much, it's growing",
     body: "Demo Studio solved design's bottleneck. PM's still needs dev.",
-    items: [
+    blocks: [
       {
         tag: "Hotels",
-        image: { alt: "Demo Studio for hotels, coming soon" },
-        captionTitle: "Expanding to hotels",
-        captionBody: "Demo Studio is being extended to eco.mio's new hotel product",
+        heading: "Expanding to hotels",
+        body: "Demo Studio is being extended to eco.mio's new hotel product",
+        images: [],
+        // Video placeholder until the owner sends the recording.
+        video: { alt: "Demo Studio for hotels, video coming soon", aspectClass: "aspect-[2884/1940]" },
       },
       {
         tag: "Dev",
-        image: { alt: "Automated flight scraping, coming soon" },
-        captionTitle: "Bringing dev in",
-        captionBody: "To automate flight scraping, the bottleneck vibe coding couldn't solve",
+        heading: "Bringing dev in",
+        body: "To automate flight scraping, the bottleneck vibe coding couldn't solve",
+        images: [],
+        // Video placeholder until the owner sends the recording.
+        video: { alt: "Automated flight scraping, video coming soon", aspectClass: "aspect-[2884/1940]" },
       },
     ],
   },
