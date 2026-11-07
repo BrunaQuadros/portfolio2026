@@ -153,7 +153,10 @@ export const ecoMio: EcoMioContent = {
       label: "1. Audit",
       heading: "Process complexity, mapped",
       body: [
-        "I designed the first two demos the old way, as a hands-on audit. By then, ",
+        "I designed the first two demos the old way, as a hands-on audit.",
+        // Desktop-only break (RichText default: lg up); phones wrap naturally.
+        { br: true },
+        "By then, ",
         { text: "the two bottlenecks were clear.", bold: true, accent: true },
       ],
       caption: "The old process, from Trello brief to final Figma link.",
@@ -279,11 +282,13 @@ export const ecoMio: EcoMioContent = {
       blocks: [
         {
           heading: "AI reads three screenshots and fills every field",
-          images: [
-            { alt: "Uploading three flight screenshots, coming soon", caption: "Upload three flight screenshots" },
-            { alt: "AI filling in the demo fields, coming soon", caption: "AI fills all 36+ fields" },
-            { alt: "Recommendation pills on each pick, coming soon", caption: "Pills like +€526 highlight each pick" },
-          ],
+          images: [],
+          // Recording from the owner's Desktop (demo-studio-autofill.mp4).
+          video: {
+            src: "/videos/case-studies/eco-mio/automation-autofill.mp4",
+            alt: "Demo Studio: three flight screenshots are uploaded and AI fills in every field of the demo",
+            aspectClass: "aspect-[2884/1940]",
+          },
         },
         {
           heading: "From 36+ fields typed by hand to one upload",

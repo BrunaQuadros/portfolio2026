@@ -141,6 +141,11 @@ export type SolutionBlock = {
   // "peek" card on each side (a cropped product card with a corner badge),
   // desktop only. Exactly 2 entries: left card, right card.
   peekCards?: { image: string; badgeIcon: string }[];
+  // A screen recording instead of phone mockups, styled like the eco.mio
+  // hero video (rounded, soft shadow) but straight on the grey card.
+  // `aspectClass` reserves the video's shape before it loads (e.g.
+  // "aspect-[2884/1940]").
+  video?: { src: string; alt: string; aspectClass: string };
 };
 
 export type SolutionSection = {

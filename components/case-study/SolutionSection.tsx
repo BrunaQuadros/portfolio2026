@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Search, X } from "lucide-react";
 import { TagPill } from "./TagPill";
+import { AutoPlayVideo } from "@/components/media/AutoPlayVideo";
 import { ImagePlaceholder } from "./ImagePlaceholder";
 import type {
   AnnotatedImage,
@@ -497,7 +498,21 @@ export function SolutionSection({
               >
                 {block.heading}
               </p>
-              <MobileScrollStrip block={block} priority={i === 0} />
+              {block.video ? (
+                // A recording on the grey card at every width (no scroll
+                // strip), styled and sized like the eco.mio hero video: full
+                // width below lg, and from lg the 774px the hero video has at
+                // 1440 (its panel's 520px content height x the 1.49 video
+                // shape). Starts from the beginning once it's on screen.
+                <AutoPlayVideo
+                  src={block.video.src}
+                  alt={block.video.alt}
+                  startOnView
+                  className={`w-full rounded-case-md shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)] lg:max-w-[774px] ${block.video.aspectClass}`}
+                />
+              ) : (
+                <MobileScrollStrip block={block} priority={i === 0} />
+              )}
               {/* Desktop (lg and up) layouts, one per block variant. The
                   chips row (spacer + two phones + chips column, ~1100px) and
                   the peek-card row (~1130px) are wider than the card's
@@ -506,7 +521,7 @@ export function SolutionSection({
                   wrap; between lg and xl they still wrap. The chips row is
                   also shifted 40px left (-translate-x-10) so the chips keep
                   some air from the card's right edge. */}
-              {block.beforeAfter ? (
+              {block.video ? null : block.beforeAfter ? (
                 <div className="hidden lg:block">
                   <BeforeAfterFrame pair={block.beforeAfter} />
                 </div>
