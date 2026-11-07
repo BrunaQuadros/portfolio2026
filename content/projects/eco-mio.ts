@@ -342,22 +342,15 @@ export const ecoMio: EcoMioContent = {
       blocks: [
         {
           heading: "High-fidelity Egencia, Concur and Cytric layouts",
-          images: [
-            {
-              alt: "The full demo flow, coming soon",
-              caption: "The full flow: search, loading and recommendations",
-            },
-            { alt: "OBT results and booking screens, coming soon", caption: "OBT results, confirmation and booking" },
-          ],
+          images: [],
+          // Video placeholder until the owner sends the recording.
+          video: { alt: "The demo in Egencia, Concur and Cytric layouts, video coming soon", aspectClass: "aspect-[2884/1940]" },
         },
         {
-          heading: "High-fidelity Egencia, Concur and Cytric, so clients see their own tool",
-          headingMaxWidth: 518,
-          connectWithArrow: true,
-          images: [
-            { alt: "The demo in Egencia, coming soon", caption: "The demo in Egencia" },
-            { alt: "The same demo in Concur and Cytric, coming soon", caption: "The same demo in Concur and Cytric" },
-          ],
+          heading: "Routes, dates, emissions or class are easily editable",
+          images: [],
+          // Video placeholder until the owner sends the recording.
+          video: { alt: "Editing a demo's routes, dates, emissions and class, video coming soon", aspectClass: "aspect-[2884/1940]" },
         },
       ],
     },
