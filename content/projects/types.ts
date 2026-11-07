@@ -145,8 +145,14 @@ export type SolutionBlock = {
   // hero video (rounded, soft shadow) but straight on the grey card.
   // `aspectClass` reserves the video's shape before it loads (e.g.
   // "aspect-[2884/1940]"). `overlay` is an image overlapping the video's
-  // lower left corner (a grey placeholder while it has no `src`).
-  video?: { src: string; alt: string; aspectClass: string; overlay?: { src?: string; alt: string } };
+  // lower left corner (a grey 3:4 placeholder while it has no `src`); its
+  // own `aspectClass` keeps the image's shape.
+  video?: {
+    src: string;
+    alt: string;
+    aspectClass: string;
+    overlay?: { src?: string; alt: string; aspectClass?: string };
+  };
 };
 
 export type SolutionSection = {

@@ -493,7 +493,7 @@ export default function EcoMioCaseStudyPage() {
             numberClass={ACCENT_TEXT}
             arrow={{ src: `${IMG}/tailored-arrow.svg`, width: 160, phoneHeight: true }}
             longTitle={section.title.length > 12}
-            tagCentered
+            compactTag
           />
         ))}
       </div>

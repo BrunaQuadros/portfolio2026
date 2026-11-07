@@ -289,9 +289,13 @@ export const ecoMio: EcoMioContent = {
             src: "/videos/case-studies/eco-mio/automation-autofill.mp4",
             alt: "Demo Studio: three flight screenshots are uploaded and AI fills in every field of the demo",
             aspectClass: "aspect-[2884/1940]",
-            // Slot for an image overlapping the video's lower left corner
-            // (grey placeholder until the owner picks one).
-            overlay: { alt: "Image coming soon" },
+            // Image overlapping the video's lower left corner: a flight card
+            // from a booking tool (owner's screenshot, background removed).
+            overlay: {
+              src: `${IMG}/automation-lufthansa-card.png`,
+              alt: "A Lufthansa flight card from a booking tool: Geneva to Houston via Frankfurt, 10:15 AM to 5:55 PM, 14h 40m, with leg details and 1055 kg CO2e",
+              aspectClass: "aspect-[1002/1279]",
+            },
           },
         },
         {

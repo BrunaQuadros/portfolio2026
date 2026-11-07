@@ -46,7 +46,7 @@ Most of these categories are empty right now, add them as real components are bu
 
 Theming for a second case study (added for eco.mio, 2026-11-03). Every prop below is optional and defaults to the Faircado value, so Faircado renders unchanged:
 - `accentClass` on `SectionHeading` (eyebrow color), `TeamAvatarGroup` ("+N" badge background), `TestimonialCard` (number color) and `DiscardedIdeasSection` (passed to its heading)
-- `SolutionSection`: `longTitle` (a smaller giant title for 15+ letter words such as "Decentralization"), `tagCentered` (a small tag pill centred above each block heading at every width, eco.mio), `numberClass` (the small "01." color), `arrow` (`{ src, width, phoneHeight? }` for the connector between two phones; `phoneHeight` top-aligns the row when the SVG canvas is as tall as the phone), optional `tagIcon`
+- `SolutionSection`: `longTitle` (a smaller giant title for 15+ letter words such as "Decentralization"), `compactTag` (a small tag pill, in the card's top-left corner from xl and centred above the heading below it, eco.mio), `numberClass` (the small "01." color), `arrow` (`{ src, width, phoneHeight? }` for the connector between two phones; `phoneHeight` top-aligns the row when the SVG canvas is as tall as the phone), optional `tagIcon`
 - `TagPill` and `ProblemCard`: the icon is optional (text-only pills)
 - `TagPill`: `size="sm"` is a smaller pill (16px label, 20px icon) for eco.mio's solution blocks
 - `TagPill`: `iconNode` takes a ready-made icon (a lucide icon) instead of an image file (eco.mio's "Constraint" pill)
