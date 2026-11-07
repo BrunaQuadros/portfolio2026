@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Search, X } from "lucide-react";
 import { TagPill } from "./TagPill";
+import { AutoPlayVideo } from "@/components/media/AutoPlayVideo";
 import { ImagePlaceholder } from "./ImagePlaceholder";
 import type {
   AnnotatedImage,
@@ -32,10 +33,14 @@ type SolutionSectionProps = {
   // "Decentralization", 15-16 letters), which at the default 152px would
   // overflow the 1140px content width. Faircado's titles use the default.
   longTitle?: boolean;
-  // Keep the tag pill in flow above the block heading up to xl (1280px)
-  // instead of lg. Long tags (eco.mio "Personalization") in the card's
-  // corner run into the centred heading on 1024-1279px screens.
-  tagInFlowUntilXl?: boolean;
+  // Small tag pill (eco.mio), in the card's top-left corner from xl
+  // (1280px) instead of lg: below xl it sits centred above the heading,
+  // since long tags like "Personalization" in the corner run into the
+  // centred heading on 1024-1279px screens.
+  compactTag?: boolean;
+  // Leave out the giant numbered title and show only the cards (eco.mio's
+  // What's next uses the same cards under its own section heading).
+  hideTitle?: boolean;
   // `phoneHeight`: the SVG is drawn on a canvas as tall as the phone
   // (eco.mio), so the row top-aligns the phones and the arrow instead of
   // centring them (which shifts the phones when captions wrap differently).
@@ -430,19 +435,26 @@ export function SolutionSection({
   numberClass = "text-faircado-green-400",
   arrow = { src: `${IMG}/find-similar-arrow.svg`, width: 100 },
   longTitle = false,
-  tagInFlowUntilXl = false,
+  compactTag = false,
+  hideTitle = false,
 }: SolutionSectionProps) {
-  const tagPosition = tagInFlowUntilXl
+  const tagPosition = compactTag
     ? "self-center xl:absolute xl:left-10 xl:top-10 xl:self-auto"
     : "self-center lg:absolute lg:left-10 lg:top-10 lg:self-auto";
-  const headingTopMargin = tagInFlowUntilXl ? "-mt-9 xl:mt-0" : "-mt-9 lg:mt-0";
+  // Tightens the pill-to-heading gap from the card's 60px down to 24px
+  // wherever the pill is in flow.
+  const headingTopMargin = compactTag ? "-mt-9 xl:mt-0" : "-mt-9 lg:mt-0";
   // Long words: still cropped a little at the phone edges below sm (Mobile
   // Rule 6), and fitted to the content width from sm up.
   const titleSize = longTitle
     ? "text-[12vw] sm:text-[8vw] lg:text-[104px]"
     : "text-[19vw] sm:text-[7vw] md:text-[14vw] lg:text-[152px]";
   return (
-    <section className="flex w-full flex-col items-center gap-7 overflow-x-hidden" aria-labelledby={`solution-${title.toLowerCase()}`}>
+    <section
+      className="flex w-full flex-col items-center gap-7 overflow-x-hidden"
+      aria-labelledby={hideTitle ? undefined : `solution-${title.toLowerCase()}`}
+      aria-label={hideTitle ? title : undefined}
+    >
       {/* Below sm the title is deliberately wider than the phone screen
           (~110% of it for "Awareness"): w-max keeps it on one line at its
           natural width, and because the section centres its children and
@@ -450,6 +462,7 @@ export function SolutionSection({
           of pushing the page into horizontal scroll. The number stacks
           centred above the word there (flex-col), so it isn't the part
           that gets cropped; from sm up both sit inline as on desktop. */}
+      {hideTitle ? null : (
       <h3
         id={`solution-${title.toLowerCase()}`}
         className="flex w-max max-w-none flex-col items-center font-[family-name:var(--font-inter-display)] font-bold leading-[1.1] tracking-[-2px] text-portfolio-grey-50 text-center sm:block sm:w-auto"
@@ -467,6 +480,7 @@ export function SolutionSection({
         <span className={`-mb-5 text-[6.4vw] sm:mb-0 sm:text-[2.33vw] md:text-[3.4vw] lg:text-[2.33rem] ${numberClass}`}>{number}</span>
         <span className={titleSize}>{title}</span>
       </h3>
+      )}
       <div className="flex w-full flex-col items-center gap-6 sm:gap-20">
         {/* Each block's gray panel simply sits inside the page's own
             px-6/sm:px-10 section padding (like the My Role/Impact box)
@@ -485,19 +499,74 @@ export function SolutionSection({
                   positioned in the card's top-left corner, out of flow, as in
                   the Figma. */}
               <div className={tagPosition}>
-                <TagPill icon={tagIcon} label={tag} />
+                <TagPill icon={block.tagIcon ?? tagIcon} label={block.tag ?? tag} size={compactTag ? "sm" : "default"} />
               </div>
               {/* Centered across the card's full width, ignoring the pill's
                   width on desktop (where the pill is out of flow). The
                   negative top margin below lg tightens the pill-to-heading
                   gap from the card's 60px gap down to 24px. */}
-              <p
-                className={`${headingTopMargin} text-center font-manrope font-bold text-[24px] leading-[32px] tracking-[-0.5px] text-portfolio-grey-900 sm:text-[28px] sm:leading-[38px]`}
-                style={{ maxWidth: block.headingMaxWidth ?? 500 }}
-              >
-                {block.heading}
-              </p>
-              <MobileScrollStrip block={block} priority={i === 0} />
+              <div className={`${headingTopMargin} flex flex-col items-center gap-3`} style={{ maxWidth: block.headingMaxWidth ?? 500 }}>
+                <p className="text-center font-manrope font-bold text-[24px] leading-[32px] tracking-[-0.5px] text-portfolio-grey-900 sm:text-[28px] sm:leading-[38px]">
+                  {block.heading}
+                </p>
+                {/* Optional one-line description under the heading. */}
+                {block.body ? (
+                  <p className="text-center font-manrope text-[16px] leading-[26px] text-portfolio-grey-900 sm:text-[18px] sm:leading-[28px]">
+                    {block.body}
+                  </p>
+                ) : null}
+              </div>
+              {block.video ? (
+                // A recording on the grey card at every width (no scroll
+                // strip), styled and sized like the eco.mio hero video: full
+                // width below lg, and from lg the 774px the hero video has at
+                // 1440 (its panel's 520px content height x the 1.49 video
+                // shape). Starts from the beginning once it's on screen.
+                <div className="relative mb-6 w-full lg:mb-10 lg:max-w-[774px]">
+                  {block.video.src ? (
+                    <AutoPlayVideo
+                      src={block.video.src}
+                      alt={block.video.alt}
+                      startOnView
+                      className={`w-full rounded-case-md shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)] ${block.video.aspectClass}`}
+                    />
+                  ) : (
+                    <ImagePlaceholder
+                      label={block.video.alt}
+                      className={`w-full rounded-case-md shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)] ${block.video.aspectClass}`}
+                    />
+                  )}
+                  {/* Portrait image overlapping the video's lower left
+                      corner, sized as a share of the video so it scales with
+                      it; it pokes out 6% past the left edge (another 40px
+                      from lg, owner's request; phones keep it inside the
+                      card) and 8% below. */}
+                  {block.video.overlay ? (
+                    <div
+                      className={`absolute -bottom-[8%] -left-[6%] w-[26%] lg:-left-[calc(6%+40px)] ${block.video.overlay.aspectClass ?? "aspect-[3/4]"}`}
+                    >
+                      {block.video.overlay.src ? (
+                        // A cut-out image with its own rounded corners: the
+                        // drop shadow follows its shape.
+                        <Image
+                          src={block.video.overlay.src}
+                          alt={block.video.overlay.alt}
+                          fill
+                          sizes="210px"
+                          className="object-contain drop-shadow-[0px_8px_24px_rgba(0,0,0,0.12)]"
+                        />
+                      ) : (
+                        <ImagePlaceholder
+                          label={block.video.overlay.alt}
+                          className="size-full rounded-case-md shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)]"
+                        />
+                      )}
+                    </div>
+                  ) : null}
+                </div>
+              ) : (
+                <MobileScrollStrip block={block} priority={i === 0} />
+              )}
               {/* Desktop (lg and up) layouts, one per block variant. The
                   chips row (spacer + two phones + chips column, ~1100px) and
                   the peek-card row (~1130px) are wider than the card's
@@ -506,7 +575,7 @@ export function SolutionSection({
                   wrap; between lg and xl they still wrap. The chips row is
                   also shifted 40px left (-translate-x-10) so the chips keep
                   some air from the card's right edge. */}
-              {block.beforeAfter ? (
+              {block.video ? null : block.beforeAfter ? (
                 <div className="hidden lg:block">
                   <BeforeAfterFrame pair={block.beforeAfter} />
                 </div>

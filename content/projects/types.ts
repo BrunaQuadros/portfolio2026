@@ -126,6 +126,12 @@ export type BeforeAfterPair = {
 
 export type SolutionBlock = {
   heading: string;
+  // Optional description under the heading (eco.mio What's next).
+  body?: string;
+  // This block's own tag pill, instead of the section's (eco.mio What's
+  // next: "Hotels", "Dev").
+  tag?: string;
+  tagIcon?: string;
   // Overrides the heading's default 500px wrap width (e.g. to force a long
   // heading like Accuracy block 2's back down to 2 lines instead of 3).
   headingMaxWidth?: number;
@@ -141,6 +147,19 @@ export type SolutionBlock = {
   // "peek" card on each side (a cropped product card with a corner badge),
   // desktop only. Exactly 2 entries: left card, right card.
   peekCards?: { image: string; badgeIcon: string }[];
+  // A screen recording instead of phone mockups, styled like the eco.mio
+  // hero video (rounded, soft shadow) but straight on the grey card.
+  // `aspectClass` reserves the video's shape before it loads (e.g.
+  // "aspect-[2884/1940]"). `overlay` is an image overlapping the video's
+  // lower left corner (a grey 3:4 placeholder while it has no `src`); its
+  // own `aspectClass` keeps the image's shape.
+  // Without `src` the video is a grey placeholder of the same size.
+  video?: {
+    src?: string;
+    alt: string;
+    aspectClass: string;
+    overlay?: { src?: string; alt: string; aspectClass?: string };
+  };
 };
 
 export type SolutionSection = {
@@ -292,7 +311,14 @@ export type FaircadoContent = {
 // in the brand accent color, or `{ br: true }` for an art-directed line
 // break that only applies on wide screens (Mobile Rule 4). Rendered by
 // components/case-study/RichText.
-export type RichSegment = string | { text: string; bold?: boolean; accent?: boolean } | { br: true };
+// `arrow`: an inline arrow in the accent color pointing right, at a visual
+// beside the text (shown with the line breaks, from `breakClass` up);
+// `fallback` is the text shown instead on smaller screens (e.g. ".").
+export type RichSegment =
+  | string
+  | { text: string; bold?: boolean; accent?: boolean }
+  | { br: true }
+  | { arrow: true; fallback?: string };
 
 // Process diagrams drawn in code (components/case-study/ProcessSwimlane and
 // HandoffChart), so wording and order are data, not pixels in an image.
@@ -311,6 +337,13 @@ export type ProcessSwimlaneData = {
     node: SwimlaneNode;
     labelPosition: "above" | "below";
     labelAlign?: "center" | "start";
+    // Time the step took (e.g. "2h"), shown as a dark badge above the node
+    // to mark it as a bottleneck.
+    duration?: string;
+    // A bigger example shown on hover or keyboard focus over the node, from
+    // lg up (eco.mio: one demo built by hand in Figma). `buttonLabel` names
+    // the hover target for screen readers.
+    preview?: { src: string; alt: string; width: number; height: number; buttonLabel: string };
   }[];
 };
 
@@ -373,7 +406,8 @@ export type EcoMioContent = {
   approach: {
     eyebrow: string;
     heading: string;
-    body: RichSegment[];
+    // The three step names in the big numbered row under the heading.
+    stepNames: string[];
     audit: {
       label: string;
       heading: string;
@@ -402,14 +436,12 @@ export type EcoMioContent = {
       };
     };
   };
-  finalSolution: { eyebrow: string; heading: string; body: string };
-  solutionSections: (SolutionSection & { tagIcon?: string })[];
-  discardedIdeas: {
+  finalSolution: {
     eyebrow: string;
     heading: string;
-    body: RichSegment[];
-    cards: { heading: string; body: string; emphasis: string }[];
+    body: string;
   };
+  solutionSections: (SolutionSection & { tagIcon?: string })[];
   results: {
     eyebrow: string;
     heading: string;
@@ -429,6 +461,7 @@ export type EcoMioContent = {
     eyebrow: string;
     heading: string;
     body: string;
-    items: DiscardedIdea[];
+    // Cards in the solution sections' style, each with its own tag.
+    blocks: SolutionBlock[];
   };
 };

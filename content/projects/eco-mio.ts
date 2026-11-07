@@ -76,20 +76,19 @@ export const ecoMio: EcoMioContent = {
     // page's Context section).
     paragraphs: [
       [
-        "eco.mio runs inside any of the ",
-        { text: "16+ online booking tools", bold: true, accent: true },
+        "eco.mio runs inside ",
+        { text: "16+ online booking tools (OBTs)", bold: true, accent: true },
+        // Blue arrow pointing at the booking tool screenshots on the right;
+        // a full stop on screens where they sit below the text instead.
+        { arrow: true, fallback: "." },
         { br: true },
-        "(OBTs) corporations use. Each client books different routes,",
+        "Every client wants to see it in their own tool, on their",
         { br: true },
-        "with different priorities: lower cost, train over plane, lower",
+        "own routes, pushing their own priority: lower cost,",
         { br: true },
-        "CO₂ or faster decisions.",
+        "rail over air or lower CO₂.",
       ],
-      [
-        { text: "Clients want to see the flow on their routes, in their OBT.", bold: true },
-        { br: true },
-        { text: "So every new lead means building a custom prototype.", bold: true },
-      ],
+      [{ text: "So every new lead means building a custom prototype.", bold: true }],
     ],
     // Three booking tools eco.mio runs inside. Order follows
     // ContextCardCluster's slots: [0] low and centred (lifted to the front
@@ -145,35 +144,50 @@ export const ecoMio: EcoMioContent = {
   // "My process": one section in three steps (Audit, Align, Scope), from
   // the owner's "Copy round 2" artboard, 2026-11-04.
   approach: {
-    eyebrow: "MY PROCESS",
-    heading: "Audit → Align → Scope",
-    body: [
-      "After my second demo, I knew this couldn’t keep going. ",
-      { text: "The solution was left open for me to create,", bold: true, accent: true },
-      " so I started with how demos really got made.",
-    ],
+    eyebrow: "MY APPROACH",
+    // Read by screen readers; on screen the heading is the numbered
+    // 01 / 02 / 03 row made from `stepNames`.
+    heading: "Audit, Align, Scope",
+    stepNames: ["Audit", "Align", "Scope"],
     audit: {
       label: "1. Audit",
       heading: "Process complexity, mapped",
       body: [
-        "One demo took ",
-        { text: "6 handoffs across 3 roles", bold: true },
-        ", and vague briefs left the PM and me guessing what sales needed. Keeping it made even less sense.",
+        "I designed the first two demos the old way, as a hands-on audit.",
+        // Desktop-only break (RichText default: lg up); phones wrap naturally.
+        { br: true },
+        "By then, ",
+        { text: "the two bottlenecks were clear.", bold: true, accent: true },
       ],
       caption: "The old process, from Trello brief to final Figma link.",
       // Drawn in code (ProcessSwimlane): steps run left to right, `lane` is
       // 0 Sales, 1 PM, 2 Design.
       processDiagram: {
-        label: "Process diagram across Sales, PM and Design: Sales writes a Trello brief, PM sends questions and Sales answers, PM collects flight screenshots on Notion and sends a brief to design, Design builds it by hand in Figma, PM reviews the Figma link, and the Figma link goes to Sales",
+        label: "Process diagram across Sales, PM and Design: Sales writes a Trello brief, PM sends questions and Sales answers, PM collects flight screenshots on Notion and sends a brief to design, Design builds it by hand in Figma, PM reviews the Figma link, and the Figma link goes to Sales. The two bottlenecks: the Notion flight screenshots took 2 hours and Figma by hand 3 hours",
         regionLabel: "Process diagram, scroll sideways to see all of it",
         lanes: [{ name: "Sales" }, { name: "PM", highlight: true }, { name: "Design" }],
         steps: [
           { label: "Trello brief", lane: 0, node: "card", labelPosition: "above" },
           { label: "Questions", lane: 1, node: "question", labelPosition: "below" },
           { label: "Answers", lane: 0, node: "reply", labelPosition: "above" },
-          { label: "Notion flight screenshots", lane: 1, node: "screens", labelPosition: "below" },
+          { label: "Notion flight screenshots", lane: 1, node: "screens", labelPosition: "below", duration: "2h" },
           { label: "Brief to design", lane: 1, node: "send", labelPosition: "above" },
-          { label: "Figma by hand", lane: 2, node: "figma", labelPosition: "below" },
+          {
+            label: "Figma by hand",
+            lane: 2,
+            node: "figma",
+            labelPosition: "below",
+            duration: "3h",
+            // One demo, screenshotted from eco.mio's demo site
+            // (ricoh-3, results view) on 2026-11-07.
+            preview: {
+              src: `${IMG}/figma-by-hand-ricoh-demo.png`,
+              alt: "Example demo for Ricoh: London to Amsterdam search results with three curated options, Eurostar recommended for best price, low emissions and shorter travel time",
+              width: 1600,
+              height: 1083,
+              buttonLabel: "Show an example demo built by hand in Figma",
+            },
+          },
           { label: "Figma link review", lane: 1, node: "link", labelPosition: "below", labelAlign: "start" },
           { label: "Figma link sales", lane: 0, node: "link", labelPosition: "above" },
         ],
@@ -182,15 +196,15 @@ export const ecoMio: EcoMioContent = {
     align: {
       label: "2. Align",
       heading: "Stakeholders on the same page",
-      body: "I brought sales and the PM together to decide what had to change.",
+      body: "I brought sales and PM together to decide what we all needed.",
       cards: [
         {
           tag: "Automation",
           tagIcon: `${IMG}/icon-tag-automation.png`,
           heading: "Faster demos",
           body: [
-            "Reduce the 5h of manual work with AI, starting with the bottlenecks: ",
-            { text: "PM and design", bold: true },
+            "Reduce the 5h of manual work with AI, especially on the identified ",
+            { text: "bottlenecks", bold: true },
             ".",
           ],
         },
@@ -199,9 +213,9 @@ export const ecoMio: EcoMioContent = {
           tagIcon: `${IMG}/icon-tag-personalization.png`,
           heading: "Even more tailored",
           body: [
-            "Sales showed that clients expect ",
+            "Sales showed that clients expect even ",
             { text: "higher quality", bold: true },
-            ", on their own routes and in their own OBT.",
+            " than we were delivering.",
           ],
         },
         {
@@ -256,100 +270,91 @@ export const ecoMio: EcoMioContent = {
   },
   finalSolution: {
     eyebrow: "FINAL SOLUTION",
-    heading: "Demo Studio: the automated demo maker",
-    body: "Create a demo, add the client and routes, upload three screenshots, publish. One person, no handovers.",
+    heading: "Demo Studio, the demo maker",
+    body: "An internal tool anyone can use. Create a demo, add the client and routes, upload three screenshots, publish. One person, no handovers.",
   },
   solutionSections: [
     {
       number: "01.",
-      title: "Automation",
-      tag: "Automation",
-      tagIcon: `${IMG}/icon-tag-automation.png`,
+      title: "Decentralization",
+      tag: "Decentralization",
+      tagIcon: `${IMG}/icon-tag-decentralization.png`,
       blocks: [
+        // First look at Demo Studio (it opens the solution sections).
+        // Video placeholder until the owner sends the recording.
         {
-          heading: "AI reads three screenshots and fills every field",
-          images: [
-            { alt: "Uploading three flight screenshots, coming soon", caption: "Upload three flight screenshots" },
-            { alt: "AI filling in the demo fields, coming soon", caption: "AI fills all 36+ fields" },
-            { alt: "Recommendation pills on each pick, coming soon", caption: "Pills like +€526 highlight each pick" },
-          ],
+          heading: "Anyone can build a demo",
+          images: [],
+          video: { alt: "Demo Studio preview video, coming soon", aspectClass: "aspect-[2884/1940]" },
         },
         {
-          heading: "From 36+ fields typed by hand to one upload",
+          heading: "Hit publish to create a demo",
           images: [],
-          beforeAfter: {
-            before: { alt: "Demo fields typed by hand, coming soon" },
-            after: { alt: "Demo fields filled from one upload, coming soon" },
-          },
+          // Video placeholder until the owner sends the recording.
+          video: { alt: "Publishing a demo in one click, video coming soon", aspectClass: "aspect-[2884/1940]" },
         },
       ],
     },
     {
       number: "02.",
-      title: "Personalization",
-      tag: "Personalization",
-      tagIcon: `${IMG}/icon-tag-personalization.png`,
+      title: "Automation",
+      tag: "Automation",
+      tagIcon: `${IMG}/icon-tag-automation.png`,
       blocks: [
         {
-          heading: "Built on eco.mio's own components, so the demo is the product",
-          images: [
-            {
-              alt: "The full demo flow, coming soon",
-              caption: "The full flow: search, loading and recommendations",
+          heading: "Screenshot reader fills every field",
+          // One line on desktop (owner's request); wraps on phones.
+          headingMaxWidth: 640,
+          images: [],
+          // Recording from the owner's Desktop (demo-studio-autofill.mp4).
+          video: {
+            src: "/videos/case-studies/eco-mio/automation-autofill.mp4",
+            alt: "Demo Studio: three flight screenshots are uploaded and AI fills in every field of the demo",
+            aspectClass: "aspect-[2884/1940]",
+            // Image overlapping the video's lower left corner: a flight card
+            // from a booking tool (owner's screenshot, background removed).
+            overlay: {
+              src: `${IMG}/automation-lufthansa-card.png`,
+              alt: "A Lufthansa flight card from a booking tool: Geneva to Houston via Frankfurt, 10:15 AM to 5:55 PM, 14h 40m, with leg details and 1055 kg CO2e",
+              aspectClass: "aspect-[1002/1279]",
             },
-            { alt: "OBT results and booking screens, coming soon", caption: "OBT results, confirmation and booking" },
-          ],
+          },
         },
         {
-          heading: "High-fidelity Egencia, Concur and Cytric, so clients see their own tool",
-          headingMaxWidth: 518,
-          connectWithArrow: true,
-          images: [
-            { alt: "The demo in Egencia, coming soon", caption: "The demo in Egencia" },
-            { alt: "The same demo in Concur and Cytric, coming soon", caption: "The same demo in Concur and Cytric" },
-          ],
+          heading: "Every field remains editable",
+          images: [],
+          // Video placeholder until the owner sends the recording.
+          video: { alt: "Editing a filled-in demo field, video coming soon", aspectClass: "aspect-[2884/1940]" },
+        },
+        {
+          heading: "Built on eco.mio’s own components, so the demo became the handoff",
+          images: [],
+          // Video placeholder until the owner sends the recording.
+          video: { alt: "A demo built from eco.mio's own components, video coming soon", aspectClass: "aspect-[2884/1940]" },
         },
       ],
     },
     {
       number: "03.",
-      title: "Decentralization",
-      tag: "Decentralization",
-      tagIcon: `${IMG}/icon-tag-decentralization.png`,
+      title: "Personalization",
+      tag: "Personalization",
+      tagIcon: `${IMG}/icon-tag-personalization.png`,
       blocks: [
         {
-          heading: "Every field stays editable when a screenshot can't be read",
-          images: [
-            { alt: "CMS-style backend, coming soon", caption: "CMS-style backend, every field editable" },
-            { alt: "Logo library picker, coming soon", caption: "Logos fill from a library, with manual upload as backup" },
-          ],
+          heading: "Easily edit routes and dates. Switch between class or emission highlights.",
+          images: [],
+          // Video placeholder until the owner sends the recording.
+          video: { alt: "Editing a demo's routes and dates and switching its highlights, video coming soon", aspectClass: "aspect-[2884/1940]" },
         },
         {
-          heading: "One click publishes a live link anyone can share",
-          headingMaxWidth: 538,
-          images: [
-            { alt: "Publish button, coming soon", caption: "Publish in one click" },
-            { alt: "The published demo link, coming soon", caption: "A live link the client keeps" },
-          ],
+          heading: "Easy switch to client’s OBT",
+          images: [],
+          // Video placeholder until the owner sends the recording.
+          video: { alt: "Switching the demo to the client's booking tool, video coming soon", aspectClass: "aspect-[2884/1940]" },
         },
       ],
     },
   ],
-  discardedIdeas: {
-    eyebrow: "DISCARDED IDEAS",
-    heading: "Some of the many ‘NOs’",
-    body: [
-      "For each front, I came up with many ideas that didn't make the cut due to ",
-      { text: "complexity, tech constraints", bold: true },
-      " or lack of resources. Prioritizing what moved the needle took careful thinking and ",
-      { text: "real tradeoffs.", bold: true },
-    ],
-    cards: [
-      { heading: "80%, not 100%", body: "We'd cover the most common requests. Edge cases stay manual.", emphasis: "most common requests" },
-      { heading: "No dev time", body: "The team had no capacity to invest.", emphasis: "no capacity" },
-      { heading: "Today's product only", body: "No new features, so demos show what eco.mio can do now.", emphasis: "No new features" },
-    ],
-  },
   results: {
     eyebrow: "IMPACT",
     heading: "Demos went from 5 hours to 30 minutes",
@@ -401,18 +406,22 @@ export const ecoMio: EcoMioContent = {
     eyebrow: "WHAT'S NEXT",
     heading: "The team liked it so much, it's growing",
     body: "Demo Studio solved design's bottleneck. PM's still needs dev.",
-    items: [
+    blocks: [
       {
         tag: "Hotels",
-        image: { alt: "Demo Studio for hotels, coming soon" },
-        captionTitle: "Expanding to hotels",
-        captionBody: "Demo Studio is being extended to eco.mio's new hotel product",
+        heading: "Expanding to hotels",
+        body: "Demo Studio is being extended to eco.mio's new hotel product",
+        images: [],
+        // Video placeholder until the owner sends the recording.
+        video: { alt: "Demo Studio for hotels, video coming soon", aspectClass: "aspect-[2884/1940]" },
       },
       {
         tag: "Dev",
-        image: { alt: "Automated flight scraping, coming soon" },
-        captionTitle: "Bringing dev in",
-        captionBody: "To automate flight scraping, the bottleneck vibe coding couldn't solve",
+        heading: "Bringing dev in",
+        body: "To automate flight scraping, the bottleneck vibe coding couldn't solve",
+        images: [],
+        // Video placeholder until the owner sends the recording.
+        video: { alt: "Automated flight scraping, video coming soon", aspectClass: "aspect-[2884/1940]" },
       },
     ],
   },

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, MoveRight } from "lucide-react";
 import { ecoMio } from "@/content/projects/eco-mio";
 import { SectionHeading } from "@/components/case-study/SectionHeading";
 import { ProblemCard } from "@/components/case-study/ProblemCard";
@@ -10,7 +10,6 @@ import { TestimonialCard } from "@/components/case-study/TestimonialCard";
 import { StatCard } from "@/components/case-study/StatCard";
 import { SolutionSection } from "@/components/case-study/SolutionSection";
 import { TeamAvatarGroup } from "@/components/case-study/TeamAvatarGroup";
-import { DiscardedIdeasSection } from "@/components/case-study/DiscardedIdeasSection";
 import { ImagePlaceholder } from "@/components/case-study/ImagePlaceholder";
 import { RichText } from "@/components/case-study/RichText";
 import { ContextCardCluster } from "@/components/case-study/ContextCardCluster";
@@ -62,7 +61,6 @@ export default function EcoMioCaseStudyPage() {
     approach,
     finalSolution,
     solutionSections,
-    discardedIdeas,
     results,
     closingTakeaways,
     whatsNext,
@@ -72,7 +70,8 @@ export default function EcoMioCaseStudyPage() {
     <main className="flex flex-col gap-24 pb-32 sm:gap-32">
       {/* Hero: same layout as the Faircado hero. The blue panel plays the
           Concur to eco.mio recording on a loop (AutoPlayVideo: muted, still
-          first frame under reduced motion), with the Bayer logo where the
+          first frame under reduced motion; startOnView, so it starts from
+          the beginning once most of it is on screen), with the Bayer logo where the
           Faircado hero has its "featured by App Store" badge. From lg up the
           panel keeps the hero's fixed 1220:728 shape, the video fills its
           height centred, and the badge sits in the top-left corner; below lg
@@ -125,6 +124,7 @@ export default function EcoMioCaseStudyPage() {
           <AutoPlayVideo
             src={hero.video.src}
             alt={hero.video.alt}
+            startOnView
             className="aspect-[1800/1210] w-full rounded-case-md shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)] lg:h-full lg:w-auto lg:max-w-full"
           />
         </div>
@@ -202,7 +202,7 @@ export default function EcoMioCaseStudyPage() {
               <div className="flex flex-col gap-7">
                 {context.paragraphs.map((paragraph, i) => (
                   <p key={i}>
-                    <RichText segments={paragraph} accentClass={ACCENT_TEXT} breakClass="hidden xl:inline" />
+                    <RichText segments={paragraph} accentClass={ACCENT_TEXT} breakClass="hidden xl:inline" fallbackClass="xl:hidden" />
                   </p>
                 ))}
               </div>
@@ -280,35 +280,64 @@ export default function EcoMioCaseStudyPage() {
           Scope), each a StepHeading above its content. 96px between the
           blocks and 48px from each step heading to its content, on every
           screen size (the mobile rhythm; the owner's artboard uses the same
-          96px on desktop). Align and Scope add lg:mt-16, so on desktop they
-          sit 160px under the step above (owner's request). lg:mt-10 matches the extra breathing room
+          96px on desktop). Audit, Align and Scope add lg:mt-16, so on desktop
+          they sit 160px under the block above (owner's request). lg:mt-10 matches the extra breathing room
           Faircado adds after the Challenge panel. */}
       <section className="mx-auto flex w-full max-w-[1220px] flex-col gap-24 px-4 sm:px-10 lg:mt-10">
+        {/* The eyebrow, then the numbered step row as the visible heading:
+            the h2 itself is screen-reader only (sr-only takes it out of the
+            flex flow). Both sit in the text column, so "Audit" lines up
+            with "MY PROCESS"; the pale numerals start 40px further left
+            from sm (Faircado's Takeaways inset). -mt-4 pulls the row up
+            under the eyebrow. */}
         <div style={TEXT_COLUMN}>
           <SectionHeading
             eyebrow={approach.eyebrow}
-            heading={approach.heading}
-            body={
-              <p>
-                <RichText segments={approach.body} accentClass={ACCENT_TEXT} />
-              </p>
-            }
+            heading={<span className="sr-only">{approach.heading}</span>}
             accentClass={ACCENT_TEXT}
-            className="max-w-[640px]"
           />
+          {/* Faircado's Takeaways layout: a big pale-grey 01 / 02 / 03 behind
+              each column (same numeral files), the step name where Faircado
+              has its quote, at the section heading size, and blue arrows
+              linking one column to the next. */}
+          <div aria-hidden="true" className="-mt-4 grid grid-cols-3 gap-4 sm:gap-10">
+            {approach.stepNames.map((name, i) => (
+              <div key={name} className="relative">
+                <img
+                  src={`/images/case-studies/faircado/takeaways-number-0${i + 1}.svg`}
+                  alt=""
+                  className="pointer-events-none absolute left-0 top-0 -z-10 w-[calc(68%+40px)] sm:-left-10"
+                />
+                {/* pt-[109px] from sm: the name sits where Faircado's quote
+                    starts (pt-14, its 29px quote mark and 24px gap). */}
+                <div className="flex items-center pt-8 sm:pt-[109px]">
+                  <p className="font-manrope font-bold text-[28px] leading-[1.2] tracking-[-1px] text-portfolio-grey-900 sm:text-[40px] sm:leading-[48px]">
+                    {name}
+                  </p>
+                  {/* Centred in the free space between this name and the
+                      next column, level with the name. */}
+                  {i < approach.stepNames.length - 1 ? (
+                    <span className="flex flex-1 justify-center">
+                      <MoveRight strokeWidth={2.5} className={`size-5 sm:size-8 ${ACCENT_TEXT}`} />
+                    </span>
+                  ) : null}
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
 
         {/* 1. Audit: the old process diagram, drawn in code
             (ProcessSwimlane, its blue rounded panel included), with a
             caption under it. */}
-        <div className="flex flex-col gap-12">
+        <div className="flex flex-col gap-12 lg:mt-16">
           <div style={TEXT_COLUMN}>
             <StepHeading
               label={approach.audit.label}
               heading={approach.audit.heading}
               body={
                 <p>
-                  <RichText segments={approach.audit.body} />
+                  <RichText segments={approach.audit.body} accentClass={ACCENT_TEXT} />
                 </p>
               }
               accentClass={ACCENT_TEXT}
@@ -438,8 +467,9 @@ export default function EcoMioCaseStudyPage() {
         </div>
       </section>
 
-      {/* Final solution intro. lg:mt-5: same extra desktop gap as Faircado. */}
-      <section className="mx-auto w-full max-w-[600px] px-4 sm:px-10 lg:mt-5">
+      {/* Final solution intro. lg:mt-5: same extra desktop gap as Faircado.
+          680px wide so the body sets in two lines. */}
+      <section className="mx-auto w-full max-w-[680px] px-4 sm:px-10 lg:mt-5">
         <SectionHeading
           eyebrow={finalSolution.eyebrow}
           heading={finalSolution.heading}
@@ -449,7 +479,8 @@ export default function EcoMioCaseStudyPage() {
         />
       </section>
 
-      {/* Three numbered solution sections. Same pull-ups as Faircado: the
+      {/* Three numbered solution sections (01 Decentralization, 02
+          Automation, 03 Personalization). Same pull-ups as Faircado: the
           giant titles sit close under the intro (-mt-16, lg:-mt-[100px]). */}
       <div className="mx-auto -mt-16 flex w-full max-w-[1220px] flex-col gap-24 px-4 sm:px-10 sm:gap-32 lg:-mt-[100px]">
         {solutionSections.map((section) => (
@@ -463,40 +494,10 @@ export default function EcoMioCaseStudyPage() {
             numberClass={ACCENT_TEXT}
             arrow={{ src: `${IMG}/tailored-arrow.svg`, width: 160, phoneHeight: true }}
             longTitle={section.title.length > 12}
-            tagInFlowUntilXl
+            compactTag
           />
         ))}
       </div>
-
-      {/* Discarded ideas. lg:mt-[72px]: 200px above on desktop, as on
-          Faircado. Eyebrow in blue like every other eyebrow here (the pink
-          in Figma is a leftover from the Faircado file). */}
-      <section className="mx-auto flex w-full max-w-[1220px] flex-col gap-12 px-4 sm:gap-16 sm:px-10 lg:mt-[72px]">
-        <div className="w-full lg:max-w-[592px]" style={TEXT_COLUMN}>
-          <SectionHeading
-            eyebrow={discardedIdeas.eyebrow}
-            heading={discardedIdeas.heading}
-            accentClass={ACCENT_TEXT}
-            body={
-              <p>
-                <RichText segments={discardedIdeas.body} />
-              </p>
-            }
-          />
-        </div>
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
-          {discardedIdeas.cards.map((card) => (
-            <StatCard
-              key={card.heading}
-              size="short"
-              iconNode={<ImagePlaceholder className="h-[58px] w-[94px] rounded-full" />}
-              heading={card.heading}
-              body={card.body}
-              emphasis={card.emphasis}
-            />
-          ))}
-        </div>
-      </section>
 
       {/* Results / impact: same shared 3-column grid as Faircado (stat
           cards, then the intro card and the 2-column quote). */}
@@ -551,17 +552,29 @@ export default function EcoMioCaseStudyPage() {
         </div>
       </section>
 
-      {/* What's next: same tag + phone + caption layout as Faircado's
-          discarded ideas (scroll strip below lg). */}
-      <div className="lg:mt-[72px]">
-        <DiscardedIdeasSection
-          eyebrow={whatsNext.eyebrow}
-          heading={whatsNext.heading}
-          bodyLead={whatsNext.body}
-          items={whatsNext.items}
-          accentClass={ACCENT_TEXT}
+      {/* What's next: its heading, then cards in the solution sections'
+          style (each with its own tag pill, a heading, a one-line
+          description and a video placeholder), without a giant title.
+          lg:mt-[72px]: same extra desktop gap as the sections above. */}
+      <section className="mx-auto flex w-full max-w-[1220px] flex-col gap-12 px-4 sm:gap-16 sm:px-10 lg:mt-[72px]">
+        <div className="w-full lg:max-w-[592px]" style={TEXT_COLUMN}>
+          <SectionHeading
+            eyebrow={whatsNext.eyebrow}
+            heading={whatsNext.heading}
+            body={<p>{whatsNext.body}</p>}
+            accentClass={ACCENT_TEXT}
+          />
+        </div>
+        <SolutionSection
+          number=""
+          title={whatsNext.heading}
+          tag=""
+          blocks={whatsNext.blocks}
+          numberClass={ACCENT_TEXT}
+          compactTag
+          hideTitle
         />
-      </div>
+      </section>
     </main>
   );
 }

@@ -50,6 +50,8 @@
   /* Case study tokens (extracted from Figma, see DESIGN.md Decisions Log) */
   --font-manrope: var(--font-manrope);
   --font-display: var(--font-inter-display);
+  /* Handwritten annotations over a diagram (eco.mio process hover). */
+  --font-handwritten: var(--font-caveat);
 
   --color-portfolio-grey-50: #f7f7f7;
   --color-portfolio-grey-100: #f0f0f0;
@@ -76,6 +78,9 @@
   --color-eco-mio-navy-900: #1e2352;
   --color-eco-mio-yellow-400: #edd96a;
   --color-eco-mio-green-600: #3e8e6a;
+  /* Brighter yellow for the handwritten hover annotations on the eco.mio
+     process diagram (owner's spec, 2026-11-07). */
+  --color-eco-mio-yellow-300: #ffe45e;
   /* Tool logo tiles (eco.mio "Scope and tool stack" card), 2026-11-04:
      Claude's brand orange and the purple sampled from the owner's GitHub
      app icon. */
