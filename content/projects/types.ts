@@ -429,7 +429,14 @@ export type EcoMioContent = {
       };
     };
   };
-  finalSolution: { eyebrow: string; heading: string };
+  finalSolution: {
+    eyebrow: string;
+    heading: string;
+    body: string;
+    // Grey card under the intro: a heading and a video (placeholder while
+    // it has no `src`).
+    preview: { heading: string; video: { src?: string; alt: string; aspectClass: string } };
+  };
   solutionSections: (SolutionSection & { tagIcon?: string })[];
   discardedIdeas: {
     eyebrow: string;

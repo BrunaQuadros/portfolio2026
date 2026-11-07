@@ -271,6 +271,13 @@ export const ecoMio: EcoMioContent = {
   finalSolution: {
     eyebrow: "FINAL SOLUTION",
     heading: "Demo Studio: the automated demo maker",
+    body: "Create a demo, add the client and routes, upload three screenshots, publish. One person, no handovers.",
+    // A first look at Demo Studio as a whole, before the three numbered
+    // sections. Video placeholder until the owner sends the recording.
+    preview: {
+      heading: "An internal tool anyone can use",
+      video: { alt: "Demo Studio preview video, coming soon", aspectClass: "aspect-[2884/1940]" },
+    },
   },
   solutionSections: [
     {

@@ -469,19 +469,46 @@ export default function EcoMioCaseStudyPage() {
         </div>
       </section>
 
-      {/* Final solution intro. lg:mt-5: same extra desktop gap as Faircado. */}
-      <section className="mx-auto w-full max-w-[600px] px-4 sm:px-10 lg:mt-5">
-        <SectionHeading
-          eyebrow={finalSolution.eyebrow}
-          heading={finalSolution.heading}
-          align="center"
-          accentClass={ACCENT_TEXT}
-        />
+      {/* Final solution intro, then a preview card: Demo Studio as a whole
+          before the three numbered sections. The card is styled like a
+          solution block (grey card, centred heading) without a tag pill,
+          and its video sits like the Automation recording (full width below
+          lg, 774px from lg, rounded with a soft shadow). lg:mt-5: same extra
+          desktop gap as Faircado. */}
+      <section className="mx-auto flex w-full max-w-[1220px] flex-col gap-12 px-4 sm:gap-16 sm:px-10 lg:mt-5">
+        <div className="mx-auto w-full max-w-[600px] sm:px-10">
+          <SectionHeading
+            eyebrow={finalSolution.eyebrow}
+            heading={finalSolution.heading}
+            body={<p>{finalSolution.body}</p>}
+            align="center"
+            accentClass={ACCENT_TEXT}
+          />
+        </div>
+        <div className="flex w-full flex-col items-center gap-15 rounded-case-mobile bg-portfolio-grey-50 px-6 pb-15 pt-10 sm:rounded-case-3xl sm:px-10">
+          <p className="max-w-[640px] text-center font-manrope font-bold text-[24px] leading-[32px] tracking-[-0.5px] text-portfolio-grey-900 sm:text-[28px] sm:leading-[38px]">
+            {finalSolution.preview.heading}
+          </p>
+          {finalSolution.preview.video.src ? (
+            <AutoPlayVideo
+              src={finalSolution.preview.video.src}
+              alt={finalSolution.preview.video.alt}
+              startOnView
+              className={`w-full rounded-case-md shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)] lg:max-w-[774px] ${finalSolution.preview.video.aspectClass}`}
+            />
+          ) : (
+            <ImagePlaceholder
+              label={finalSolution.preview.video.alt}
+              className={`w-full rounded-case-md shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)] lg:max-w-[774px] ${finalSolution.preview.video.aspectClass}`}
+            />
+          )}
+        </div>
       </section>
 
-      {/* Three numbered solution sections. Same pull-ups as Faircado: the
-          giant titles sit close under the intro (-mt-16, lg:-mt-[100px]). */}
-      <div className="mx-auto -mt-16 flex w-full max-w-[1220px] flex-col gap-24 px-4 sm:px-10 sm:gap-32 lg:-mt-[100px]">
+      {/* Three numbered solution sections, after the preview card (the
+          section gap above, no pull-up, since a card now sits above the
+          first giant title). */}
+      <div className="mx-auto flex w-full max-w-[1220px] flex-col gap-24 px-4 sm:px-10 sm:gap-32">
         {solutionSections.map((section) => (
           <SolutionSection
             key={section.number}
