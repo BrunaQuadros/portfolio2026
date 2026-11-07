@@ -292,7 +292,14 @@ export type FaircadoContent = {
 // in the brand accent color, or `{ br: true }` for an art-directed line
 // break that only applies on wide screens (Mobile Rule 4). Rendered by
 // components/case-study/RichText.
-export type RichSegment = string | { text: string; bold?: boolean; accent?: boolean } | { br: true };
+// `arrow`: an inline arrow in the accent color pointing right, at a visual
+// beside the text (shown with the line breaks, from `breakClass` up);
+// `fallback` is the text shown instead on smaller screens (e.g. ".").
+export type RichSegment =
+  | string
+  | { text: string; bold?: boolean; accent?: boolean }
+  | { br: true }
+  | { arrow: true; fallback?: string };
 
 // Process diagrams drawn in code (components/case-study/ProcessSwimlane and
 // HandoffChart), so wording and order are data, not pixels in an image.

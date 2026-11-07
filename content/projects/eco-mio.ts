@@ -76,20 +76,19 @@ export const ecoMio: EcoMioContent = {
     // page's Context section).
     paragraphs: [
       [
-        "eco.mio runs inside any of the ",
-        { text: "16+ online booking tools", bold: true, accent: true },
+        "eco.mio runs inside ",
+        { text: "16+ online booking tools (OBTs)", bold: true, accent: true },
+        // Blue arrow pointing at the booking tool screenshots on the right;
+        // a full stop on screens where they sit below the text instead.
+        { arrow: true, fallback: "." },
         { br: true },
-        "(OBTs) corporations use. Each client books different routes,",
+        "Every client wants to see it in their own tool, on their",
         { br: true },
-        "with different priorities: lower cost, train over plane, lower",
+        "own routes, pushing their own priority: lower cost,",
         { br: true },
-        "CO₂ or faster decisions.",
+        "rail over air or lower CO₂.",
       ],
-      [
-        { text: "Clients want to see the flow on their routes, in their OBT.", bold: true },
-        { br: true },
-        { text: "So every new lead means building a custom prototype.", bold: true },
-      ],
+      [{ text: "So every new lead means building a custom prototype.", bold: true }],
     ],
     // Three booking tools eco.mio runs inside. Order follows
     // ContextCardCluster's slots: [0] low and centred (lifted to the front

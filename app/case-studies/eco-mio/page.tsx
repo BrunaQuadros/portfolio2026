@@ -204,7 +204,7 @@ export default function EcoMioCaseStudyPage() {
               <div className="flex flex-col gap-7">
                 {context.paragraphs.map((paragraph, i) => (
                   <p key={i}>
-                    <RichText segments={paragraph} accentClass={ACCENT_TEXT} breakClass="hidden xl:inline" />
+                    <RichText segments={paragraph} accentClass={ACCENT_TEXT} breakClass="hidden xl:inline" fallbackClass="xl:hidden" />
                   </p>
                 ))}
               </div>
