@@ -314,6 +314,12 @@ export const ecoMio: EcoMioContent = {
           // Video placeholder until the owner sends the recording.
           video: { alt: "Editing a filled-in demo field, video coming soon", aspectClass: "aspect-[2884/1940]" },
         },
+        {
+          heading: "Built on eco.mio’s own components, so the demo became the handoff",
+          images: [],
+          // Video placeholder until the owner sends the recording.
+          video: { alt: "A demo built from eco.mio's own components, video coming soon", aspectClass: "aspect-[2884/1940]" },
+        },
       ],
     },
     {
