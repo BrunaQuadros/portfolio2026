@@ -268,7 +268,7 @@ export function ProcessSwimlane({ diagram, className = "" }: ProcessSwimlaneProp
             fill="none"
             strokeWidth={3}
             strokeLinejoin="round"
-            className="stroke-white"
+            className="stroke-white transition-opacity duration-300 group-hover/diagram:opacity-40 motion-reduce:transition-none"
           />
 
           {steps.map((step, i) => {
@@ -310,7 +310,9 @@ export function ProcessSwimlane({ diagram, className = "" }: ProcessSwimlaneProp
               later), then its time written by hand fading in and rising 6px
               (500ms and 650ms in, over 350ms). The first time sits to the
               lower left of its loop, the others to the right. pathLength 1
-              lets the dash offset animate the whole stroke. */}
+              lets the dash offset animate the whole stroke; the loop is also
+              transparent until hovered, or its round cap would show as a
+              yellow dot. The connecting line fades with the other steps. */}
           {steps.map((step, i) => {
             if (!step.duration) return null;
             const order = steps.slice(0, i).filter((s) => s.duration).length;
@@ -329,7 +331,7 @@ export function ProcessSwimlane({ diagram, className = "" }: ProcessSwimlaneProp
                   fill="none"
                   strokeWidth={LOOP.strokeWidth}
                   strokeLinecap="round"
-                  className={`stroke-eco-mio-yellow-300 [stroke-dasharray:1] [stroke-dashoffset:1] transition-[stroke-dashoffset] duration-700 ease-out group-hover/diagram:[stroke-dashoffset:0] motion-reduce:transition-none ${first ? "" : "group-hover/diagram:delay-150"}`}
+                  className={`stroke-eco-mio-yellow-300 opacity-0 [stroke-dasharray:1] [stroke-dashoffset:1] transition-[stroke-dashoffset,opacity] duration-700 ease-out group-hover/diagram:opacity-100 group-hover/diagram:[stroke-dashoffset:0] motion-reduce:transition-none ${first ? "" : "group-hover/diagram:delay-150"}`}
                 />
                 <g transform={`rotate(${first ? -8 : -6} ${textX} ${textY})`}>
                   <text
