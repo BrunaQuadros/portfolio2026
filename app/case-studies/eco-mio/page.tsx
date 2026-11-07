@@ -474,7 +474,6 @@ export default function EcoMioCaseStudyPage() {
         <SectionHeading
           eyebrow={finalSolution.eyebrow}
           heading={finalSolution.heading}
-          body={<p>{finalSolution.body}</p>}
           align="center"
           accentClass={ACCENT_TEXT}
         />

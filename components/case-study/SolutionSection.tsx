@@ -504,12 +504,26 @@ export function SolutionSection({
                 // width below lg, and from lg the 774px the hero video has at
                 // 1440 (its panel's 520px content height x the 1.49 video
                 // shape). Starts from the beginning once it's on screen.
-                <AutoPlayVideo
-                  src={block.video.src}
-                  alt={block.video.alt}
-                  startOnView
-                  className={`w-full rounded-case-md shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)] lg:max-w-[774px] ${block.video.aspectClass}`}
-                />
+                <div className="relative mb-6 w-full lg:mb-10 lg:max-w-[774px]">
+                  <AutoPlayVideo
+                    src={block.video.src}
+                    alt={block.video.alt}
+                    startOnView
+                    className={`w-full rounded-case-md shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)] ${block.video.aspectClass}`}
+                  />
+                  {/* Portrait image overlapping the video's lower right
+                      corner, sized as a share of the video so it scales with
+                      it; it pokes out 6% past the right edge and 8% below. */}
+                  {block.video.overlay ? (
+                    <div className="absolute -bottom-[8%] -right-[6%] aspect-[3/4] w-[26%] overflow-hidden rounded-case-md shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)]">
+                      {block.video.overlay.src ? (
+                        <Image src={block.video.overlay.src} alt={block.video.overlay.alt} fill className="object-cover" />
+                      ) : (
+                        <ImagePlaceholder label={block.video.overlay.alt} className="size-full" />
+                      )}
+                    </div>
+                  ) : null}
+                </div>
               ) : (
                 <MobileScrollStrip block={block} priority={i === 0} />
               )}

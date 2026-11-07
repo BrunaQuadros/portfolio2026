@@ -271,7 +271,6 @@ export const ecoMio: EcoMioContent = {
   finalSolution: {
     eyebrow: "FINAL SOLUTION",
     heading: "Demo Studio: the automated demo maker",
-    body: "Create a demo, add the client and routes, upload three screenshots, publish. One person, no handovers.",
   },
   solutionSections: [
     {
@@ -281,13 +280,16 @@ export const ecoMio: EcoMioContent = {
       tagIcon: `${IMG}/icon-tag-automation.png`,
       blocks: [
         {
-          heading: "AI reads three screenshots and fills every field",
+          heading: "AI fills every field",
           images: [],
           // Recording from the owner's Desktop (demo-studio-autofill.mp4).
           video: {
             src: "/videos/case-studies/eco-mio/automation-autofill.mp4",
             alt: "Demo Studio: three flight screenshots are uploaded and AI fills in every field of the demo",
             aspectClass: "aspect-[2884/1940]",
+            // Slot for an image overlapping the video's lower right corner
+            // (grey placeholder until the owner picks one).
+            overlay: { alt: "Image coming soon" },
           },
         },
         {

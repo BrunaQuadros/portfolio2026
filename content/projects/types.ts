@@ -144,8 +144,9 @@ export type SolutionBlock = {
   // A screen recording instead of phone mockups, styled like the eco.mio
   // hero video (rounded, soft shadow) but straight on the grey card.
   // `aspectClass` reserves the video's shape before it loads (e.g.
-  // "aspect-[2884/1940]").
-  video?: { src: string; alt: string; aspectClass: string };
+  // "aspect-[2884/1940]"). `overlay` is an image overlapping the video's
+  // lower right corner (a grey placeholder while it has no `src`).
+  video?: { src: string; alt: string; aspectClass: string; overlay?: { src?: string; alt: string } };
 };
 
 export type SolutionSection = {
@@ -422,7 +423,7 @@ export type EcoMioContent = {
       };
     };
   };
-  finalSolution: { eyebrow: string; heading: string; body: string };
+  finalSolution: { eyebrow: string; heading: string };
   solutionSections: (SolutionSection & { tagIcon?: string })[];
   discardedIdeas: {
     eyebrow: string;
