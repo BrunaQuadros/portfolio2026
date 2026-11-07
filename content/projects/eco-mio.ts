@@ -149,11 +149,6 @@ export const ecoMio: EcoMioContent = {
     // 01 / 02 / 03 row made from `stepNames`.
     heading: "Audit, Align, Scope",
     stepNames: ["Audit", "Align", "Scope"],
-    body: [
-      "After my second demo, I knew this couldn’t keep going. ",
-      { text: "The solution was left open for me to create,", bold: true, accent: true },
-      " so I started with how demos really got made.",
-    ],
     audit: {
       label: "1. Audit",
       heading: "Process complexity, mapped",

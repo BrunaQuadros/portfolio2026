@@ -386,7 +386,6 @@ export type EcoMioContent = {
     heading: string;
     // The three step names in the big numbered row under the heading.
     stepNames: string[];
-    body: RichSegment[];
     audit: {
       label: string;
       heading: string;
