@@ -278,7 +278,7 @@ export const ecoMio: EcoMioContent = {
     preview: {
       tag: "Decentralization",
       tagIcon: `${IMG}/icon-tag-decentralization.png`,
-      heading: "Anyone on the team can build a demo",
+      heading: "Anyone can build a demo",
       video: { alt: "Demo Studio preview video, coming soon", aspectClass: "aspect-[2884/1940]" },
     },
   },
