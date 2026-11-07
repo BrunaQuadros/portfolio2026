@@ -72,7 +72,8 @@ export default function EcoMioCaseStudyPage() {
     <main className="flex flex-col gap-24 pb-32 sm:gap-32">
       {/* Hero: same layout as the Faircado hero. The blue panel plays the
           Concur to eco.mio recording on a loop (AutoPlayVideo: muted, still
-          first frame under reduced motion), with the Bayer logo where the
+          first frame under reduced motion; startOnView, so it starts from
+          the beginning once most of it is on screen), with the Bayer logo where the
           Faircado hero has its "featured by App Store" badge. From lg up the
           panel keeps the hero's fixed 1220:728 shape, the video fills its
           height centred, and the badge sits in the top-left corner; below lg
@@ -125,6 +126,7 @@ export default function EcoMioCaseStudyPage() {
           <AutoPlayVideo
             src={hero.video.src}
             alt={hero.video.alt}
+            startOnView
             className="aspect-[1800/1210] w-full rounded-case-md shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)] lg:h-full lg:w-auto lg:max-w-full"
           />
         </div>
