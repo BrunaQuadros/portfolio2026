@@ -144,7 +144,7 @@ export const ecoMio: EcoMioContent = {
   // "My process": one section in three steps (Audit, Align, Scope), from
   // the owner's "Copy round 2" artboard, 2026-11-04.
   approach: {
-    eyebrow: "MY PROCESS",
+    eyebrow: "PROCESS & FINDINGS",
     // Read by screen readers; on screen the heading is the numbered
     // 01 / 02 / 03 row made from `stepNames`.
     heading: "Audit, Align, Scope",
