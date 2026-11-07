@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Link as LinkIcon, MessageCircleQuestionMark, Send, Undo2, User } from "lucide-react";
+import { Clock, Link as LinkIcon, MessageCircleQuestionMark, Send, Undo2, User } from "lucide-react";
 import type { ProcessSwimlaneData, SwimlaneNode } from "@/content/projects/types";
 
 // A horizontal "who does what" process diagram: three lanes (people) and a
@@ -21,6 +21,9 @@ const LANE_HEADER = { iconX: 165, iconSize: 29, labelX: 210, fontSize: 27 };
 const FIRST_STEP_X = 435.5;
 const LAST_STEP_X = 1728;
 const LABEL = { fontSize: 22, gapAbove: 12, gapBelow: 28 };
+// Bottleneck time badge: a dark pill above the node, `gap` above its top,
+// nudged `dx` right so it clears the line coming in from the upper left.
+const BADGE = { height: 40, width: 96, gap: 14, dx: 18, iconSize: 22, fontSize: 22 };
 // The big decorative ring in the top-right corner, cropped by the panel.
 const RING = { cx: 1973, cy: -191, r: 391.5, width: 117 };
 
@@ -144,6 +147,21 @@ function FigmaNode({ cx, cy }: { cx: number; cy: number }) {
   );
 }
 
+// "2h" in a navy pill with a yellow clock, marking a bottleneck step.
+function DurationBadge({ cx, bottom, text }: { cx: number; bottom: number; text: string }) {
+  const x = cx + BADGE.dx - BADGE.width / 2;
+  const y = bottom - BADGE.height;
+  return (
+    <g>
+      <rect x={x} y={y} width={BADGE.width} height={BADGE.height} rx={BADGE.height / 2} className="fill-eco-mio-navy-900" />
+      <Icon as={Clock} cx={x + 30} cy={y + BADGE.height / 2} size={BADGE.iconSize} className="text-eco-mio-yellow-400" />
+      <text x={x + 48} y={y + BADGE.height / 2 + 8} fontSize={BADGE.fontSize} fontWeight={700} className="fill-white">
+        {text}
+      </text>
+    </g>
+  );
+}
+
 function StepNode({ node, cx, cy, colors }: { node: SwimlaneNode; cx: number; cy: number; colors: Colors }) {
   switch (node) {
     case "card":
@@ -234,6 +252,7 @@ export function ProcessSwimlane({ diagram, className = "" }: ProcessSwimlaneProp
             return (
               <g key={`${step.label}-${i}`}>
                 <StepNode node={step.node} cx={x} cy={y} colors={colors} />
+              {step.duration ? <DurationBadge cx={x} bottom={y - half - BADGE.gap} text={step.duration} /> : null}
                 <text
                   x={labelX}
                   y={labelY}

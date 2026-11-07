@@ -318,6 +318,9 @@ export type ProcessSwimlaneData = {
     node: SwimlaneNode;
     labelPosition: "above" | "below";
     labelAlign?: "center" | "start";
+    // Time the step took (e.g. "2h"), shown as a dark badge above the node
+    // to mark it as a bottleneck.
+    duration?: string;
     // A bigger example shown on hover or keyboard focus over the node, from
     // lg up (eco.mio: one demo built by hand in Figma). `buttonLabel` names
     // the hover target for screen readers.

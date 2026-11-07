@@ -155,26 +155,29 @@ export const ecoMio: EcoMioContent = {
       body: [
         "One demo took ",
         { text: "6 handoffs across 3 roles", bold: true },
-        ", and vague briefs left the PM and me guessing what sales needed. Keeping it made even less sense.",
+        " and 5 hours. Most of it went to two manual steps: ",
+        { text: "2h of Notion flight screenshots and 3h of Figma by hand", bold: true },
+        ". Vague briefs left the PM and me guessing what sales needed.",
       ],
       caption: "The old process, from Trello brief to final Figma link.",
       // Drawn in code (ProcessSwimlane): steps run left to right, `lane` is
       // 0 Sales, 1 PM, 2 Design.
       processDiagram: {
-        label: "Process diagram across Sales, PM and Design: Sales writes a Trello brief, PM sends questions and Sales answers, PM collects flight screenshots on Notion and sends a brief to design, Design builds it by hand in Figma, PM reviews the Figma link, and the Figma link goes to Sales",
+        label: "Process diagram across Sales, PM and Design: Sales writes a Trello brief, PM sends questions and Sales answers, PM collects flight screenshots on Notion and sends a brief to design, Design builds it by hand in Figma, PM reviews the Figma link, and the Figma link goes to Sales. The two bottlenecks: the Notion flight screenshots took 2 hours and Figma by hand 3 hours",
         regionLabel: "Process diagram, scroll sideways to see all of it",
         lanes: [{ name: "Sales" }, { name: "PM", highlight: true }, { name: "Design" }],
         steps: [
           { label: "Trello brief", lane: 0, node: "card", labelPosition: "above" },
           { label: "Questions", lane: 1, node: "question", labelPosition: "below" },
           { label: "Answers", lane: 0, node: "reply", labelPosition: "above" },
-          { label: "Notion flight screenshots", lane: 1, node: "screens", labelPosition: "below" },
+          { label: "Notion flight screenshots", lane: 1, node: "screens", labelPosition: "below", duration: "2h" },
           { label: "Brief to design", lane: 1, node: "send", labelPosition: "above" },
           {
             label: "Figma by hand",
             lane: 2,
             node: "figma",
             labelPosition: "below",
+            duration: "3h",
             // One demo, screenshotted from eco.mio's demo site
             // (ricoh-3, results view) on 2026-11-07.
             preview: {
@@ -193,7 +196,7 @@ export const ecoMio: EcoMioContent = {
     align: {
       label: "2. Align",
       heading: "Stakeholders on the same page",
-      body: "I brought sales and the PM together to decide what had to change.",
+      body: "I brought sales and PM together to decide what we all needed.",
       cards: [
         {
           tag: "Automation",
