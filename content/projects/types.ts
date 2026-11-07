@@ -318,6 +318,10 @@ export type ProcessSwimlaneData = {
     node: SwimlaneNode;
     labelPosition: "above" | "below";
     labelAlign?: "center" | "start";
+    // A bigger example shown on hover or keyboard focus over the node, from
+    // lg up (eco.mio: one demo built by hand in Figma). `buttonLabel` names
+    // the hover target for screen readers.
+    preview?: { src: string; alt: string; width: number; height: number; buttonLabel: string };
   }[];
 };
 

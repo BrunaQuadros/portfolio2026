@@ -172,7 +172,21 @@ export const ecoMio: EcoMioContent = {
           { label: "Answers", lane: 0, node: "reply", labelPosition: "above" },
           { label: "Notion flight screenshots", lane: 1, node: "screens", labelPosition: "below" },
           { label: "Brief to design", lane: 1, node: "send", labelPosition: "above" },
-          { label: "Figma by hand", lane: 2, node: "figma", labelPosition: "below" },
+          {
+            label: "Figma by hand",
+            lane: 2,
+            node: "figma",
+            labelPosition: "below",
+            // One demo, screenshotted from eco.mio's demo site
+            // (ricoh-3, results view) on 2026-11-07.
+            preview: {
+              src: `${IMG}/figma-by-hand-ricoh-demo.png`,
+              alt: "Example demo for Ricoh: London to Amsterdam search results with three curated options, Eurostar recommended for best price, low emissions and shorter travel time",
+              width: 1600,
+              height: 1083,
+              buttonLabel: "Show an example demo built by hand in Figma",
+            },
+          },
           { label: "Figma link review", lane: 1, node: "link", labelPosition: "below", labelAlign: "start" },
           { label: "Figma link sales", lane: 0, node: "link", labelPosition: "above" },
         ],

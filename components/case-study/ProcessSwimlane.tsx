@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Link as LinkIcon, MessageCircleQuestionMark, Send, Undo2, User } from "lucide-react";
 import type { ProcessSwimlaneData, SwimlaneNode } from "@/content/projects/types";
 
@@ -33,6 +34,22 @@ const HALF_HEIGHT: Record<SwimlaneNode, number> = {
   figma: 56,
   link: 25,
 };
+
+// Half the width of each node shape, for the hover target over a node
+// with a preview.
+const HALF_WIDTH: Record<SwimlaneNode, number> = {
+  card: 46,
+  question: 28,
+  reply: 28,
+  screens: 52,
+  send: 28,
+  figma: 87,
+  link: 46,
+};
+
+// Canvas units as a percentage of the canvas, for placing HTML over the SVG.
+const pctX = (x: number) => `${(x / CANVAS.width) * 100}%`;
+const pctY = (y: number) => `${(y / CANVAS.height) * 100}%`;
 
 // Fill and icon colours per lane type, as Tailwind classes on SVG elements.
 const COLORS = {
@@ -166,68 +183,101 @@ export function ProcessSwimlane({ diagram, className = "" }: ProcessSwimlaneProp
   const colorsFor = (lane: number) => (lanes[lane]?.highlight ? COLORS.highlight : COLORS.plain);
 
   return (
-    <svg
-      viewBox={`0 0 ${CANVAS.width} ${CANVAS.height}`}
-      role="img"
-      aria-label={label}
-      className={`font-manrope ${className}`}
-    >
-      <defs>
-        <clipPath id="process-swimlane-panel">
-          <rect width={CANVAS.width} height={CANVAS.height} rx={CANVAS.radius} />
-        </clipPath>
-      </defs>
-      <g clipPath="url(#process-swimlane-panel)">
-        <rect width={CANVAS.width} height={CANVAS.height} className="fill-eco-mio-blue-500" />
-        <circle cx={RING.cx} cy={RING.cy} r={RING.r} fill="none" strokeWidth={RING.width} className="stroke-white/10" />
+    // The wrapper takes the sizing classes; the SVG fills it, and any
+    // preview hover targets sit over their nodes in percentages.
+    <div className={`relative ${className}`}>
+      <svg
+        viewBox={`0 0 ${CANVAS.width} ${CANVAS.height}`}
+        role="img"
+        aria-label={label}
+        className="block h-full w-full font-manrope"
+      >
+        <defs>
+          <clipPath id="process-swimlane-panel">
+            <rect width={CANVAS.width} height={CANVAS.height} rx={CANVAS.radius} />
+          </clipPath>
+        </defs>
+        <g clipPath="url(#process-swimlane-panel)">
+          <rect width={CANVAS.width} height={CANVAS.height} className="fill-eco-mio-blue-500" />
+          <circle cx={RING.cx} cy={RING.cy} r={RING.r} fill="none" strokeWidth={RING.width} className="stroke-white/10" />
 
-        {lanes.map((lane, i) => {
-          const colors = colorsFor(i);
-          const y = LANE_Y[i];
-          return (
-            <g key={lane.name}>
-              <line x1={LANE_LINE.x1} x2={LANE_LINE.x2} y1={y} y2={y} strokeWidth={2} className="stroke-white/10" />
-              <Icon as={User} cx={LANE_HEADER.iconX + LANE_HEADER.iconSize / 2} cy={y} size={LANE_HEADER.iconSize + 6} className={lane.highlight ? "text-eco-mio-yellow-400" : "text-white"} />
-              <text x={LANE_HEADER.labelX} y={y + 9.5} fontSize={LANE_HEADER.fontSize} fontWeight={600} className={colors.text}>
-                {lane.name}
-              </text>
-            </g>
-          );
-        })}
+          {lanes.map((lane, i) => {
+            const colors = colorsFor(i);
+            const y = LANE_Y[i];
+            return (
+              <g key={lane.name}>
+                <line x1={LANE_LINE.x1} x2={LANE_LINE.x2} y1={y} y2={y} strokeWidth={2} className="stroke-white/10" />
+                <Icon as={User} cx={LANE_HEADER.iconX + LANE_HEADER.iconSize / 2} cy={y} size={LANE_HEADER.iconSize + 6} className={lane.highlight ? "text-eco-mio-yellow-400" : "text-white"} />
+                <text x={LANE_HEADER.labelX} y={y + 9.5} fontSize={LANE_HEADER.fontSize} fontWeight={600} className={colors.text}>
+                  {lane.name}
+                </text>
+              </g>
+            );
+          })}
 
-        <polyline
-          points={points.map((p) => `${p.x},${p.y}`).join(" ")}
-          fill="none"
-          strokeWidth={3}
-          strokeLinejoin="round"
-          className="stroke-white"
-        />
+          <polyline
+            points={points.map((p) => `${p.x},${p.y}`).join(" ")}
+            fill="none"
+            strokeWidth={3}
+            strokeLinejoin="round"
+            className="stroke-white"
+          />
 
-        {steps.map((step, i) => {
-          const { x, y } = points[i];
-          const colors = colorsFor(step.lane);
-          const half = HALF_HEIGHT[step.node];
-          const labelY = step.labelPosition === "above" ? y - half - LABEL.gapAbove : y + half + LABEL.gapBelow;
-          // "start" aligns the label with the node's left edge (the Figma
-          // link review pill) instead of centring it.
-          const labelX = step.labelAlign === "start" ? x - 46 : x;
-          return (
-            <g key={`${step.label}-${i}`}>
-              <StepNode node={step.node} cx={x} cy={y} colors={colors} />
-              <text
-                x={labelX}
-                y={labelY}
-                fontSize={LABEL.fontSize}
-                fontWeight={600}
-                textAnchor={step.labelAlign === "start" ? "start" : "middle"}
-                className="fill-white"
-              >
-                {step.label}
-              </text>
-            </g>
-          );
-        })}
-      </g>
-    </svg>
+          {steps.map((step, i) => {
+            const { x, y } = points[i];
+            const colors = colorsFor(step.lane);
+            const half = HALF_HEIGHT[step.node];
+            const labelY = step.labelPosition === "above" ? y - half - LABEL.gapAbove : y + half + LABEL.gapBelow;
+            // "start" aligns the label with the node's left edge (the Figma
+            // link review pill) instead of centring it.
+            const labelX = step.labelAlign === "start" ? x - 46 : x;
+            return (
+              <g key={`${step.label}-${i}`}>
+                <StepNode node={step.node} cx={x} cy={y} colors={colors} />
+                <text
+                  x={labelX}
+                  y={labelY}
+                  fontSize={LABEL.fontSize}
+                  fontWeight={600}
+                  textAnchor={step.labelAlign === "start" ? "start" : "middle"}
+                  className="fill-white"
+                >
+                  {step.label}
+                </text>
+              </g>
+            );
+          })}
+        </g>
+      </svg>
+      {/* Hover or focus a node with a preview to see a bigger example above
+          it. From lg only: below lg the diagram sits in a sideways scroll
+          strip that would clip the card, and there's no hover on touch. */}
+      {steps.map((step, i) => {
+        if (!step.preview) return null;
+        const { x, y } = points[i];
+        const halfW = HALF_WIDTH[step.node];
+        const halfH = HALF_HEIGHT[step.node];
+        return (
+          <button
+            key={`preview-${i}`}
+            type="button"
+            aria-label={step.preview.buttonLabel}
+            className="group absolute z-20 hidden cursor-zoom-in rounded-md outline-none ring-white/60 transition-shadow hover:ring-4 focus-visible:ring-4 lg:block"
+            style={{ left: pctX(x - halfW), top: pctY(y - halfH), width: pctX(halfW * 2), height: pctY(halfH * 2) }}
+          >
+            <span className="pointer-events-none absolute bottom-[calc(100%+16px)] left-1/2 block w-[560px] -translate-x-1/2 translate-y-2 overflow-hidden rounded-case-md bg-white opacity-0 shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)] transition duration-200 ease-out group-hover:translate-y-0 group-hover:opacity-100 group-focus-visible:translate-y-0 group-focus-visible:opacity-100">
+              <Image
+                src={step.preview.src}
+                alt={step.preview.alt}
+                width={step.preview.width}
+                height={step.preview.height}
+                sizes="560px"
+                className="block h-auto w-full"
+              />
+            </span>
+          </button>
+        );
+      })}
+    </div>
   );
 }
