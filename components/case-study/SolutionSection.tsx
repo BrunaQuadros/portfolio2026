@@ -465,7 +465,7 @@ export function SolutionSection({
       {hideTitle ? null : (
       <h3
         id={`solution-${title.toLowerCase()}`}
-        className="flex w-max max-w-none flex-col items-center font-[family-name:var(--font-inter-display)] font-bold leading-[1.1] tracking-[-2px] text-portfolio-grey-50 text-center sm:block sm:w-auto"
+        className="flex w-max max-w-none flex-col items-center font-[family-name:var(--font-inter-display)] font-bold leading-[1.1] tracking-[-2px] text-portfolio-grey-50 text-center sm:block sm:w-auto xl:ml-[var(--case-text-inset)] xl:self-start xl:text-left"
       >
         {/* A third of the title's size (matches Figma), baseline-aligned
             with it by default since both are inline text in the same h3.

@@ -7,6 +7,16 @@ const IMG = "/images/case-studies/eco-mio";
 // from four typo fixes approved by the owner. Images without a `src` are
 // still empty frames in Figma and render as grey placeholders.
 export const ecoMio: EcoMioContent = {
+  sectionNav: [
+    { id: "overview", label: "Overview" },
+    { id: "context", label: "Context" },
+    { id: "problem", label: "Problem" },
+    { id: "approach", label: "My approach" },
+    { id: "solution", label: "Final solution" },
+    { id: "impact", label: "Impact" },
+    { id: "learnings", label: "Learnings" },
+    { id: "whats-next", label: "What's next" },
+  ],
   meta: {
     slug: "eco-mio",
     title: "Automating sales demos to cut 15h of work monthly",

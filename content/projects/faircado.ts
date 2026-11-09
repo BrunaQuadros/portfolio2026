@@ -5,6 +5,17 @@ const IMG = "/images/case-studies/faircado";
 // Faircado case study copy. Wording is preserved verbatim from the approved
 // Figma design, only formatting/markup was adapted for structured content.
 export const faircado: FaircadoContent = {
+  sectionNav: [
+    { id: "overview", label: "Overview" },
+    { id: "context", label: "Context" },
+    { id: "problem", label: "Problem" },
+    { id: "approach", label: "My approach" },
+    { id: "takeaways", label: "Takeaways" },
+    { id: "solution", label: "Final solution" },
+    { id: "discarded-ideas", label: "Discarded ideas" },
+    { id: "impact", label: "Impact" },
+    { id: "learnings", label: "Learnings" },
+  ],
   meta: {
     slug: "faircado",
     title: "Redefining visual search: from MVP to star feature",

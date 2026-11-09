@@ -68,6 +68,9 @@ Theming for a second case study (added for eco.mio, 2026-11-03). Every prop belo
 `components/navigation/`:
 - `SiteHeader.tsx` — homepage top bar: site name (links home) and a Contact link
 - `ExitButton.tsx` — fixed circular close button (top right) linking back to the homepage. Rendered by `app/case-studies/layout.tsx` so it appears on every case study page
+- `CaseStudySectionNav.tsx` — client component wrapping everything after the hero on a case study page. Lists the page's sections (`sectionNav` in its content file; each `id` matches an `id` on a section in the page) and tracks which one is being read. `variant` picks the navigation, from xl (1280px) up; below that there is none and the content is unchanged
+  - `variant="timeline"` (default, live): renders `CaseStudyTimelineNav.tsx`, the small floating bar at the bottom centre. Appears after 80px of scroll, one dot per section, names on hover or keyboard focus, with Previous and Next arrows at its ends. Arrow order lives in `content/projects/caseStudyOrder.ts` and loops; add a line there when a case study page is published
+  - `variant="sidebar"` (kept as an alternative, not in use): the sticky grey "Contents" panel on the left, with the content zoomed to 0.8035 so nav and content together are as wide as the hero
 
 ## ShadCN Strategy
 

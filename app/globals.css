@@ -287,3 +287,11 @@
 .cmp:hover .cmp-knob { scale: 1.08; }
 
 .cmp[data-held] .cmp-knob { scale: 0.9; }
+
+/* Clicking a case study section link glides to it, unless the visitor prefers
+   reduced motion. Scoped with :has so other pages keep instant scrolling. */
+@media (prefers-reduced-motion: no-preference) {
+  html:has([data-case-study-section-nav]) {
+    scroll-behavior: smooth;
+  }
+}

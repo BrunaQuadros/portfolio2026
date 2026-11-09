@@ -40,7 +40,7 @@ export function DiscardedIdeasSection({
         // Same text-container alignment trick used by Context, Problem, My
         // Approach, and Insight, so this heading's left edge lines up with
         // theirs.
-        style={{ marginLeft: "max(0px, calc((100% - 975px) / 2 + 40px))" }}
+        style={{ marginLeft: "var(--case-text-inset, max(0px, calc((100% - 975px) / 2 + 40px)))" }}
       >
         <SectionHeading
           eyebrow={eyebrow}

@@ -54,6 +54,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
+      // Case study section links glide (app/globals.css); this makes moving to
+      // another page still jump straight to its top.
+      data-scroll-behavior="smooth"
       className={`${geistSans.variable} ${geistMono.variable} ${manrope.variable} ${interDisplay.variable} ${hankenGrotesk.variable} ${caveat.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">{children}</body>
