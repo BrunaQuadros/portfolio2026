@@ -5,9 +5,6 @@ import type { SectionNavItem } from "@/content/projects/types";
 // being read": 35% of the window height.
 const ACTIVE_LINE = 0.35;
 
-// How far the visitor has to scroll before the floating timeline appears.
-const REVEAL_AFTER_PX = 80;
-
 // Finds the section being read: the last one whose top has passed the line.
 function findCurrentSection(sections: SectionNavItem[]) {
   const line = window.innerHeight * ACTIVE_LINE;
@@ -20,19 +17,15 @@ function findCurrentSection(sections: SectionNavItem[]) {
 }
 
 // Follows the page's scroll position for the case study section navs: which
-// section is being read, and whether the visitor has started scrolling down.
+// section is being read.
 export function useCaseStudyScroll(sections: SectionNavItem[]) {
   const [currentId, setCurrentId] = useState(sections[0].id);
-  const [hasScrolled, setHasScrolled] = useState(false);
 
   useEffect(() => {
     let frame = 0;
     const update = () => {
       cancelAnimationFrame(frame);
-      frame = requestAnimationFrame(() => {
-        setCurrentId(findCurrentSection(sections));
-        setHasScrolled(window.scrollY > REVEAL_AFTER_PX);
-      });
+      frame = requestAnimationFrame(() => setCurrentId(findCurrentSection(sections)));
     };
     update();
     window.addEventListener("scroll", update, { passive: true });
@@ -44,5 +37,5 @@ export function useCaseStudyScroll(sections: SectionNavItem[]) {
     };
   }, [sections]);
 
-  return { currentId, hasScrolled };
+  return currentId;
 }
