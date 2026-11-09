@@ -16,16 +16,26 @@ function findCurrentSection(sections: SectionNavItem[]) {
   return current;
 }
 
+// True once the first section's top has passed the line, right after the hero.
+function hasReachedFirstSection(sections: SectionNavItem[]) {
+  const first = document.getElementById(sections[0].id);
+  return first !== null && first.getBoundingClientRect().top <= window.innerHeight * ACTIVE_LINE;
+}
+
 // Follows the page's scroll position for the case study section navs: which
-// section is being read.
+// section is being read, and whether the hero has been left behind.
 export function useCaseStudyScroll(sections: SectionNavItem[]) {
   const [currentId, setCurrentId] = useState(sections[0].id);
+  const [isPastHero, setIsPastHero] = useState(false);
 
   useEffect(() => {
     let frame = 0;
     const update = () => {
       cancelAnimationFrame(frame);
-      frame = requestAnimationFrame(() => setCurrentId(findCurrentSection(sections)));
+      frame = requestAnimationFrame(() => {
+        setCurrentId(findCurrentSection(sections));
+        setIsPastHero(hasReachedFirstSection(sections));
+      });
     };
     update();
     window.addEventListener("scroll", update, { passive: true });
@@ -37,5 +47,5 @@ export function useCaseStudyScroll(sections: SectionNavItem[]) {
     };
   }, [sections]);
 
-  return currentId;
+  return { currentId, isPastHero };
 }

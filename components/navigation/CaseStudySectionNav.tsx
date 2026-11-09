@@ -1,5 +1,6 @@
 "use client";
 
+import { CaseStudyTickNav } from "@/components/navigation/CaseStudyTickNav";
 import { CaseStudyTimelineNav } from "@/components/navigation/CaseStudyTimelineNav";
 import { useCaseStudyScroll } from "@/lib/useCaseStudyScroll";
 import type { SectionNavItem } from "@/content/projects/types";
@@ -12,8 +13,8 @@ type CaseStudySectionNavProps = {
   accentBgClass: string;
   /** This case study's slug, used by the timeline's previous and next arrows. */
   slug: string;
-  /** "timeline" is the floating bottom bar (live); "sidebar" is the left-hand panel, kept as an alternative. */
-  variant?: "sidebar" | "timeline";
+  /** "ticks" is the column of dashes on the left (live); "timeline" (floating bottom bar) and "sidebar" (left-hand panel) are kept as alternatives. */
+  variant?: "ticks" | "timeline" | "sidebar";
   /** Everything on the page after the hero. */
   children: React.ReactNode;
 };
@@ -31,29 +32,38 @@ type CaseStudySectionNavProps = {
 // --case-text-inset (60px, the padding of the My Role box) is the one left line
 // that all text and headings in the content share from xl up.
 //
-// The timeline variant has no side column, so the content stays at full size,
-// on the same 1220px container as the hero.
+// The ticks and timeline variants have no side column, so the content stays at
+// full size, on the same 1220px container as the hero.
 export function CaseStudySectionNav({
   sections,
   accentTextClass,
   accentBgClass,
   slug,
-  variant = "timeline",
+  variant = "ticks",
   children,
 }: CaseStudySectionNavProps) {
-  const currentId = useCaseStudyScroll(sections);
+  const { currentId, isPastHero } = useCaseStudyScroll(sections);
 
-  if (variant === "timeline") {
+  if (variant !== "sidebar") {
     return (
       <>
-        <CaseStudyTimelineNav
-          sections={sections}
-          currentId={currentId}
-          // Stays hidden through the hero and the first section (Overview).
-          isRevealed={currentId !== sections[0].id}
-          accentBgClass={accentBgClass}
-          slug={slug}
-        />
+        {variant === "ticks" ? (
+          <CaseStudyTickNav
+            sections={sections}
+            currentId={currentId}
+            isRevealed={isPastHero}
+            accentBgClass={accentBgClass}
+          />
+        ) : (
+          <CaseStudyTimelineNav
+            sections={sections}
+            currentId={currentId}
+            // The timeline stays hidden through the hero and Overview.
+            isRevealed={currentId !== sections[0].id}
+            accentBgClass={accentBgClass}
+            slug={slug}
+          />
+        )}
         <div className="flex min-w-0 flex-col gap-24 sm:gap-32 xl:mx-auto xl:w-full xl:max-w-[1220px] xl:[--case-text-inset:60px]">
           {children}
         </div>
