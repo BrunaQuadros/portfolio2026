@@ -186,7 +186,12 @@ export type DiscardedIdea = {
   captionBody: string;
 };
 
+// One entry in a case study's left-hand section list. `id` matches the id on
+// the section in the page file.
+export type SectionNavItem = { id: string; label: string };
+
 export type FaircadoContent = {
+  sectionNav: SectionNavItem[];
   meta: {
     slug: string;
     title: string;
@@ -364,6 +369,7 @@ export type HandoffChartData = {
 // RichSegment paragraphs instead of per-phrase lead/accent/tail fields.
 // Images without a `src` render as grey placeholders until exported.
 export type EcoMioContent = {
+  sectionNav: SectionNavItem[];
   meta: { slug: string; title: string; description: string; year: string };
   hero: {
     logo: { src: string; alt: string };

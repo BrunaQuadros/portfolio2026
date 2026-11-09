@@ -16,6 +16,7 @@ import { ContextCardCluster } from "@/components/case-study/ContextCardCluster";
 import { ProcessSwimlane } from "@/components/case-study/ProcessSwimlane";
 import { HandoffChart } from "@/components/case-study/HandoffChart";
 import { AutoPlayVideo } from "@/components/media/AutoPlayVideo";
+import { CaseStudySectionNav } from "@/components/navigation/CaseStudySectionNav";
 
 const IMG = "/images/case-studies/eco-mio";
 
@@ -28,7 +29,7 @@ const ACCENT_BG = "bg-eco-mio-blue-500";
 // each heading block up with the text inside the My Role/Impact box, not with
 // the box's own background or the section's padding. Same value as every
 // heading block on the Faircado page.
-const TEXT_COLUMN = { marginLeft: "max(0px, calc((100% - 975px) / 2 + 40px))" };
+const TEXT_COLUMN = { marginLeft: "var(--case-text-inset, max(0px, calc((100% - 975px) / 2 + 40px)))" };
 
 // Role box label and value styles, shared by the four columns.
 const ROLE_LABEL = `font-manrope font-extrabold text-[16px] tracking-[0.48px] uppercase ${ACCENT_TEXT}`;
@@ -64,6 +65,7 @@ export default function EcoMioCaseStudyPage() {
     results,
     closingTakeaways,
     whatsNext,
+    sectionNav,
   } = ecoMio;
 
   return (
@@ -130,451 +132,454 @@ export default function EcoMioCaseStudyPage() {
         </div>
       </section>
 
-      {/* Role / Timeline / Team / Space + Impact. Same box and mobile grid as
-          Faircado: My Role/Space stack on the left, Team/Timeline on the
-          right below sm (order-*), desktop keeps the DOM order in one row. */}
-      <section className="mx-auto w-full max-w-[1220px] px-4 sm:px-10">
-        <div className="mx-auto flex w-fit max-w-full flex-col gap-10 rounded-case-mobile bg-portfolio-grey-50 p-6 sm:rounded-case-xl sm:p-10 lg:p-[60px]">
-          <div className="grid grid-cols-[3fr_2fr] gap-x-6 gap-y-10 sm:flex sm:flex-wrap sm:gap-16 lg:gap-x-[140px]">
-            <div className="order-1 flex flex-col gap-2 sm:order-none">
-              <p className={ROLE_LABEL}>My Role</p>
-              <div className="flex flex-col">
-                <p className={`-mb-0.5 text-portfolio-grey-900 ${ROLE_VALUE}`}>{roleInfo.role.title}</p>
-                <p className={`text-portfolio-grey-600 ${ROLE_VALUE}`}>{roleInfo.role.subtitle}</p>
-              </div>
-            </div>
-            <div className="order-4 flex flex-col gap-2 sm:order-none">
-              <p className={ROLE_LABEL}>Timeline</p>
-              <div className="flex flex-col">
-                <p className={`-mb-0.5 text-portfolio-grey-900 ${ROLE_VALUE}`}>{roleInfo.timeline.title}</p>
-                <p className={`text-portfolio-grey-600 ${ROLE_VALUE}`}>{roleInfo.timeline.subtitle}</p>
-              </div>
-            </div>
-            <div className="order-2 flex flex-col gap-2 sm:order-none">
-              <p className={ROLE_LABEL}>Team</p>
-              <TeamAvatarGroup
-                avatar={roleInfo.team.avatar}
-                extra={roleInfo.team.extra}
-                extraBreakdown={roleInfo.team.extraBreakdown}
-                accentClass={ACCENT_BG}
-              />
-            </div>
-            <div className="order-3 flex flex-col gap-2 sm:order-none">
-              <p className={ROLE_LABEL}>Space</p>
-              <div className="flex flex-col">
-                <p className={`-mb-0.5 text-portfolio-grey-900 ${ROLE_VALUE}`}>{roleInfo.space.title}</p>
-                <p className={`text-portfolio-grey-600 ${ROLE_VALUE}`}>{roleInfo.space.subtitle}</p>
-              </div>
-            </div>
-          </div>
-          <div className="flex flex-col gap-2">
-            <p className={ROLE_LABEL}>My Impact</p>
-            <ul className="list-disc space-y-1 pl-5 font-manrope text-[15px] leading-[24px] text-portfolio-grey-900 sm:text-[18px] sm:leading-[28px]">
-              {roleInfo.impact.map((bullet, i) => (
-                <li key={i}>
-                  <RichText segments={bullet} />
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      {/* Context: same layout and card cluster as the Faircado Context
-          section (heading block left, three tilted black-and-white cards
-          right, stacked below lg). Here the cards take the screenshots' own
-          shape so each booking tool shows whole. lg: the text column is
-          420px and the cluster 560px. xl: the text is set in the owner's
-          line breaks (~575px at 18px), so the column sizes to its longest
-          line (w-max) and the cluster is 535px, its box running 40px into
-          the page margin (-mr-10) so the cards themselves start ~64px from
-          the text and end inside the content edge, nudged 40px down
-          (translate-y-10) from the text's centre line. */}
-      <section className="relative mx-auto flex w-full max-w-[1220px] flex-col gap-12 px-4 max-sm:overflow-x-hidden sm:gap-16 sm:px-10 lg:flex-row lg:items-center lg:justify-between lg:gap-0">
-        <div className="w-full lg:max-w-[420px] xl:w-max xl:max-w-none" style={TEXT_COLUMN}>
-          <SectionHeading
-            eyebrow={context.eyebrow}
-            heading={context.heading}
-            accentClass={ACCENT_TEXT}
-            body={
-              // gap-7: one blank 28px line between paragraphs, as in the
-              // owner's layout.
-              <div className="flex flex-col gap-7">
-                {context.paragraphs.map((paragraph, i) => (
-                  <p key={i}>
-                    <RichText segments={paragraph} accentClass={ACCENT_TEXT} breakClass="hidden xl:inline" fallbackClass="xl:hidden" />
-                  </p>
-                ))}
-              </div>
-            }
-          />
-        </div>
-        <ContextCardCluster
-          cards={context.cards}
-          cardAspect="2564 / 2188"
-          boxAspect="399 / 321"
-          frontCard={0}
-          smallCorners
-          className="lg:max-w-[560px] xl:-mr-10 xl:max-w-[535px] xl:translate-y-10"
-        />
-      </section>
-
-      {/* Problem statement */}
-      <section className="mx-auto w-full max-w-[1220px] px-4 sm:px-10">
-        <div className="w-full lg:max-w-[526px]" style={TEXT_COLUMN}>
-          <SectionHeading
-            eyebrow={problem.eyebrow}
-            accentClass={ACCENT_TEXT}
-            heading={
-              <>
-                {problem.headingLine1}
-                <br className="hidden lg:inline" />{" "}
-                {problem.headingLine2}
-              </>
-            }
-            body={
-              <div className="flex flex-col gap-4">
-                {problem.paragraphs.map((paragraph, i) => (
-                  <p key={i}>
-                    <RichText segments={paragraph} />
-                  </p>
-                ))}
-                <p className="font-bold">{problem.closingLine}</p>
-              </div>
-            }
-          />
-        </div>
-      </section>
-
-      {/* Challenge headline. Same composition as Faircado: pulled up beside
-          the Problem text on desktop, with the old process diagram
-          phone overlapping the grey panel by 150px. Below lg the panel sits
-          48px under "So my challenge became:" (-mt-12) and the phone is
-          hidden, as on Faircado. */}
-      <section className="relative z-10 mx-auto -mt-12 w-full max-w-[1220px] px-4 sm:px-10 lg:-mt-[420px]">
-        <div className="flex flex-col items-center">
-          {/* lg:translate-y-10: the diagram sits 40px lower than Faircado's
-              phone (owner's request), overlapping the panel a little more. */}
-          <div className="relative z-10 hidden w-[250px] shrink-0 flex-col items-center lg:mb-[-150px] lg:ml-auto lg:mr-16 lg:flex lg:-translate-x-10 lg:translate-y-10">
-            {/* The old demo process, drawn in code (HandoffChart) at the
-                phone mockup's size and corners. */}
-            <div className="h-[541px] w-[250px] overflow-hidden rounded-case-xl shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)]">
-              <HandoffChart chart={problem.processChart} className="block size-full" />
-            </div>
-          </div>
-          <div className="relative z-0 flex w-full items-center rounded-case-mobile bg-portfolio-grey-50 py-6 sm:min-h-[340px] sm:rounded-case-3xl sm:py-10 lg:h-[340px] lg:min-h-0 lg:py-0">
-            <div className="w-full px-6 sm:px-10 lg:px-[80px]">
-              {/* lg:max-w-[640px] (no <br>): narrow enough that the headline
-                  wraps on its own into the owner's three lines, "...demo
-                  creation" / "to win back...take PM" / "out of the process?",
-                  while smaller screens keep wrapping naturally. */}
-              <p className="max-w-[560px] text-left font-manrope font-bold text-[28px] leading-[1.4] tracking-[-0.5px] text-portfolio-grey-900 lg:max-w-[640px] lg:text-[36px] lg:leading-[1.4]">
-                <RichText segments={problem.challenge} accentClass={ACCENT_TEXT} />
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* My process: the section heading, then three steps (Audit, Align,
-          Scope), each a StepHeading above its content. 96px between the
-          blocks and 48px from each step heading to its content, on every
-          screen size (the mobile rhythm; the owner's artboard uses the same
-          96px on desktop). Audit, Align and Scope add lg:mt-16, so on desktop
-          they sit 160px under the block above (owner's request). lg:mt-10 matches the extra breathing room
-          Faircado adds after the Challenge panel. */}
-      <section className="mx-auto flex w-full max-w-[1220px] flex-col gap-24 px-4 sm:px-10 lg:mt-10">
-        {/* The eyebrow, then the numbered step row as the visible heading:
-            the h2 itself is screen-reader only (sr-only takes it out of the
-            flex flow). Both sit in the text column, so "Audit" lines up
-            with "MY PROCESS"; the pale numerals start 40px further left
-            from sm (Faircado's Takeaways inset). -mt-4 pulls the row up
-            under the eyebrow. */}
-        <div style={TEXT_COLUMN}>
-          <SectionHeading
-            eyebrow={approach.eyebrow}
-            heading={<span className="sr-only">{approach.heading}</span>}
-            accentClass={ACCENT_TEXT}
-          />
-          {/* Faircado's Takeaways layout: a big pale-grey 01 / 02 / 03 behind
-              each column (same numeral files), the step name where Faircado
-              has its quote, at the section heading size, and blue arrows
-              linking one column to the next. */}
-          <div aria-hidden="true" className="-mt-4 grid grid-cols-3 gap-4 sm:gap-10">
-            {approach.stepNames.map((name, i) => (
-              <div key={name} className="relative">
-                <img
-                  src={`/images/case-studies/faircado/takeaways-number-0${i + 1}.svg`}
-                  alt=""
-                  className="pointer-events-none absolute left-0 top-0 -z-10 w-[calc(68%+40px)] sm:-left-10"
-                />
-                {/* pt-[109px] from sm: the name sits where Faircado's quote
-                    starts (pt-14, its 29px quote mark and 24px gap). */}
-                <div className="flex items-center pt-8 sm:pt-[109px]">
-                  <p className="font-manrope font-bold text-[28px] leading-[1.2] tracking-[-1px] text-portfolio-grey-900 sm:text-[40px] sm:leading-[48px]">
-                    {name}
-                  </p>
-                  {/* Centred in the free space between this name and the
-                      next column, level with the name. */}
-                  {i < approach.stepNames.length - 1 ? (
-                    <span className="flex flex-1 justify-center">
-                      <MoveRight strokeWidth={2.5} className={`size-5 sm:size-8 ${ACCENT_TEXT}`} />
-                    </span>
-                  ) : null}
+      <CaseStudySectionNav sections={sectionNav} accentTextClass={ACCENT_TEXT} accentBgClass={ACCENT_BG} slug={ecoMio.meta.slug}>
+        {/* Role / Timeline / Team / Space + Impact. Same box and mobile grid as
+            Faircado: My Role/Space stack on the left, Team/Timeline on the
+            right below sm (order-*), desktop keeps the DOM order in one row. */}
+        <section id="overview" className="scroll-mt-16 mx-auto w-full max-w-[1220px] px-4 sm:px-10">
+          <div className="mx-auto flex w-fit max-w-full flex-col gap-10 rounded-case-mobile bg-portfolio-grey-50 p-6 sm:rounded-case-xl sm:p-10 lg:p-[60px] xl:w-full">
+            <div className="grid grid-cols-[3fr_2fr] gap-x-6 gap-y-10 sm:flex sm:flex-wrap sm:gap-16 lg:gap-x-[140px] xl:justify-between xl:gap-x-24">
+              <div className="order-1 flex flex-col gap-2 sm:order-none">
+                <p className={ROLE_LABEL}>My Role</p>
+                <div className="flex flex-col">
+                  <p className={`-mb-0.5 text-portfolio-grey-900 ${ROLE_VALUE}`}>{roleInfo.role.title}</p>
+                  <p className={`text-portfolio-grey-600 ${ROLE_VALUE}`}>{roleInfo.role.subtitle}</p>
                 </div>
               </div>
-            ))}
-          </div>
-        </div>
-
-        {/* 1. Audit: the old process diagram, drawn in code
-            (ProcessSwimlane, its blue rounded panel included), with a
-            caption under it. */}
-        <div className="flex flex-col gap-12 lg:mt-16">
-          <div style={TEXT_COLUMN}>
-            <StepHeading
-              label={approach.audit.label}
-              heading={approach.audit.heading}
-              body={
-                <p>
-                  <RichText segments={approach.audit.body} accentClass={ACCENT_TEXT} />
-                </p>
-              }
-              accentClass={ACCENT_TEXT}
-            />
-          </div>
-          <figure className="flex flex-col gap-4">
-            {/* From lg the diagram fills the content width. Below lg, shrunk
-                to the screen its labels would be ~4px, so it keeps a readable
-                300px height and scrolls sideways (the horizontal scroll strip
-                pattern, docs/DESIGN.md), breaking out of the section padding
-                so it runs edge to edge. Focusable so keyboard users can
-                scroll it too. */}
-            <div
-              className="scrollbar-hide -mx-4 overflow-x-auto px-4 sm:-mx-10 sm:px-10 lg:mx-0 lg:overflow-visible lg:px-0"
-              tabIndex={0}
-              role="region"
-              aria-label={approach.audit.processDiagram.regionLabel}
-            >
-              {/* 921 x 300 below lg keeps the 2002:652 canvas shape at a
-                  readable height. */}
-              <ProcessSwimlane
-                diagram={approach.audit.processDiagram}
-                className="block h-[300px] w-[921px] max-w-none lg:h-auto lg:w-full"
-              />
+              <div className="order-4 flex flex-col gap-2 sm:order-none">
+                <p className={ROLE_LABEL}>Timeline</p>
+                <div className="flex flex-col">
+                  <p className={`-mb-0.5 text-portfolio-grey-900 ${ROLE_VALUE}`}>{roleInfo.timeline.title}</p>
+                  <p className={`text-portfolio-grey-600 ${ROLE_VALUE}`}>{roleInfo.timeline.subtitle}</p>
+                </div>
+              </div>
+              <div className="order-2 flex flex-col gap-2 sm:order-none">
+                <p className={ROLE_LABEL}>Team</p>
+                <TeamAvatarGroup
+                  avatar={roleInfo.team.avatar}
+                  extra={roleInfo.team.extra}
+                  extraBreakdown={roleInfo.team.extraBreakdown}
+                  accentClass={ACCENT_BG}
+                />
+              </div>
+              <div className="order-3 flex flex-col gap-2 sm:order-none">
+                <p className={ROLE_LABEL}>Space</p>
+                <div className="flex flex-col">
+                  <p className={`-mb-0.5 text-portfolio-grey-900 ${ROLE_VALUE}`}>{roleInfo.space.title}</p>
+                  <p className={`text-portfolio-grey-600 ${ROLE_VALUE}`}>{roleInfo.space.subtitle}</p>
+                </div>
+              </div>
             </div>
-            <figcaption
-              style={TEXT_COLUMN}
-              className="font-manrope text-[14px] leading-[20px] tracking-[0.48px] text-portfolio-grey-600"
-            >
-              {approach.audit.caption}
-            </figcaption>
-          </figure>
-        </div>
+            <div className="flex flex-col gap-2">
+              <p className={ROLE_LABEL}>My Impact</p>
+              <ul className="list-disc space-y-1 pl-5 font-manrope text-[15px] leading-[24px] text-portfolio-grey-900 sm:text-[18px] sm:leading-[28px]">
+                {roleInfo.impact.map((bullet, i) => (
+                  <li key={i}>
+                    <RichText segments={bullet} />
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </section>
 
-        {/* 2. Align: the three goals, with the tag pills used through the
-            rest of the case study. */}
-        <div className="flex flex-col gap-12 lg:mt-16">
-          <div style={TEXT_COLUMN}>
-            <StepHeading
-              label={approach.align.label}
-              heading={approach.align.heading}
-              body={<p>{approach.align.body}</p>}
+        {/* Context: same layout and card cluster as the Faircado Context
+            section (heading block left, three tilted black-and-white cards
+            right, stacked below lg). Here the cards take the screenshots' own
+            shape so each booking tool shows whole. lg: the text column is
+            420px and the cluster 560px. xl: the text is set in the owner's
+            line breaks (~575px at 18px), so the column sizes to its longest
+            line (w-max) and the cluster is 535px, its box running 40px into
+            the page margin (-mr-10) so the cards themselves start ~64px from
+            the text and end inside the content edge, nudged 40px down
+            (translate-y-10) from the text's centre line. */}
+        <section id="context" className="scroll-mt-16 relative mx-auto flex w-full max-w-[1220px] flex-col gap-12 px-4 max-sm:overflow-x-hidden sm:gap-16 sm:px-10 lg:flex-row lg:items-center lg:justify-between lg:gap-0">
+          <div className="w-full lg:max-w-[420px] xl:w-max xl:max-w-none" style={TEXT_COLUMN}>
+            <SectionHeading
+              eyebrow={context.eyebrow}
+              heading={context.heading}
               accentClass={ACCENT_TEXT}
+              body={
+                // gap-7: one blank 28px line between paragraphs, as in the
+                // owner's layout.
+                <div className="flex flex-col gap-7">
+                  {context.paragraphs.map((paragraph, i) => (
+                    <p key={i}>
+                      <RichText segments={paragraph} accentClass={ACCENT_TEXT} breakClass="hidden xl:inline" fallbackClass="xl:hidden" />
+                    </p>
+                  ))}
+                </div>
+              }
             />
           </div>
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-3 sm:gap-7">
-            {approach.align.cards.map((card) => (
-              <ProblemCard
-                key={card.tag}
-                tag={card.tag}
-                tagIcon={card.tagIcon}
-                heading={card.heading}
-                body={<RichText segments={card.body} />}
-              />
-            ))}
-          </div>
-        </div>
+          <ContextCardCluster
+            cards={context.cards}
+            cardAspect="2564 / 2188"
+            boxAspect="399 / 321"
+            frontCard={0}
+            smallCorners
+            className="lg:max-w-[560px] xl:-mr-10 xl:max-w-[535px] xl:translate-y-10"
+          />
+        </section>
 
-        {/* 3. Scope: the constraint (blue) and the two decisions it shaped.
-            One column below lg, three from lg. */}
-        <div className="flex flex-col gap-12 lg:mt-16">
-          <div style={TEXT_COLUMN}>
-            <StepHeading label={approach.scope.label} heading={approach.scope.heading} accentClass={ACCENT_TEXT} />
+        {/* Problem statement */}
+        <section id="problem" className="scroll-mt-16 mx-auto w-full max-w-[1220px] px-4 sm:px-10">
+          <div className="w-full lg:max-w-[526px]" style={TEXT_COLUMN}>
+            <SectionHeading
+              eyebrow={problem.eyebrow}
+              accentClass={ACCENT_TEXT}
+              heading={
+                <>
+                  {problem.headingLine1}
+                  <br className="hidden lg:inline" />{" "}
+                  {problem.headingLine2}
+                </>
+              }
+              body={
+                <div className="flex flex-col gap-4">
+                  {problem.paragraphs.map((paragraph, i) => (
+                    <p key={i}>
+                      <RichText segments={paragraph} />
+                    </p>
+                  ))}
+                  <p className="font-bold">{problem.closingLine}</p>
+                </div>
+              }
+            />
           </div>
-          <div className="grid grid-cols-1 gap-6 lg:grid-cols-3 lg:gap-7">
-            <div
-              className={`relative flex flex-col items-start justify-between gap-8 rounded-case-mobile p-6 sm:rounded-case-2xl sm:p-10 lg:h-[383px] ${ACCENT_BG}`}
-            >
-              <TagPill
-                label={approach.scope.constraint.tag}
-                icon={approach.scope.constraint.tagIcon}
-              />
-              <div className="flex flex-col gap-3 text-white">
-                <p className="font-manrope font-bold text-[24px] leading-[32px] tracking-[-0.5px] sm:text-[28px] sm:leading-[38px]">
-                  {approach.scope.constraint.heading}
-                </p>
-                <p className="font-manrope text-[16px] leading-[26px] sm:text-[18px] sm:leading-[28px]">
-                  <RichText segments={approach.scope.constraint.body} />
+        </section>
+
+        {/* Challenge headline. Same composition as Faircado: pulled up beside
+            the Problem text on desktop, with the old process diagram
+            phone overlapping the grey panel by 150px. Below lg the panel sits
+            48px under "So my challenge became:" (-mt-12) and the phone is
+            hidden, as on Faircado. */}
+        <section className="relative z-10 mx-auto -mt-12 w-full max-w-[1220px] px-4 sm:px-10 lg:-mt-[420px]">
+          <div className="flex flex-col items-center">
+            {/* lg:translate-y-10: the diagram sits 40px lower than Faircado's
+                phone (owner's request), overlapping the panel a little more. */}
+            <div className="relative z-10 hidden w-[250px] shrink-0 flex-col items-center lg:mb-[-150px] lg:ml-auto lg:mr-16 lg:flex lg:-translate-x-10 lg:translate-y-10">
+              {/* The old demo process, drawn in code (HandoffChart) at the
+                  phone mockup's size and corners. */}
+              <div className="h-[541px] w-[250px] overflow-hidden rounded-case-xl shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)]">
+                <HandoffChart chart={problem.processChart} className="block size-full" />
+              </div>
+            </div>
+            <div className="relative z-0 flex w-full items-center rounded-case-mobile bg-portfolio-grey-50 py-6 sm:min-h-[340px] sm:rounded-case-3xl sm:py-10 lg:h-[340px] lg:min-h-0 lg:py-0">
+              <div className="w-full px-6 sm:px-10 lg:px-[80px] xl:px-[60px]">
+                {/* lg:max-w-[640px] (no <br>): narrow enough that the headline
+                    wraps on its own into the owner's three lines, "...demo
+                    creation" / "to win back...take PM" / "out of the process?",
+                    while smaller screens keep wrapping naturally. */}
+                <p className="max-w-[560px] text-left font-manrope font-bold text-[28px] leading-[1.4] tracking-[-0.5px] text-portfolio-grey-900 lg:max-w-[640px] lg:text-[36px] lg:leading-[1.4]">
+                  <RichText segments={problem.challenge} accentClass={ACCENT_TEXT} />
                 </p>
               </div>
-              {/* The arrow from the constraint to the two decisions: centred
-                  in the gap below the card on phones (pointing down), in the
-                  gap to its right from lg (pointing right). */}
-              <span
-                role="img"
-                aria-label={approach.scope.constraint.arrowLabel}
-                className="absolute -bottom-9 left-1/2 z-10 flex size-12 -translate-x-1/2 rotate-90 items-center justify-center rounded-full bg-white shadow-[0px_4px_16px_0px_rgba(17,17,17,0.16)] lg:top-1/2 lg:-right-[38px] lg:bottom-auto lg:left-auto lg:translate-x-0 lg:-translate-y-1/2 lg:rotate-0"
-              >
-                <ArrowRight className="size-6 text-eco-mio-blue-600" strokeWidth={2.5} aria-hidden="true" />
-              </span>
             </div>
-            <StatCard
-              size="short"
-              iconNode={<EightyTwentyBar />}
-              heading={approach.scope.eightyTwenty.heading}
-              body={approach.scope.eightyTwenty.body}
-              emphasis={approach.scope.eightyTwenty.emphasis}
-            />
-            <StatCard
-              size="short"
-              iconNode={
-                // Overlapping, slightly tilted tool logos (-6 / +5 degree
-                // alternation). The names are in the copy elsewhere, so the
-                // logos still get alt text for the list.
-                <ul className="flex items-center" aria-label="Tools used">
-                  {approach.scope.build.tools.map((tool, i) => (
-                    <li
-                      key={tool.alt}
-                      className={`flex size-[52px] shrink-0 items-center justify-center rounded-case-md shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)] ${tool.tileClass} ${i % 2 === 0 ? "-rotate-6" : "rotate-5"} ${i > 0 ? "-ml-3" : ""}`}
-                    >
-                      <Image
-                        src={tool.src}
-                        alt={tool.alt}
-                        width={42}
-                        height={42}
-                        className={tool.inset === "logo" ? "size-[80%] object-contain" : "size-7"}
-                      />
-                    </li>
-                  ))}
-                </ul>
-              }
-              heading={approach.scope.build.heading}
-              body={approach.scope.build.body}
-              emphasis={approach.scope.build.emphasis}
-            />
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Final solution intro. lg:mt-5: same extra desktop gap as Faircado.
-          680px wide so the body sets in two lines. */}
-      <section className="mx-auto w-full max-w-[680px] px-4 sm:px-10 lg:mt-5">
-        <SectionHeading
-          eyebrow={finalSolution.eyebrow}
-          heading={finalSolution.heading}
-          body={<p>{finalSolution.body}</p>}
-          align="center"
-          accentClass={ACCENT_TEXT}
-        />
-      </section>
-
-      {/* Three numbered solution sections (01 Decentralization, 02
-          Automation, 03 Personalization). Same pull-ups as Faircado: the
-          giant titles sit close under the intro (-mt-16, lg:-mt-[100px]). */}
-      <div className="mx-auto -mt-16 flex w-full max-w-[1220px] flex-col gap-24 px-4 sm:px-10 sm:gap-32 lg:-mt-[100px]">
-        {solutionSections.map((section) => (
-          <SolutionSection
-            key={section.number}
-            number={section.number}
-            title={section.title}
-            tag={section.tag}
-            tagIcon={section.tagIcon}
-            blocks={section.blocks}
-            numberClass={ACCENT_TEXT}
-            arrow={{ src: `${IMG}/tailored-arrow.svg`, width: 160, phoneHeight: true }}
-            longTitle={section.title.length > 12}
-            compactTag
-          />
-        ))}
-      </div>
-
-      {/* Results / impact: same shared 3-column grid as Faircado (stat
-          cards, then the intro card and the 2-column quote). */}
-      <section className="mx-auto flex w-full max-w-[1220px] flex-col gap-12 px-4 sm:gap-16 sm:px-10 lg:mt-[72px]">
-        <div className="w-full lg:max-w-[592px]" style={TEXT_COLUMN}>
-          <SectionHeading eyebrow={results.eyebrow} heading={results.heading} accentClass={ACCENT_TEXT} />
-        </div>
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-3 sm:gap-7">
-          {results.statCards.map((card) => (
-            <StatCard
-              key={card.heading}
-              iconNode={
-                <ImagePlaceholder className="size-[52px] rounded-full shadow-[0px_8px_12px_0px_rgba(0,0,0,0.12)]" />
-              }
-              heading={card.heading}
-              body={card.body}
-              emphasis={card.emphasis}
+        {/* My process: the section heading, then three steps (Audit, Align,
+            Scope), each a StepHeading above its content. 96px between the
+            blocks and 48px from each step heading to its content, on every
+            screen size (the mobile rhythm; the owner's artboard uses the same
+            96px on desktop). Audit, Align and Scope add lg:mt-16, so on desktop
+            they sit 160px under the block above (owner's request). lg:mt-10 matches the extra breathing room
+            Faircado adds after the Challenge panel. */}
+        <section id="approach" className="scroll-mt-16 mx-auto flex w-full max-w-[1220px] flex-col gap-24 px-4 sm:px-10 lg:mt-10">
+          {/* The eyebrow, then the numbered step row as the visible heading:
+              the h2 itself is screen-reader only (sr-only takes it out of the
+              flex flow). Both sit in the text column, so "Audit" lines up
+              with "MY PROCESS"; the pale numerals start 40px further left
+              from sm (Faircado's Takeaways inset). -mt-4 pulls the row up
+              under the eyebrow. */}
+          <div style={TEXT_COLUMN}>
+            <SectionHeading
+              eyebrow={approach.eyebrow}
+              heading={<span className="sr-only">{approach.heading}</span>}
+              accentClass={ACCENT_TEXT}
             />
-          ))}
-          {/* Hidden below sm, as on Faircado: the quote stands on its own. */}
-          <div className="hidden flex-col items-center justify-center gap-7 rounded-case-mobile bg-portfolio-grey-50 p-6 text-center sm:flex sm:rounded-case-2xl sm:p-10">
-            <ImagePlaceholder className="size-[52px] rounded-full border border-portfolio-grey-200 shadow-[0px_16.75px_25.125px_0px_rgba(0,0,0,0.12)]" />
-            <p className="font-manrope font-bold text-[24px] leading-[32px] tracking-[-0.5px] text-portfolio-grey-900 sm:text-[28px] sm:leading-[38px]">
-              {results.feedbackIntro}
-            </p>
+            {/* Faircado's Takeaways layout: a big pale-grey 01 / 02 / 03 behind
+                each column (same numeral files), the step name where Faircado
+                has its quote, at the section heading size, and blue arrows
+                linking one column to the next. */}
+            <div aria-hidden="true" className="-mt-4 grid grid-cols-3 gap-4 sm:gap-10">
+              {approach.stepNames.map((name, i) => (
+                <div key={name} className="relative">
+                  <img
+                    src={`/images/case-studies/faircado/takeaways-number-0${i + 1}.svg`}
+                    alt=""
+                    className="pointer-events-none absolute left-0 top-0 -z-10 w-[calc(68%+40px)] sm:-left-10"
+                  />
+                  {/* pt-[109px] from sm: the name sits where Faircado's quote
+                      starts (pt-14, its 29px quote mark and 24px gap). */}
+                  <div className="flex items-center pt-8 sm:pt-[109px]">
+                    <p className="font-manrope font-bold text-[28px] leading-[1.2] tracking-[-1px] text-portfolio-grey-900 sm:text-[40px] sm:leading-[48px]">
+                      {name}
+                    </p>
+                    {/* Centred in the free space between this name and the
+                        next column, level with the name. */}
+                    {i < approach.stepNames.length - 1 ? (
+                      <span className="flex flex-1 justify-center">
+                        <MoveRight strokeWidth={2.5} className={`size-5 sm:size-8 ${ACCENT_TEXT}`} />
+                      </span>
+                    ) : null}
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
-          <figure className="flex flex-col justify-center gap-7 rounded-case-mobile bg-portfolio-grey-50 p-6 sm:col-span-2 sm:rounded-case-2xl sm:p-10 sm:h-[431px]">
-            <Image src={`${IMG}/icon-quote-mark.svg`} alt="" aria-hidden="true" width={50} height={44} />
-            <blockquote className="font-manrope font-bold text-[24px] leading-[32px] tracking-[-0.5px] text-portfolio-grey-900 sm:text-[28px] sm:leading-[38px]">
-              {results.featuredTestimonial.quote}
-            </blockquote>
-            <figcaption className="flex items-center gap-3">
-              <ImagePlaceholder label={results.featuredTestimonial.user.avatar.alt} className="size-[50px] shrink-0 rounded-full" />
-              <p className="font-manrope font-extrabold text-[16px] tracking-[0.48px] uppercase text-portfolio-grey-900">
-                {results.featuredTestimonial.user.name}
-              </p>
-            </figcaption>
-          </figure>
-        </div>
-      </section>
 
-      {/* Learnings: numbered lessons in one grey panel, as Faircado's
-          closing takeaways. */}
-      <section className="mx-auto flex w-full max-w-[1220px] flex-col gap-12 px-4 sm:gap-16 sm:px-10 lg:mt-[72px]">
-        <div className="w-full lg:max-w-[592px]" style={TEXT_COLUMN}>
-          <SectionHeading eyebrow={closingTakeaways.eyebrow} heading={closingTakeaways.heading} accentClass={ACCENT_TEXT} />
-        </div>
-        <div className="grid gap-6 rounded-case-mobile bg-portfolio-grey-50 p-6 sm:grid-cols-3 sm:gap-10 sm:rounded-case-2xl sm:p-[60px]">
-          {closingTakeaways.testimonials.map((testimonial) => (
-            <TestimonialCard key={testimonial.number} {...testimonial} accentClass={ACCENT_TEXT} />
-          ))}
-        </div>
-      </section>
+          {/* 1. Audit: the old process diagram, drawn in code
+              (ProcessSwimlane, its blue rounded panel included), with a
+              caption under it. */}
+          <div className="flex flex-col gap-12 lg:mt-16">
+            <div style={TEXT_COLUMN}>
+              <StepHeading
+                label={approach.audit.label}
+                heading={approach.audit.heading}
+                body={
+                  <p>
+                    <RichText segments={approach.audit.body} accentClass={ACCENT_TEXT} />
+                  </p>
+                }
+                accentClass={ACCENT_TEXT}
+              />
+            </div>
+            <figure className="flex flex-col gap-4">
+              {/* From lg the diagram fills the content width. Below lg, shrunk
+                  to the screen its labels would be ~4px, so it keeps a readable
+                  300px height and scrolls sideways (the horizontal scroll strip
+                  pattern, docs/DESIGN.md), breaking out of the section padding
+                  so it runs edge to edge. Focusable so keyboard users can
+                  scroll it too. */}
+              <div
+                className="scrollbar-hide -mx-4 overflow-x-auto px-4 sm:-mx-10 sm:px-10 lg:mx-0 lg:overflow-visible lg:px-0"
+                tabIndex={0}
+                role="region"
+                aria-label={approach.audit.processDiagram.regionLabel}
+              >
+                {/* 921 x 300 below lg keeps the 2002:652 canvas shape at a
+                    readable height. */}
+                <ProcessSwimlane
+                  diagram={approach.audit.processDiagram}
+                  className="block h-[300px] w-[921px] max-w-none lg:h-auto lg:w-full"
+                />
+              </div>
+              <figcaption
+                style={TEXT_COLUMN}
+                className="font-manrope text-[14px] leading-[20px] tracking-[0.48px] text-portfolio-grey-600"
+              >
+                {approach.audit.caption}
+              </figcaption>
+            </figure>
+          </div>
 
-      {/* What's next: its heading, then cards in the solution sections'
-          style (each with its own tag pill, a heading, a one-line
-          description and a video placeholder), without a giant title.
-          lg:mt-[72px]: same extra desktop gap as the sections above. */}
-      <section className="mx-auto flex w-full max-w-[1220px] flex-col gap-12 px-4 sm:gap-16 sm:px-10 lg:mt-[72px]">
-        <div className="w-full lg:max-w-[592px]" style={TEXT_COLUMN}>
+          {/* 2. Align: the three goals, with the tag pills used through the
+              rest of the case study. */}
+          <div className="flex flex-col gap-12 lg:mt-16">
+            <div style={TEXT_COLUMN}>
+              <StepHeading
+                label={approach.align.label}
+                heading={approach.align.heading}
+                body={<p>{approach.align.body}</p>}
+                accentClass={ACCENT_TEXT}
+              />
+            </div>
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-3 sm:gap-7">
+              {approach.align.cards.map((card) => (
+                <ProblemCard
+                  key={card.tag}
+                  tag={card.tag}
+                  tagIcon={card.tagIcon}
+                  heading={card.heading}
+                  body={<RichText segments={card.body} />}
+                />
+              ))}
+            </div>
+          </div>
+
+          {/* 3. Scope: the constraint (blue) and the two decisions it shaped.
+              One column below lg, three from lg. */}
+          <div className="flex flex-col gap-12 lg:mt-16">
+            <div style={TEXT_COLUMN}>
+              <StepHeading label={approach.scope.label} heading={approach.scope.heading} accentClass={ACCENT_TEXT} />
+            </div>
+            <div className="grid grid-cols-1 gap-6 lg:grid-cols-3 lg:gap-7">
+              <div
+                className={`relative flex flex-col items-start justify-between gap-8 rounded-case-mobile p-6 sm:rounded-case-2xl sm:p-10 lg:h-[383px] ${ACCENT_BG}`}
+              >
+                <TagPill
+                  label={approach.scope.constraint.tag}
+                  icon={approach.scope.constraint.tagIcon}
+                />
+                <div className="flex flex-col gap-3 text-white">
+                  <p className="font-manrope font-bold text-[24px] leading-[32px] tracking-[-0.5px] sm:text-[28px] sm:leading-[38px]">
+                    {approach.scope.constraint.heading}
+                  </p>
+                  <p className="font-manrope text-[16px] leading-[26px] sm:text-[18px] sm:leading-[28px]">
+                    <RichText segments={approach.scope.constraint.body} />
+                  </p>
+                </div>
+                {/* The arrow from the constraint to the two decisions: centred
+                    in the gap below the card on phones (pointing down), in the
+                    gap to its right from lg (pointing right). */}
+                <span
+                  role="img"
+                  aria-label={approach.scope.constraint.arrowLabel}
+                  className="absolute -bottom-9 left-1/2 z-10 flex size-12 -translate-x-1/2 rotate-90 items-center justify-center rounded-full bg-white shadow-[0px_4px_16px_0px_rgba(17,17,17,0.16)] lg:top-1/2 lg:-right-[38px] lg:bottom-auto lg:left-auto lg:translate-x-0 lg:-translate-y-1/2 lg:rotate-0"
+                >
+                  <ArrowRight className="size-6 text-eco-mio-blue-600" strokeWidth={2.5} aria-hidden="true" />
+                </span>
+              </div>
+              <StatCard
+                size="short"
+                iconNode={<EightyTwentyBar />}
+                heading={approach.scope.eightyTwenty.heading}
+                body={approach.scope.eightyTwenty.body}
+                emphasis={approach.scope.eightyTwenty.emphasis}
+              />
+              <StatCard
+                size="short"
+                iconNode={
+                  // Overlapping, slightly tilted tool logos (-6 / +5 degree
+                  // alternation). The names are in the copy elsewhere, so the
+                  // logos still get alt text for the list.
+                  <ul className="flex items-center" aria-label="Tools used">
+                    {approach.scope.build.tools.map((tool, i) => (
+                      <li
+                        key={tool.alt}
+                        className={`flex size-[52px] shrink-0 items-center justify-center rounded-case-md shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)] ${tool.tileClass} ${i % 2 === 0 ? "-rotate-6" : "rotate-5"} ${i > 0 ? "-ml-3" : ""}`}
+                      >
+                        <Image
+                          src={tool.src}
+                          alt={tool.alt}
+                          width={42}
+                          height={42}
+                          className={tool.inset === "logo" ? "size-[80%] object-contain" : "size-7"}
+                        />
+                      </li>
+                    ))}
+                  </ul>
+                }
+                heading={approach.scope.build.heading}
+                body={approach.scope.build.body}
+                emphasis={approach.scope.build.emphasis}
+              />
+            </div>
+          </div>
+        </section>
+
+        {/* Final solution intro. lg:mt-5: same extra desktop gap as Faircado.
+            680px wide so the body sets in two lines. */}
+        <section id="solution" className="scroll-mt-16 mx-auto w-full max-w-[680px] px-4 sm:px-10 lg:mt-5 xl:ml-[var(--case-text-inset)]">
           <SectionHeading
-            eyebrow={whatsNext.eyebrow}
-            heading={whatsNext.heading}
-            body={<p>{whatsNext.body}</p>}
+            eyebrow={finalSolution.eyebrow}
+            heading={finalSolution.heading}
+            body={<p>{finalSolution.body}</p>}
+            align="center"
             accentClass={ACCENT_TEXT}
+            className="xl:items-start xl:text-left"
           />
+        </section>
+
+        {/* Three numbered solution sections (01 Decentralization, 02
+            Automation, 03 Personalization). Same pull-ups as Faircado: the
+            giant titles sit close under the intro (-mt-16, lg:-mt-[100px]). */}
+        <div className="mx-auto -mt-16 flex w-full max-w-[1220px] flex-col gap-24 px-4 sm:px-10 sm:gap-32 lg:-mt-[100px]">
+          {solutionSections.map((section) => (
+            <SolutionSection
+              key={section.number}
+              number={section.number}
+              title={section.title}
+              tag={section.tag}
+              tagIcon={section.tagIcon}
+              blocks={section.blocks}
+              numberClass={ACCENT_TEXT}
+              arrow={{ src: `${IMG}/tailored-arrow.svg`, width: 160, phoneHeight: true }}
+              longTitle={section.title.length > 12}
+              compactTag
+            />
+          ))}
         </div>
-        <SolutionSection
-          number=""
-          title={whatsNext.heading}
-          tag=""
-          blocks={whatsNext.blocks}
-          numberClass={ACCENT_TEXT}
-          compactTag
-          hideTitle
-        />
-      </section>
+
+        {/* Results / impact: same shared 3-column grid as Faircado (stat
+            cards, then the intro card and the 2-column quote). */}
+        <section id="impact" className="scroll-mt-16 mx-auto flex w-full max-w-[1220px] flex-col gap-12 px-4 sm:gap-16 sm:px-10 lg:mt-[72px]">
+          <div className="w-full lg:max-w-[592px]" style={TEXT_COLUMN}>
+            <SectionHeading eyebrow={results.eyebrow} heading={results.heading} accentClass={ACCENT_TEXT} />
+          </div>
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-3 sm:gap-7">
+            {results.statCards.map((card) => (
+              <StatCard
+                key={card.heading}
+                iconNode={
+                  <ImagePlaceholder className="size-[52px] rounded-full shadow-[0px_8px_12px_0px_rgba(0,0,0,0.12)]" />
+                }
+                heading={card.heading}
+                body={card.body}
+                emphasis={card.emphasis}
+              />
+            ))}
+            {/* Hidden below sm, as on Faircado: the quote stands on its own. */}
+            <div className="hidden flex-col items-center justify-center gap-7 rounded-case-mobile bg-portfolio-grey-50 p-6 text-center sm:flex sm:rounded-case-2xl sm:p-10">
+              <ImagePlaceholder className="size-[52px] rounded-full border border-portfolio-grey-200 shadow-[0px_16.75px_25.125px_0px_rgba(0,0,0,0.12)]" />
+              <p className="font-manrope font-bold text-[24px] leading-[32px] tracking-[-0.5px] text-portfolio-grey-900 sm:text-[28px] sm:leading-[38px]">
+                {results.feedbackIntro}
+              </p>
+            </div>
+            <figure className="flex flex-col justify-center gap-7 rounded-case-mobile bg-portfolio-grey-50 p-6 sm:col-span-2 sm:rounded-case-2xl sm:p-10 sm:h-[431px]">
+              <Image src={`${IMG}/icon-quote-mark.svg`} alt="" aria-hidden="true" width={50} height={44} />
+              <blockquote className="font-manrope font-bold text-[24px] leading-[32px] tracking-[-0.5px] text-portfolio-grey-900 sm:text-[28px] sm:leading-[38px]">
+                {results.featuredTestimonial.quote}
+              </blockquote>
+              <figcaption className="flex items-center gap-3">
+                <ImagePlaceholder label={results.featuredTestimonial.user.avatar.alt} className="size-[50px] shrink-0 rounded-full" />
+                <p className="font-manrope font-extrabold text-[16px] tracking-[0.48px] uppercase text-portfolio-grey-900">
+                  {results.featuredTestimonial.user.name}
+                </p>
+              </figcaption>
+            </figure>
+          </div>
+        </section>
+
+        {/* Learnings: numbered lessons in one grey panel, as Faircado's
+            closing takeaways. */}
+        <section id="learnings" className="scroll-mt-16 mx-auto flex w-full max-w-[1220px] flex-col gap-12 px-4 sm:gap-16 sm:px-10 lg:mt-[72px]">
+          <div className="w-full lg:max-w-[592px]" style={TEXT_COLUMN}>
+            <SectionHeading eyebrow={closingTakeaways.eyebrow} heading={closingTakeaways.heading} accentClass={ACCENT_TEXT} />
+          </div>
+          <div className="grid gap-6 rounded-case-mobile bg-portfolio-grey-50 p-6 sm:grid-cols-3 sm:gap-10 sm:rounded-case-2xl sm:p-[60px]">
+            {closingTakeaways.testimonials.map((testimonial) => (
+              <TestimonialCard key={testimonial.number} {...testimonial} accentClass={ACCENT_TEXT} />
+            ))}
+          </div>
+        </section>
+
+        {/* What's next: its heading, then cards in the solution sections'
+            style (each with its own tag pill, a heading, a one-line
+            description and a video placeholder), without a giant title.
+            lg:mt-[72px]: same extra desktop gap as the sections above. */}
+        <section id="whats-next" className="scroll-mt-16 mx-auto flex w-full max-w-[1220px] flex-col gap-12 px-4 sm:gap-16 sm:px-10 lg:mt-[72px]">
+          <div className="w-full lg:max-w-[592px]" style={TEXT_COLUMN}>
+            <SectionHeading
+              eyebrow={whatsNext.eyebrow}
+              heading={whatsNext.heading}
+              body={<p>{whatsNext.body}</p>}
+              accentClass={ACCENT_TEXT}
+            />
+          </div>
+          <SolutionSection
+            number=""
+            title={whatsNext.heading}
+            tag=""
+            blocks={whatsNext.blocks}
+            numberClass={ACCENT_TEXT}
+            compactTag
+            hideTitle
+          />
+        </section>
+      </CaseStudySectionNav>
     </main>
   );
 }
