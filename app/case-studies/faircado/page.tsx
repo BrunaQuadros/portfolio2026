@@ -11,6 +11,8 @@ import { TeamAvatarGroup } from "@/components/case-study/TeamAvatarGroup";
 import { DiscardedIdeasSection } from "@/components/case-study/DiscardedIdeasSection";
 import { ContextCardCluster } from "@/components/case-study/ContextCardCluster";
 import { CaseStudySectionNav } from "@/components/navigation/CaseStudySectionNav";
+import { Reveal, RevealNoScript } from "@/components/motion/Reveal";
+import { StickyHero } from "@/components/case-study/StickyHero";
 
 const IMG = "/images/case-studies/faircado";
 
@@ -46,7 +48,7 @@ export default function FaircadoCaseStudyPage() {
     // bare left edge (matching the card background below), while the
     // actual quote/body text stays inset with pl-10 to match the card's
     // text — text aligns with text, background aligns with background.
-    <div key={i} className="relative">
+    <Reveal preset="card" index={i} key={i} className="relative">
       <img
         src={`${IMG}/takeaways-number-0${i + 1}.svg`}
         alt=""
@@ -60,14 +62,14 @@ export default function FaircadoCaseStudyPage() {
       <div className="pl-6 pr-6 pt-14 sm:pl-10 xl:pl-[60px]">
         <TestimonialCard {...takeaways.testimonials[i]} />
       </div>
-    </div>
+    </Reveal>
   );
 
   const renderProblemCard = (i: number) => {
     const card = problemCards[i];
     return (
+      <Reveal key={i} preset="card" index={i} className="grid grid-cols-1">
       <ProblemCard
-        key={i}
         tag={card.tag}
         tagIcon={
           i === 0
@@ -81,14 +83,19 @@ export default function FaircadoCaseStudyPage() {
         headingTail={card.headingTail}
         body={card.body}
       />
+      </Reveal>
     );
   };
 
   return (
     <main className="flex flex-col gap-24 pb-32 sm:gap-32">
+      <RevealNoScript />
       {/* Hero */}
       <section className="mx-auto flex w-full max-w-[1220px] flex-col items-center gap-16 px-4 pt-20 sm:px-10 lg:gap-[110px] lg:pt-32">
-        <div className="flex w-full max-w-[968px] flex-col gap-10 lg:gap-16">
+        <StickyHero
+          textClassName="flex w-full max-w-[968px] flex-col gap-10 lg:gap-16"
+          text={
+            <>
           <div className="relative size-16">
             <Image src={hero.logo.src} alt={hero.logo.alt} fill priority />
           </div>
@@ -146,7 +153,9 @@ export default function FaircadoCaseStudyPage() {
               {hero.descriptionTail}
             </p>
           </div>
-        </div>
+            </>
+          }
+        >
         <div
           // Sits inside the section's own px-4/sm:px-10 padding, same as every
           // other gray panel on the page — no full-bleed breakout, so this panel
@@ -181,12 +190,13 @@ export default function FaircadoCaseStudyPage() {
             aria-label={hero.image.alt}
           />
         </div>
+        </StickyHero>
       </section>
 
       <CaseStudySectionNav sections={sectionNav} accentTextClass="text-faircado-pink-500" accentBgClass="bg-faircado-pink-500" slug={faircado.meta.slug}>
         {/* Section 2: Role / Timeline / Team / Space + Impact, then Context */}
         <section id="overview" className="scroll-mt-16 mx-auto w-full max-w-[1220px] px-4 sm:px-10">
-          <div className="mx-auto flex w-fit max-w-full flex-col gap-10 rounded-case-mobile bg-portfolio-grey-50 p-6 sm:rounded-case-xl sm:p-10 lg:p-[60px] xl:w-full">
+          <Reveal preset="card" className="mx-auto flex w-fit max-w-full flex-col gap-10 rounded-case-mobile bg-portfolio-grey-50 p-6 sm:rounded-case-xl sm:p-10 lg:p-[60px] xl:w-full">
             {/* Grid (2 fixed columns) on mobile so My Role/Space stack in the left
                 column and Team/Timeline stack in the right column — both pairs
                 read as similarly narrow, so pairing them this way (instead of the
@@ -200,33 +210,33 @@ export default function FaircadoCaseStudyPage() {
                 split at 18px. sm+ resets both (equal columns via flex, 18px
                 text) since the desktop row never had this problem. */}
             <div className="grid grid-cols-[3fr_2fr] gap-x-6 gap-y-10 sm:flex sm:flex-wrap sm:gap-16 lg:gap-x-[140px] xl:justify-between xl:gap-x-24">
-              <div className="order-1 flex flex-col gap-2 sm:order-none">
+              <Reveal preset="list" index={0} className="order-1 flex flex-col gap-2 sm:order-none">
                 <p className="font-manrope font-extrabold text-[16px] tracking-[0.48px] uppercase text-faircado-pink-500">My Role</p>
                 <div className="flex flex-col">
                   <p className="-mb-0.5 whitespace-nowrap font-manrope font-bold text-[15px] leading-[24px] text-portfolio-grey-900 sm:whitespace-normal sm:text-[18px] sm:leading-[28px]">{roleInfo.role.title}</p>
                   <p className="whitespace-nowrap font-manrope font-bold text-[15px] leading-[24px] text-portfolio-grey-600 sm:whitespace-normal sm:text-[18px] sm:leading-[28px]">{roleInfo.role.subtitle}</p>
                 </div>
-              </div>
-              <div className="order-4 flex flex-col gap-2 sm:order-none">
+              </Reveal>
+              <Reveal preset="list" index={1} className="order-4 flex flex-col gap-2 sm:order-none">
                 <p className="font-manrope font-extrabold text-[16px] tracking-[0.48px] uppercase text-faircado-pink-500">Timeline</p>
                 <div className="flex flex-col">
                   <p className="-mb-0.5 whitespace-nowrap font-manrope font-bold text-[15px] leading-[24px] text-portfolio-grey-900 sm:whitespace-normal sm:text-[18px] sm:leading-[28px]">{roleInfo.timeline.title}</p>
                   <p className="whitespace-nowrap font-manrope font-bold text-[15px] leading-[24px] text-portfolio-grey-600 sm:whitespace-normal sm:text-[18px] sm:leading-[28px]">{roleInfo.timeline.subtitle}</p>
                 </div>
-              </div>
-              <div className="order-2 flex flex-col gap-2 sm:order-none">
+              </Reveal>
+              <Reveal preset="list" index={2} className="order-2 flex flex-col gap-2 sm:order-none">
                 <p className="font-manrope font-extrabold text-[16px] tracking-[0.48px] uppercase text-faircado-pink-500">Team</p>
                 <TeamAvatarGroup avatar={roleInfo.team.avatar} extra={roleInfo.team.extra} extraBreakdown={roleInfo.team.extraBreakdown} />
-              </div>
-              <div className="order-3 flex flex-col gap-2 sm:order-none">
+              </Reveal>
+              <Reveal preset="list" index={3} className="order-3 flex flex-col gap-2 sm:order-none">
                 <p className="font-manrope font-extrabold text-[16px] tracking-[0.48px] uppercase text-faircado-pink-500">Space</p>
                 <div className="flex flex-col">
                   <p className="-mb-0.5 whitespace-nowrap font-manrope font-bold text-[15px] leading-[24px] text-portfolio-grey-900 sm:whitespace-normal sm:text-[18px] sm:leading-[28px]">{roleInfo.space.title}</p>
                   <p className="whitespace-nowrap font-manrope font-bold text-[15px] leading-[24px] text-portfolio-grey-600 sm:whitespace-normal sm:text-[18px] sm:leading-[28px]">{roleInfo.space.subtitle}</p>
                 </div>
-              </div>
+              </Reveal>
             </div>
-            <div className="flex flex-col gap-2">
+            <Reveal preset="list" index={4} className="flex flex-col gap-2">
               <p className="font-manrope font-extrabold text-[16px] tracking-[0.48px] uppercase text-faircado-pink-500">My Impact</p>
               <ul className="list-disc space-y-1 pl-5 font-manrope text-[15px] leading-[24px] text-portfolio-grey-900 sm:text-[18px] sm:leading-[28px]">
                 {roleInfo.impact.map((bullet, i) => {
@@ -246,13 +256,13 @@ export default function FaircadoCaseStudyPage() {
                   );
                 })}
               </ul>
-            </div>
-          </div>
+            </Reveal>
+          </Reveal>
         </section>
 
         {/* Context */}
-        <section id="context" className="scroll-mt-16 relative mx-auto flex w-full max-w-[1220px] flex-col gap-12 px-4 max-sm:overflow-x-hidden sm:gap-16 sm:px-10 lg:flex-row lg:items-center lg:justify-between lg:gap-0">
-          <div
+        <section id="context" className="scroll-mt-16 relative mx-auto flex w-full max-w-[1220px] flex-col gap-12 px-4 max-sm:overflow-x-hidden max-sm:overflow-y-hidden sm:gap-16 sm:px-10 lg:flex-row lg:items-center lg:justify-between lg:gap-0">
+          <Reveal preset="text"
             className="w-full lg:max-w-[520px]"
             // Aligns this heading's left edge with the text inside the My
             // Role/Impact box above (not that box's grey background): the box is
@@ -279,11 +289,11 @@ export default function FaircadoCaseStudyPage() {
                 </div>
               }
             />
-          </div>
+          </Reveal>
           {/* lg:translate-y-10: cards sit 40px below the text's centre line on
               desktop (owner's request, matching eco.mio); stacked phones keep
               their position. */}
-          <ContextCardCluster cards={context.cards} className="lg:translate-y-10" />
+          <ContextCardCluster cards={context.cards} className="lg:translate-y-10" reveal />
         </section>
 
         {/* Problem statement */}
@@ -296,6 +306,7 @@ export default function FaircadoCaseStudyPage() {
             style={{ marginLeft: "var(--case-text-inset, max(0px, calc((100% - 975px) / 2 + 40px)))" }}
           >
             <SectionHeading
+              reveal
               eyebrow={problem.eyebrow}
               heading={
                 <>
@@ -334,7 +345,7 @@ export default function FaircadoCaseStudyPage() {
             became:" (the heading-to-content step) instead of the 96px section
             gap, since it completes that sentence. */}
         <section className="relative z-10 mx-auto -mt-12 w-full max-w-[1220px] px-4 sm:px-10 lg:-mt-[420px]">
-          <div className="w-full">
+          <Reveal preset="media" className="w-full">
             <div className="flex flex-col items-center">
               {/* The MVP phone (with its caption) is desktop-only: on phones
                   it added little between the Problem text and the challenge
@@ -392,7 +403,7 @@ export default function FaircadoCaseStudyPage() {
                 </div>
               </div>
             </div>
-          </div>
+          </Reveal>
         </section>
 
         {/* My Approach */}
@@ -400,14 +411,14 @@ export default function FaircadoCaseStudyPage() {
             desktop, per request to add extra breathing room after the Problem
             section's grey CTA panel. Mobile keeps the plain 96px gap. */}
         <section id="approach" className="scroll-mt-16 mx-auto flex w-full max-w-[1220px] flex-col gap-12 px-4 sm:gap-[60px] sm:px-10 lg:mt-10">
-          <div
+          <Reveal preset="text"
             // Same alignment trick as Context and Problem above: lines this
             // section's left edge up with the text inside the My Role/Impact
             // box (not the box's own background), not the section's own padding.
             style={{ marginLeft: "var(--case-text-inset, max(0px, calc((100% - 975px) / 2 + 40px)))" }}
           >
             <SectionHeading eyebrow={approach.eyebrow} heading={approach.heading} body={<p>{approach.body}</p>} className="max-w-[526px]" />
-          </div>
+          </Reveal>
           {/* Grid instead of flex-wrap so all four cards share exactly the
               same column width regardless of their content (title length,
               number of avatars/logos), instead of each card sizing to its
@@ -420,7 +431,9 @@ export default function FaircadoCaseStudyPage() {
                 its own content. */}
             <div className="grid grid-cols-2 gap-2 sm:gap-6 lg:grid-cols-4">
               {approach.methods.map((method, i) => (
-                <MethodCard key={i} {...method} />
+                <Reveal key={i} preset="card" index={i} className="grid grid-cols-1">
+                  <MethodCard {...method} />
+                </Reveal>
               ))}
             </div>
           </div>
@@ -433,7 +446,7 @@ export default function FaircadoCaseStudyPage() {
         <section className="mx-auto w-full max-w-[1220px] px-4 sm:px-10 lg:mt-10">
           <div className="w-full">
             <div className="flex flex-col items-start gap-12 sm:gap-16 lg:flex-row lg:items-center lg:gap-0">
-              <div
+              <Reveal preset="text"
                 className="w-full lg:max-w-[348px] lg:shrink-0 lg:-translate-y-[70px]"
                 // Same text-container alignment trick used by Context, Problem,
                 // and the My Approach heading, so this paragraph's left edge
@@ -459,23 +472,23 @@ export default function FaircadoCaseStudyPage() {
                     </p>
                   </div>
                 </div>
-              </div>
+              </Reveal>
               {/* Stretchy connector: fills whatever horizontal space is left
                   between the text block and the screenshots, growing or
                   shrinking with viewport width instead of a fixed gap. Kept at
                   its native size and centered in that flexible gap (rather than
                   stretched to fill it) so the line and arrowhead never distort
                   at different viewport widths. */}
-              <div className="hidden h-[130px] flex-1 items-start justify-center self-center pt-2 lg:flex" aria-hidden="true">
+              <Reveal preset="text" className="hidden h-[130px] flex-1 items-start justify-center self-center pt-2 lg:flex" aria-hidden="true">
                 <img src={`${IMG}/insight-arrow.svg`} alt="" className="h-2 w-[74px]" />
-              </div>
+              </Reveal>
               {/* Mobile (below lg): a horizontal scroll strip, one phone per
                   snap stop, both at the standard 190x411 size. It breaks out
                   of the section's side padding so the strip runs edge to
                   edge and the second phone peeks in from the right, which
                   signals there's more to scroll. The caption sits under the
                   strip, inside the normal padding. */}
-              <div className="w-full lg:hidden">
+              <Reveal preset="media" className="w-full lg:hidden">
                 {/* scroll-pl matches the padding so the first snap stop lands on the
                     content's left edge (aligned with the text above), not on
                     the screen edge; scrollbar-hide keeps the strip clean.
@@ -499,11 +512,11 @@ export default function FaircadoCaseStudyPage() {
                     {insight.screenshots[0].caption}
                   </p>
                 ) : null}
-              </div>
+              </Reveal>
               {/* Desktop (lg and up): the two phones as a staggered pair,
                   fixed at 250x541 each, 28px apart, in a container sized to
                   fit both plus the second phone's 24% vertical offset. */}
-              <div className="relative hidden h-[711px] w-[528px] shrink-0 lg:block">
+              <Reveal preset="media" className="relative hidden h-[711px] w-[528px] shrink-0 lg:block">
                 {/* Positioned so the arrowhead (bottom-left of the source SVG)
                     lands centered just above the first phone's top edge,
                     instead of dipping down into the screen itself. */}
@@ -526,7 +539,7 @@ export default function FaircadoCaseStudyPage() {
                 <div className="absolute right-0 top-[24%] h-[541px] w-[250px] overflow-hidden rounded-case-lg shadow-[0px_12px_37px_0px_rgba(0,0,0,0.12)]">
                   <Image src={insight.screenshots[1].src} alt={insight.screenshots[1].alt} fill className="object-cover" />
                 </div>
-              </div>
+              </Reveal>
             </div>
           </div>
         </section>
@@ -541,7 +554,7 @@ export default function FaircadoCaseStudyPage() {
             only: below lg the Insight phones sit in a scroll strip right
             above, and the full page gap is wanted there. */}
         <section id="takeaways" className="scroll-mt-16 mx-auto w-full max-w-[1220px] px-4 sm:px-10 lg:-mt-[60px]">
-          <div
+          <Reveal preset="text"
             className="mb-12 sm:mb-20 lg:max-w-[420px]"
             // Same text-container alignment trick used by Context, Problem,
             // My Approach, and Insight, so this heading's left edge lines up
@@ -558,7 +571,7 @@ export default function FaircadoCaseStudyPage() {
                 </>
               }
             />
-          </div>
+          </Reveal>
           <div className="w-full">
             {/* Mobile (below sm): each testimonial is followed directly by
                 the problem card it leads to (01 > Awareness, 02 > Match
@@ -585,14 +598,14 @@ export default function FaircadoCaseStudyPage() {
                 // Figma itself uses) turns it into the vertical down-pointing
                 // connector without distorting its stroke weight. Shifted
                 // 100px left of column-center per earlier feedback.
-                <div key={i} className="relative h-16 w-full">
+                <Reveal key={i} preset="text" index={i} stagger={100} className="relative h-16 w-full">
                   <div
                     className="absolute top-1/2 origin-center"
                     style={{ left: "calc(50% - 100px)", transform: "translate(-50%, -50%) rotate(90deg)" }}
                   >
                     <img src={`${IMG}/takeaways-connector-arrow.svg`} alt="" className="h-[7px] w-16" />
                   </div>
-                </div>
+                </Reveal>
               ))}
             </div>
             <div className="hidden grid-cols-3 gap-6 sm:grid">
@@ -605,6 +618,7 @@ export default function FaircadoCaseStudyPage() {
         {/* lg:mt-5: +20px on top of the base section gap on desktop, bringing
             the gap above this title (from the problem cards) to 200px. */}
         <section id="solution" className="scroll-mt-16 mx-auto w-full max-w-[600px] px-4 sm:px-10 lg:mt-5 xl:ml-[var(--case-text-inset)]">
+          <Reveal preset="text">
           <SectionHeading
             eyebrow={finalSolution.eyebrow}
             heading={finalSolution.heading}
@@ -612,6 +626,7 @@ export default function FaircadoCaseStudyPage() {
             align="center"
             className="xl:items-start xl:text-left"
           />
+          </Reveal>
         </section>
 
         {/* Three numbered solution sections */}
@@ -625,6 +640,7 @@ export default function FaircadoCaseStudyPage() {
         <div className="mx-auto -mt-16 flex w-full max-w-[1220px] flex-col gap-24 px-4 sm:px-10 sm:gap-32 lg:-mt-[100px]">
           {solutionSections.map((section) => (
             <SolutionSection
+              reveal
               key={section.number}
               number={section.number}
               title={section.title}
@@ -662,7 +678,7 @@ export default function FaircadoCaseStudyPage() {
             the gap above this section (from Discarded Ideas) to 200px, same
             as the gap above Discarded Ideas. */}
         <section id="impact" className="scroll-mt-16 mx-auto flex w-full max-w-[1220px] flex-col gap-12 px-4 sm:gap-16 sm:px-10 lg:mt-[72px]">
-          <div
+          <Reveal preset="text"
             className="w-full lg:max-w-[592px]"
             // Same text-container alignment trick used by Context, Problem, My
             // Approach, Insight, and Discarded Ideas, so this heading's left
@@ -680,7 +696,7 @@ export default function FaircadoCaseStudyPage() {
               }
               body={<p>{results.heading.body}</p>}
             />
-          </div>
+          </Reveal>
           <div className="w-full">
             {/* One shared 3-column grid for both rows (instead of two separate
                 grids) so the feedback card's width matches a single stat card
@@ -688,12 +704,14 @@ export default function FaircadoCaseStudyPage() {
                 first two stat cards combined, including the gap between them. */}
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-3 sm:gap-7">
               {results.statCards.map((card, i) => (
-                <StatCard key={i} icon={card.icon} icons={card.icons} heading={card.heading} body={card.body} emphasis={card.emphasis} />
+                <Reveal key={i} preset="card" index={i} className="grid grid-cols-1">
+                  <StatCard icon={card.icon} icons={card.icons} heading={card.heading} body={card.body} emphasis={card.emphasis} />
+                </Reveal>
               ))}
               {/* Hidden below sm: on phones the "User feedback that made my
                   day" intro card is a whole extra card before the quote, so
                   the quote stands on its own there. */}
-              <div className="hidden flex-col items-center justify-center gap-4 rounded-case-mobile bg-portfolio-grey-50 p-6 text-center sm:flex sm:rounded-case-2xl sm:p-10 lg:p-[80px]">
+              <Reveal preset="card" index={0} className="hidden flex-col items-center justify-center gap-4 rounded-case-mobile bg-portfolio-grey-50 p-6 text-center sm:flex sm:rounded-case-2xl sm:p-10 lg:p-[80px]">
                 <Image
                   src={`${IMG}/impact-arrow.png`}
                   alt=""
@@ -705,8 +723,8 @@ export default function FaircadoCaseStudyPage() {
                 <p className="font-manrope font-bold text-[24px] leading-[32px] tracking-[-0.5px] text-portfolio-grey-900 sm:text-[28px] sm:leading-[38px]">
                   User feedback that made my day
                 </p>
-              </div>
-              <figure className="flex flex-col justify-center gap-7 rounded-case-mobile bg-portfolio-grey-50 sm:rounded-case-2xl p-6 sm:col-span-2 sm:p-10 lg:p-[80px]">
+              </Reveal>
+              <Reveal as="figure" preset="card" index={1} className="flex flex-col justify-center gap-7 rounded-case-mobile bg-portfolio-grey-50 sm:rounded-case-2xl p-6 sm:col-span-2 sm:p-10 lg:p-[80px]">
                 <img
                   src={`${IMG}/icon-quote-mark.svg`}
                   alt=""
@@ -730,7 +748,7 @@ export default function FaircadoCaseStudyPage() {
                     <span className="text-portfolio-grey-600">{results.featuredTestimonial.user.location}</span>
                   </p>
                 </figcaption>
-              </figure>
+              </Reveal>
             </div>
           </div>
         </section>
@@ -739,7 +757,8 @@ export default function FaircadoCaseStudyPage() {
         {/* mt-[72px]: +72px on top of the base section gap (128px), bringing
             the gap above this section (from the Impact cards) to 200px. */}
         <section id="learnings" className="scroll-mt-16 mx-auto flex w-full max-w-[1220px] flex-col gap-12 px-4 sm:gap-16 sm:px-10 lg:mt-[72px]">
-          <div
+          <Reveal
+            preset="text"
             className="w-full lg:max-w-[592px]"
             // Same text-container alignment trick used by Context, Problem, My
             // Approach, Insight, Discarded Ideas, and Results, so this
@@ -747,13 +766,15 @@ export default function FaircadoCaseStudyPage() {
             style={{ marginLeft: "var(--case-text-inset, max(0px, calc((100% - 975px) / 2 + 40px)))" }}
           >
             <SectionHeading eyebrow={closingTakeaways.eyebrow} heading={closingTakeaways.heading} />
-          </div>
+          </Reveal>
           <div className="w-full">
-            <div className="grid gap-6 rounded-case-mobile bg-portfolio-grey-50 sm:gap-10 sm:rounded-case-2xl p-6 sm:grid-cols-3 sm:p-[60px]">
-              {closingTakeaways.testimonials.map((testimonial) => (
-                <TestimonialCard key={testimonial.number} {...testimonial} />
+            <Reveal preset="card" className="grid gap-6 rounded-case-mobile bg-portfolio-grey-50 sm:gap-10 sm:rounded-case-2xl p-6 sm:grid-cols-3 sm:p-[60px]">
+              {closingTakeaways.testimonials.map((testimonial, i) => (
+                <Reveal key={testimonial.number} preset="list" index={i} className="grid grid-cols-1">
+                  <TestimonialCard {...testimonial} />
+                </Reveal>
               ))}
-            </div>
+            </Reveal>
           </div>
         </section>
       </CaseStudySectionNav>

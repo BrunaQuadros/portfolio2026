@@ -3,6 +3,7 @@ import { TagPill } from "./TagPill";
 import { SectionHeading } from "./SectionHeading";
 import { ImagePlaceholder } from "./ImagePlaceholder";
 import type { DiscardedIdea } from "@/content/projects/types";
+import { Reveal } from "@/components/motion/Reveal";
 
 // Section 7: "Some of the many 'NOs'" — a closing side note listing ideas
 // that were tried and dropped for each front (Awareness/Accuracy/Momentum).
@@ -35,7 +36,8 @@ export function DiscardedIdeasSection({
 }: DiscardedIdeasSectionProps) {
   return (
     <section className="mx-auto flex w-full max-w-[1220px] flex-col gap-12 px-6 sm:gap-16 sm:px-10">
-      <div
+      <Reveal
+        preset="text"
         className="w-full lg:max-w-[592px]"
         // Same text-container alignment trick used by Context, Problem, My
         // Approach, and Insight, so this heading's left edge lines up with
@@ -55,7 +57,7 @@ export function DiscardedIdeasSection({
             </p>
           }
         />
-      </div>
+      </Reveal>
       {/* Below lg: the three ideas in a horizontal scroll strip (see
           docs/DESIGN.md, "Horizontal scroll strip"), breaking out of the
           section's side padding, with vertical padding + matching negative
@@ -64,7 +66,15 @@ export function DiscardedIdeasSection({
           centered, wrapping layout with the wide gaps. */}
       <div className="scrollbar-hide -mx-6 -mt-8 -mb-14 flex snap-x snap-mandatory gap-10 overflow-x-auto px-6 pt-8 pb-14 scroll-pl-6 sm:-mx-10 sm:px-10 sm:scroll-pl-10 lg:mx-0 lg:my-0 lg:snap-none lg:flex-wrap lg:items-start lg:justify-center lg:gap-x-[160px] lg:gap-y-16 lg:overflow-visible lg:px-0 lg:py-0">
         {items.map((item, i) => (
-          <div key={i} className="flex w-[190px] shrink-0 snap-start flex-col items-start gap-12 sm:w-[250px] lg:shrink lg:snap-align-none">
+          <Reveal
+            key={i}
+            preset="list"
+            x={24}
+            stagger={80}
+            index={i}
+            skipIfOffscreen
+            className="flex w-[190px] shrink-0 snap-start flex-col items-start gap-12 sm:w-[250px] lg:shrink lg:snap-align-none"
+          >
             <TagPill icon={item.tagIcon} label={item.tag} />
             <figure className="flex w-full flex-col items-center gap-3">
               <div className="relative aspect-[250/541] w-full overflow-hidden rounded-case-xl shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)]">
@@ -83,7 +93,7 @@ export function DiscardedIdeasSection({
                 </p>
               </figcaption>
             </figure>
-          </div>
+          </Reveal>
         ))}
       </div>
     </section>

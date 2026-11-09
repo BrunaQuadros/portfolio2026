@@ -96,6 +96,19 @@
      phones, where the desktop 40/48px corners read too big. */
   --radius-case-mobile: 28px;
 
+  /* Scroll reveals; the same curve as EASE_OUT_SOFT in components/motion/Reveal.tsx. */
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* StickyHero: the hero card rises into place once on load. Use it with
+     motion-safe: so reduced-motion visitors skip it. */
+  --animate-hero-card-rise: hero-card-rise 800ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  @keyframes hero-card-rise {
+    from {
+      opacity: 0;
+      transform: translateY(150px);
+    }
+  }
+
   /* Site-wide (homepage) tokens, added 2026-09-14 from the Portfolio 2026
      homepage Figma. Separate from the Faircado brand colors above. */
   --color-portfolio-pink-500: #e53b7d;
