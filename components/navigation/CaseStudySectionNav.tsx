@@ -41,7 +41,7 @@ export function CaseStudySectionNav({
   variant = "timeline",
   children,
 }: CaseStudySectionNavProps) {
-  const { currentId, hasScrolled } = useCaseStudyScroll(sections);
+  const currentId = useCaseStudyScroll(sections);
 
   if (variant === "timeline") {
     return (
@@ -49,7 +49,8 @@ export function CaseStudySectionNav({
         <CaseStudyTimelineNav
           sections={sections}
           currentId={currentId}
-          isRevealed={hasScrolled}
+          // Stays hidden through the hero and the first section (Overview).
+          isRevealed={currentId !== sections[0].id}
           accentBgClass={accentBgClass}
           slug={slug}
         />

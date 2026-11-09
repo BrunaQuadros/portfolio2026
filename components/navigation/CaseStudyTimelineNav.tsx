@@ -7,7 +7,7 @@ import type { SectionNavItem } from "@/content/projects/types";
 type CaseStudyTimelineNavProps = {
   sections: SectionNavItem[];
   currentId: string;
-  /** True once the visitor has scrolled down: the timeline grows into view. */
+  /** True once the visitor has scrolled past Overview: the timeline grows into view. */
   isRevealed: boolean;
   /** Background class for the dots and line already read (the case study's brand color). */
   accentBgClass: string;
@@ -73,7 +73,7 @@ function CaseStudyArrowLink({ direction, caseStudy, isRevealed, delay }: CaseStu
 
 // A small floating timeline at the bottom centre of the window, one dot per
 // section with an arrow to the previous and next case study at its ends, from
-// xl (1280px) up. It appears once the visitor scrolls: the columns widen from
+// xl (1280px) up. It appears after the Overview section: the columns widen from
 // the centre while dots and line segments pop in from left to right. The names
 // stay in the page for screen readers and only become visible on hover or
 // keyboard focus (has-[:focus-visible], so a mouse click doesn't leave it open).
