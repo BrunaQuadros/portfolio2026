@@ -17,6 +17,8 @@ import { ProcessSwimlane } from "@/components/case-study/ProcessSwimlane";
 import { HandoffChart } from "@/components/case-study/HandoffChart";
 import { AutoPlayVideo } from "@/components/media/AutoPlayVideo";
 import { CaseStudySectionNav } from "@/components/navigation/CaseStudySectionNav";
+import { StickyHero } from "@/components/case-study/StickyHero";
+import { Reveal, RevealNoScript } from "@/components/motion/Reveal";
 
 const IMG = "/images/case-studies/eco-mio";
 
@@ -70,6 +72,7 @@ export default function EcoMioCaseStudyPage() {
 
   return (
     <main className="flex flex-col gap-24 pb-32 sm:gap-32">
+      <RevealNoScript />
       {/* Hero: same layout as the Faircado hero. The blue panel plays the
           Concur to eco.mio recording on a loop (AutoPlayVideo: muted, still
           first frame under reduced motion; startOnView, so it starts from
@@ -84,7 +87,10 @@ export default function EcoMioCaseStudyPage() {
           the recording's own window corners (~12px at this size), which are
           off-white in the source and would show on the blue. */}
       <section className="mx-auto flex w-full max-w-[1220px] flex-col items-center gap-16 px-4 pt-20 sm:px-10 lg:gap-[110px] lg:pt-32">
-        <div className="flex w-full max-w-[968px] flex-col gap-10 lg:gap-16">
+        <StickyHero
+          textClassName="flex w-full max-w-[968px] flex-col gap-10 lg:gap-16"
+          text={
+            <>
           <span className={`flex size-16 items-center justify-center rounded-md ${ACCENT_BG}`}>
             <Image src={hero.logo.src} alt={hero.logo.alt} width={52} height={52} className="size-[81%]" priority />
           </span>
@@ -106,7 +112,9 @@ export default function EcoMioCaseStudyPage() {
               <RichText segments={hero.description} accentClass={ACCENT_TEXT} breakClass="hidden xl:inline" />
             </p>
           </div>
-        </div>
+            </>
+          }
+        >
         <div
           className={`relative flex w-full flex-col items-center justify-center gap-4 overflow-hidden rounded-case-mobile p-4 sm:gap-6 sm:rounded-case-2xl sm:p-10 lg:aspect-[1220/728] lg:rounded-case-3xl lg:p-[80px] ${ACCENT_BG}`}
         >
@@ -130,6 +138,7 @@ export default function EcoMioCaseStudyPage() {
             className="aspect-[1800/1210] w-full rounded-case-md shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)] lg:h-full lg:w-auto lg:max-w-full"
           />
         </div>
+        </StickyHero>
       </section>
 
       <CaseStudySectionNav sections={sectionNav} accentTextClass={ACCENT_TEXT} accentBgClass={ACCENT_BG} slug={ecoMio.meta.slug}>
@@ -137,23 +146,23 @@ export default function EcoMioCaseStudyPage() {
             Faircado: My Role/Space stack on the left, Team/Timeline on the
             right below sm (order-*), desktop keeps the DOM order in one row. */}
         <section id="overview" className="scroll-mt-16 mx-auto w-full max-w-[1220px] px-4 sm:px-10">
-          <div className="mx-auto flex w-fit max-w-full flex-col gap-10 rounded-case-mobile bg-portfolio-grey-50 p-6 sm:rounded-case-xl sm:p-10 lg:p-[60px] xl:w-full">
+          <Reveal preset="card" className="mx-auto flex w-fit max-w-full flex-col gap-10 rounded-case-mobile bg-portfolio-grey-50 p-6 sm:rounded-case-xl sm:p-10 lg:p-[60px] xl:w-full">
             <div className="grid grid-cols-[3fr_2fr] gap-x-6 gap-y-10 sm:flex sm:flex-wrap sm:gap-16 lg:gap-x-[140px] xl:justify-between xl:gap-x-24">
-              <div className="order-1 flex flex-col gap-2 sm:order-none">
+              <Reveal preset="list" index={0} className="order-1 flex flex-col gap-2 sm:order-none">
                 <p className={ROLE_LABEL}>My Role</p>
                 <div className="flex flex-col">
                   <p className={`-mb-0.5 text-portfolio-grey-900 ${ROLE_VALUE}`}>{roleInfo.role.title}</p>
                   <p className={`text-portfolio-grey-600 ${ROLE_VALUE}`}>{roleInfo.role.subtitle}</p>
                 </div>
-              </div>
-              <div className="order-4 flex flex-col gap-2 sm:order-none">
+              </Reveal>
+              <Reveal preset="list" index={1} className="order-4 flex flex-col gap-2 sm:order-none">
                 <p className={ROLE_LABEL}>Timeline</p>
                 <div className="flex flex-col">
                   <p className={`-mb-0.5 text-portfolio-grey-900 ${ROLE_VALUE}`}>{roleInfo.timeline.title}</p>
                   <p className={`text-portfolio-grey-600 ${ROLE_VALUE}`}>{roleInfo.timeline.subtitle}</p>
                 </div>
-              </div>
-              <div className="order-2 flex flex-col gap-2 sm:order-none">
+              </Reveal>
+              <Reveal preset="list" index={2} className="order-2 flex flex-col gap-2 sm:order-none">
                 <p className={ROLE_LABEL}>Team</p>
                 <TeamAvatarGroup
                   avatar={roleInfo.team.avatar}
@@ -161,16 +170,16 @@ export default function EcoMioCaseStudyPage() {
                   extraBreakdown={roleInfo.team.extraBreakdown}
                   accentClass={ACCENT_BG}
                 />
-              </div>
-              <div className="order-3 flex flex-col gap-2 sm:order-none">
+              </Reveal>
+              <Reveal preset="list" index={3} className="order-3 flex flex-col gap-2 sm:order-none">
                 <p className={ROLE_LABEL}>Space</p>
                 <div className="flex flex-col">
                   <p className={`-mb-0.5 text-portfolio-grey-900 ${ROLE_VALUE}`}>{roleInfo.space.title}</p>
                   <p className={`text-portfolio-grey-600 ${ROLE_VALUE}`}>{roleInfo.space.subtitle}</p>
                 </div>
-              </div>
+              </Reveal>
             </div>
-            <div className="flex flex-col gap-2">
+            <Reveal preset="list" index={4} className="flex flex-col gap-2">
               <p className={ROLE_LABEL}>My Impact</p>
               <ul className="list-disc space-y-1 pl-5 font-manrope text-[15px] leading-[24px] text-portfolio-grey-900 sm:text-[18px] sm:leading-[28px]">
                 {roleInfo.impact.map((bullet, i) => (
@@ -179,8 +188,8 @@ export default function EcoMioCaseStudyPage() {
                   </li>
                 ))}
               </ul>
-            </div>
-          </div>
+            </Reveal>
+          </Reveal>
         </section>
 
         {/* Context: same layout and card cluster as the Faircado Context
@@ -193,8 +202,8 @@ export default function EcoMioCaseStudyPage() {
             the page margin (-mr-10) so the cards themselves start ~64px from
             the text and end inside the content edge, nudged 40px down
             (translate-y-10) from the text's centre line. */}
-        <section id="context" className="scroll-mt-16 relative mx-auto flex w-full max-w-[1220px] flex-col gap-12 px-4 max-sm:overflow-x-hidden sm:gap-16 sm:px-10 lg:flex-row lg:items-center lg:justify-between lg:gap-0">
-          <div className="w-full lg:max-w-[420px] xl:w-max xl:max-w-none" style={TEXT_COLUMN}>
+        <section id="context" className="scroll-mt-16 relative mx-auto flex w-full max-w-[1220px] flex-col gap-12 px-4 max-sm:overflow-x-hidden max-sm:overflow-y-hidden sm:gap-16 sm:px-10 lg:flex-row lg:items-center lg:justify-between lg:gap-0">
+          <Reveal preset="text" className="w-full lg:max-w-[420px] xl:w-max xl:max-w-none" style={TEXT_COLUMN}>
             <SectionHeading
               eyebrow={context.eyebrow}
               heading={context.heading}
@@ -211,8 +220,9 @@ export default function EcoMioCaseStudyPage() {
                 </div>
               }
             />
-          </div>
+          </Reveal>
           <ContextCardCluster
+            reveal
             cards={context.cards}
             cardAspect="2564 / 2188"
             boxAspect="399 / 321"
@@ -226,6 +236,7 @@ export default function EcoMioCaseStudyPage() {
         <section id="problem" className="scroll-mt-16 mx-auto w-full max-w-[1220px] px-4 sm:px-10">
           <div className="w-full lg:max-w-[526px]" style={TEXT_COLUMN}>
             <SectionHeading
+              reveal
               eyebrow={problem.eyebrow}
               accentClass={ACCENT_TEXT}
               heading={
@@ -258,14 +269,14 @@ export default function EcoMioCaseStudyPage() {
           <div className="flex flex-col items-center">
             {/* lg:translate-y-10: the diagram sits 40px lower than Faircado's
                 phone (owner's request), overlapping the panel a little more. */}
-            <div className="relative z-10 hidden w-[250px] shrink-0 flex-col items-center lg:mb-[-150px] lg:ml-auto lg:mr-16 lg:flex lg:-translate-x-10 lg:translate-y-10">
+            <Reveal preset="media" className="relative z-10 hidden w-[250px] shrink-0 flex-col items-center lg:mb-[-150px] lg:ml-auto lg:mr-16 lg:flex lg:-translate-x-10 lg:translate-y-10">
               {/* The old demo process, drawn in code (HandoffChart) at the
                   phone mockup's size and corners. */}
               <div className="h-[541px] w-[250px] overflow-hidden rounded-case-xl shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)]">
                 <HandoffChart chart={problem.processChart} className="block size-full" />
               </div>
-            </div>
-            <div className="relative z-0 flex w-full items-center rounded-case-mobile bg-portfolio-grey-50 py-6 sm:min-h-[340px] sm:rounded-case-3xl sm:py-10 lg:h-[340px] lg:min-h-0 lg:py-0">
+            </Reveal>
+            <Reveal preset="card" className="relative z-0 flex w-full items-center rounded-case-mobile bg-portfolio-grey-50 py-6 sm:min-h-[340px] sm:rounded-case-3xl sm:py-10 lg:h-[340px] lg:min-h-0 lg:py-0">
               <div className="w-full px-6 sm:px-10 lg:px-[80px] xl:px-[60px]">
                 {/* lg:max-w-[640px] (no <br>): narrow enough that the headline
                     wraps on its own into the owner's three lines, "...demo
@@ -275,7 +286,7 @@ export default function EcoMioCaseStudyPage() {
                   <RichText segments={problem.challenge} accentClass={ACCENT_TEXT} />
                 </p>
               </div>
-            </div>
+            </Reveal>
           </div>
         </section>
 
@@ -293,7 +304,7 @@ export default function EcoMioCaseStudyPage() {
               with "MY PROCESS"; the pale numerals start 40px further left
               from sm (Faircado's Takeaways inset). -mt-4 pulls the row up
               under the eyebrow. */}
-          <div style={TEXT_COLUMN}>
+          <Reveal preset="text" style={TEXT_COLUMN}>
             <SectionHeading
               eyebrow={approach.eyebrow}
               heading={<span className="sr-only">{approach.heading}</span>}
@@ -328,13 +339,13 @@ export default function EcoMioCaseStudyPage() {
                 </div>
               ))}
             </div>
-          </div>
+          </Reveal>
 
           {/* 1. Audit: the old process diagram, drawn in code
               (ProcessSwimlane, its blue rounded panel included), with a
               caption under it. */}
           <div className="flex flex-col gap-12 lg:mt-16">
-            <div style={TEXT_COLUMN}>
+            <Reveal preset="text" style={TEXT_COLUMN}>
               <StepHeading
                 label={approach.audit.label}
                 heading={approach.audit.heading}
@@ -345,8 +356,8 @@ export default function EcoMioCaseStudyPage() {
                 }
                 accentClass={ACCENT_TEXT}
               />
-            </div>
-            <figure className="flex flex-col gap-4">
+            </Reveal>
+            <Reveal as="figure" preset="media" className="flex flex-col gap-4">
               {/* From lg the diagram fills the content width. Below lg, shrunk
                   to the screen its labels would be ~4px, so it keeps a readable
                   300px height and scrolls sideways (the horizontal scroll strip
@@ -372,29 +383,30 @@ export default function EcoMioCaseStudyPage() {
               >
                 {approach.audit.caption}
               </figcaption>
-            </figure>
+            </Reveal>
           </div>
 
           {/* 2. Align: the three goals, with the tag pills used through the
               rest of the case study. */}
           <div className="flex flex-col gap-12 lg:mt-16">
-            <div style={TEXT_COLUMN}>
+            <Reveal preset="text" style={TEXT_COLUMN}>
               <StepHeading
                 label={approach.align.label}
                 heading={approach.align.heading}
                 body={<p>{approach.align.body}</p>}
                 accentClass={ACCENT_TEXT}
               />
-            </div>
+            </Reveal>
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-3 sm:gap-7">
-              {approach.align.cards.map((card) => (
+              {approach.align.cards.map((card, i) => (
+                <Reveal key={card.tag} preset="card" index={i} className="grid grid-cols-1">
                 <ProblemCard
-                  key={card.tag}
                   tag={card.tag}
                   tagIcon={card.tagIcon}
                   heading={card.heading}
                   body={<RichText segments={card.body} />}
                 />
+                </Reveal>
               ))}
             </div>
           </div>
@@ -402,11 +414,11 @@ export default function EcoMioCaseStudyPage() {
           {/* 3. Scope: the constraint (blue) and the two decisions it shaped.
               One column below lg, three from lg. */}
           <div className="flex flex-col gap-12 lg:mt-16">
-            <div style={TEXT_COLUMN}>
+            <Reveal preset="text" style={TEXT_COLUMN}>
               <StepHeading label={approach.scope.label} heading={approach.scope.heading} accentClass={ACCENT_TEXT} />
-            </div>
+            </Reveal>
             <div className="grid grid-cols-1 gap-6 lg:grid-cols-3 lg:gap-7">
-              <div
+              <Reveal preset="card" index={0}
                 className={`relative flex flex-col items-start justify-between gap-8 rounded-case-mobile p-6 sm:rounded-case-2xl sm:p-10 lg:h-[383px] ${ACCENT_BG}`}
               >
                 <TagPill
@@ -431,7 +443,8 @@ export default function EcoMioCaseStudyPage() {
                 >
                   <ArrowRight className="size-6 text-eco-mio-blue-600" strokeWidth={2.5} aria-hidden="true" />
                 </span>
-              </div>
+              </Reveal>
+              <Reveal preset="card" index={1} className="grid grid-cols-1">
               <StatCard
                 size="short"
                 iconNode={<EightyTwentyBar />}
@@ -439,6 +452,8 @@ export default function EcoMioCaseStudyPage() {
                 body={approach.scope.eightyTwenty.body}
                 emphasis={approach.scope.eightyTwenty.emphasis}
               />
+              </Reveal>
+              <Reveal preset="card" index={2} className="grid grid-cols-1">
               <StatCard
                 size="short"
                 iconNode={
@@ -466,6 +481,7 @@ export default function EcoMioCaseStudyPage() {
                 body={approach.scope.build.body}
                 emphasis={approach.scope.build.emphasis}
               />
+              </Reveal>
             </div>
           </div>
         </section>
@@ -473,6 +489,7 @@ export default function EcoMioCaseStudyPage() {
         {/* Final solution intro. lg:mt-5: same extra desktop gap as Faircado.
             680px wide so the body sets in two lines. */}
         <section id="solution" className="scroll-mt-16 mx-auto w-full max-w-[680px] px-4 sm:px-10 lg:mt-5 xl:ml-[var(--case-text-inset)]">
+          <Reveal preset="text">
           <SectionHeading
             eyebrow={finalSolution.eyebrow}
             heading={finalSolution.heading}
@@ -481,6 +498,7 @@ export default function EcoMioCaseStudyPage() {
             accentClass={ACCENT_TEXT}
             className="xl:items-start xl:text-left"
           />
+          </Reveal>
         </section>
 
         {/* Three numbered solution sections (01 Decentralization, 02
@@ -489,6 +507,7 @@ export default function EcoMioCaseStudyPage() {
         <div className="mx-auto -mt-16 flex w-full max-w-[1220px] flex-col gap-24 px-4 sm:px-10 sm:gap-32 lg:-mt-[100px]">
           {solutionSections.map((section) => (
             <SolutionSection
+              reveal
               key={section.number}
               number={section.number}
               title={section.title}
@@ -506,13 +525,13 @@ export default function EcoMioCaseStudyPage() {
         {/* Results / impact: same shared 3-column grid as Faircado (stat
             cards, then the intro card and the 2-column quote). */}
         <section id="impact" className="scroll-mt-16 mx-auto flex w-full max-w-[1220px] flex-col gap-12 px-4 sm:gap-16 sm:px-10 lg:mt-[72px]">
-          <div className="w-full lg:max-w-[592px]" style={TEXT_COLUMN}>
+          <Reveal preset="text" className="w-full lg:max-w-[592px]" style={TEXT_COLUMN}>
             <SectionHeading eyebrow={results.eyebrow} heading={results.heading} accentClass={ACCENT_TEXT} />
-          </div>
+          </Reveal>
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-3 sm:gap-7">
-            {results.statCards.map((card) => (
+            {results.statCards.map((card, i) => (
+              <Reveal key={card.heading} preset="card" index={i} className="grid grid-cols-1">
               <StatCard
-                key={card.heading}
                 iconNode={
                   <ImagePlaceholder className="size-[52px] rounded-full shadow-[0px_8px_12px_0px_rgba(0,0,0,0.12)]" />
                 }
@@ -520,15 +539,16 @@ export default function EcoMioCaseStudyPage() {
                 body={card.body}
                 emphasis={card.emphasis}
               />
+              </Reveal>
             ))}
             {/* Hidden below sm, as on Faircado: the quote stands on its own. */}
-            <div className="hidden flex-col items-center justify-center gap-7 rounded-case-mobile bg-portfolio-grey-50 p-6 text-center sm:flex sm:rounded-case-2xl sm:p-10">
+            <Reveal preset="card" index={0} className="hidden flex-col items-center justify-center gap-7 rounded-case-mobile bg-portfolio-grey-50 p-6 text-center sm:flex sm:rounded-case-2xl sm:p-10">
               <ImagePlaceholder className="size-[52px] rounded-full border border-portfolio-grey-200 shadow-[0px_16.75px_25.125px_0px_rgba(0,0,0,0.12)]" />
               <p className="font-manrope font-bold text-[24px] leading-[32px] tracking-[-0.5px] text-portfolio-grey-900 sm:text-[28px] sm:leading-[38px]">
                 {results.feedbackIntro}
               </p>
-            </div>
-            <figure className="flex flex-col justify-center gap-7 rounded-case-mobile bg-portfolio-grey-50 p-6 sm:col-span-2 sm:rounded-case-2xl sm:p-10 sm:h-[431px]">
+            </Reveal>
+            <Reveal as="figure" preset="card" index={1} className="flex flex-col justify-center gap-7 rounded-case-mobile bg-portfolio-grey-50 p-6 sm:col-span-2 sm:rounded-case-2xl sm:p-10 sm:h-[431px]">
               <Image src={`${IMG}/icon-quote-mark.svg`} alt="" aria-hidden="true" width={50} height={44} />
               <blockquote className="font-manrope font-bold text-[24px] leading-[32px] tracking-[-0.5px] text-portfolio-grey-900 sm:text-[28px] sm:leading-[38px]">
                 {results.featuredTestimonial.quote}
@@ -539,21 +559,23 @@ export default function EcoMioCaseStudyPage() {
                   {results.featuredTestimonial.user.name}
                 </p>
               </figcaption>
-            </figure>
+            </Reveal>
           </div>
         </section>
 
         {/* Learnings: numbered lessons in one grey panel, as Faircado's
             closing takeaways. */}
         <section id="learnings" className="scroll-mt-16 mx-auto flex w-full max-w-[1220px] flex-col gap-12 px-4 sm:gap-16 sm:px-10 lg:mt-[72px]">
-          <div className="w-full lg:max-w-[592px]" style={TEXT_COLUMN}>
+          <Reveal preset="text" className="w-full lg:max-w-[592px]" style={TEXT_COLUMN}>
             <SectionHeading eyebrow={closingTakeaways.eyebrow} heading={closingTakeaways.heading} accentClass={ACCENT_TEXT} />
-          </div>
-          <div className="grid gap-6 rounded-case-mobile bg-portfolio-grey-50 p-6 sm:grid-cols-3 sm:gap-10 sm:rounded-case-2xl sm:p-[60px]">
-            {closingTakeaways.testimonials.map((testimonial) => (
-              <TestimonialCard key={testimonial.number} {...testimonial} accentClass={ACCENT_TEXT} />
+          </Reveal>
+          <Reveal preset="card" className="grid gap-6 rounded-case-mobile bg-portfolio-grey-50 p-6 sm:grid-cols-3 sm:gap-10 sm:rounded-case-2xl sm:p-[60px]">
+            {closingTakeaways.testimonials.map((testimonial, i) => (
+              <Reveal key={testimonial.number} preset="list" index={i} className="grid grid-cols-1">
+              <TestimonialCard {...testimonial} accentClass={ACCENT_TEXT} />
+              </Reveal>
             ))}
-          </div>
+          </Reveal>
         </section>
 
         {/* What's next: its heading, then cards in the solution sections'
@@ -561,15 +583,16 @@ export default function EcoMioCaseStudyPage() {
             description and a video placeholder), without a giant title.
             lg:mt-[72px]: same extra desktop gap as the sections above. */}
         <section id="whats-next" className="scroll-mt-16 mx-auto flex w-full max-w-[1220px] flex-col gap-12 px-4 sm:gap-16 sm:px-10 lg:mt-[72px]">
-          <div className="w-full lg:max-w-[592px]" style={TEXT_COLUMN}>
+          <Reveal preset="text" className="w-full lg:max-w-[592px]" style={TEXT_COLUMN}>
             <SectionHeading
               eyebrow={whatsNext.eyebrow}
               heading={whatsNext.heading}
               body={<p>{whatsNext.body}</p>}
               accentClass={ACCENT_TEXT}
             />
-          </div>
+          </Reveal>
           <SolutionSection
+            reveal
             number=""
             title={whatsNext.heading}
             tag=""
