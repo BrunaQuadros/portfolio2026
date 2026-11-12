@@ -295,7 +295,12 @@ export const ecoMio: EcoMioContent = {
         {
           heading: "Anyone can build a demo",
           images: [],
-          video: { alt: "Demo Studio preview video, coming soon", aspectClass: "aspect-[2884/1940]" },
+          // Owner's recording (demo-studio-new-demo-flow-placeholder-8s.mp4).
+          video: {
+            src: "/videos/case-studies/eco-mio/decentralization-new-demo-flow.mp4",
+            alt: "Demo Studio: creating a new demo, from client and route to a finished demo",
+            aspectClass: "aspect-[1920/1290]",
+          },
         },
         {
           heading: "Hit publish to create a demo",
