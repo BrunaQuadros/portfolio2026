@@ -60,13 +60,13 @@ export const home = {
     accent: "product designer",
     background: "with a background",
     in: "in",
-    bag: { src: `${IMG}/emoji-shopping-bag.png`, alt: "" },
-    ecommerce: "e-commerce, consumer",
+    // "e-commerce" (and its shopping bag emoji) removed from the sentence.
+    consumer: "consumer",
     phone: { src: `${IMG}/emoji-mobile-phone.png`, alt: "" },
     apps: "apps",
     andB2B: "and B2B",
     chart: { src: `${IMG}/emoji-chart.png`, alt: "" },
-    saas: "SaaS",
+    saas: "SaaS.",
   },
   projects: [
     {

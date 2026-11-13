@@ -39,8 +39,8 @@ export default function Home() {
 
       <main className="mx-auto flex w-full max-w-[1220px] flex-col gap-24 px-4 pb-32 pt-24 sm:px-10 lg:gap-[106px] lg:pt-[255px]">
         {/* Hero sentence. One h1 with inline images; desktop line breaks
-            reproduce the four-line Figma composition, phones wrap naturally. */}
-        <h1 className="mx-auto w-full max-w-[993px] font-manrope text-[11vw] font-semibold leading-[1.4] tracking-[-0.04em] text-portfolio-grey-900 sm:text-[7vw] lg:text-hero">
+            give three lines (after "charismatic" and "background"), phones wrap naturally. */}
+        <h1 className="mx-auto w-full max-w-[1040px] font-manrope text-[11vw] font-semibold leading-[1.4] tracking-[-0.04em] text-portfolio-grey-900 sm:text-[7vw] lg:text-hero">
           <HeroInlineImage src={hero.wave.src} alt={hero.wave.alt} sizeClass="size-[1em]" />{" "}
           {hero.greeting}{" "}
           <HeroInlineImage src={hero.portrait.src} alt={hero.portrait.alt} sizeClass="size-[1.35em]" rounded />{" "}
@@ -48,12 +48,9 @@ export default function Home() {
           <br className="hidden lg:inline" />{" "}
           <span className="text-portfolio-pink-500">{hero.accent}</span> {hero.background}
           <br className="hidden lg:inline" />{" "}
-          {hero.in}
-          <HeroInlineImage src={hero.bag.src} alt={hero.bag.alt} sizeClass="size-[1.33em]" />
-          {hero.ecommerce}
+          {hero.in} {hero.consumer}
           <HeroInlineImage src={hero.phone.src} alt={hero.phone.alt} sizeClass="size-[1.33em]" />
-          {hero.apps}
-          <br className="hidden lg:inline" />{" "}
+          {hero.apps}{" "}
           {hero.andB2B}
           <HeroInlineImage src={hero.chart.src} alt={hero.chart.alt} sizeClass="size-[1.33em]" />
           {hero.saas}
