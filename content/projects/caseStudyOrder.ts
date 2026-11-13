@@ -6,6 +6,9 @@ export const caseStudyOrder = [
   { slug: "eco-mio", name: "eco.mio", href: "/case-studies/eco-mio" },
 ];
 
+// Heading above the next case study's card at the end of each case study.
+export const nextProjectHeading = "Next Project";
+
 // The case studies either side of this one. The order loops, so the arrows
 // always lead somewhere.
 export function getAdjacentCaseStudies(slug: string) {

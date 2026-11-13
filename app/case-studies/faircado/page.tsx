@@ -11,6 +11,7 @@ import { TeamAvatarGroup } from "@/components/case-study/TeamAvatarGroup";
 import { DiscardedIdeasSection } from "@/components/case-study/DiscardedIdeasSection";
 import { ContextCardCluster } from "@/components/case-study/ContextCardCluster";
 import { CaseStudySectionNav } from "@/components/navigation/CaseStudySectionNav";
+import { NextProjectSection } from "@/components/case-study/NextProjectSection";
 import { Reveal, RevealNoScript } from "@/components/motion/Reveal";
 import { StickyHero } from "@/components/case-study/StickyHero";
 
@@ -782,6 +783,9 @@ export default function FaircadoCaseStudyPage() {
           </div>
         </section>
       </CaseStudySectionNav>
+
+      {/* The next case study's homepage card, so visitors keep reading. */}
+      <NextProjectSection slug={faircado.meta.slug} />
     </main>
   );
 }

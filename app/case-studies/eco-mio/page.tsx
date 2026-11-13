@@ -18,6 +18,7 @@ import { ProcessSwimlane } from "@/components/case-study/ProcessSwimlane";
 import { HandoffChart } from "@/components/case-study/HandoffChart";
 import { AutoPlayVideo } from "@/components/media/AutoPlayVideo";
 import { CaseStudySectionNav } from "@/components/navigation/CaseStudySectionNav";
+import { NextProjectSection } from "@/components/case-study/NextProjectSection";
 import { StickyHero } from "@/components/case-study/StickyHero";
 import { Reveal, RevealNoScript } from "@/components/motion/Reveal";
 
@@ -613,6 +614,9 @@ export default function EcoMioCaseStudyPage() {
           </Reveal>
         </section>
       </CaseStudySectionNav>
+
+      {/* The next case study's homepage card, so visitors keep reading. */}
+      <NextProjectSection slug={ecoMio.meta.slug} />
     </main>
   );
 }

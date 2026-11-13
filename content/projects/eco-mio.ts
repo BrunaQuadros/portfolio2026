@@ -8,11 +8,10 @@ const IMG = "/images/case-studies/eco-mio";
 // still empty frames in Figma and render as grey placeholders.
 export const ecoMio: EcoMioContent = {
   sectionNav: [
-    { id: "overview", label: "Overview" },
     { id: "context", label: "Context" },
     { id: "problem", label: "Problem" },
     { id: "approach", label: "My approach" },
-    { id: "solution", label: "Final solution" },
+    { id: "solution", label: "Solution" },
     { id: "impact", label: "Impact" },
     { id: "learnings", label: "Learnings" },
   ],
@@ -301,19 +300,6 @@ export const ecoMio: EcoMioContent = {
             src: "/videos/case-studies/eco-mio/decentralization-new-demo-flow.mp4",
             alt: "Demo Studio: creating a new demo, from client and route to a finished demo",
             aspectClass: "aspect-[1920/1290]",
-          },
-        },
-        {
-          heading: "Choose layout and routes according to client’s needs",
-          tag: "Personalization",
-          tagIcon: `${IMG}/icon-tag-personalization.png`,
-          images: [],
-          // Owner's recording (demo-studio-layout-route-siemens.mp4), edited:
-          // the demo is renamed Bayer and the sidebar lists only that demo.
-          video: {
-            src: "/videos/case-studies/eco-mio/personalization-layout-route-bayer.mp4",
-            alt: "Demo Studio: switching the layout from class to emissions, setting the route to Frankfurt to Paris and picking a date",
-            aspectClass: "aspect-[2884/1940]",
           },
         },
         {

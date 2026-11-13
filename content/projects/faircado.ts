@@ -6,13 +6,10 @@ const IMG = "/images/case-studies/faircado";
 // Figma design, only formatting/markup was adapted for structured content.
 export const faircado: FaircadoContent = {
   sectionNav: [
-    { id: "overview", label: "Overview" },
     { id: "context", label: "Context" },
     { id: "problem", label: "Problem" },
     { id: "approach", label: "My approach" },
-    { id: "takeaways", label: "Takeaways" },
-    { id: "solution", label: "Final solution" },
-    { id: "discarded-ideas", label: "Discarded ideas" },
+    { id: "solution", label: "Solution" },
     { id: "impact", label: "Impact" },
     { id: "learnings", label: "Learnings" },
   ],
