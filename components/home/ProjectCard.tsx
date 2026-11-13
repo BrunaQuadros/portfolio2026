@@ -78,7 +78,12 @@ export function ProjectCard({
       {media.kind === "phones" ? (
         <ProjectMediaPhones image={media.image} video={media.video} />
       ) : (
-        <ProjectMediaPanel screen={media.screen} crop={media.crop} backgroundClass={media.backgroundClass} />
+        <ProjectMediaPanel
+          screen={media.screen}
+          crop={media.crop}
+          backgroundClass={media.backgroundClass}
+          bordered={media.bordered}
+        />
       )}
     </Link>
   );

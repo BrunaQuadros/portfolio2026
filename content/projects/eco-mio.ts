@@ -15,7 +15,6 @@ export const ecoMio: EcoMioContent = {
     { id: "solution", label: "Final solution" },
     { id: "impact", label: "Impact" },
     { id: "learnings", label: "Learnings" },
-    { id: "whats-next", label: "What's next" },
   ],
   meta: {
     slug: "eco-mio",
@@ -72,9 +71,9 @@ export const ecoMio: EcoMioContent = {
         " to create client prototypes and content on their own.",
       ],
       [
-        { text: "Added client value", bold: true },
-        " through hyper-personalized prototypes clients can ",
-        { text: "keep and share internally.", bold: true },
+        "Introduced ",
+        { text: "AI prototypes as the team’s new handoff,", bold: true },
+        " replacing static Figma links.",
       ],
     ],
   },
@@ -242,7 +241,7 @@ export const ecoMio: EcoMioContent = {
     },
     scope: {
       label: "3. Scope",
-      heading: "One key constraint. Two scope decisions.",
+      heading: "One key constraint → Two scope decisions",
       // The blue card; its arrow points at the two decisions it shaped.
       constraint: {
         tag: "Constraint",
@@ -283,19 +282,21 @@ export const ecoMio: EcoMioContent = {
     heading: "Demo Studio, the demo maker",
     body: "An internal tool anyone can use. Create a demo, add the client and routes, upload three screenshots, publish. One person, no handovers.",
   },
+  // One run of cards with no giant numbered titles (owner's Figma order,
+  // node 1677:778). Each card carries its own tag pill.
   solutionSections: [
     {
-      number: "01.",
-      title: "Decentralization",
-      tag: "Decentralization",
-      tagIcon: `${IMG}/icon-tag-decentralization.png`,
+      number: "",
+      title: "Demo Studio",
+      tag: "",
       blocks: [
-        // First look at Demo Studio (it opens the solution sections).
-        // Video placeholder until the owner sends the recording.
+        // First look at Demo Studio (it opens the solution cards).
         {
           heading: "Anyone can build a demo",
+          tag: "Decentralization",
+          tagIcon: `${IMG}/icon-tag-decentralization.png`,
           images: [],
-          // Owner's recording (demo-studio-new-demo-flow-placeholder-8s.mp4).
+          // Owner's recording (3. Solution1-demo-studio-new-demo-flow-8s-no-background.mp4).
           video: {
             src: "/videos/case-studies/eco-mio/decentralization-new-demo-flow.mp4",
             alt: "Demo Studio: creating a new demo, from client and route to a finished demo",
@@ -303,87 +304,100 @@ export const ecoMio: EcoMioContent = {
           },
         },
         {
-          heading: "Hit publish to create a demo",
+          heading: "Choose layout and routes according to client’s needs",
+          tag: "Personalization",
+          tagIcon: `${IMG}/icon-tag-personalization.png`,
           images: [],
-          // Video placeholder until the owner sends the recording.
-          video: { alt: "Publishing a demo in one click, video coming soon", aspectClass: "aspect-[2884/1940]" },
+          // Owner's recording (demo-studio-layout-route-siemens.mp4), edited:
+          // the demo is renamed Bayer and the sidebar lists only that demo.
+          video: {
+            src: "/videos/case-studies/eco-mio/personalization-layout-route-bayer.mp4",
+            alt: "Demo Studio: switching the layout from class to emissions, setting the route to Frankfurt to Paris and picking a date",
+            aspectClass: "aspect-[2884/1940]",
+          },
         },
-      ],
-    },
-    {
-      number: "02.",
-      title: "Automation",
-      tag: "Automation",
-      tagIcon: `${IMG}/icon-tag-automation.png`,
-      blocks: [
         {
           heading: "Screenshot reader fills every field",
+          tag: "Automation",
+          tagIcon: `${IMG}/icon-tag-automation.png`,
           // One line on desktop (owner's request); wraps on phones.
           headingMaxWidth: 640,
           images: [],
-          // Recording from the owner's Desktop (demo-studio-autofill.mp4).
+          // Owner's recording (4. Solution2-demo-studio-autofill-siemens.mp4),
+          // edited: studio.ecomio.com address, the demo renamed Bayer with
+          // only that demo in the sidebar, and the drag starting at the
+          // Lufthansa card overlay.
           video: {
-            src: "/videos/case-studies/eco-mio/automation-autofill.mp4",
-            alt: "Demo Studio: three flight screenshots are uploaded and AI fills in every field of the demo",
+            src: "/videos/case-studies/eco-mio/automation-autofill-bayer.mp4",
+            alt: "Demo Studio: flight screenshots are uploaded for a Bayer demo and AI fills in every field",
             aspectClass: "aspect-[2884/1940]",
             // Image overlapping the video's lower left corner: a flight card
-            // from a booking tool (owner's screenshot, background removed).
+            // from a booking tool (4. Solution2-lufthansa-screenshot.png).
             overlay: {
-              src: `${IMG}/automation-lufthansa-card.png`,
-              alt: "A Lufthansa flight card from a booking tool: Geneva to Houston via Frankfurt, 10:15 AM to 5:55 PM, 14h 40m, with leg details and 1055 kg CO2e",
-              aspectClass: "aspect-[1002/1279]",
+              src: `${IMG}/automation-lufthansa-screenshot.png`,
+              alt: "A Lufthansa flight card from a booking tool: Frankfurt to Paris Charles de Gaulle, nonstop, 8:10 AM to 9:25 AM, 1h 15m, flight LH 1026, 264 kg CO2e",
+              aspectClass: "aspect-[812/1008]",
             },
           },
         },
         {
-          heading: "Every field remains editable",
+          heading: "Tweak and publish to see the demo live",
+          tag: "Automation",
+          tagIcon: `${IMG}/icon-tag-automation.png`,
           images: [],
-          // Video placeholder until the owner sends the recording.
-          video: { alt: "Editing a filled-in demo field, video coming soon", aspectClass: "aspect-[2884/1940]" },
+          // Owner's recording (demo-studio-edit-publish-concur-siemens.mp4),
+          // edited: the demo renamed Bayer (also in the preview address) with
+          // only that demo in the sidebar.
+          video: {
+            src: "/videos/case-studies/eco-mio/automation-edit-publish-concur-bayer.mp4",
+            alt: "Demo Studio: a flight's price and emissions are edited, the demo is published, and the preview opens in SAP Concur showing the three curated flights",
+            aspectClass: "aspect-[2884/1940]",
+          },
         },
         {
-          heading: "Built on eco.mio’s own components, so the demo became the handoff",
+          heading: "Easy switch to client’s OBT for a full product flow.",
+          tag: "Personalization",
+          tagIcon: `${IMG}/icon-tag-personalization.png`,
           images: [],
-          // Video placeholder until the owner sends the recording.
-          video: { alt: "A demo built from eco.mio's own components, video coming soon", aspectClass: "aspect-[2884/1940]" },
-        },
-      ],
-    },
-    {
-      number: "03.",
-      title: "Personalization",
-      tag: "Personalization",
-      tagIcon: `${IMG}/icon-tag-personalization.png`,
-      blocks: [
-        {
-          heading: "Easily edit routes and dates. Switch between class or emission highlights.",
-          images: [],
-          // Video placeholder until the owner sends the recording.
-          video: { alt: "Editing a demo's routes and dates and switching its highlights, video coming soon", aspectClass: "aspect-[2884/1940]" },
-        },
-        {
-          heading: "Easy switch to client’s OBT",
-          images: [],
-          // Video placeholder until the owner sends the recording.
-          video: { alt: "Switching the demo to the client's booking tool, video coming soon", aspectClass: "aspect-[2884/1940]" },
+          // Owner's recording (demo-studio-concur-loop-booking-bayer.mp4).
+          video: {
+            src: "/videos/case-studies/eco-mio/personalization-concur-loop-booking-bayer.mp4",
+            alt: "The Bayer demo switches between booking tools (SAP Concur, Egencia, Neo), then a flight from Frankfurt to Paris is searched, picked from the three curated options and booked in Concur",
+            aspectClass: "aspect-[2884/1940]",
+          },
         },
       ],
     },
   ],
   results: {
     eyebrow: "IMPACT",
-    heading: "Demos went from 5 hours to 30 minutes",
+    heading: "A powerful sales tool",
     statCards: [
-      { heading: "10x faster demos", body: "Each demo went from 5 hours to 30 minutes.", emphasis: "5 hours to 30 minutes" },
-      { heading: "15h a month back", body: "At an average of 3 demos a month.", emphasis: "3 demos a month" },
-      { heading: "Adopted beyond sales", body: "Marketing now uses Demo Studio to create content.", emphasis: "Marketing" },
+      // Icons: Thiings (thiings.co), free for personal use.
+      { icon: `${IMG}/impact-icon-stopwatch.png`, heading: "10x faster", body: "Each demo went from 5 hours to 30 minutes, freeing about 15h a month.", emphasis: "5 hours to 30 minutes" },
+      { icon: `${IMG}/impact-icon-waving-hand.png`, heading: "PM out, anyone in", body: "Sales and marketing now build demos on their own, even live in meetings.", emphasis: "Sales and marketing" },
+      { icon: `${IMG}/impact-icon-trophy.png`, heading: "Demos that impress", body: "Live flows in each client’s own OBT, now with a link they can share internally.", emphasis: "each client’s own OBT" },
     ],
     feedbackIntro: "Client feedback that made my day",
+    feedbackIntroIcon: `${IMG}/impact-icon-heart-white.png`,
     featuredTestimonial: {
-      quote: "[Client's feedback on Demo Studio, shared by Jamaine]",
+      // Key line from Jamaine's Slack message; the full message opens in a pop-up.
+      // The client's name is under NDA, so it is replaced with [Client].
+      quote: "[Client] was super happy and convinced and congratulated us for a smart tool.",
       user: {
-        avatar: { alt: "Client photo, coming soon" },
-        name: "eco.mio client, via Jamaine (Sales)",
+        avatar: { src: `${IMG}/avatar-jamaine.png`, alt: "" },
+        name: "Jamaine, Sales at eco.mio",
+      },
+      fullMessage: {
+        screenshot: {
+          src: `${IMG}/impact-jamaine-slack-two-highlights.png`,
+          alt: "Slack message from Jamaine, Sep 14th at 6:05 PM: Heeey @Bruna I was just in a Discovery call with a pretty big lead and in the end he was asking whether I could show him some example and we had only a few min left. What can I say, I just jumped over to the preview, changed the interface to Concur in just a few seconds and could underline what I initially told him. He was super happy and convinced and congratulated us for a smart tool. That said, the demo flow and studio made a great difference here. So thank you very much!!! (red heart)",
+          // Rebuilt from the original screenshot at 3x so it stays sharp, with
+          // "pretty big lead" and the quoted sentence highlighted in eco.mio
+          // blue (#6b81ee).
+          width: 1806,
+          height: 867,
+        },
       },
     },
   },
@@ -393,50 +407,27 @@ export const ecoMio: EcoMioContent = {
     testimonials: [
       {
         number: "01.",
-        quote: "Fix the process, not the deliverable.",
-        detail: "Every demo I made by hand cost 5 hours. The tool made every one after it cost 30 minutes.",
-        detailLead: "Every demo I made by hand cost 5 hours. The tool made every one after it cost ",
-        detailBold: "30 minutes",
-        detailRest: ".",
+        quote: "Own the process, delivery will follow.",
+        detail: "Fixing how demos were made raised the quality of every demo, not just the next one.",
+        detailLead: "Fixing how demos were made raised the quality of ",
+        detailBold: "every demo",
+        detailRest: ", not just the next one.",
       },
       {
         number: "02.",
-        quote: "Constraints are a brief.",
-        detail: "No dev, no new features and no 100% told me exactly what to build.",
-        detailLead: "No dev, no new features and no 100% told me ",
-        detailBold: "exactly what to build",
-        detailRest: ".",
+        quote: "Constraints spark creative solutions.",
+        detail: "No dev time pushed me to build it myself, with AI, on eco.mio’s real codebase.",
+        detailLead: "No dev time pushed me to ",
+        detailBold: "build it myself",
+        detailRest: ", with AI, on eco.mio’s real codebase.",
       },
       {
         number: "03.",
-        quote: "Know where vibe coding stops.",
-        detail: "It removed design's manual work. Automating flight scraping needs real engineering, so dev joins next.",
-        detailLead: "It removed design's manual work. Automating flight scraping needs ",
-        detailBold: "real engineering",
-        detailRest: ", so dev joins next.",
-      },
-    ],
-  },
-  whatsNext: {
-    eyebrow: "WHAT'S NEXT",
-    heading: "The team liked it so much, it's growing",
-    body: "Demo Studio solved design's bottleneck. PM's still needs dev.",
-    blocks: [
-      {
-        tag: "Hotels",
-        heading: "Expanding to hotels",
-        body: "Demo Studio is being extended to eco.mio's new hotel product",
-        images: [],
-        // Video placeholder until the owner sends the recording.
-        video: { alt: "Demo Studio for hotels, video coming soon", aspectClass: "aspect-[2884/1940]" },
-      },
-      {
-        tag: "Dev",
-        heading: "Bringing dev in",
-        body: "To automate flight scraping, the bottleneck vibe coding couldn't solve",
-        images: [],
-        // Video placeholder until the owner sends the recording.
-        video: { alt: "Automated flight scraping, video coming soon", aspectClass: "aspect-[2884/1940]" },
+        quote: "Ship the 80% fast.",
+        detail: "We covered most of the cases, so the tool could go live fast. Edge cases are next.",
+        detailLead: "We covered most of the cases, so the tool could ",
+        detailBold: "go live fast",
+        detailRest: ". Edge cases are next.",
       },
     ],
   },

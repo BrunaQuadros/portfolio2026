@@ -28,14 +28,17 @@ Most of these categories are empty right now, add them as real components are bu
 
 ### Installed Components
 - `components/ui/button.tsx` — base button (Nova preset, Radix UI)
+- `components/ui/dialog.tsx` — pop-up (Radix Dialog), added 2026-11-13. Gotcha: the shadcn registry wrote `import { cn } from "cn"`; it must be `@/lib/utils`
 
 `components/case-study/` — built for the Faircado case study, reused wherever the same pattern repeats on any case study page:
 - `SectionHeading.tsx` — pink eyebrow label + large heading + optional body. Used for Context, Problem, My Approach, Takeaways, and Final Solution
 - `ProblemCard.tsx` — tag pill + heading (with an accent phrase) + body. One of the three "how might we" problem cards
 - `MethodCard.tsx` — title + description + a row of logos/avatars/icons. One of the four research-method cards under My Approach
 - `TestimonialCard.tsx` — quote + supporting data point, with an optional number. Used under Takeaways and again in the closing insights
-- `StatCard.tsx` — icon + heading + body. One of the impact/result cards near the end of the case study
+- `StatCard.tsx` — icon + heading + optional body. One of the impact/result cards near the end of the case study. 3D icons come from Microsoft Fluent Emoji 3D (MIT, github.com/microsoft/fluentui-emoji), the same set as the tag pill icons
+- `FeedbackMessagePreview.tsx` — the original message screenshot behind a short quote, fading in over the quote card on hover (hover-capable devices only; the card needs `group relative`). Screen readers get the full message from the screenshot's alt text. Used on eco.mio Impact (Jamaine's Slack message, rebuilt at 3x)
 - `StepHeading.tsx` — numbered step label (accent color) + h3 one size below the section h2 + optional body. One per step in a multi-step section (eco.mio's My process: 1. Audit, 2. Align, 3. Scope)
+- `StickyHero.tsx` — client component. Sticky recede for a case study hero: the text (`text`, sized by `textClassName`) pins and fades as the page scrolls, and the card (`children`) slides up over it. Renders no wrapper around the two, so it goes straight inside the hero section. Values are in docs/DESIGN.md, "Motion". Used on the Faircado and eco.mio heroes
 - `TagPill.tsx` — small rounded icon + label pill (e.g. "Awareness", "Match accuracy"). Shared across problem cards, results cards, and every solution section
 - `SolutionSection.tsx` — one of the three big numbered sections (01/, 02/, 03/), each holding cards with a tag, heading, and mobile screenshots. A block with `video` shows a screen recording on the card instead (rounded, shadowed, starts from the beginning when scrolled into view; eco.mio Automation block 1)
 - `ProcessSwimlane.tsx` — horizontal process diagram drawn in SVG from data: three lanes (people), steps left to right hopping between them, each a small node (card, circle icon, screenshots tile, Figma card, link pill) with a label above or below. The highlighted lane and its nodes are yellow; every step label is white. A step with a `duration` (e.g. "2h") is a bottleneck: hovering the diagram draws a hand-drawn loop around it with the time handwritten beside it, and fades the other steps to 40%. A step with a `preview` gets a hover/focus target over its node that shows a bigger example image above it (it stays open while the mouse moves onto it), from lg up (eco.mio: a Ricoh demo on "Figma by hand"). Used in eco.mio's My process (1. Audit); edit the steps in `content/projects/eco-mio.ts`
@@ -46,24 +49,27 @@ Most of these categories are empty right now, add them as real components are bu
 
 Theming for a second case study (added for eco.mio, 2026-11-03). Every prop below is optional and defaults to the Faircado value, so Faircado renders unchanged:
 - `accentClass` on `SectionHeading` (eyebrow color), `TeamAvatarGroup` ("+N" badge background), `TestimonialCard` (number color) and `DiscardedIdeasSection` (passed to its heading)
-- `SolutionSection`: `hideTitle` (cards only, no giant title; eco.mio What's next), block-level `tag` / `tagIcon` / `body` overrides, `longTitle` (a smaller giant title for 15+ letter words such as "Decentralization"), `compactTag` (a small tag pill, in the card's top-left corner from xl and centred above the heading below it, eco.mio), `numberClass` (the small "01." color), `arrow` (`{ src, width, phoneHeight? }` for the connector between two phones; `phoneHeight` top-aligns the row when the SVG canvas is as tall as the phone), optional `tagIcon`
+- `SolutionSection`: `hideTitle` (cards only, no giant title; eco.mio solution cards), block-level `tag` / `tagIcon` / `body` overrides, `longTitle` (a smaller giant title for 15+ letter words such as "Decentralization"), `compactTag` (a small tag pill, in the card's top-left corner from xl and centred above the heading below it, eco.mio), `tagAbove` (keeps the pill centred above the heading at every width, eco.mio solution cards), `numberClass` (the small "01." color), `arrow` (`{ src, width, phoneHeight? }` for the connector between two phones; `phoneHeight` top-aligns the row when the SVG canvas is as tall as the phone), optional `tagIcon`
 - `TagPill` and `ProblemCard`: the icon is optional (text-only pills)
 - `TagPill`: `size="sm"` is a smaller pill (16px label, 20px icon) for eco.mio's solution blocks
 - `TagPill`: `iconNode` takes a ready-made icon (a lucide icon) instead of an image file (eco.mio's "Constraint" pill)
 - `ProblemCard`: `body` accepts rich content as well as a string, so eco.mio passes `<RichText>` for bold phrases
 - `StatCard`: `iconNode` (custom icon slot, e.g. a placeholder), `size="short"` (383px instead of 431px from `sm:`), and `emphasis` may sit anywhere in the body, not only at the start
-- `DiscardedIdeasSection`: the bold body phrases are optional, so it doubles as eco.mio's "What's next" (tag + phone + two-line caption)
+- `DiscardedIdeasSection`: the bold body phrases are optional
 
 `components/home/` — homepage patterns:
 - `ProjectCard.tsx` — grey full-width project panel (company, title, summary, three or four highlights, and a media block that is either two phone mockups (image plus hover-play video) or one wide brand-colored panel with a screenshot, chosen by `media.kind`). The whole panel links to the case study. One per project on the homepage; phones use the mobile scroll strip below `lg:`
 
+`components/motion/`:
+- `Reveal.tsx` — client component. One-time scroll reveal with presets (`text`, `media`, `card`, `sticker`, `list`, `cta`). Use it in place of the element being animated, passing that element's classes and style, so layout doesn't change. `index` staggers siblings. `followParent` plays it with the nearest Reveal around it (a detail inside a card, `delay` counted from there); `fadeIn` adds a fade to presets that lack one; `lgDelay` replaces `delay` from `lg:` up. Add `RevealNoScript` once per page. Values are in docs/DESIGN.md, "Motion"
+
 `components/media/`:
 - `HoverPlayVideo.tsx` — client component. Muted looping video frozen on a chosen second (`startAt`) until the surrounding link is hovered or focused, then plays from there; pauses and returns to that frame on leave. Used for the second phone in the homepage project card
 - `ImageCompare.tsx` — client component, from Bencho's "Image compare" block (MIT, bencho.dev/licence). Two screenshots of the same frame with a draggable line between them (the line bends on a spring while dragging; flicks glide to the edge). Keyboard: arrows, Home, End. Jumps without animation under reduced motion. Styles are the `.cmp*` classes in `app/globals.css`, with Bencho's tokens mapped to ours on the component root. First used on the eco.mio Context before/after; not on any page right now
-- `AutoPlayVideo.tsx` — client component. Muted looping video that plays on load, or stays on its first frame when the visitor prefers reduced motion. `startOnView` waits until 60% of it is on screen, plays from the start, and stops and rewinds once it has fully left the screen (eco.mio case study hero). Used for video screenshots in `ProjectMediaPanel` (eco.mio demo)
+- `AutoPlayVideo.tsx` — client component. Muted looping video that plays on load, or stays on its first frame when the visitor prefers reduced motion. `startOnView` waits until 60% of it is on screen, plays from the start, and stops and rewinds once it has fully left the screen (eco.mio case study hero, and the eco.mio video in `ProjectMediaPanel` on the homepage).
 
 - `ProjectMediaPhones.tsx` — the card's two phone mockups (still image + hover-play video), mobile scroll strip below `lg:`
-- `ProjectMediaPanel.tsx` — the card's alternative media block: brand-colored panel with either a rounded screenshot that runs off the bottom (`crop: "bottom"`, Impact Hero) or a video covering the whole panel (`crop: "fill"`, eco.mio, for recordings with their own background). Videos use `AutoPlayVideo`. Same 528 x 541 footprint as the phones. Use for case studies without phone mockups
+- `ProjectMediaPanel.tsx` — the card's alternative media block: brand-colored panel with either a rounded screenshot that runs off the bottom (`crop: "bottom"`, Impact Hero) or a video covering the whole panel (`crop: "fill"`, eco.mio, for recordings with their own background). Videos use `AutoPlayVideo` with `startOnView` (start when scrolled into view). Same 528 x 541 footprint as the phones. Use for case studies without phone mockups
 
 `components/navigation/`:
 - `SiteHeader.tsx` — homepage top bar: site name (links home) and a Contact link

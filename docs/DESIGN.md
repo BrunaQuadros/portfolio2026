@@ -110,7 +110,11 @@ First motion values, introduced 2026-09-14 on the Faircado hero star. Treat thes
 - **Fade-in for the same object**: 150ms, so the object is visible for most of its travel.
 - **Tailwind 4 gotcha**: `translate`, `rotate` and `scale` are separate CSS properties, so list them by name in `transition-[...]`. Listing only `transform` makes the move snap.
 - **Card hover** (homepage project card, 2026-09-15): panel background steps from `portfolio-grey-50` to `portfolio-grey-100` and the phone mockups lift 4px (`-translate-y-1`), both 300ms ease-out. Reuse for any clickable panel. The lift is disabled under `motion-reduce:`.
-- **Reduced motion**: the card hover lift and the autoplaying panel video (`AutoPlayVideo`, paused on its first frame) respect `prefers-reduced-motion` so far. Decide a `prefers-reduced-motion` rule before adding scroll reveals or page transitions.
+- **Sticky recede** (`StickyHero`, added 2026-11-09, Faircado and eco.mio heroes): over the first 400px of scroll (`RECEDE_DISTANCE`), linear with no easing, the hero text goes scale 1 to 0.85, y 0 to 60px (36px below `sm:`), opacity 1 to 0.
+- **Hero card rise** (`animate-hero-card-rise`, added 2026-11-09): once on load, from opacity 0 and 150px down, 800ms `cubic-bezier(0.22, 1, 0.36, 1)`.
+- **Scroll reveals** (`Reveal`, added 2026-11-09, Faircado and eco.mio body): fire once, curve `ease-out-soft` (`cubic-bezier(0.22, 1, 0.36, 1)`, `EASE_OUT_SOFT` in JS). Presets: text (y 64, 600ms, at 15% visible), media (y 150, 800ms, top at 2/3 of the screen), card (y 256, no scale so it keeps its size, no fade, 800ms, 100ms stagger), sticker (y 100, 600ms), list (x -16, 400ms, 60ms stagger), cta (scale 0.95, 500ms). All but card also fade from opacity 0.
+- **Constraint to decisions sequence** (eco.mio 3. Scope, 2026-11-13): the constraint card rises (card preset), its arrow fades in 450ms later (cta preset, following the card), then both decision cards rise and fade in together at 800ms from `lg:` up (`fadeIn`, `lgDelay`). Below `lg:` the cards are stacked and each reveals as it scrolls in.
+- **Reduced motion**: the card hover lift and `AutoPlayVideo` (paused on its first frame, including the eco.mio homepage panel) respect `prefers-reduced-motion`. Rule for scroll effects and entrances: remove all scale and movement, keep a plain opacity fade on scroll, skip load entrances.
 
 ## Inline heading icons
 

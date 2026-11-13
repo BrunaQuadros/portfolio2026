@@ -3,6 +3,7 @@ import { Search, X } from "lucide-react";
 import { TagPill } from "./TagPill";
 import { AutoPlayVideo } from "@/components/media/AutoPlayVideo";
 import { ImagePlaceholder } from "./ImagePlaceholder";
+import { Reveal } from "@/components/motion/Reveal";
 import type {
   AnnotatedImage,
   BeforeAfterPair,
@@ -38,13 +39,19 @@ type SolutionSectionProps = {
   // since long tags like "Personalization" in the corner run into the
   // centred heading on 1024-1279px screens.
   compactTag?: boolean;
+  // Keep the tag pill centred above the heading at every width, instead of
+  // moving it to the card's top-left corner on large screens (eco.mio
+  // solution cards).
+  tagAbove?: boolean;
   // Leave out the giant numbered title and show only the cards (eco.mio's
-  // What's next uses the same cards under its own section heading).
+  // solution cards sit under the Final solution heading instead).
   hideTitle?: boolean;
   // `phoneHeight`: the SVG is drawn on a canvas as tall as the phone
   // (eco.mio), so the row top-aligns the phones and the arrow instead of
   // centring them (which shifts the phones when captions wrap differently).
   arrow?: { src: string; width: number; phoneHeight?: boolean };
+  // Reveal the title, cards and chip rows on scroll.
+  reveal?: boolean;
 };
 
 // A small circular close-up of the same image, connected by a black line to
@@ -436,14 +443,21 @@ export function SolutionSection({
   arrow = { src: `${IMG}/find-similar-arrow.svg`, width: 100 },
   longTitle = false,
   compactTag = false,
+  tagAbove = false,
   hideTitle = false,
+  reveal = false,
 }: SolutionSectionProps) {
-  const tagPosition = compactTag
-    ? "self-center xl:absolute xl:left-10 xl:top-10 xl:self-auto"
-    : "self-center lg:absolute lg:left-10 lg:top-10 lg:self-auto";
+  // tagAbove: the pill stays centred above the heading at every width.
+  // Otherwise it moves to the card's top-left corner from xl (compactTag)
+  // or lg.
+  const tagPosition = tagAbove
+    ? "self-center"
+    : compactTag
+      ? "self-center xl:absolute xl:left-10 xl:top-10 xl:self-auto"
+      : "self-center lg:absolute lg:left-10 lg:top-10 lg:self-auto";
   // Tightens the pill-to-heading gap from the card's 60px down to 24px
   // wherever the pill is in flow.
-  const headingTopMargin = compactTag ? "-mt-9 xl:mt-0" : "-mt-9 lg:mt-0";
+  const headingTopMargin = tagAbove ? "-mt-9" : compactTag ? "-mt-9 xl:mt-0" : "-mt-9 lg:mt-0";
   // Long words: still cropped a little at the phone edges below sm (Mobile
   // Rule 6), and fitted to the content width from sm up.
   const titleSize = longTitle
@@ -451,7 +465,7 @@ export function SolutionSection({
     : "text-[19vw] sm:text-[7vw] md:text-[14vw] lg:text-[152px]";
   return (
     <section
-      className="flex w-full flex-col items-center gap-7 overflow-x-hidden"
+      className={`flex w-full flex-col items-center gap-7 overflow-x-hidden ${reveal ? "overflow-y-hidden" : ""}`}
       aria-labelledby={hideTitle ? undefined : `solution-${title.toLowerCase()}`}
       aria-label={hideTitle ? title : undefined}
     >
@@ -477,8 +491,8 @@ export function SolutionSection({
         {/* -mb-5 below sm pulls the stacked number 20px down into the word's
             line box, so it sits tight against (slightly overlapping) the
             word's cap height instead of floating above it. */}
-        <span className={`-mb-5 text-[6.4vw] sm:mb-0 sm:text-[2.33vw] md:text-[3.4vw] lg:text-[2.33rem] ${numberClass}`}>{number}</span>
-        <span className={titleSize}>{title}</span>
+        <Reveal as="span" preset="text" disabled={!reveal} className={`-mb-5 text-[6.4vw] sm:mb-0 sm:text-[2.33vw] md:text-[3.4vw] lg:text-[2.33rem] ${numberClass} ${reveal ? "inline-block" : ""}`}>{number}</Reveal>
+        <Reveal as="span" preset="text" y={96} delay={100} disabled={!reveal} className={`${titleSize} ${reveal ? "inline-block" : ""}`}>{title}</Reveal>
       </h3>
       )}
       <div className="flex w-full flex-col items-center gap-6 sm:gap-20">
@@ -488,7 +502,7 @@ export function SolutionSection({
             panel edge-to-edge with no gutter at all on desktop windows
             narrower than the section's max-w. */}
         {blocks.map((block, i) => (
-          <div key={i} className="w-full">
+          <Reveal key={i} preset="media" disabled={!reveal} className="w-full">
             {/* pt-10 (not py-15's usual top) so the heading's top edge lands
                 exactly where the absolutely-positioned pill's top edge sits
                 (top-10), instead of stacking below it. */}
@@ -591,7 +605,9 @@ export function SolutionSection({
                   </div>
                   <div className="flex w-[223px] shrink-0 flex-col gap-6">
                     {block.sidebarChips.map((chip, chipIndex) => (
-                      <SearchChipRow key={chipIndex} chip={chip} />
+                      <Reveal key={chipIndex} preset="list" disabled={!reveal} index={chipIndex}>
+                        <SearchChipRow chip={chip} />
+                      </Reveal>
                     ))}
                   </div>
                 </div>
@@ -642,7 +658,7 @@ export function SolutionSection({
                 </div>
               )}
             </div>
-          </div>
+          </Reveal>
         ))}
       </div>
     </section>

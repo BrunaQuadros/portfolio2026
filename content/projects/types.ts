@@ -126,7 +126,7 @@ export type BeforeAfterPair = {
 
 export type SolutionBlock = {
   heading: string;
-  // Optional description under the heading (eco.mio What's next).
+  // Optional description under the heading.
   body?: string;
   // This block's own tag pill, instead of the section's (eco.mio What's
   // next: "Hotels", "Dev").
@@ -451,23 +451,22 @@ export type EcoMioContent = {
   results: {
     eyebrow: string;
     heading: string;
-    statCards: { heading: string; body: string; emphasis: string }[];
+    // 3D icon, heading, and an optional line under it with an optional bold phrase.
+    statCards: { icon: string; heading: string; body?: string; emphasis?: string }[];
     feedbackIntro: string;
+    feedbackIntroIcon: string;
     featuredTestimonial: {
       quote: string;
       user: { avatar: { src?: string; alt: string }; name: string };
+      // The original message as a screenshot, shown over the quote card on hover.
+      fullMessage?: {
+        screenshot: { src: string; alt: string; width: number; height: number };
+      };
     };
   };
   closingTakeaways: {
     eyebrow: string;
     heading: string;
     testimonials: (Testimonial & { number: string })[];
-  };
-  whatsNext: {
-    eyebrow: string;
-    heading: string;
-    body: string;
-    // Cards in the solution sections' style, each with its own tag.
-    blocks: SolutionBlock[];
   };
 };

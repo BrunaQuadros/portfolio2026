@@ -20,13 +20,15 @@ export type ProjectCardMedia =
     }
   | {
       kind: "panel";
-      // A video here plays on its own (no hover needed), see AutoPlayVideo.
+      // A video here starts once the card is scrolled into view, see AutoPlayVideo.
       screen: ({ type: "image" } & ImageAsset) | ({ type: "video" } & ImageAsset);
       // "bottom": screenshot inset at the top and cropped below.
       // "fill": covers the whole panel, for videos with their own background.
       crop: "bottom" | "fill";
       // Tailwind background class using a color token from globals.css.
       backgroundClass: string;
+      // Adds a 1px grey stroke (portfolio-grey-200) around the panel.
+      bordered?: boolean;
     };
 
 export type HomeProjectCard = {
@@ -117,11 +119,12 @@ export const home = {
         kind: "panel",
         screen: {
           type: "video",
-          src: "/videos/home/eco-mio-demo-studio.mp4",
-          alt: "Demo Studio walkthrough: creating a flight demo for a client, filling in route, dates and fare cards, publishing it, then the generated Concur booking flow",
+          src: "/videos/home/eco-mio-demo-studio-new-demo-flow.mp4",
+          alt: "Demo Studio: creating a new flight demo for a client by entering a name, picking Flight and confirming, then the demo is created and ready to edit",
         },
         crop: "fill",
         backgroundClass: "bg-eco-mio-blue-500",
+        bordered: true,
       },
     },
     {

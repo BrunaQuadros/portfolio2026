@@ -11,7 +11,8 @@ type StatCardProps = {
   // real icon isn't exported yet). Used instead of `icon`/`icons`.
   iconNode?: React.ReactNode;
   heading: string;
-  body: string;
+  // Optional line under the heading (some cards are heading only).
+  body?: string;
   // Phrase within `body` to render in bold (matches the Figma design's
   // per-card emphasis). Usually the opening words, but it can sit anywhere
   // in the sentence.
@@ -60,9 +61,11 @@ export function StatCard({ icon, icons, iconNode, heading, body, emphasis, size 
         <p className="font-manrope font-bold text-[24px] leading-[32px] tracking-[-0.5px] text-portfolio-grey-900 sm:text-[28px] sm:leading-[38px]">
           {heading}
         </p>
-        <p className="font-manrope text-[16px] leading-[26px] text-portfolio-grey-900 sm:text-[18px] sm:leading-[28px]">
-          {renderBody(body, emphasis)}
-        </p>
+        {body ? (
+          <p className="font-manrope text-[16px] leading-[26px] text-portfolio-grey-900 sm:text-[18px] sm:leading-[28px]">
+            {renderBody(body, emphasis)}
+          </p>
+        ) : null}
       </div>
     </div>
   );

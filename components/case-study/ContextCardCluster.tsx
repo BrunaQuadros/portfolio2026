@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { ImagePlaceholder } from "./ImagePlaceholder";
+import { Reveal } from "@/components/motion/Reveal";
 
 // The three overlapping, slightly tilted cards beside a case study's Context
 // text: black and white by default, full color and a little bigger on hover.
@@ -26,6 +27,8 @@ type ContextCardClusterProps = {
   smallCorners?: boolean;
   // Extra classes on the cluster box, e.g. a larger desktop max width.
   className?: string;
+  // Drop each card in on scroll, one after another, keeping its tilt.
+  reveal?: boolean;
 };
 
 // Tightly overlapping cluster (article card behind, tucked under the two stat
@@ -43,6 +46,7 @@ export function ContextCardCluster({
   frontCard,
   smallCorners = false,
   className = "",
+  reveal = false,
 }: ContextCardClusterProps) {
   const corner = smallCorners ? "rounded-md" : "rounded-[20px]";
   return (
@@ -69,6 +73,8 @@ export function ContextCardCluster({
           style={{ ...SLOTS[i].position, aspectRatio: cardAspect, ...(i === frontCard ? { zIndex: 4 } : {}) }}
         >
           <div className="relative size-full" style={{ transform: `rotate(${SLOTS[i].rotate})` }}>
+            {/* Inside the rotated div, so the tilt and the reveal never share a transform. */}
+            <Reveal preset="sticker" disabled={!reveal} index={i} stagger={120} className="relative size-full">
             {/* Black and white by default; hovering the card (the whole
                 absolutely-positioned wrapper above, which this image fills)
                 reveals full color. A CSS filter, not a second image file, so
@@ -86,6 +92,7 @@ export function ContextCardCluster({
                 className={`absolute inset-0 ${corner} shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)]`}
               />
             )}
+            </Reveal>
           </div>
         </div>
       ))}

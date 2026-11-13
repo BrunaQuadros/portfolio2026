@@ -52,6 +52,7 @@ Don't duplicate long content from these docs into chat responses or into this fi
 ### Working Process
 - Before writing code, describe the plan in plain English first: what you're building and which files you'll touch. Wait for approval before writing code if the task is non-trivial
 - After generating or editing code, give a short summary (a few plain sentences, no jargon): what changed, in which files, and why
+- After any change the owner can see, end the summary with a clickable localhost link to the exact page to test (for example http://localhost:3000/case-studies/faircado). Confirm the dev server is running and which port it uses first; start it with `npm run dev` if it isn't running
 - Before creating or modifying any shared component, consult docs/COMPONENTS.md
 - Never consider UI work complete without checking docs/ACCESSIBILITY.md
 
