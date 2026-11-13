@@ -127,32 +127,8 @@ export const home = {
         bordered: true,
       },
     },
-    {
-      // No case study page yet; the route is reserved for it.
-      href: "/case-studies/impact-hero",
-      company: {
-        logo: { src: `${IMG}/logo-impact-hero.png`, alt: "" },
-        name: "impact hero",
-      },
-      headingLine1: "Building a lead conversion",
-      headingLine2: "tree gifting portal",
-      descriptionLine1: "Automated a tree-gifting portal, driving 20% more upsells",
-      descriptionLine2: "and a 30% higher conversion rate.",
-      highlights: [
-        { icon: { src: `${IMG}/icon-highlight-designer.png`, alt: "" }, label: "Sole designer" },
-        { icon: { src: `${IMG}/icon-highlight-tree.png`, alt: "" }, label: "IaaS | Climate tech" },
-        { icon: { src: `${IMG}/icon-highlight-adoption.png`, alt: "" }, label: "20% increase in upsold products" },
-      ],
-      media: {
-        kind: "panel",
-        screen: {
-          type: "image",
-          src: `${IMG}/impact-hero-portal.png`,
-          alt: "Impact Hero tree gifting portal for Allianz Direct, with a gift redemption form and a world map of planting sites",
-        },
-        crop: "bottom",
-        backgroundClass: "bg-impact-hero-green-900",
-      },
-    },
+    // Impact Hero card removed for now (Nov 2026) until its case study
+    // exists. Its logo, portal image and color token are still in place;
+    // the card's content is in git history (commit 0e50db6, content/home.ts).
   ] satisfies HomeProjectCard[],
 };
