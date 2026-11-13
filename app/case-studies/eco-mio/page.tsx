@@ -566,7 +566,7 @@ export default function EcoMioCaseStudyPage() {
                 {results.feedbackIntro}
               </p>
             </Reveal>
-            <Reveal as="figure" preset="card" index={1} className="group relative flex flex-col justify-center gap-7 rounded-case-mobile bg-portfolio-grey-50 p-6 sm:col-span-2 sm:rounded-case-2xl sm:p-10 sm:h-[431px]">
+            <Reveal as="figure" preset="card" index={1} className="group relative flex flex-col justify-center gap-7 rounded-case-mobile bg-portfolio-grey-50 p-6 sm:col-span-2 sm:rounded-case-2xl sm:p-10 sm:h-[391px]">
               {/* Same size as the Faircado quote mark (33 x 29). */}
               <Image src={`${IMG}/icon-quote-mark.svg`} alt="" aria-hidden="true" width={50} height={44} className="h-[29px] w-[33px]" />
               <blockquote className="font-manrope font-bold text-[24px] leading-[32px] tracking-[-0.5px] text-portfolio-grey-900 sm:text-[28px] sm:leading-[38px]">

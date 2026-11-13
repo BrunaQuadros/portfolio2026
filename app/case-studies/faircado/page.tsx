@@ -48,7 +48,7 @@ export default function FaircadoCaseStudyPage() {
     // bare left edge (matching the card background below), while the
     // actual quote/body text stays inset with pl-10 to match the card's
     // text — text aligns with text, background aligns with background.
-    <Reveal preset="card" index={i} key={i} className="relative">
+    <Reveal preset="card" index={i} key={`testimonial-${i}`} className="relative">
       <img
         src={`${IMG}/takeaways-number-0${i + 1}.svg`}
         alt=""
@@ -68,7 +68,7 @@ export default function FaircadoCaseStudyPage() {
   const renderProblemCard = (i: number) => {
     const card = problemCards[i];
     return (
-      <Reveal key={i} preset="card" index={i} className="grid grid-cols-1">
+      <Reveal key={`problem-${i}`} preset="card" index={i} className="grid grid-cols-1">
       <ProblemCard
         tag={card.tag}
         tagIcon={
@@ -711,9 +711,12 @@ export default function FaircadoCaseStudyPage() {
               {/* Hidden below sm: on phones the "User feedback that made my
                   day" intro card is a whole extra card before the quote, so
                   the quote stands on its own there. */}
-              <Reveal preset="card" index={0} className="hidden flex-col items-center justify-center gap-4 rounded-case-mobile bg-portfolio-grey-50 p-6 text-center sm:flex sm:rounded-case-2xl sm:p-10 lg:p-[80px]">
+              {/* Trial: Faircado light green (green-400) card with a white heart, like eco.mio's
+                  blue one. Dark text, since white on green-500 is too low in
+                  contrast. sm:p-10 (not lg:p-[80px]) keeps it to two lines. */}
+              <Reveal preset="card" index={0} className="hidden flex-col items-center justify-center gap-4 rounded-case-mobile bg-faircado-green-400 p-6 text-center sm:flex sm:rounded-case-2xl sm:p-10">
                 <Image
-                  src={`${IMG}/impact-arrow.png`}
+                  src={`${IMG}/impact-icon-heart-white.png`}
                   alt=""
                   aria-hidden="true"
                   width={52}
@@ -724,7 +727,8 @@ export default function FaircadoCaseStudyPage() {
                   User feedback that made my day
                 </p>
               </Reveal>
-              <Reveal as="figure" preset="card" index={1} className="flex flex-col justify-center gap-7 rounded-case-mobile bg-portfolio-grey-50 sm:rounded-case-2xl p-6 sm:col-span-2 sm:p-10 lg:p-[80px]">
+              {/* Same height and padding as eco.mio's feedback row (391px). */}
+              <Reveal as="figure" preset="card" index={1} className="flex flex-col justify-center gap-7 rounded-case-mobile bg-portfolio-grey-50 sm:rounded-case-2xl p-6 sm:col-span-2 sm:p-10 sm:h-[391px]">
                 <img
                   src={`${IMG}/icon-quote-mark.svg`}
                   alt=""

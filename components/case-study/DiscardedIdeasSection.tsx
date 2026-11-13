@@ -7,7 +7,7 @@ import { Reveal } from "@/components/motion/Reveal";
 
 // Section 7: "Some of the many 'NOs'" — a closing side note listing ideas
 // that were tried and dropped for each front (Awareness/Accuracy/Momentum).
-// Same tag + screenshot + caption shape as the solution sections' cards, but
+// Same (optional) tag + screenshot + caption shape as the solution sections' cards, but
 // simpler (no badges/pins/overlays), so it's its own lightweight component
 // rather than reusing SolutionSection's internals.
 type DiscardedIdeasSectionProps = {
@@ -74,7 +74,7 @@ export function DiscardedIdeasSection({
             skipIfOffscreen
             className="flex w-[190px] shrink-0 snap-start flex-col items-start gap-12 sm:w-[250px] lg:shrink lg:snap-align-none"
           >
-            <TagPill icon={item.tagIcon} label={item.tag} />
+            {item.tag ? <TagPill icon={item.tagIcon} label={item.tag} /> : null}
             <figure className="flex w-full flex-col items-center gap-3">
               <div className="relative aspect-[250/541] w-full overflow-hidden rounded-case-xl shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)]">
                 {item.image.src ? (

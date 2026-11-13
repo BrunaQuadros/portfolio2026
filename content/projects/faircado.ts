@@ -391,22 +391,16 @@ export const faircado: FaircadoContent = {
     bodyAccent2: "real tradeoffs.",
     items: [
       {
-        tag: "Awareness",
-        tagIcon: `${IMG}/icon-tag-discarded-1.png`,
         image: { src: `${IMG}/tradeoff-onboarding-dialog.png`, alt: "Dialog shown on app open, prompting users to try image search" },
         captionTitle: "Dialog on app open",
         captionBody: "Removed after testing showed Gen Z skip dialogs entirely",
       },
       {
-        tag: "Match accuracy",
-        tagIcon: `${IMG}/icon-tag-discarded-2.png`,
         image: { src: `${IMG}/tradeoff-recommendation-feed.png`, alt: "Recommendation feed of visually similar items" },
         captionTitle: "Recommendation feed",
         captionBody: "The algorithm underperformed and was discontinued",
       },
       {
-        tag: "Momentum",
-        tagIcon: `${IMG}/icon-tag-discarded-3.png`,
         image: { src: `${IMG}/tradeoff-ai-shopping-agent.png`, alt: "Fairnando, an AI shopping agent chat assistant" },
         captionTitle: "AI shopping agent",
         captionBody: "“Fairnando” became too complex to build, so it was shelved",

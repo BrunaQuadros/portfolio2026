@@ -178,7 +178,8 @@ export type StatCard = {
 };
 
 export type DiscardedIdea = {
-  tag: string;
+  // Optional: without a tag the card is just the screenshot and caption.
+  tag?: string;
   tagIcon?: string;
   // No `src` = grey placeholder until the screenshot is exported.
   image: { src?: string; alt: string };
