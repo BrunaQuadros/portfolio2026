@@ -53,20 +53,15 @@ export const home = {
     contactHref: "#contact",
   },
   hero: {
-    wave: { src: `${IMG}/emoji-wave.png`, alt: "" },
+    // Reads: "Hi! I am Bruna, a charismatic product designer with work
+    // across consumer apps, SaaS and EdTech" (Nov 2026 wording, no emojis;
+    // only the portrait photo stays inline.)
     greeting: "Hi! I am Bruna,",
     portrait: { src: `${IMG}/portrait-bruna.png`, alt: "Portrait of Bruna" },
     intro: "a charismatic",
     accent: "product designer",
-    background: "with a background",
-    in: "in",
-    // "e-commerce" (and its shopping bag emoji) removed from the sentence.
-    consumer: "consumer",
-    phone: { src: `${IMG}/emoji-mobile-phone.png`, alt: "" },
-    apps: "apps",
-    andB2B: "and B2B",
-    chart: { src: `${IMG}/emoji-chart.png`, alt: "" },
-    saas: "SaaS.",
+    across: "with work across",
+    rest: "consumer apps, SaaS and EdTech",
   },
   projects: [
     {
