@@ -15,25 +15,48 @@ type AutoPlayVideoProps = {
   // visitors always see it from the beginning (eco.mio hero, owner's
   // request). Off by default: the video plays as soon as it loads.
   startOnView?: boolean;
+  // Second (in seconds) to show as the resting frame, and to play from.
+  // Defaults to the very first frame.
+  startAt?: number;
+  // Rest on the startAt frame and only play while the pointer is over the
+  // video; on leave it pauses and goes back to startAt (eco.mio homepage
+  // card, owner's request). Devices without hover (phones) fall back to
+  // startOnView so the video still moves there.
+  playOnHover?: boolean;
 };
 
 // Share of the video that must be visible before it starts.
 const START_VISIBLE_SHARE = 0.6;
 
-export function AutoPlayVideo({ src, alt, className, startOnView = false }: AutoPlayVideoProps) {
+export function AutoPlayVideo({
+  src,
+  alt,
+  className,
+  startOnView = false,
+  startAt = 0,
+  playOnHover = false,
+}: AutoPlayVideoProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
 
+    // Hover mode only where a real pointer can hover; otherwise behave like
+    // startOnView (see the playOnHover prop).
+    const canHover = window.matchMedia("(hover: hover)").matches;
+    if (playOnHover && canHover) {
+      return setUpHoverPlayback(video, startAt);
+    }
+    const waitForView = startOnView || playOnHover;
+
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     // Without startOnView the video counts as "in view" from the start.
-    let inView = !startOnView;
+    let inView = !waitForView;
 
     const rewind = () => {
       video.pause();
-      video.currentTime = 0;
+      video.currentTime = startAt;
     };
 
     const playOrStop = () => {
@@ -51,7 +74,7 @@ export function AutoPlayVideo({ src, alt, className, startOnView = false }: Auto
     reducedMotion.addEventListener("change", playOrStop);
 
     let observer: IntersectionObserver | undefined;
-    if (startOnView) {
+    if (waitForView) {
       observer = new IntersectionObserver(
         ([entry]) => {
           if (entry.intersectionRatio >= START_VISIBLE_SHARE && !inView) {
@@ -72,12 +95,14 @@ export function AutoPlayVideo({ src, alt, className, startOnView = false }: Auto
       reducedMotion.removeEventListener("change", playOrStop);
       observer?.disconnect();
     };
-  }, [startOnView]);
+  }, [startOnView, startAt, playOnHover]);
 
   return (
     <video
+      // Ask the browser for the startAt frame right away (media fragment), so
+      // the resting frame shows even before the script runs.
       ref={videoRef}
-      src={src}
+      src={startAt > 0 ? `${src}#t=${startAt}` : src}
       className={className}
       muted
       loop
@@ -86,4 +111,30 @@ export function AutoPlayVideo({ src, alt, className, startOnView = false }: Auto
       aria-label={alt}
     />
   );
+}
+
+// Hover playback: rest on the startAt frame, play while the pointer is over
+// the video, pause and go back to startAt on leave. Under reduced motion it
+// never plays. Returns a cleanup function for useEffect.
+function setUpHoverPlayback(video: HTMLVideoElement, startAt: number) {
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+  const showRestingFrame = () => {
+    video.pause();
+    video.currentTime = startAt;
+  };
+  const play = () => {
+    if (reducedMotion.matches) return;
+    video.play().catch(() => {
+      // Playback can be refused by the browser; the resting frame stays.
+    });
+  };
+
+  showRestingFrame();
+  video.addEventListener("mouseenter", play);
+  video.addEventListener("mouseleave", showRestingFrame);
+  return () => {
+    video.removeEventListener("mouseenter", play);
+    video.removeEventListener("mouseleave", showRestingFrame);
+  };
 }

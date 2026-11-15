@@ -3,8 +3,7 @@ import type { ProjectCardMedia } from "@/content/home";
 import { AutoPlayVideo } from "@/components/media/AutoPlayVideo";
 
 // Media block for a homepage project card: one brand-colored panel with a
-// screenshot (still image, or a video that starts once the card is scrolled
-// into view) that runs off one edge.
+// screenshot (still image, or a video that plays while hovered) that runs off one edge.
 // Sized to the same footprint as the two phone mockups in ProjectMediaPhones
 // (528 x 541 on desktop, same aspect ratio below lg) so every card lines up.
 // Lifts on hover of the surrounding card, like the phones.
@@ -32,12 +31,13 @@ export function ProjectMediaPanel({ screen, crop, backgroundClass, bordered = fa
     >
       <div className={`absolute overflow-hidden ${screenPlacement[crop]}`}>
         {screen.type === "video" ? (
-          // Waits on the first frame until most of it is on screen, then plays
-          // from the start; rewinds once scrolled away so it restarts next time.
+          // Rests on the screen.startAt frame and plays only while hovered
+          // (phones: plays once scrolled into view instead).
           <AutoPlayVideo
             src={screen.src}
             alt={screen.alt}
-            startOnView
+            startAt={screen.startAt}
+            playOnHover
             className="absolute inset-0 size-full object-cover"
           />
         ) : (

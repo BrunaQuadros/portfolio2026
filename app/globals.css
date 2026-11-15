@@ -113,7 +113,7 @@
      homepage Figma. Separate from the Faircado brand colors above. */
   --color-portfolio-pink-500: #e53b7d;
   /* Hero display size: 60px / 1.4 line-height. Use with tracking-[-0.04em]. */
-  --text-hero: 60px;
+  --text-hero: 70px;
   --text-hero--line-height: 1.4;
 }
 

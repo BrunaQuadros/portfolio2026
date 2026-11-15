@@ -21,7 +21,7 @@ export type ProjectCardMedia =
   | {
       kind: "panel";
       // A video here starts once the card is scrolled into view, see AutoPlayVideo.
-      screen: ({ type: "image" } & ImageAsset) | ({ type: "video" } & ImageAsset);
+      screen: ({ type: "image" } & ImageAsset) | ({ type: "video"; startAt?: number } & ImageAsset);
       // "bottom": screenshot inset at the top and cropped below.
       // "fill": covers the whole panel, for videos with their own background.
       crop: "bottom" | "fill";
@@ -57,7 +57,12 @@ export const home = {
     // across consumer apps, SaaS and EdTech" (Nov 2026 wording, no emojis;
     // only the portrait photo stays inline.)
     greeting: "Hi! I am Bruna,",
-    portrait: { src: `${IMG}/portrait-bruna.png`, alt: "Portrait of Bruna" },
+    portrait: {
+      src: `${IMG}/portrait-bruna-cutout.png`,
+      // Slides in on hover over the portrait
+      hoverSrc: `${IMG}/portrait-bruna-hover.webp`,
+      alt: "Portrait of Bruna",
+    },
     intro: "a charismatic",
     accent: "product designer",
     across: "with work across",
@@ -115,6 +120,9 @@ export const home = {
         screen: {
           type: "video",
           src: "/videos/home/eco-mio-demo-studio-new-demo-flow.mp4",
+          // Resting frame: zoomed in on the "New demo" click (owner's pick).
+          // The video plays from here only while the card is hovered.
+          startAt: 2.2,
           alt: "Demo Studio: creating a new flight demo for a client by entering a name, picking Flight and confirming, then the demo is created and ready to edit",
         },
         crop: "fill",
