@@ -46,11 +46,16 @@ export type HomeProjectCard = {
 
 export const home = {
   header: {
-    name: "Bruna TDQ",
-    contactLabel: "Contact",
-    // Placeholder until the contact destination is decided (mailto, /about
-    // or a footer section). Flagged in the implementation summary.
-    contactHref: "#contact",
+    // Stacked on two lines, top left
+    nameLine1: "bruna",
+    nameLine2: "quadros",
+    // Copies the email and shows the confirmation instead of opening a mail app
+    contact: { label: "Email", email: "bruna.quadros@gmail.com", confirmation: "Email copied" },
+    // Opens in a new tab
+    linkedin: {
+      label: "LinkedIn",
+      href: "https://www.linkedin.com/in/bruna-todeschini-de-quadros-53922150/",
+    },
   },
   hero: {
     // Reads: "Hi! I am Bruna, a charismatic product designer with work
