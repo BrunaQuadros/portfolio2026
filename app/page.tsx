@@ -49,6 +49,7 @@ function HeroInlineImage({
   alignClass = "align-[-0.3em]",
   rounded = false,
   hoverSrc,
+  darkSrc,
 }: {
   src: string;
   alt: string;
@@ -57,6 +58,8 @@ function HeroInlineImage({
   rounded?: boolean;
   // Optional second photo that slides in when the portrait is hovered (see SWAP_TRANSITION).
   hoverSrc?: string;
+  // Optional dark mode version of the main image (shown instead of src in dark mode).
+  darkSrc?: string;
 }) {
   const shape = `size-full object-cover ${rounded ? "rounded-full" : ""}`;
   return (
@@ -70,8 +73,11 @@ function HeroInlineImage({
         alt={alt}
         width={160}
         height={160}
-        className={shape}
+        className={`${shape} ${darkSrc ? "dark:hidden" : ""}`}
       />
+      {darkSrc && (
+        <Image src={darkSrc} alt={alt} width={160} height={160} className={`hidden dark:block ${shape}`} />
+      )}
       {hoverSrc && (
         <Image
           src={hoverSrc}
@@ -102,7 +108,7 @@ export default function Home() {
       />
       <SiteHeader {...header} />
 
-      <main className="mx-auto flex w-full max-w-[1220px] flex-col gap-24 px-4 pb-32 pt-24 sm:px-10 lg:gap-[106px] lg:pt-[255px]">
+      <main className="mx-auto flex w-full max-w-[1220px] flex-col gap-24 px-4 pb-32 pt-24 sm:px-10 lg:gap-[106px] lg:pt-[271px]">
         {/* Hero sentence. One h1 with inline images; desktop line breaks
             give three lines (after "charismatic" and "across"), phones wrap naturally.
             From lg: the size is 5.7vw capped at text-hero (70px, same as the case
@@ -110,12 +116,13 @@ export default function Home() {
             Left-aligned with the text inside the project cards below: the cards
             pad their copy 24px (phones), 0 net from sm: (40px padding minus the
             40px breakout) and 40px net from lg: (80px minus 40px). */}
-        <h1 className="w-full px-6 sm:px-0 lg:pl-10 font-manrope text-[11vw] font-semibold leading-[1.4] tracking-[-0.04em] text-portfolio-grey-900 sm:text-[7vw] lg:text-[length:min(5.7vw,var(--text-hero))]">
+        {/* Landing: the sentence fades in (no movement) just after the header drops in. */}
+        <h1 className="motion-safe:animate-text-fade motion-safe:[animation-delay:200ms] w-full px-6 sm:px-0 lg:pl-10 font-manrope text-[11vw] font-semibold leading-[1.4] tracking-[-0.04em] text-portfolio-grey-900 sm:text-[7vw] lg:text-[length:min(5.7vw,var(--text-hero))]">
           {/* Decorative 3D hand (empty alt), 1em: 20% smaller than the Faircado hero star.
               align -0.14em centers it on the capital letters (Manrope caps ~0.72em tall). */}
           <HeroInlineImage src={hero.wave.src} alt={hero.wave.alt} sizeClass="size-[1em]" alignClass="align-[-0.14em]" />
           {hero.greeting}{" "}
-          <HeroInlineImage src={hero.portrait.src} alt={hero.portrait.alt} hoverSrc={hero.portrait.hoverSrc} sizeClass="size-[1.35em]" rounded />{" "}
+          <HeroInlineImage src={hero.portrait.src} alt={hero.portrait.alt} hoverSrc={hero.portrait.hoverSrc} darkSrc={hero.portrait.darkSrc} sizeClass="size-[1.35em]" rounded />{" "}
           {hero.intro}
           <br className="hidden lg:inline" />{" "}
           <span className="text-portfolio-pink-500">{hero.accent}</span> {hero.across}
@@ -130,7 +137,10 @@ export default function Home() {
           aria-label="Selected work"
           // The dot grid ends at the bottom of this section's first card
           data-dot-grid-end
-          className="flex flex-col gap-24 sm:gap-32 sm:-mx-10 sm:w-[calc(100%+5rem)]"
+          // Landing: the first card's grey panel rises from below, last.
+          // lg:-mt-10: 66px below the hero on desktop instead of the page's
+          // 106px gap (owner's direction 2026-11-23); the gap below stays 106px.
+          className="lg:-mt-10 motion-safe:[&>:first-child]:animate-hero-card-rise motion-safe:[&>:first-child]:[animation-delay:450ms] flex flex-col gap-24 sm:gap-32 sm:-mx-10 sm:w-[calc(100%+5rem)]"
         >
           {projects.map((project) => (
             <ProjectCard key={project.href} {...project} />

@@ -231,7 +231,7 @@ function SearchChipRow({ chip }: { chip: SearchChip }) {
 // a scaled box (see MobileScrollStrip) so it shrinks with the 190px phones.
 function PeekCard({ image, badgeIcon }: { image: string; badgeIcon: string }) {
   return (
-    <div className="relative h-[299px] w-[226px] shrink-0 overflow-hidden rounded-case-xl" aria-hidden="true">
+    <div className="theme-light relative h-[299px] w-[226px] shrink-0 overflow-hidden rounded-case-xl" aria-hidden="true">
       <div className="absolute left-[30px] top-[30px] w-[160px] drop-shadow-[0px_8px_12px_rgba(0,0,0,0.12)]">
         <div className="relative flex h-[195px] w-full flex-col items-end justify-between rounded-case-md border-[0.5px] border-portfolio-grey-200 p-2">
           <div className="absolute inset-0 overflow-hidden rounded-case-md bg-portfolio-grey-50">
@@ -269,7 +269,7 @@ function Pin({ number, top, left }: { number: number; top: number; left: number 
       style={{ top: `calc(${top}% + 13px)`, left: `${left}%`, right: "-52px" }}
     >
       <span className="absolute inset-0 bg-portfolio-grey-900" />
-      <span className="absolute right-0 top-1/2 flex size-7 -translate-y-1/2 translate-x-1/2 items-center justify-center rounded-full bg-faircado-pink-400 font-manrope text-[14px] font-bold text-portfolio-grey-900">
+      <span className="absolute right-0 top-1/2 flex size-7 -translate-y-1/2 translate-x-1/2 items-center justify-center rounded-full bg-faircado-pink-400 font-manrope text-[14px] font-bold text-portfolio-ink">
         {number}
       </span>
     </div>

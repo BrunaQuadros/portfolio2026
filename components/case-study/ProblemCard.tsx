@@ -23,7 +23,7 @@ export function ProblemCard({ tag, tagIcon, heading, headingAccent, headingTail,
       <div className="flex flex-col gap-3">
         <p className="font-manrope font-bold text-[24px] leading-[32px] tracking-[-0.5px] text-portfolio-grey-900 sm:text-[28px] sm:leading-[38px]">
           {heading}
-          {headingAccent ? <span className="text-faircado-green-500">{headingAccent}</span> : null}
+          {headingAccent ? <span className="text-faircado-green-500 dark:text-faircado-green-400">{headingAccent}</span> : null}
           {headingTail}
         </p>
         <p className="font-manrope text-[16px] leading-[26px] text-portfolio-grey-900 sm:text-[18px] sm:leading-[28px]">

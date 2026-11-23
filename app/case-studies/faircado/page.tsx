@@ -144,12 +144,12 @@ export default function FaircadoCaseStudyPage() {
             </h1>
             <p className="font-manrope text-[22px] leading-[1.4] tracking-[-0.5px] text-portfolio-grey-900 sm:text-[28px] lg:text-[40px] lg:leading-[60px] lg:tracking-[-1.2px]">
               {hero.descriptionLead}
-              <span className="text-faircado-green-500">{hero.descriptionAccent1}</span>
+              <span className="text-faircado-green-500 dark:text-faircado-green-400">{hero.descriptionAccent1}</span>
               {hero.descriptionMid1}
               <br className="hidden lg:block" />
               {" "}
               {hero.descriptionMid2}
-              <span className="text-faircado-green-500">{hero.descriptionAccent2}</span>
+              <span className="text-faircado-green-500 dark:text-faircado-green-400">{hero.descriptionAccent2}</span>
               {hero.descriptionTail}
             </p>
           </div>
@@ -182,7 +182,7 @@ export default function FaircadoCaseStudyPage() {
               the panel. */}
           <video
             src="/videos/case-studies/faircado/hero-cover-video.mp4"
-            className="absolute left-[58.5%] top-[2%] h-[98%] w-[84%] -translate-x-1/2 object-contain object-bottom sm:left-[58%] sm:top-[4%] sm:h-[98%] sm:w-[62%] lg:left-[37.54%] lg:top-[10.74%] lg:h-[97.5%] lg:w-[44.93%] lg:translate-x-0 lg:object-center"
+            className="absolute left-[58.5%] top-[2%] h-[98%] w-[84%] -translate-x-1/2 object-contain object-bottom mask-contain mask-no-repeat mask-bottom lg:mask-center dark:mask-[url(/videos/case-studies/faircado/hero-cover-video-mask.png)] sm:left-[58%] sm:top-[4%] sm:h-[98%] sm:w-[62%] lg:left-[37.54%] lg:top-[10.74%] lg:h-[97.5%] lg:w-[44.93%] lg:translate-x-0 lg:object-center"
             autoPlay
             muted
             loop
@@ -393,7 +393,7 @@ export default function FaircadoCaseStudyPage() {
                         `relative` so it paints above the icon. */}
                     {" "}
                     {problem.challengeLine2Lead}
-                    <span className="text-faircado-green-500">
+                    <span className="text-faircado-green-500 dark:text-faircado-green-400">
                       {problem.challengeAccentLine2}
                       <br className="hidden lg:inline" />
                       {" "}
@@ -445,8 +445,14 @@ export default function FaircadoCaseStudyPage() {
             keeps the plain 96px section gap. */}
         <section className="mx-auto w-full max-w-[1220px] px-4 sm:px-10 lg:mt-10">
           <div className="w-full">
-            <div className="flex flex-col items-start gap-12 sm:gap-16 lg:flex-row lg:items-center lg:gap-0">
-              <Reveal preset="text"
+            {/* One trigger for the whole row: when it scrolls into view, the
+                pieces play in order on desktop (owner's direction 2026-11-23):
+                curved arrow, first phone, second phone, small arrow, then the
+                text. Each piece follows this row (followParent) with its own
+                wait. On phones the text shows first, then the phone strip.
+                y={0}: the row itself only fades, its pieces do the moving. */}
+            <Reveal preset="text" y={0} className="flex flex-col items-start gap-12 sm:gap-16 lg:flex-row lg:items-center lg:gap-0">
+              <Reveal preset="text" followParent lgDelay={1500}
                 className="w-full lg:max-w-[348px] lg:shrink-0 lg:-translate-y-[70px]"
                 // Same text-container alignment trick used by Context, Problem,
                 // and the My Approach heading, so this paragraph's left edge
@@ -479,7 +485,7 @@ export default function FaircadoCaseStudyPage() {
                   its native size and centered in that flexible gap (rather than
                   stretched to fill it) so the line and arrowhead never distort
                   at different viewport widths. */}
-              <Reveal preset="text" className="hidden h-[130px] flex-1 items-start justify-center self-center pt-2 lg:flex" aria-hidden="true">
+              <Reveal preset="list" followParent lgDelay={1200} className="hidden h-[130px] flex-1 items-start justify-center self-center pt-2 lg:flex" aria-hidden="true">
                 <img src={`${IMG}/insight-arrow.svg`} alt="" className="h-2 w-[74px]" />
               </Reveal>
               {/* Mobile (below lg): a horizontal scroll strip, one phone per
@@ -488,7 +494,7 @@ export default function FaircadoCaseStudyPage() {
                   edge and the second phone peeks in from the right, which
                   signals there's more to scroll. The caption sits under the
                   strip, inside the normal padding. */}
-              <Reveal preset="media" className="w-full lg:hidden">
+              <Reveal preset="media" followParent delay={200} className="w-full lg:hidden">
                 {/* scroll-pl matches the padding so the first snap stop lands on the
                     content's left edge (aligned with the text above), not on
                     the screen edge; scrollbar-hide keeps the strip clean.
@@ -516,17 +522,19 @@ export default function FaircadoCaseStudyPage() {
               {/* Desktop (lg and up): the two phones as a staggered pair,
                   fixed at 250x541 each, 28px apart, in a container sized to
                   fit both plus the second phone's 24% vertical offset. */}
-              <Reveal preset="media" className="relative hidden h-[711px] w-[528px] shrink-0 lg:block">
+              <div className="relative hidden h-[711px] w-[528px] shrink-0 lg:block">
                 {/* Positioned so the arrowhead (bottom-left of the source SVG)
                     lands centered just above the first phone's top edge,
                     instead of dipping down into the screen itself. */}
-                <div
+                <Reveal
+                  preset="text"
+                  followParent
                   aria-hidden="true"
                   className="pointer-events-none absolute -top-[140px] right-[41%] w-[190px]"
                 >
                   <img src={`${IMG}/insight-curve-arrow.svg`} alt="" />
-                </div>
-                <div className="absolute left-0 top-0 flex w-[250px] flex-col items-center gap-3">
+                </Reveal>
+                <Reveal preset="media" followParent delay={400} className="absolute left-0 top-0 flex w-[250px] flex-col items-center gap-3">
                   <div className="relative h-[541px] w-[250px] overflow-hidden rounded-case-xl shadow-[0px_12px_37px_0px_rgba(0,0,0,0.12)]">
                     <Image src={insight.screenshots[0].src} alt={insight.screenshots[0].alt} fill className="object-cover" />
                   </div>
@@ -535,12 +543,12 @@ export default function FaircadoCaseStudyPage() {
                       {insight.screenshots[0].caption}
                     </p>
                   ) : null}
-                </div>
-                <div className="absolute right-0 top-[24%] h-[541px] w-[250px] overflow-hidden rounded-case-lg shadow-[0px_12px_37px_0px_rgba(0,0,0,0.12)]">
+                </Reveal>
+                <Reveal preset="media" followParent delay={600} className="absolute right-0 top-[24%] h-[541px] w-[250px] overflow-hidden rounded-case-lg shadow-[0px_12px_37px_0px_rgba(0,0,0,0.12)]">
                   <Image src={insight.screenshots[1].src} alt={insight.screenshots[1].alt} fill className="object-cover" />
-                </div>
-              </Reveal>
-            </div>
+                </Reveal>
+              </div>
+            </Reveal>
           </div>
         </section>
 
@@ -723,17 +731,16 @@ export default function FaircadoCaseStudyPage() {
                   height={52}
                   className="drop-shadow-[0px_8px_12px_rgba(0,0,0,0.12)]"
                 />
-                <p className="font-manrope font-bold text-[24px] leading-[32px] tracking-[-0.5px] text-portfolio-grey-900 sm:text-[28px] sm:leading-[38px]">
+                <p className="font-manrope font-bold text-[24px] leading-[32px] tracking-[-0.5px] text-portfolio-ink sm:text-[28px] sm:leading-[38px]">
                   User feedback that made my day
                 </p>
               </Reveal>
               {/* Same height and padding as eco.mio's feedback row (391px). */}
               <Reveal as="figure" preset="card" index={1} className="flex flex-col justify-center gap-7 rounded-case-mobile bg-portfolio-grey-50 sm:rounded-case-2xl p-6 sm:col-span-2 sm:p-10 sm:h-[391px]">
-                <img
-                  src={`${IMG}/icon-quote-mark.svg`}
-                  alt=""
+                {/* Quote mark as a mask over the green token: logo green in dark mode. */}
+                <span
                   aria-hidden="true"
-                  className="h-[29px] w-[33px]"
+                  className="block h-[29px] w-[33px] bg-faircado-green-500 mask-[url(/images/case-studies/faircado/icon-quote-mark.svg)] mask-contain mask-no-repeat dark:bg-faircado-green-400"
                 />
                 <blockquote className="font-manrope font-bold text-[24px] leading-[32px] tracking-[-0.5px] text-portfolio-grey-900 sm:text-[28px] sm:leading-[38px]">
                   {results.featuredTestimonial.quote}

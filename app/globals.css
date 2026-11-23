@@ -110,6 +110,24 @@
   /* StickyHero: the hero card rises into place once on load. Use it with
      motion-safe: so reduced-motion visitors skip it. */
   --animate-hero-card-rise: hero-card-rise 800ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
+
+  /* Homepage landing (after emanuelserbanoiu.com), once per load, used with
+     motion-safe:. The header drops in from above; the hero sentence just
+     fades in, without moving. The first project card
+     reuses hero-card-rise. */
+  --animate-header-drop: header-drop 700ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  @keyframes header-drop {
+    from {
+      opacity: 0;
+      transform: translateY(-48px);
+    }
+  }
+  --animate-text-fade: text-fade 800ms ease-out backwards;
+  @keyframes text-fade {
+    from {
+      opacity: 0;
+    }
+  }
   @keyframes hero-card-rise {
     from {
       opacity: 0;
@@ -125,9 +143,13 @@
   --text-hero--line-height: 1.4;
 }
 
-:root {
-  /* Portfolio greys, light theme (the original values). grey-500 is a step
-     lighter than grey-600 for secondary text, still 4.5:1+ on grey-25. */
+/* Portfolio greys, light theme (the original values). grey-500 is a step
+   lighter than grey-600 for secondary text, still 4.5:1+ on grey-25.
+   .theme-light keeps an element in these light greys even in dark mode:
+   use it on drawings of app UI (e.g. Faircado's PeekCard), which show the
+   real light app. */
+:root,
+.theme-light {
   --portfolio-grey-25: #fbfbfb;
   --portfolio-grey-50: #f7f7f7;
   --portfolio-grey-100: #f0f0f0;
@@ -136,6 +158,9 @@
   --portfolio-grey-500: #737373;
   --portfolio-grey-600: #5e5f5d;
   --portfolio-grey-900: #121212;
+}
+
+:root {
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);

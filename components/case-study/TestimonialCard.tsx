@@ -1,4 +1,3 @@
-import Image from "next/image";
 
 // A quote pulled from user research, paired with the supporting data point.
 // Used 3 times under "Takeaways" and again 3 times under the closing
@@ -23,7 +22,7 @@ export function TestimonialCard({
   detailBold,
   detailRest,
   number,
-  accentClass = "text-faircado-green-500",
+  accentClass = "text-faircado-green-500 dark:text-faircado-green-400",
 }: TestimonialCardProps) {
   return (
     <figure className="flex flex-col gap-6">
@@ -35,12 +34,11 @@ export function TestimonialCard({
           {number}
         </p>
       ) : (
-        <Image
-          src="/images/case-studies/faircado/takeaways-quote-mark.svg"
-          alt=""
+        // Quote mark drawn as a mask over the Faircado green token, so it
+        // turns the logo green (green-400) in dark mode like the highlights.
+        <span
           aria-hidden="true"
-          width={33}
-          height={29}
+          className="block h-[29px] w-[33px] bg-faircado-green-500 mask-[url(/images/case-studies/faircado/takeaways-quote-mark.svg)] mask-contain mask-no-repeat dark:bg-faircado-green-400"
         />
       )}
       <blockquote className="font-manrope font-bold text-[24px] leading-[32px] tracking-[-0.5px] text-portfolio-grey-900 sm:text-[28px] sm:leading-[38px]">

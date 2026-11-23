@@ -23,7 +23,11 @@ const navLinkClasses = `font-manrope text-[16px] font-extrabold leading-[20px] t
 
 export function SiteHeader({ nameLine1, nameLine2, contact, linkedin }: SiteHeaderProps) {
   return (
-    <header className="mx-auto flex w-full max-w-[1440px] items-center justify-between px-4 pt-6 sm:px-10 lg:px-[110px] lg:pt-20">
+    <header
+      // Drops in from above on load (DESIGN.md "Motion", homepage landing).
+      // 64px from the top on desktop (was 80px, owner's direction 2026-11-23).
+      className="mx-auto flex w-full max-w-[1440px] items-center justify-between px-4 pt-6 sm:px-10 lg:px-[110px] lg:pt-16 motion-safe:animate-header-drop"
+    >
       {/* Rolling name (after drukarov.com): the box shows two lines but holds
           three, "bruna / quadros / bruna". On hover the text rolls up one line
           so it reads "quadros / bruna"; leaving rolls it back. 300ms ease-out,

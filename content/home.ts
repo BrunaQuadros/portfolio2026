@@ -85,6 +85,8 @@ export const home = {
     greeting: "Hi! I am Bruna,",
     portrait: {
       src: `${IMG}/portrait-bruna-cutout.png`,
+      // Dark mode copy with the white halo around the hair cleaned up
+      darkSrc: `${IMG}/portrait-bruna-cutout-dark.png`,
       // Slides in on hover over the portrait
       hoverSrc: `${IMG}/portrait-bruna-hover.webp`,
       alt: "Portrait of Bruna",
@@ -210,7 +212,7 @@ export const home = {
       company: "VanBruben · Design Studio",
       logo: {
         src: `${IMG}/logo-timeline-vanbruben.png`,
-        tileClass: "bg-portfolio-ink",
+        tileClass: "bg-portfolio-ink dark:bg-portfolio-grey-100",
         imageClass: "left-[12.21%] top-[11.71%] size-[77.09%]",
       },
     },
