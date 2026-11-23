@@ -6,6 +6,7 @@ import { ProjectCard } from "@/components/home/ProjectCard";
 import { ExperienceTimeline } from "@/components/home/ExperienceTimeline";
 import { StatementParagraph } from "@/components/home/StatementParagraph";
 import { DotGrid } from "@/components/home/DotGrid";
+import { Reveal, RevealNoScript } from "@/components/motion/Reveal";
 
 // Link preview for the homepage (WhatsApp, Telegram, LinkedIn, Slack...):
 // shows the name as the title and "Product Designer" underneath. Set here,
@@ -106,6 +107,7 @@ export default function Home() {
         endSelector="[data-dot-grid-end] > :first-child"
         className="absolute inset-x-0 top-0 -z-10"
       />
+      <RevealNoScript />
       <SiteHeader {...header} />
 
       <main className="mx-auto flex w-full max-w-[1220px] flex-col gap-24 px-4 pb-32 pt-24 sm:px-10 lg:gap-[106px] lg:pt-[271px]">
@@ -125,7 +127,7 @@ export default function Home() {
           <HeroInlineImage src={hero.portrait.src} alt={hero.portrait.alt} hoverSrc={hero.portrait.hoverSrc} darkSrc={hero.portrait.darkSrc} sizeClass="size-[1.35em]" rounded />{" "}
           {hero.intro}
           <br className="hidden lg:inline" />{" "}
-          <span className="text-portfolio-pink-500">{hero.accent}</span> {hero.across}
+          <span className="text-portfolio-burgundy">{hero.accent}</span> {hero.across}
           <br className="hidden lg:inline" />{" "}
           {hero.rest}
         </h1>
@@ -142,8 +144,12 @@ export default function Home() {
           // 106px gap (owner's direction 2026-11-23); the gap below stays 106px.
           className="lg:-mt-10 motion-safe:[&>:first-child]:animate-hero-card-rise motion-safe:[&>:first-child]:[animation-delay:450ms] flex flex-col gap-24 sm:gap-32 sm:-mx-10 sm:w-[calc(100%+5rem)]"
         >
-          {projects.map((project) => (
-            <ProjectCard key={project.href} {...project} />
+          {/* Cards after the first rise in on scroll like case study cards
+              (Reveal "card" preset). The first keeps its landing rise. */}
+          {projects.map((project, i) => (
+            <Reveal key={project.href} preset="card" disabled={i === 0}>
+              <ProjectCard {...project} />
+            </Reveal>
           ))}
         </section>
 

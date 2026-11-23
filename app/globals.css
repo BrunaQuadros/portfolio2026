@@ -67,6 +67,9 @@
   /* Always near-black in both themes: logo tiles and anything that must stay
      dark with a white mark on top. Added 2026-11-23 (dark mode). */
   --color-portfolio-ink: #121212;
+  /* Portfolio accent (owner's pick, 2026-11-23): the hero highlight and the
+     header link hover. Switches with the theme like the greys. */
+  --color-portfolio-burgundy: var(--portfolio-burgundy);
 
   --color-faircado-pink-400: #ff80a4;
   --color-faircado-pink-500: #ff5182;
@@ -158,6 +161,7 @@
   --portfolio-grey-500: #737373;
   --portfolio-grey-600: #5e5f5d;
   --portfolio-grey-900: #121212;
+  --portfolio-burgundy: #c02c64;
 }
 
 :root {
@@ -206,6 +210,9 @@
   --portfolio-grey-500: #8c8c8c;
   --portfolio-grey-600: #a3a3a3;
   --portfolio-grey-900: #f2f2f2;
+  /* Same hue as #c02c64, a touch lighter: 5.2:1 on the dark page (the
+     light value is only 3.5:1 there, too low for the 16px header links). */
+  --portfolio-burgundy: #d95989;
   color-scheme: dark;
   /* Page and card surfaces follow the portfolio greys. */
   --background: var(--portfolio-grey-25);

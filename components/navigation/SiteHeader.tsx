@@ -17,9 +17,9 @@ const focusRing =
   "rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-portfolio-pink-500";
 
 // Right-side links use the case study eyebrow style (SectionHeading):
-// Manrope extra bold 16px uppercase, here in black. On hover they turn the
-// same pink as "product designer" in the hero (150ms fade, DESIGN.md "Motion").
-const navLinkClasses = `font-manrope text-[16px] font-extrabold leading-[20px] tracking-[0.48px] uppercase text-portfolio-grey-900 cursor-pointer transition-colors duration-150 ease-out hover:text-portfolio-pink-500 ${focusRing}`;
+// Manrope extra bold 16px uppercase, here in black. On hover they fade to the
+// same burgundy as "product designer" in the hero (150ms, DESIGN.md "Motion").
+const navLinkClasses = `font-manrope text-[16px] font-extrabold leading-[20px] tracking-[0.48px] uppercase text-portfolio-grey-900 cursor-pointer transition-colors duration-150 ease-out hover:text-portfolio-burgundy ${focusRing}`;
 
 export function SiteHeader({ nameLine1, nameLine2, contact, linkedin }: SiteHeaderProps) {
   return (
