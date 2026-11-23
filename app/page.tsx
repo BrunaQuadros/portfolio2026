@@ -1,7 +1,28 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import { home } from "@/content/home";
 import { SiteHeader } from "@/components/navigation/SiteHeader";
 import { ProjectCard } from "@/components/home/ProjectCard";
+import { ExperienceTimeline } from "@/components/home/ExperienceTimeline";
+import { StatementParagraph } from "@/components/home/StatementParagraph";
+
+// Link preview for the homepage (WhatsApp, Telegram, LinkedIn, Slack...):
+// shows the name as the title and "Product Designer" underneath. Set here,
+// not in the layout, so case study links keep their own previews.
+export const metadata: Metadata = {
+  openGraph: {
+    title: "Bruna Todeschini de Quadros",
+    description: "Product Designer",
+    url: "https://www.brunatquadros.com/",
+    siteName: "Bruna Todeschini de Quadros",
+    type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: "Bruna Todeschini de Quadros",
+    description: "Product Designer",
+  },
+};
 
 // Portrait swap animation (inspired by emanuelserbanoiu.com), triggered by
 // hovering the portrait itself (the frame is a `group`):
@@ -61,7 +82,7 @@ function HeroInlineImage({
 }
 
 export default function Home() {
-  const { header, hero, projects } = home;
+  const { header, hero, projects, experienceIntro, experience, experienceOutro } = home;
 
   return (
     <div className="flex flex-1 flex-col bg-white">
@@ -95,6 +116,15 @@ export default function Home() {
           {projects.map((project) => (
             <ProjectCard key={project.href} {...project} />
           ))}
+        </section>
+
+        {/* About: experience paragraph, work timeline, closing paragraph.
+            96px apart on phones, 128px from lg:. On phones the 24px side
+            padding lines the text up with the hero and the card copy. */}
+        <section aria-label="Experience" className="flex flex-col gap-24 px-6 sm:px-0 lg:gap-32">
+          <StatementParagraph segments={experienceIntro} />
+          <ExperienceTimeline entries={experience} />
+          <StatementParagraph segments={experienceOutro} />
         </section>
       </main>
     </div>

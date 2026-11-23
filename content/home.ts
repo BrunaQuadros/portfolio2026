@@ -44,6 +44,23 @@ export type HomeProjectCard = {
   media: ProjectCardMedia;
 };
 
+// A paragraph split into pieces so some words can be bold.
+export type TextSegment = { text: string; bold?: boolean };
+
+export type ExperienceEntry = {
+  dates: string;
+  role: string;
+  // Company and what it does, shown in grey under the role
+  company: string;
+  logo: {
+    src: string;
+    // Tailwind background class (color token) for the square tile behind the logo
+    tileClass: string;
+    // Size and position of the logo inside its tile, copied from Figma
+    imageClass: string;
+  };
+};
+
 export const home = {
   header: {
     // Stacked on two lines, top left
@@ -139,4 +156,66 @@ export const home = {
     // exists. Its logo, portal image and color token are still in place;
     // the card's content is in git history (commit 0e50db6, content/home.ts).
   ] satisfies HomeProjectCard[],
+
+  // Paragraph under the project cards. Figma wording, double spaces removed.
+  experienceIntro: [
+    { text: "With over " },
+    { text: "6 years of experience in Product Design,", bold: true },
+    { text: " including co-founding a design studio, I am used to think " },
+    { text: "strategy, outcomes and systems", bold: true },
+    { text: " beyond aesthetics." },
+  ] satisfies TextSegment[],
+
+  // Work timeline, newest first
+  experience: [
+    {
+      dates: "2026 - Now",
+      role: "Senior Product Designer",
+      company: "eco.mio · Corporate travel booking",
+      logo: {
+        src: `${IMG}/logo-timeline-eco-mio.png`,
+        tileClass: "bg-eco-mio-blue-500",
+        imageClass: "left-[-25.56%] top-[-26.27%] size-[152.51%]",
+      },
+    },
+    {
+      dates: "2024 - 2026",
+      role: "Mid → Senior Product Designer",
+      company: "Faircado · Second-hand shopping app",
+      logo: {
+        src: `${IMG}/logo-timeline-faircado.png`,
+        tileClass: "bg-faircado-green-400",
+        imageClass: "left-[10.02%] top-[9.36%] size-[79.71%]",
+      },
+    },
+    {
+      dates: "2022 - 2024",
+      role: "Product Designer",
+      company: "Impact Hero · Climate Tech",
+      logo: {
+        src: `${IMG}/logo-timeline-impact-hero.png`,
+        tileClass: "bg-portfolio-grey-100",
+        imageClass: "left-[11.87%] top-[12.6%] size-[75.93%]",
+      },
+    },
+    {
+      dates: "2020 - 2022",
+      role: "Co-Founder & Product Designer",
+      company: "VanBruben · Design Studio",
+      logo: {
+        src: `${IMG}/logo-timeline-vanbruben.png`,
+        tileClass: "bg-portfolio-grey-900",
+        imageClass: "left-[12.21%] top-[11.71%] size-[77.09%]",
+      },
+    },
+  ] satisfies ExperienceEntry[],
+
+  // Closing paragraph. The Figma " - " became a comma (no dashes in copy).
+  experienceOutro: [
+    { text: "I am used to deliver " },
+    { text: "end-to-end", bold: true },
+    {
+      text: ", and comfortable being the only designer on a team, or collaborating with peers, engineering, product and founders.",
+    },
+  ] satisfies TextSegment[],
 };
