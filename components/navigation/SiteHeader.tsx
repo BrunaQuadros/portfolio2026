@@ -28,18 +28,19 @@ export function SiteHeader({ nameLine1, nameLine2, contact, linkedin }: SiteHead
           three, "bruna / quadros / bruna". On hover the text rolls up one line
           so it reads "quadros / bruna"; leaving rolls it back. 300ms ease-out,
           like the card hover. No roll under reduced motion.
-          Each line is 1.2em tall (not 1em) so the tail of the "q" is not
-          clipped; the box (2.4em) and the roll (1.2em) match that line height. */}
+          Each line is 1.1em tall (not 1em) so the tail of the "q" is not
+          clipped (1.05em already cuts it); the box (2.2em) and the roll
+          (1.1em) match that line height. */}
       <Link
         href="/"
-        className={`group/name block h-[2.4em] overflow-hidden font-manrope text-2xl font-bold leading-[1.2] tracking-[-0.04em] text-portfolio-grey-900 ${focusRing}`}
+        className={`group/name block h-[2.2em] overflow-hidden font-manrope text-2xl font-bold leading-[1.1] tracking-[-0.04em] text-portfolio-grey-900 ${focusRing}`}
       >
         <span className="sr-only">
           {nameLine1} {nameLine2}
         </span>
         <span
           aria-hidden
-          className="flex flex-col transition-transform duration-300 ease-out group-hover/name:-translate-y-[1.2em] group-focus-visible/name:-translate-y-[1.2em] motion-reduce:transition-none motion-reduce:group-hover/name:translate-y-0 motion-reduce:group-focus-visible/name:translate-y-0"
+          className="flex flex-col transition-transform duration-300 ease-out group-hover/name:-translate-y-[1.1em] group-focus-visible/name:-translate-y-[1.1em] motion-reduce:transition-none motion-reduce:group-hover/name:translate-y-0 motion-reduce:group-focus-visible/name:translate-y-0"
         >
           <span>{nameLine1}</span>
           <span>{nameLine2}</span>

@@ -43,12 +43,16 @@ function HeroInlineImage({
   src,
   alt,
   sizeClass,
+  // Vertical position against the text. The default suits the 1.35em
+  // portrait; smaller images pass their own value to stay centered.
+  alignClass = "align-[-0.3em]",
   rounded = false,
   hoverSrc,
 }: {
   src: string;
   alt: string;
   sizeClass: string;
+  alignClass?: string;
   rounded?: boolean;
   // Optional second photo that slides in when the portrait is hovered (see SWAP_TRANSITION).
   hoverSrc?: string;
@@ -58,7 +62,7 @@ function HeroInlineImage({
     <span
       // Both portraits are cut-outs, so the frame supplies the grey background.
       // overflow-hidden + the round shape clip the sliding photo to the circle.
-      className={`relative mx-[0.1em] inline-block ${sizeClass} align-[-0.3em] ${hoverSrc ? "group overflow-hidden bg-portfolio-grey-100" : ""} ${rounded ? "rounded-full" : ""}`}
+      className={`relative mx-[0.1em] inline-block ${sizeClass} ${alignClass} ${hoverSrc ? "group overflow-hidden bg-portfolio-grey-100" : ""} ${rounded ? "rounded-full" : ""}`}
     >
       <Image
         src={src}
@@ -85,7 +89,7 @@ export default function Home() {
   const { header, hero, projects, experienceIntro, experience, experienceOutro } = home;
 
   return (
-    <div className="flex flex-1 flex-col bg-white">
+    <div className="flex flex-1 flex-col bg-portfolio-grey-25">
       <SiteHeader {...header} />
 
       <main className="mx-auto flex w-full max-w-[1220px] flex-col gap-24 px-4 pb-32 pt-24 sm:px-10 lg:gap-[106px] lg:pt-[255px]">
@@ -97,6 +101,9 @@ export default function Home() {
             pad their copy 24px (phones), 0 net from sm: (40px padding minus the
             40px breakout) and 40px net from lg: (80px minus 40px). */}
         <h1 className="w-full px-6 sm:px-0 lg:pl-10 font-manrope text-[11vw] font-semibold leading-[1.4] tracking-[-0.04em] text-portfolio-grey-900 sm:text-[7vw] lg:text-[length:min(5.7vw,var(--text-hero))]">
+          {/* Decorative 3D hand (empty alt), 1em: 20% smaller than the Faircado hero star.
+              align -0.14em centers it on the capital letters (Manrope caps ~0.72em tall). */}
+          <HeroInlineImage src={hero.wave.src} alt={hero.wave.alt} sizeClass="size-[1em]" alignClass="align-[-0.14em]" />
           {hero.greeting}{" "}
           <HeroInlineImage src={hero.portrait.src} alt={hero.portrait.alt} hoverSrc={hero.portrait.hoverSrc} sizeClass="size-[1.35em]" rounded />{" "}
           {hero.intro}

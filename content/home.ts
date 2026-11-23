@@ -78,6 +78,10 @@ export const home = {
     // Reads: "Hi! I am Bruna, a charismatic product designer with work
     // across consumer apps, SaaS and EdTech" (Nov 2026 wording, no emojis;
     // only the portrait photo stays inline.)
+    // 3D waving hand before "Hi": Apple emoji pose rendered in a soft 3D
+    // clay style (owner generated it with ChatGPT, thiings.co style as the
+    // texture reference). Decorative, so empty alt.
+    wave: { src: `${IMG}/emoji-wave-hand-3d-v2.webp`, alt: "" },
     greeting: "Hi! I am Bruna,",
     portrait: {
       src: `${IMG}/portrait-bruna-cutout.png`,

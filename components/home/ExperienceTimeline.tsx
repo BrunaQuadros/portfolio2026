@@ -24,8 +24,8 @@ export function ExperienceTimeline({ entries }: { entries: ExperienceEntry[] }) 
           {/* Dot and the line down to the next dot (decorative) */}
           {/* The column stretches to the row height so "100%" below means one row. */}
           <div aria-hidden className="relative hidden w-5 shrink-0 self-stretch lg:-ml-2 lg:block">
-            <span className="absolute left-1/2 top-1/2 h-[calc(100%+6rem)] w-1 -translate-x-1/2 bg-portfolio-grey-400 group-last:hidden" />
-            <span className="absolute left-0 top-1/2 size-5 -translate-y-1/2 rounded-full bg-portfolio-grey-400" />
+            <span className="absolute left-1/2 top-1/2 h-[calc(100%+6rem)] w-1 -translate-x-1/2 bg-portfolio-grey-600 group-last:hidden" />
+            <span className="absolute left-0 top-1/2 size-5 -translate-y-1/2 rounded-full bg-portfolio-grey-600" />
           </div>
 
           {/* Logo tile: brand color behind the logo, positioned as in Figma */}

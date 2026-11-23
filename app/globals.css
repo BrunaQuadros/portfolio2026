@@ -53,6 +53,7 @@
   /* Handwritten annotations over a diagram (eco.mio process hover). */
   --font-handwritten: var(--font-caveat);
 
+  --color-portfolio-grey-25: #fbfbfb;
   --color-portfolio-grey-50: #f7f7f7;
   --color-portfolio-grey-100: #f0f0f0;
   --color-portfolio-grey-200: #e7e7e7;
