@@ -5,6 +5,7 @@ import { SiteHeader } from "@/components/navigation/SiteHeader";
 import { ProjectCard } from "@/components/home/ProjectCard";
 import { ExperienceTimeline } from "@/components/home/ExperienceTimeline";
 import { StatementParagraph } from "@/components/home/StatementParagraph";
+import { DotGrid } from "@/components/home/DotGrid";
 
 // Link preview for the homepage (WhatsApp, Telegram, LinkedIn, Slack...):
 // shows the name as the title and "Product Designer" underneath. Set here,
@@ -89,7 +90,16 @@ export default function Home() {
   const { header, hero, projects, experienceIntro, experience, experienceOutro } = home;
 
   return (
-    <div className="flex flex-1 flex-col bg-portfolio-grey-25">
+    // `relative isolate` so the dot grid can sit behind every block on the
+    // page (negative z-index) while staying above this white background.
+    <div className="relative isolate flex flex-1 flex-col bg-white">
+      {/* Cursor dot grid (DotGrid, DESIGN.md "Motion"): from the very top of
+          the page, behind the header and hero, down to the bottom of the first
+          project card, which covers it (the dots show around the card). */}
+      <DotGrid
+        endSelector="[data-dot-grid-end] > :first-child"
+        className="absolute inset-x-0 top-0 -z-10"
+      />
       <SiteHeader {...header} />
 
       <main className="mx-auto flex w-full max-w-[1220px] flex-col gap-24 px-4 pb-32 pt-24 sm:px-10 lg:gap-[106px] lg:pt-[255px]">
@@ -118,6 +128,8 @@ export default function Home() {
             are spaced like case study sections (96px, 128px from sm:). */}
         <section
           aria-label="Selected work"
+          // The dot grid ends at the bottom of this section's first card
+          data-dot-grid-end
           className="flex flex-col gap-24 sm:gap-32 sm:-mx-10 sm:w-[calc(100%+5rem)]"
         >
           {projects.map((project) => (
