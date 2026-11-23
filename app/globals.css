@@ -53,16 +53,20 @@
   /* Handwritten annotations over a diagram (eco.mio process hover). */
   --font-handwritten: var(--font-caveat);
 
-  --color-portfolio-grey-25: #fbfbfb;
-  --color-portfolio-grey-50: #f7f7f7;
-  --color-portfolio-grey-100: #f0f0f0;
-  --color-portfolio-grey-200: #e7e7e7;
-  --color-portfolio-grey-400: #cfcfcf;
-  /* Secondary text a step lighter than grey-600 (homepage timeline company
-     line), still 4.5:1+ on the #fbfbfb page. Added 2026-11-23. */
-  --color-portfolio-grey-500: #737373;
-  --color-portfolio-grey-600: #5e5f5d;
-  --color-portfolio-grey-900: #121212;
+  /* Greys switch with the theme: the real values live in :root (light) and
+     .dark below, so every bg-/text-portfolio-grey-* class flips on its own.
+     Dark values added 2026-11-23 (dark mode). */
+  --color-portfolio-grey-25: var(--portfolio-grey-25);
+  --color-portfolio-grey-50: var(--portfolio-grey-50);
+  --color-portfolio-grey-100: var(--portfolio-grey-100);
+  --color-portfolio-grey-200: var(--portfolio-grey-200);
+  --color-portfolio-grey-400: var(--portfolio-grey-400);
+  --color-portfolio-grey-500: var(--portfolio-grey-500);
+  --color-portfolio-grey-600: var(--portfolio-grey-600);
+  --color-portfolio-grey-900: var(--portfolio-grey-900);
+  /* Always near-black in both themes: logo tiles and anything that must stay
+     dark with a white mark on top. Added 2026-11-23 (dark mode). */
+  --color-portfolio-ink: #121212;
 
   --color-faircado-pink-400: #ff80a4;
   --color-faircado-pink-500: #ff5182;
@@ -122,6 +126,16 @@
 }
 
 :root {
+  /* Portfolio greys, light theme (the original values). grey-500 is a step
+     lighter than grey-600 for secondary text, still 4.5:1+ on grey-25. */
+  --portfolio-grey-25: #fbfbfb;
+  --portfolio-grey-50: #f7f7f7;
+  --portfolio-grey-100: #f0f0f0;
+  --portfolio-grey-200: #e7e7e7;
+  --portfolio-grey-400: #cfcfcf;
+  --portfolio-grey-500: #737373;
+  --portfolio-grey-600: #5e5f5d;
+  --portfolio-grey-900: #121212;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
@@ -157,9 +171,21 @@
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
+  /* Portfolio greys, dark theme: same roles, inverted. Text greys keep
+     4.5:1+ on the panels. */
+  --portfolio-grey-25: #0f0f0f;
+  --portfolio-grey-50: #1a1a1a;
+  --portfolio-grey-100: #242424;
+  --portfolio-grey-200: #2e2e2e;
+  --portfolio-grey-400: #3d3d3d;
+  --portfolio-grey-500: #8c8c8c;
+  --portfolio-grey-600: #a3a3a3;
+  --portfolio-grey-900: #f2f2f2;
+  color-scheme: dark;
+  /* Page and card surfaces follow the portfolio greys. */
+  --background: var(--portfolio-grey-25);
   --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
+  --card: var(--portfolio-grey-100);
   --card-foreground: oklch(0.985 0 0);
   --popover: oklch(0.205 0 0);
   --popover-foreground: oklch(0.985 0 0);

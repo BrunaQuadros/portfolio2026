@@ -199,7 +199,8 @@ export const home = {
       company: "Impact Hero · Climate Tech",
       logo: {
         src: `${IMG}/logo-timeline-impact-hero.png`,
-        tileClass: "bg-portfolio-grey-100",
+        // Light tile in both themes (grey-900 is the near-white grey in dark mode)
+        tileClass: "bg-portfolio-grey-100 dark:bg-portfolio-grey-900",
         imageClass: "left-[11.87%] top-[12.6%] size-[75.93%]",
       },
     },
@@ -209,7 +210,7 @@ export const home = {
       company: "VanBruben · Design Studio",
       logo: {
         src: `${IMG}/logo-timeline-vanbruben.png`,
-        tileClass: "bg-portfolio-grey-900",
+        tileClass: "bg-portfolio-ink",
         imageClass: "left-[12.21%] top-[11.71%] size-[77.09%]",
       },
     },

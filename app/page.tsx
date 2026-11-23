@@ -92,7 +92,7 @@ export default function Home() {
   return (
     // `relative isolate` so the dot grid can sit behind every block on the
     // page (negative z-index) while staying above this white background.
-    <div className="relative isolate flex flex-1 flex-col bg-white">
+    <div className="relative isolate flex flex-1 flex-col bg-white dark:bg-portfolio-grey-25">
       {/* Cursor dot grid (DotGrid, DESIGN.md "Motion"): from the very top of
           the page, behind the header and hero, down to the bottom of the first
           project card, which covers it (the dots show around the card). */}

@@ -14,6 +14,7 @@ import { CaseStudySectionNav } from "@/components/navigation/CaseStudySectionNav
 import { NextProjectSection } from "@/components/case-study/NextProjectSection";
 import { Reveal, RevealNoScript } from "@/components/motion/Reveal";
 import { StickyHero } from "@/components/case-study/StickyHero";
+import { BackgroundNumeral } from "@/components/case-study/BackgroundNumeral";
 
 const IMG = "/images/case-studies/faircado";
 
@@ -50,11 +51,9 @@ export default function FaircadoCaseStudyPage() {
     // actual quote/body text stays inset with pl-10 to match the card's
     // text — text aligns with text, background aligns with background.
     <Reveal preset="card" index={i} key={`testimonial-${i}`} className="relative">
-      <img
-        src={`${IMG}/takeaways-number-0${i + 1}.svg`}
-        alt=""
-        aria-hidden="true"
-        className="pointer-events-none absolute left-0 top-0 -z-10 w-[calc(68%+40px)]"
+      <BackgroundNumeral
+        number={(i + 1) as 1 | 2 | 3}
+        className="absolute left-0 top-0 -z-10 w-[calc(68%+40px)]"
       />
       {/* Pushes the quote/heading/body down while the background numeral
           (an absolutely-positioned sibling) stays put, so more of the

@@ -21,6 +21,7 @@ import { VideoPlayPauseButton } from "@/components/media/VideoPlayPauseButton";
 import { CaseStudySectionNav } from "@/components/navigation/CaseStudySectionNav";
 import { NextProjectSection } from "@/components/case-study/NextProjectSection";
 import { StickyHero } from "@/components/case-study/StickyHero";
+import { BackgroundNumeral } from "@/components/case-study/BackgroundNumeral";
 import { Reveal, RevealNoScript } from "@/components/motion/Reveal";
 
 const IMG = "/images/case-studies/eco-mio";
@@ -46,8 +47,8 @@ const ROLE_VALUE =
 // Decorative: the card's heading and body say the same thing in words.
 function EightyTwentyBar() {
   return (
-    <div aria-hidden="true" className="flex h-11 w-full overflow-hidden rounded-full bg-white font-manrope text-[14px] font-bold">
-      <span className="flex w-4/5 items-center justify-center bg-portfolio-grey-900 text-white">80%</span>
+    <div aria-hidden="true" className="flex h-11 w-full overflow-hidden rounded-full bg-white dark:bg-card font-manrope text-[14px] font-bold">
+      <span className="flex w-4/5 items-center justify-center bg-portfolio-grey-900 text-white dark:text-portfolio-ink">80%</span>
       <span className="flex w-1/5 items-center justify-center text-portfolio-grey-900">20%</span>
     </div>
   );
@@ -332,10 +333,9 @@ export default function EcoMioCaseStudyPage() {
             <div aria-hidden="true" className="-mt-4 grid grid-cols-3 gap-4 sm:gap-10">
               {approach.stepNames.map((name, i) => (
                 <div key={name} className="relative">
-                  <img
-                    src={`/images/case-studies/faircado/takeaways-number-0${i + 1}.svg`}
-                    alt=""
-                    className="pointer-events-none absolute left-0 top-0 -z-10 w-[calc(68%+40px)] sm:-left-10"
+                  <BackgroundNumeral
+                    number={(i + 1) as 1 | 2 | 3}
+                    className="absolute left-0 top-0 -z-10 w-[calc(68%+40px)] sm:-left-10"
                   />
                   {/* pt-[109px] from sm: the name sits where Faircado's quote
                       starts (pt-14, its 29px quote mark and 24px gap). */}

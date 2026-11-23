@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono, Manrope, Inter, Hanken_Grotesk, Caveat } from "next/font/google";
+import { ThemeToggle } from "@/components/navigation/ThemeToggle";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -52,6 +53,10 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
+// Runs before the first paint: applies the saved theme, or the visitor's
+// system setting if they never used the toggle (components/navigation/ThemeToggle.tsx).
+const THEME_SCRIPT = `(function(){try{var t=localStorage.getItem("theme");var d=t?t==="dark":window.matchMedia("(prefers-color-scheme: dark)").matches;if(d)document.documentElement.classList.add("dark")}catch(e){}})()`;
+
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
@@ -59,9 +64,17 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       // Case study section links glide (app/globals.css); this makes moving to
       // another page still jump straight to its top.
       data-scroll-behavior="smooth"
+      // The theme script adds the "dark" class before React loads.
+      suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} ${manrope.variable} ${interDisplay.variable} ${hankenGrotesk.variable} ${caveat.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
+      </head>
+      <body className="min-h-full flex flex-col">
+        {children}
+        <ThemeToggle />
+      </body>
     </html>
   );
 }

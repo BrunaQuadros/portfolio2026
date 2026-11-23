@@ -137,8 +137,8 @@ function ImageBadge({ src, badge }: { src: string; badge: NonNullable<AnnotatedI
         }}
       />
       <svg className="absolute inset-0 size-full overflow-visible" preserveAspectRatio="none" viewBox="0 0 100 100">
-        <line className="lg:hidden" x1={mobileLine.x1} y1={mobileLine.y1} x2={mobileLine.x2} y2={mobileLine.y2} stroke="#121212" strokeWidth="2" vectorEffect="non-scaling-stroke" />
-        <line className="hidden lg:block" x1={desktopLine.x1} y1={desktopLine.y1} x2={desktopLine.x2} y2={desktopLine.y2} stroke="#121212" strokeWidth="2" vectorEffect="non-scaling-stroke" />
+        <line className="lg:hidden stroke-portfolio-grey-900" x1={mobileLine.x1} y1={mobileLine.y1} x2={mobileLine.x2} y2={mobileLine.y2} strokeWidth="2" vectorEffect="non-scaling-stroke" />
+        <line className="hidden lg:block stroke-portfolio-grey-900" x1={desktopLine.x1} y1={desktopLine.y1} x2={desktopLine.x2} y2={desktopLine.y2} strokeWidth="2" vectorEffect="non-scaling-stroke" />
       </svg>
       <div
         className="absolute top-(--badge-top-mobile) left-(--badge-left-mobile) overflow-hidden rounded-full border-2 border-portfolio-grey-900 bg-white shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)] lg:top-(--badge-top) lg:left-(--badge-left)"

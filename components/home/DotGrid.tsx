@@ -29,9 +29,10 @@ const REACH = 150; // px around the cursor where dots light up
 const REST_OPACITY = 0.15;
 const MAX_OPACITY = 1;
 const FADE_MS = 200; // how long a dot takes to (mostly) reach its new opacity
-// Dot color: the portfolio-grey-500 token from app/globals.css, so the dots
-// near the cursor read grey rather than black (owner's direction)
-const COLOR_TOKEN = "--color-portfolio-grey-500";
+// Dot color: the portfolio-grey-500 value from app/globals.css, so the dots
+// near the cursor read grey rather than black (owner's direction). Read from
+// the raw theme variable, which holds the light or dark value.
+const COLOR_TOKEN = "--portfolio-grey-500";
 
 export function DotGrid({ endSelector, className = "" }: { endSelector: string; className?: string }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -41,7 +42,8 @@ export function DotGrid({ endSelector, className = "" }: { endSelector: string; 
     const context = canvas?.getContext("2d");
     if (!canvas || !context) return;
 
-    const color = getComputedStyle(document.documentElement).getPropertyValue(COLOR_TOKEN).trim() || "#737373";
+    const readColor = () => getComputedStyle(document.documentElement).getPropertyValue(COLOR_TOKEN).trim() || "#737373";
+    let color = readColor();
 
     // Dot centers and their current opacity, rebuilt whenever the size changes
     let dots: { x: number; y: number; opacity: number }[] = [];
@@ -157,6 +159,12 @@ export function DotGrid({ endSelector, className = "" }: { endSelector: string; 
     // Anything on the page changed size (images loading, window resize):
     // the end element may have moved, so measure again
     const layoutObserver = new ResizeObserver(fitHeight);
+    // Light/dark switch (the "dark" class on <html>): pick up the new dot color
+    const themeObserver = new MutationObserver(() => {
+      color = readColor();
+      draw();
+    });
+    themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
 
     fitHeight();
     buildGrid();
@@ -171,6 +179,7 @@ export function DotGrid({ endSelector, className = "" }: { endSelector: string; 
     return () => {
       canvasObserver.disconnect();
       layoutObserver.disconnect();
+      themeObserver.disconnect();
       window.removeEventListener("pointermove", handlePointerMove);
       window.removeEventListener("scroll", requestStep);
       document.documentElement.removeEventListener("pointerleave", handlePointerLeave);

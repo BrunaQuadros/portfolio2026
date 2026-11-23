@@ -85,7 +85,7 @@ export function CaseStudyTimelineNav({ sections, currentId, isRevealed, accentBg
     <nav
       data-case-study-section-nav
       aria-label="Case study navigation"
-      className={`group fixed bottom-6 left-1/2 z-50 hidden -translate-x-1/2 items-start rounded-full bg-white px-3 shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)] transition-[opacity,visibility] xl:flex ${REVEAL_MOTION} ${
+      className={`group fixed bottom-6 left-1/2 z-50 hidden -translate-x-1/2 items-start rounded-full bg-white dark:bg-card px-3 shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)] transition-[opacity,visibility] xl:flex ${REVEAL_MOTION} ${
         isRevealed ? "visible opacity-100" : "invisible opacity-0"
       }`}
     >

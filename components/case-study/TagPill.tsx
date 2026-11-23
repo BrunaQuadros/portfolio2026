@@ -19,7 +19,7 @@ export function TagPill({ icon, iconNode, label, size = "default" }: TagPillProp
   const small = size === "sm";
   return (
     <span
-      className={`inline-flex items-center rounded-full bg-white shadow-[0px_4px_12.5px_0px_rgba(94,95,93,0.1)] ${small ? "gap-1.5 px-4 py-1.5" : "gap-2 px-5 py-2"}`}
+      className={`inline-flex items-center rounded-full bg-white dark:bg-card shadow-[0px_4px_12.5px_0px_rgba(94,95,93,0.1)] ${small ? "gap-1.5 px-4 py-1.5" : "gap-2 px-5 py-2"}`}
     >
       {iconNode}
       {icon ? (

@@ -43,7 +43,7 @@ export function TeamAvatarGroup({ avatar, extra, extraBreakdown, accentClass = "
             real :hover on iOS Safari the way a mouse does. */}
         <span
           role="tooltip"
-          className={`pointer-events-none absolute bottom-full left-1/2 z-30 mb-4 -translate-x-1/2 whitespace-nowrap rounded-full bg-portfolio-grey-900 px-3 py-1.5 font-manrope text-[13px] font-bold text-white shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)] transition-opacity duration-200 ease-out group-hover:opacity-100 ${open ? "opacity-100" : "opacity-0"}`}
+          className={`pointer-events-none absolute bottom-full left-1/2 z-30 mb-4 -translate-x-1/2 whitespace-nowrap rounded-full bg-portfolio-grey-900 px-3 py-1.5 font-manrope text-[13px] font-bold text-white dark:text-portfolio-ink shadow-[0px_8px_24px_0px_rgba(0,0,0,0.12)] transition-opacity duration-200 ease-out group-hover:opacity-100 ${open ? "opacity-100" : "opacity-0"}`}
         >
           {extraBreakdown}
         </span>

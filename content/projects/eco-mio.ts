@@ -271,7 +271,7 @@ export const ecoMio: EcoMioContent = {
         // "icon": a 28px glyph centred on a dark tile.
         tools: [
           { src: `${IMG}/logo-claude-code-white.png`, alt: "Claude Code", tileClass: "bg-claude-orange-500", inset: "logo" },
-          { src: `${IMG}/logo-cursor-cube.svg`, alt: "Cursor", tileClass: "bg-portfolio-grey-900", inset: "icon" },
+          { src: `${IMG}/logo-cursor-cube.svg`, alt: "Cursor", tileClass: "bg-portfolio-ink", inset: "icon" },
           { src: `${IMG}/logo-github.svg`, alt: "GitHub", tileClass: "bg-github-purple-500", inset: "icon" },
           { src: `${IMG}/logo-netlify.png`, alt: "Netlify", tileClass: "bg-white", inset: "logo" },
         ],
