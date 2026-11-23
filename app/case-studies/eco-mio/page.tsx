@@ -17,6 +17,7 @@ import { ContextCardCluster } from "@/components/case-study/ContextCardCluster";
 import { ProcessSwimlane } from "@/components/case-study/ProcessSwimlane";
 import { HandoffChart } from "@/components/case-study/HandoffChart";
 import { AutoPlayVideo } from "@/components/media/AutoPlayVideo";
+import { VideoPlayPauseButton } from "@/components/media/VideoPlayPauseButton";
 import { CaseStudySectionNav } from "@/components/navigation/CaseStudySectionNav";
 import { NextProjectSection } from "@/components/case-study/NextProjectSection";
 import { StickyHero } from "@/components/case-study/StickyHero";
@@ -92,7 +93,7 @@ export default function EcoMioCaseStudyPage() {
           textClassName="flex w-full max-w-[968px] flex-col gap-10 lg:gap-16"
           text={
             <>
-          <span className={`flex size-16 items-center justify-center rounded-md ${ACCENT_BG}`}>
+          <span className={`flex size-14 items-center justify-center rounded-md ${ACCENT_BG}`}>
             <Image src={hero.logo.src} alt={hero.logo.alt} width={52} height={52} className="size-[81%]" priority />
           </span>
           <div className="flex flex-col gap-6">
@@ -119,6 +120,11 @@ export default function EcoMioCaseStudyPage() {
         <div
           className={`relative flex w-full flex-col items-center justify-center gap-4 overflow-hidden rounded-case-mobile p-4 sm:gap-6 sm:rounded-case-2xl sm:p-10 lg:aspect-[1220/728] lg:rounded-case-3xl lg:p-[80px] ${ACCENT_BG}`}
         >
+          {/* Top row: Bayer logo on the left, play/pause on the right. Below
+              lg it's a normal row above the video; from lg the row steps
+              aside (lg:contents) and both sit absolutely in the panel's top
+              corners, mirrored (left/right 5.18%, top 9.03%, 3.71% wide). */}
+          <div className="flex w-full items-center justify-between lg:contents">
           <Image
             src={hero.clientLogo.src}
             alt={hero.clientLogo.alt}
@@ -130,9 +136,17 @@ export default function EcoMioCaseStudyPage() {
             // so the icon is 3.71% of the panel width on lg (42px at 1440)
             // and ~5.6% below lg (6% of this panel's padded content box).
             // lg:left/top put it on the icon's own spot within that badge.
-            className="h-auto w-[6%] self-start lg:absolute lg:left-[5.18%] lg:top-[9.03%] lg:w-[3.71%]"
+            className="h-auto w-[6%] lg:absolute lg:left-[5.18%] lg:top-[9.03%] lg:w-[3.71%]"
           />
+          <VideoPlayPauseButton
+            videoId="eco-mio-hero-video"
+            playLabel={hero.videoControls.play}
+            pauseLabel={hero.videoControls.pause}
+            className="w-[6%] lg:absolute lg:right-[5.18%] lg:top-[9.03%] lg:w-[3.71%]"
+          />
+          </div>
           <AutoPlayVideo
+            id="eco-mio-hero-video"
             src={hero.video.src}
             alt={hero.video.alt}
             startOnView

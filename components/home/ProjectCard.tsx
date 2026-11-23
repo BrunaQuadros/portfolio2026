@@ -25,6 +25,9 @@ export function ProjectCard({
   return (
     <Link
       href={href}
+      // Hover-play videos inside the card (AutoPlayVideo playOnHover) start
+      // when the pointer enters anywhere on the card, not only the video.
+      data-video-hover-area
       className="group flex w-full flex-col gap-12 rounded-case-mobile bg-portfolio-grey-50 p-6 transition-colors duration-300 ease-out hover:bg-portfolio-grey-100 focus-visible:bg-portfolio-grey-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-portfolio-pink-500 sm:rounded-case-3xl sm:p-10 lg:flex-row lg:items-stretch lg:justify-between lg:p-20"
     >
       <div className="flex flex-col justify-between gap-12 lg:w-[480px] lg:shrink-0">

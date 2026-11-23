@@ -224,7 +224,7 @@ export const faircado: FaircadoContent = {
     ],
   },
   finalSolution: {
-    eyebrow: "FINAL SOLUTION",
+    eyebrow: "SOLUTION",
     heading: "One feature, extended across three fronts",
     body:
       "Over the next 6 months, I collaborated with engineering to revamp image search across the following fronts:",

@@ -10,6 +10,8 @@ type AutoPlayVideoProps = {
   src: string;
   alt: string;
   className?: string;
+  // Lets a separate control (VideoPlayPauseButton) find this video.
+  id?: string;
   // Wait until most of the video (60%) is on screen, then play from the
   // start; once it has scrolled fully out of view it stops and rewinds, so
   // visitors always see it from the beginning (eco.mio hero, owner's
@@ -19,7 +21,9 @@ type AutoPlayVideoProps = {
   // Defaults to the very first frame.
   startAt?: number;
   // Rest on the startAt frame and only play while the pointer is over the
-  // video; on leave it pauses and goes back to startAt (eco.mio homepage
+  // video, or over the nearest parent marked data-video-hover-area (the
+  // whole homepage project card), or while that area has keyboard focus;
+  // on leave it pauses and goes back to startAt (eco.mio homepage
   // card, owner's request). Devices without hover (phones) fall back to
   // startOnView so the video still moves there.
   playOnHover?: boolean;
@@ -32,6 +36,7 @@ export function AutoPlayVideo({
   src,
   alt,
   className,
+  id,
   startOnView = false,
   startAt = 0,
   playOnHover = false,
@@ -102,6 +107,7 @@ export function AutoPlayVideo({
       // Ask the browser for the startAt frame right away (media fragment), so
       // the resting frame shows even before the script runs.
       ref={videoRef}
+      id={id}
       src={startAt > 0 ? `${src}#t=${startAt}` : src}
       className={className}
       muted
@@ -114,7 +120,9 @@ export function AutoPlayVideo({
 }
 
 // Hover playback: rest on the startAt frame, play while the pointer is over
-// the video, pause and go back to startAt on leave. Under reduced motion it
+// the hover area (the nearest data-video-hover-area parent, or the video
+// itself), pause and go back to startAt on leave. Keyboard focus on the area
+// counts as hovering, matching the card's focus styles. Under reduced motion it
 // never plays. Returns a cleanup function for useEffect.
 function setUpHoverPlayback(video: HTMLVideoElement, startAt: number) {
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -130,11 +138,17 @@ function setUpHoverPlayback(video: HTMLVideoElement, startAt: number) {
     });
   };
 
+  const area = video.closest<HTMLElement>("[data-video-hover-area]") ?? video;
+
   showRestingFrame();
-  video.addEventListener("mouseenter", play);
-  video.addEventListener("mouseleave", showRestingFrame);
+  area.addEventListener("mouseenter", play);
+  area.addEventListener("mouseleave", showRestingFrame);
+  area.addEventListener("focusin", play);
+  area.addEventListener("focusout", showRestingFrame);
   return () => {
-    video.removeEventListener("mouseenter", play);
-    video.removeEventListener("mouseleave", showRestingFrame);
+    area.removeEventListener("mouseenter", play);
+    area.removeEventListener("mouseleave", showRestingFrame);
+    area.removeEventListener("focusin", play);
+    area.removeEventListener("focusout", showRestingFrame);
   };
 }

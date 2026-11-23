@@ -47,6 +47,8 @@ export const ecoMio: EcoMioContent = {
     // White Bayer cross on transparent (owner's PNG, resized to 256px),
     // shown straight on the blue.
     clientLogo: { src: `${IMG}/logo-bayer-white.png`, alt: "Bayer", width: 256, height: 256 },
+    // Screen reader names for the play/pause button on the hero video.
+    videoControls: { play: "Play video", pause: "Pause video" },
   },
   roleInfo: {
     role: { title: "Product Designer", subtitle: "AI Product Engineer" },
@@ -277,7 +279,7 @@ export const ecoMio: EcoMioContent = {
     },
   },
   finalSolution: {
-    eyebrow: "FINAL SOLUTION",
+    eyebrow: "SOLUTION",
     heading: "Demo Studio, the demo maker",
     body: "An internal tool anyone can use. Create a demo, add the client and routes, upload three screenshots, publish. One person, no handovers.",
   },

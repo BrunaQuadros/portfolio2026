@@ -383,6 +383,8 @@ export type EcoMioContent = {
     // Client logo badge in the panel's top-left corner (the Faircado hero's
     // "featured by App Store" spot), at its natural size.
     clientLogo: { src: string; alt: string; width: number; height: number };
+    // Screen reader names for the hero video play/pause button.
+    videoControls: { play: string; pause: string };
   };
   roleInfo: {
     role: { title: string; subtitle: string };

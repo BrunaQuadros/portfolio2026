@@ -146,9 +146,10 @@ export const home = {
         screen: {
           type: "video",
           src: "/videos/home/eco-mio-demo-studio-new-demo-flow.mp4",
-          // Resting frame: zoomed in on the "New demo" click (owner's pick).
-          // The video plays from here only while the card is hovered.
-          startAt: 2.2,
+          // Resting frame and play start: 1.7s, half a second before the
+          // "New demo" click (owner's pick). The video plays from here only
+          // while the card is hovered.
+          startAt: 1.7,
           alt: "Demo Studio: creating a new flight demo for a client by entering a name, picking Flight and confirming, then the demo is created and ready to edit",
         },
         crop: "fill",

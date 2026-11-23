@@ -97,7 +97,7 @@ export default function FaircadoCaseStudyPage() {
           textClassName="flex w-full max-w-[968px] flex-col gap-10 lg:gap-16"
           text={
             <>
-          <div className="relative size-16">
+          <div className="relative size-14">
             <Image src={hero.logo.src} alt={hero.logo.alt} fill priority />
           </div>
           <div className="flex flex-col gap-6">
