@@ -17,7 +17,7 @@ export const ecoMio: EcoMioContent = {
   ],
   meta: {
     slug: "eco-mio",
-    title: "Automating sales demos to cut 15h of work monthly",
+    title: "Automating sales demos to cut 30h of work monthly",
     description:
       "eco.mio turns 200+ flight options into 3 curated ones, right inside each company’s travel booking tool. How I built Demo Studio, an automated demo maker that turned 5 hours of work into 30 minutes.",
     year: "2026",
@@ -26,7 +26,7 @@ export const ecoMio: EcoMioContent = {
     // Same file as the homepage card logo (identical bytes in Figma).
     logo: { src: "/images/home/logo-eco-mio.jpg", alt: "eco.mio logo" },
     headingLine1: "Automating sales demos",
-    headingLine2: "to cut 15h of work monthly",
+    headingLine2: "to cut 30h of work monthly",
     description: [
       "eco.mio turns ",
       { text: "200+ flight options into 3 curated ones", accent: true },
@@ -128,7 +128,7 @@ export const ecoMio: EcoMioContent = {
       ],
       [
         "That was ",
-        { text: "15 hours of manual work", bold: true },
+        { text: "30 hours of manual work", bold: true },
         " a month in the AI era, pulling PM and design away from building the real product.",
       ],
     ],
@@ -362,7 +362,7 @@ export const ecoMio: EcoMioContent = {
     heading: "A powerful sales tool",
     statCards: [
       // Icons: Thiings (thiings.co), free for personal use.
-      { icon: `${IMG}/impact-icon-stopwatch.png`, heading: "10x faster", body: "Each demo went from 5 hours to 30 minutes, freeing about 15h a month.", emphasis: "5 hours to 30 minutes" },
+      { icon: `${IMG}/impact-icon-stopwatch.png`, heading: "10x faster", body: "Each demo went from 5 hours to 30 minutes, freeing about 30h a month.", emphasis: "5 hours to 30 minutes" },
       { icon: `${IMG}/impact-icon-waving-hand.png`, heading: "PM out, anyone in", body: "Sales and marketing now build demos on their own, even live in meetings.", emphasis: "Sales and marketing" },
       { icon: `${IMG}/impact-icon-trophy.png`, heading: "Demos that impress", body: "Live flows in each client’s own OBT, now with a link they can share internally.", emphasis: "each client’s own OBT" },
     ],

@@ -76,7 +76,7 @@ export const home = {
   },
   hero: {
     // Reads: "Hi! I am Bruna, a charismatic product designer with work
-    // across consumer apps, SaaS and EdTech" (Nov 2026 wording, no emojis;
+    // across consumer apps, SaaS & EdTech" (Nov 2026 wording, no emojis;
     // only the portrait photo stays inline.)
     // 3D waving hand before "Hi": Apple emoji pose rendered in a soft 3D
     // clay style (owner generated it with ChatGPT, thiings.co style as the
@@ -92,9 +92,10 @@ export const home = {
       alt: "Portrait of Bruna",
     },
     intro: "a charismatic",
+    // Shows the browser window hover card (HeroBrowserCardPhrase)
     accent: "product designer",
     across: "with work across",
-    rest: "consumer apps, SaaS and EdTech",
+    rest: "consumer apps, SaaS & EdTech",
   },
   projects: [
     {
@@ -108,7 +109,7 @@ export const home = {
       descriptionLine1: "How I drove image search adoption from 40% to 89%",
       descriptionLine2: "on a second-hand shopping app.",
       highlights: [
-        { icon: { src: `${IMG}/icon-highlight-designer.png`, alt: "" }, label: "Product designer" },
+        { icon: { src: `${IMG}/icon-highlight-designer.png`, alt: "" }, label: "Senior product designer" },
         { icon: { src: `${IMG}/icon-highlight-zero-to-one.png`, alt: "" }, label: "0 → 1 product" },
         { icon: { src: `${IMG}/icon-highlight-adoption.png`, alt: "" }, label: "40% → 89% adoption" },
         { icon: { src: `${IMG}/icon-highlight-cart.png`, alt: "" }, label: "E-commerce | consumer app" },
@@ -134,7 +135,7 @@ export const home = {
         name: "eco.mio",
       },
       headingLine1: "Automating sales demos",
-      headingLine2: "to cut 15h of work monthly",
+      headingLine2: "to cut 30h of work/month",
       descriptionLine1: "How I built a client-ready demo maker that turned 5 hours",
       descriptionLine2: "of work into 30 minutes at a B2B climate tech company.",
       highlights: [
@@ -182,12 +183,14 @@ export const home = {
       logo: {
         src: `${IMG}/logo-timeline-eco-mio.png`,
         tileClass: "bg-eco-mio-blue-500",
-        imageClass: "left-[-25.56%] top-[-26.27%] size-[152.51%]",
+        // Mark about 3px bigger than in Figma (owner's direction): image
+        // scaled up from 152.51% to 170%, kept centered in the tile.
+        imageClass: "left-[-34.3%] top-[-35%] size-[170%]",
       },
     },
     {
       dates: "2024 - 2026",
-      role: "Mid → Senior Product Designer",
+      role: "Product Designer → Senior Product Designer",
       company: "Faircado · Second-hand shopping app",
       logo: {
         src: `${IMG}/logo-timeline-faircado.png`,
@@ -197,7 +200,7 @@ export const home = {
     },
     {
       dates: "2022 - 2024",
-      role: "Product Designer",
+      role: "Senior Product Designer",
       company: "Impact Hero · Climate Tech",
       logo: {
         src: `${IMG}/logo-timeline-impact-hero.png`,
@@ -213,7 +216,9 @@ export const home = {
       logo: {
         src: `${IMG}/logo-timeline-vanbruben.png`,
         tileClass: "bg-portfolio-ink dark:bg-portfolio-grey-100",
-        imageClass: "left-[12.21%] top-[11.71%] size-[77.09%]",
+        // V about 3px smaller than in Figma (owner's direction): image
+        // scaled down from 77.09% to 70.85%, kept centered in the tile.
+        imageClass: "left-[15.33%] top-[14.83%] size-[70.85%]",
       },
     },
   ] satisfies ExperienceEntry[],

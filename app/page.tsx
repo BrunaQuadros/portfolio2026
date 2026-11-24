@@ -6,6 +6,7 @@ import { ProjectCard } from "@/components/home/ProjectCard";
 import { ExperienceTimeline } from "@/components/home/ExperienceTimeline";
 import { StatementParagraph } from "@/components/home/StatementParagraph";
 import { DotGrid } from "@/components/home/DotGrid";
+import { HeroBrowserCardPhrase } from "@/components/home/HeroBrowserCard";
 import { Reveal, RevealNoScript } from "@/components/motion/Reveal";
 
 // Link preview for the homepage (WhatsApp, Telegram, LinkedIn, Slack...):
@@ -67,7 +68,7 @@ function HeroInlineImage({
     <span
       // Both portraits are cut-outs, so the frame supplies the grey background.
       // overflow-hidden + the round shape clip the sliding photo to the circle.
-      className={`relative mx-[0.1em] inline-block ${sizeClass} ${alignClass} ${hoverSrc ? "group overflow-hidden bg-portfolio-grey-100" : ""} ${rounded ? "rounded-full" : ""}`}
+      className={`relative mx-[0.1em] inline-block ${sizeClass} ${alignClass} ${hoverSrc ? "group cursor-pointer overflow-hidden bg-portfolio-grey-100" : ""} ${rounded ? "rounded-full" : ""}`}
     >
       <Image
         src={src}
@@ -100,13 +101,9 @@ export default function Home() {
     // `relative isolate` so the dot grid can sit behind every block on the
     // page (negative z-index) while staying above this white background.
     <div className="relative isolate flex flex-1 flex-col bg-white dark:bg-portfolio-grey-25">
-      {/* Cursor dot grid (DotGrid, DESIGN.md "Motion"): from the very top of
-          the page, behind the header and hero, down to the bottom of the first
-          project card, which covers it (the dots show around the card). */}
-      <DotGrid
-        endSelector="[data-dot-grid-end] > :first-child"
-        className="absolute inset-x-0 top-0 -z-10"
-      />
+      {/* Cursor dot grid (DotGrid, DESIGN.md "Motion"): behind the whole
+          homepage. The project cards cover it, so the dots show around them. */}
+      <DotGrid className="-z-10" />
       <RevealNoScript />
       <SiteHeader {...header} />
 
@@ -117,7 +114,8 @@ export default function Home() {
             study titles), so small laptops shrink it instead of breaking a line.
             Left-aligned with the text inside the project cards below: the cards
             pad their copy 24px (phones), 0 net from sm: (40px padding minus the
-            40px breakout) and 40px net from lg: (80px minus 40px). */}
+            40px breakout) and 40px net from 1220px (80px minus 40px), the width
+            where the cards go side by side. */}
         {/* Landing: the sentence fades in (no movement) just after the header drops in. */}
         <h1 className="motion-safe:animate-text-fade motion-safe:[animation-delay:200ms] w-full px-6 sm:px-0 lg:pl-10 font-manrope text-[11vw] font-semibold leading-[1.4] tracking-[-0.04em] text-portfolio-grey-900 sm:text-[7vw] lg:text-[length:min(5.7vw,var(--text-hero))]">
           {/* Decorative 3D hand (empty alt), 1em: 20% smaller than the Faircado hero star.
@@ -127,7 +125,7 @@ export default function Home() {
           <HeroInlineImage src={hero.portrait.src} alt={hero.portrait.alt} hoverSrc={hero.portrait.hoverSrc} darkSrc={hero.portrait.darkSrc} sizeClass="size-[1.35em]" rounded />{" "}
           {hero.intro}
           <br className="hidden lg:inline" />{" "}
-          <span className="text-portfolio-burgundy">{hero.accent}</span> {hero.across}
+          <HeroBrowserCardPhrase text={hero.accent} className="text-portfolio-burgundy" /> {hero.across}
           <br className="hidden lg:inline" />{" "}
           {hero.rest}
         </h1>
@@ -137,8 +135,6 @@ export default function Home() {
             are spaced like case study sections (96px, 128px from sm:). */}
         <section
           aria-label="Selected work"
-          // The dot grid ends at the bottom of this section's first card
-          data-dot-grid-end
           // Landing: the first card's grey panel rises from below, last.
           // lg:-mt-10: 66px below the hero on desktop instead of the page's
           // 106px gap (owner's direction 2026-11-23); the gap below stays 106px.

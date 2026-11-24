@@ -131,6 +131,40 @@
       opacity: 0;
     }
   }
+  /* Homepage hero "product designer" hover card (HeroBrowserCard), looping while
+     hovered, used with motion-safe:. The black button and cursor move as one:
+     they glide across, press like a click and glide back; the whole card
+     floats gently. */
+  --animate-saas-drag: saas-drag 2.4s ease-in-out infinite;
+  @keyframes saas-drag {
+    0%,
+    15% {
+      transform: translate(-40px, -12px);
+    }
+    45% {
+      transform: translate(0, 0) scale(1);
+    }
+    52% {
+      transform: translate(0, 0) scale(0.9);
+    }
+    60% {
+      transform: translate(0, 0) scale(1);
+    }
+    85%,
+    100% {
+      transform: translate(-40px, -12px);
+    }
+  }
+  --animate-saas-float: saas-float 3s ease-in-out infinite;
+  @keyframes saas-float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-6%);
+    }
+  }
   @keyframes hero-card-rise {
     from {
       opacity: 0;
