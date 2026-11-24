@@ -131,6 +131,30 @@
       opacity: 0;
     }
   }
+  /* Homepage hero 3D hand: one wave each time it is hovered, swinging from
+     the wrist (set the pivot with origin-*). Used with motion-safe:. */
+  --animate-hand-wave: hand-wave 1s ease-in-out;
+  @keyframes hand-wave {
+    0%,
+    100% {
+      rotate: 0deg;
+    }
+    15% {
+      rotate: 14deg;
+    }
+    30% {
+      rotate: -8deg;
+    }
+    45% {
+      rotate: 14deg;
+    }
+    60% {
+      rotate: -4deg;
+    }
+    75% {
+      rotate: 10deg;
+    }
+  }
   /* Homepage hero "product designer" hover card (HeroBrowserCard), looping while
      hovered, used with motion-safe:. The black button and cursor move as one:
      they glide across, press like a click and glide back; the whole card

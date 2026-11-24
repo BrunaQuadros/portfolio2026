@@ -39,6 +39,11 @@ const SWAP_TRANSITION =
 const HOVER_PHOTO_SHOWN =
   "translate-x-full opacity-0 motion-safe:opacity-100 group-hover:translate-x-0 group-hover:opacity-100";
 
+// Hand wave on hover: one wave per hover (animate-hand-wave in globals.css),
+// swinging from the wrist, low and right of center in this pose. No movement
+// under reduced motion.
+const HAND_WAVE = "cursor-default origin-[70%_85%] motion-safe:hover:animate-hand-wave";
+
 // Inline emoji/portrait inside the hero sentence. Sized in em so they scale
 // with the heading at every breakpoint (same approach as the Faircado hero
 // star, see DESIGN.md "Inline heading icons").
@@ -52,6 +57,7 @@ function HeroInlineImage({
   rounded = false,
   hoverSrc,
   darkSrc,
+  hoverClass = "",
 }: {
   src: string;
   alt: string;
@@ -62,13 +68,15 @@ function HeroInlineImage({
   hoverSrc?: string;
   // Optional dark mode version of the main image (shown instead of src in dark mode).
   darkSrc?: string;
+  // Optional extra classes for the frame, e.g. a hover animation (the hand's wave).
+  hoverClass?: string;
 }) {
   const shape = `size-full object-cover ${rounded ? "rounded-full" : ""}`;
   return (
     <span
       // Both portraits are cut-outs, so the frame supplies the grey background.
       // overflow-hidden + the round shape clip the sliding photo to the circle.
-      className={`relative mx-[0.1em] inline-block ${sizeClass} ${alignClass} ${hoverSrc ? "group cursor-pointer overflow-hidden bg-portfolio-grey-100" : ""} ${rounded ? "rounded-full" : ""}`}
+      className={`relative mx-[0.1em] inline-block ${sizeClass} ${alignClass} ${hoverSrc ? "group cursor-pointer overflow-hidden bg-portfolio-grey-100" : ""} ${rounded ? "rounded-full" : ""} ${hoverClass}`}
     >
       <Image
         src={src}
@@ -120,7 +128,7 @@ export default function Home() {
         <h1 className="motion-safe:animate-text-fade motion-safe:[animation-delay:200ms] w-full px-6 sm:px-0 lg:pl-10 font-manrope text-[11vw] font-semibold leading-[1.4] tracking-[-0.04em] text-portfolio-grey-900 sm:text-[7vw] lg:text-[length:min(5.7vw,var(--text-hero))]">
           {/* Decorative 3D hand (empty alt), 1em: 20% smaller than the Faircado hero star.
               align -0.14em centers it on the capital letters (Manrope caps ~0.72em tall). */}
-          <HeroInlineImage src={hero.wave.src} alt={hero.wave.alt} sizeClass="size-[1em]" alignClass="align-[-0.14em]" />
+          <HeroInlineImage src={hero.wave.src} alt={hero.wave.alt} sizeClass="size-[1em]" alignClass="align-[-0.14em]" hoverClass={HAND_WAVE} />
           {hero.greeting}{" "}
           <HeroInlineImage src={hero.portrait.src} alt={hero.portrait.alt} hoverSrc={hero.portrait.hoverSrc} darkSrc={hero.portrait.darkSrc} sizeClass="size-[1.35em]" rounded />{" "}
           {hero.intro}
