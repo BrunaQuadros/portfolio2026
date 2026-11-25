@@ -81,6 +81,13 @@
   --color-impact-hero-green-900: #28391f;
 
   /* eco.mio case study brand color (homepage card logo tile and panel). */
+  /* Invest Like a Girl brand (the /ILG page). Added 2026-11-25. */
+  --color-ilg-ink: #2a1a22;
+  --color-ilg-paper: #fbf7f4;
+  --color-ilg-berry: #bc1e72;
+  --color-ilg-berry-deep: #8a1554;
+  --color-ilg-pink: #f2b6d0;
+  --font-ilg-serif: var(--font-source-serif-4);
   --color-eco-mio-blue-500: #6b81ee;
   /* eco.mio process diagrams (ProcessSwimlane, HandoffChart), sampled from
      the owner's diagram files, 2026-11-04. Lighter tints come from these

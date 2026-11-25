@@ -30,6 +30,11 @@ Defined in `app/globals.css` under `@theme inline`, used via Tailwind utilities 
 | `eco-mio-yellow-400` | `#edd96a` | eco.mio process diagrams: the PM lane (highlighted lane), its nodes and labels. Added 2026-11-04 |
 | `eco-mio-green-600` | `#3e8e6a` | eco.mio process diagrams: the selected Figma screen. Added 2026-11-04 |
 | `eco-mio-yellow-300` | `#ffe45e` | Handwritten hover annotations on the eco.mio process diagram (loops, "2h" / "3h"). Added 2026-11-07, owner's spec |
+| `ilg-ink` | `#2a1a22` | Invest Like a Girl brand: the /ILG hero background. Added 2026-11-25 |
+| `ilg-paper` | `#fbf7f4` | Invest Like a Girl brand: /ILG headline and body text. Added 2026-11-25 |
+| `ilg-berry` | `#bc1e72` | Invest Like a Girl brand accent: /ILG button. Added 2026-11-25 |
+| `ilg-berry-deep` | `#8a1554` | Invest Like a Girl: /ILG button hover. Added 2026-11-25 |
+| `ilg-pink` | `#f2b6d0` | Invest Like a Girl: /ILG typed word, caret and focus rings. Added 2026-11-25 |
 | `claude-orange-500` | `#d97757` | Claude Code logo tile (eco.mio tool stack card), white mark on top. Added 2026-11-04 |
 | `github-purple-500` | `#893cb9` | GitHub logo tile (eco.mio tool stack card), sampled from the owner's GitHub app icon. Added 2026-11-04 |
 
@@ -43,6 +48,7 @@ The `portfolio-pink-500` token is the portfolio's own accent. The `faircado-*` c
 
 - Body/heading font: **Manrope** (`--font-manrope`, loaded via `next/font/google` in `app/layout.tsx`), used for all case study copy, headings, and card titles.
 - Display font for large numbered section labels ("01/", "02/", "03/") and background outline numbers: **Inter** (`--font-inter-display`).
+- Invest Like a Girl headline font, only on the /ILG page: **Source Serif 4** semibold italic (`font-ilg-serif`, loaded with `next/font/google` in `app/ILG/page.tsx`). Added 2026-11-25.
 - Diegetic app-UI font, used only for mockup elements that reproduce real in-app copy (e.g. the Momentum urgency tip callouts) instead of the portfolio's own voice: **Hanken Grotesk** (`--font-hanken-grotesk`), matching the actual Faircado app's typeface per Figma.
 - `text-hero`: 70px / 1.4 line-height (60px until 2026-11-15, raised to match the 70px case study titles; briefly 64px on 2026-11-24, reverted by the owner; from `lg:` the hero uses `min(5.7vw, text-hero)`, left-aligned with the project card copy (centering was tried on 2026-11-24 and dropped), so it keeps three lines on small laptops), the homepage hero sentence (Manrope semibold; bold and Bricolage Grotesque were tried on 2026-11-24 and dropped; paired with `tracking-[-0.04em]`). Below `lg:` the hero uses vw steps instead (`text-[11vw] sm:text-[7vw] lg:text-hero`). First site-wide type token, added 2026-09-14.
 - Other font sizes and line heights used inline via Tailwind (e.g. `text-[28px] leading-[38px]`, `text-[40px] leading-[48px]`) since no site-wide type scale exists yet. Flagged below.
